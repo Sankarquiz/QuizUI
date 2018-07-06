@@ -1,0 +1,35 @@
+header{
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.45);
+    height: 44px;
+}
+
+
+header .container{
+    text-align: center;
+}
+
+.company-logo{
+float: left;
+}
+
+.menu-head,.menu-log-in{
+display: inline-block;
+color: black;
+font-weight: bold;
+}
+
+.menu-head a,.menu-log-in a{
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+.menu-head a:hover,.menu-log-in a:hover{
+  text-decoration: none;
+  color: white;
+  background: blue;
+}
+
+.menu-head a.active{
+    background: blue;
+    color: white;
+}
