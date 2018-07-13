@@ -12,13 +12,30 @@ namespace QuizWebApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+            var configuration = new ConfigurationBuilder()
+                  .SetBasePath(Directory.GetCurrentDirectory())
+                  .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                  .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+                  .AddEnvironmentVariables()
+                  .Build();
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+            try
+            {
+                var host = new WebHostBuilder()
+                    .UseKestrel()
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    .UseStartup<Startup>()
+                    .UseConfiguration(configuration)
+                    .Build();
+                host.Run();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                return 1;
+            }
+        }
     }
 }
