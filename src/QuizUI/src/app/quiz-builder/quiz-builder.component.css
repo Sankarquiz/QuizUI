@@ -1,0 +1,22 @@
+.create-quiz-section{
+display: block;
+text-align: center;
+}
+
+.create-quiz-section > a{
+    color: #b94040;
+    font-weight: bold;
+    margin-top: 50px;
+    display: inline-block;
+    margin: 20px;
+}
+
+.create-quiz-section > a:hover{
+    border-bottom: 5px solid blue;
+    text-decoration: none;
+}
+
+.create-quiz-section > a.active{
+    border-bottom: 5px solid blue;
+    text-decoration: none;
+}

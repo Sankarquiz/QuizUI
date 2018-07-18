@@ -1,0 +1,21 @@
+.create-quiz-section-inner-wrapper{
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.45);
+    width: 80%;
+    margin: 0 auto;
+}
+
+.create-quiz-section-inner-wrapper a:hover,.create-quiz-section-inner-wrapper a.active{
+text-decoration: none;
+background: #423838;
+color: white;
+
+}
+
+
+.create-quiz-section-inner-wrapper a{
+    padding: 10px 20px;
+    display: inline-block;
+}
