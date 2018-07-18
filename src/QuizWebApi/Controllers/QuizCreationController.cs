@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using QuizWebApi.Models.Admin;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace QuizWebApi.Controllers
@@ -10,7 +9,7 @@ namespace QuizWebApi.Controllers
     /// 
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
-    [Route("api/[controller]")]
+    [Route("api/quiz")]
     [ApiController]
     public class QuizCreationController : ControllerBase
     {
@@ -30,9 +29,15 @@ namespace QuizWebApi.Controllers
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
+        [Route("/define")]
         [HttpPost]
-        public async Task<IActionResult> DefineQuiz(QuizDefinition request)
+        public async Task<IActionResult> DefineQuiz([FromBody]QuizDefinition request)
         {
+            if (request == null || string.IsNullOrEmpty(request.QuizName) || string.IsNullOrEmpty(request.QuizType))
+            {
+                return BadRequest("Mandatory Fields Missing.");
+            }
+
             _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").InsertOne(request);
             return Ok();
         }
@@ -40,13 +45,19 @@ namespace QuizWebApi.Controllers
         /// <summary>
         /// Updates the rules.
         /// </summary>
-        /// <param name="rules">The rules.</param>
         /// <param name="quizName">Name of the quiz.</param>
         /// <param name="quizType">Type of the quiz.</param>
+        /// <param name="rules">The rules.</param>
         /// <returns></returns>
+        [Route("/rules")]
         [HttpGet]
         public async Task<IActionResult> UpdateRules(string quizName, string quizType, string rules)
         {
+            if (string.IsNullOrEmpty(rules) || string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
+            {
+                return BadRequest("Mandatory Fields Missing.");
+            }
+
             var builder = Builders<QuizDefinition>.Filter;
             var filter = builder.Eq("QuizName", quizName) & builder.Eq("QuizType", quizType);
             var update = Builders<QuizDefinition>.Update.Set(o => o.RulesAndRegulations, rules);
@@ -62,14 +73,22 @@ namespace QuizWebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Sets the quiz.
+        /// </summary>
+        /// <param name="questionSet">The question set.</param>
+        /// <returns></returns>
+        [Route("/set")]
         [HttpPost]
-        public async Task<IActionResult> SetQuiz(string quizName, string quizType, QuizSet questionSet)
+        public async Task<IActionResult> SetQuiz([FromBody] QuizSet questionSet)
         {
-            //fetch the details from CustomerDB and pass into view  
-            var result = _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition");
-            var update = Builders<QuizDefinition>.Update.Set(o => o.RulesAndRegulations, rules);
-            result.UpdateOne(o => o.RulesAndRegulations == "", update);
-            return Ok(result);
+            if (questionSet == null || string.IsNullOrEmpty(questionSet.QuizName) || string.IsNullOrEmpty(questionSet.QuizType))
+            {
+                return BadRequest("Mandatory Fields Missing.");
+            }
+
+            _mongoDatabase.GetCollection<QuizSet>("QuizSet").InsertOne(questionSet);
+            return Ok();
         }
     }
 }
