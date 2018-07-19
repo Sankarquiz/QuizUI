@@ -1,0 +1,12 @@
+.set-the-quiz-wrapper .container .col-md-6{
+margin: 0 auto;
+font-weight: bold;
+}
+
+.set-the-quiz-wrapper .reg-button{
+    text-align: center;
+}
+
+.set-the-quiz-wrapper .reg-button button{
+    margin: 20px;
+}

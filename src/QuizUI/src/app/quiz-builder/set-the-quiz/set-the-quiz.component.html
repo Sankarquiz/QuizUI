@@ -1,3 +1,84 @@
-<p>
-  set-the-quiz works!
-</p>
+<div class="set-the-quiz-wrapper">
+  <div class="container">
+
+    <div class="col-md-6">
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Enter Question Text</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+
+    
+      <div class="form-group radio-box">
+        <label for="end-duration">Is Image Needed</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+          <label class="form-check-label" for="exampleRadios1">
+                        yes
+                      </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+          <label class="form-check-label" for="exampleRadios2">
+                        no
+                      </label>
+        </div>
+  
+      </div>
+      <div class="form-group">
+          <label for="name">Upload Image</label>
+          <input type="file" class="form-control" accept="image/*" capture>
+        </div>
+  
+    <div class="form-group">
+      <label for="hash-of-questions">Answer Type</label>
+      <select class="form-control" id="hash-of-questions">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Answer</label>
+      <input type="text" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+      <label for="name">Points for Correct Answer
+          
+          </label>
+      <input type="text" class="form-control" id="name">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="name">
+          Question Option 1</label>
+      <input type="text" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+      <label for="name">
+          Question Option 2</label>
+      <input type="text" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+      <label for="name">
+          Question Option 3</label>
+      <input type="text" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+      <label for="name">
+          Question Option 4</label>
+      <input type="text" class="form-control" id="name">
+    </div>
+  </div>
+
+  <div class="reg-button">
+      <button type="button" class="btn btn-danger">Preview Question</button>
+      <button type="button" class="btn btn-danger">Submit Question</button>
+      <button type="button" class="btn btn-danger">Bulk Upload Questions</button>
+    </div>
+
+  </div>
+</div>

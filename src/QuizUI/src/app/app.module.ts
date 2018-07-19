@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import {FormsModule} from '@angular/forms'
 import { HeaderComponent } from './header/header.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { QuizBankComponent } from './quiz-bank/quiz-bank.component';
@@ -12,6 +13,9 @@ import { RegistrationComponent } from './quiz-builder/registration/registration.
 import { SetTheQuizComponent } from './quiz-builder/set-the-quiz/set-the-quiz.component';
 import { PublishQuizComponent } from './quiz-builder/publish-quiz/publish-quiz.component';
 import { DefineTheQuizComponent } from './quiz-builder/define-the-quiz/define-the-quiz.component';
+import { FooterComponent } from './footer/footer.component';
+
+
 
 const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
@@ -60,10 +64,10 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,AboutUsComponent,QuizBankComponent,QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent,  DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent,
+    HeaderComponent,AboutUsComponent,QuizBankComponent,QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent,  DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent,
   ],
   imports: [
-    BrowserModule,RouterModule.forRoot(appRoutes)
+    BrowserModule,FormsModule,RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

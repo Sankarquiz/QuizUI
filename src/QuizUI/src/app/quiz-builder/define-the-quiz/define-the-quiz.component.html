@@ -1,3 +1,186 @@
-<p>
-  define-the-quiz works!
-</p>
+<form #definethequiz="ngForm" (ngSubmit)="saveDefinequiz(definethequiz)">
+  <div class="container create-quiz-wrapper">
+
+    <div class="row">
+
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" name="QuizName" [(ngModel)]="Name" id="name">
+        </div>
+        <div class="form-group">
+          <label for="host-quiz-domain">Host Quiz Domain</label>
+          <select class="form-control" id="host-quiz-domain" name="host-quiz-domain" [(ngModel)]="hostquizdomain">
+            <option value="KnowledgeVyasa Domain">KnowledgeVyasa Domain</option>
+            <option value="My Own Domain">My Own Domain</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="type-of-quiz">Type of Quiz</label>
+          <select class="form-control" id="type-of-quiz"  name="typeofquiz" [(ngModel)]="typeofquiz">
+            <option value="Treasure Hunt">Treasure Hunt</option>
+            <option value="Free Flow">Free Flow</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="hash-of-questions"># of Questions</label>
+          <select class="form-control" id="hash-of-questions" name="numberofquestion" [(ngModel)]="numberofquestion">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="hash-of-participants"># of Participants</label>
+          <select class="form-control" id="hash-of-participants" name="hash-of-participants" [(ngModel)]="hashofparticipants">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="form-group two-groups">
+          <label for="duration">Duration of the Quiz</label>
+          <input type="text" class="form-control" id="duration">
+          <select class="form-control" id="time">
+            <option>Hours</option>
+            <option>Minutes</option>
+          </select>
+        </div>
+        <div class="form-group two-groups">
+          <label for="start-duration">Start Time for Quiz</label>
+          <input type="text" class="form-control" id="start-duration" value="MM:DD:YY">
+          <input type="text" class="form-control" id="start-duration-second-first" value="HH:MM:SS">
+
+        </div>
+        <div class="form-group two-groups">
+          <label for="end-duration">End Time for Quiz</label>
+          <input type="text" class="form-control" id="end-duration" value="MM:DD:YY">
+          <input type="text" class="form-control" id="end-duration-second" value="HH:MM:SS">
+
+        </div>
+
+      </div>
+      <div class="col-md-6">
+        <div class="form-group radio-box">
+          <label for="end-duration">Shuffle Questions ?</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio"  name="exampleRadios" id="exampleRadios1" value="Yes" name="Shuffle Questions ?" [(ngModel)]="Shuffle_Questions">
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio"  name="exampleRadios" id="exampleRadios2" value="No" name="Shuffle Questions ?" [(ngModel)]="Shuffle_Questions">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+
+        </div>
+        <div class="form-group radio-box">
+          <label for="end-duration">Create Quiz from larger Pool?</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Yes" name="Create Quiz from larger Pool?" [(ngModel)]="Create_Quiz_from_larger_Pool">
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No" name="Create Quiz from larger Pool?" [(ngModel)]="Create_Quiz_from_larger_Pool">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label for="name"># of Questions in Pool</label>
+          <input type="text" class="form-control" id="name">
+        </div>
+
+        <div class="form-group radio-box">
+          <label for="end-duration">Allow Concurrent Access?</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Yes" name="Allow Concurrent Access?" [(ngModel)]="Allow_Concurrent_Access">
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No" name="Allow Concurrent Access?" [(ngModel)]="Allow_Concurrent_Access">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label for="type-of-quiz">Participant Type</label>
+          <select class="form-control" id="type-of-quiz" name="ParticipantType" [(ngModel)]="ParticipantType">
+            <option value="Cross College">Cross College</option>
+            <option value="Same College">Same College</option>
+          </select>
+        </div>
+        <div class="form-group radio-box">
+          <label for="end-duration">Auto Evaluate Quiz</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Yes" name="Auto Evaluate Quiz" [(ngModel)]="Auto_Evaluate_Quiz">
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No" name="Auto Evaluate Quiz" [(ngModel)]="Auto_Evaluate_Quiz">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+
+        </div>
+        <div class="form-group radio-box">
+          <label for="end-duration">Show Score after attempt?</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Yes" name="Show Score after attempt?" [(ngModel)]="Show_Score_after_attempt">
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No" name="Show Score after attempt?" [(ngModel)]="Show_Score_after_attempt">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+
+        </div>
+        <div class="form-group radio-box">
+          <label for="end-duration">Post score on Social Media?</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Yes" name="Post score on Social Media?" [(ngModel)]="Post_score">
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No" name="Post score on Social Media?" [(ngModel)]="Post_score">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="reg-button">
+      <button type="submit" class="btn btn-danger">Create Registration Page for Quiz</button>
+    </div>
+
+  </div>
+
+</form>
+
+{{ definethequiz.value | json }}
