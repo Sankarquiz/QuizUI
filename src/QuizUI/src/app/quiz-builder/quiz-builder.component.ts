@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-quiz-builder',
@@ -11,5 +12,7 @@ export class QuizBuilderComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  saveDefinequiz(quizform: NgForm):void{
+    console.log(quizform.value);
+  }
 }

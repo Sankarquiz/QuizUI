@@ -1,0 +1,12 @@
+footer{
+    background: yellow;
+    padding: 20px;
+}
+
+footer p:last-child{
+    margin-bottom: 0;
+}
+
+
+  
+  
