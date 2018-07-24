@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using QuizWebApi.Models.Admin;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace QuizWebApi.Controllers
@@ -28,30 +27,34 @@ namespace QuizWebApi.Controllers
         /// <summary>
         /// Defines the quiz.
         /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="questionSet">The question set.</param>
+        /// <param name="request">The request.</param> 
         /// <returns></returns>
         [Route("/define")]
         [HttpPost]
-        public async Task<IActionResult> DefineQuiz([FromBody]QuizDefinition request, [FromBody] List<QuizSet> questionSet)
+        public async Task<IActionResult> DefineQuiz([FromBody]QuizDefinition request)
         {
             if (request == null ||
                 string.IsNullOrEmpty(request.QuizName) ||
-                string.IsNullOrEmpty(request.QuizType) || questionSet?.Count == 0)
+                string.IsNullOrEmpty(request.QuizType) || 
+                request.QuestionSet?.Count == 0)
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
+
             var builder = Builders<QuizDefinition>.Filter;
             var filter = builder.Eq("QuizName", request.QuizName) & builder.Eq("QuizType", request.QuizType);
+
             if (_mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
                 .Find(filter).ToList().Count > 0)
             {
                 return BadRequest("This Quiz is already defined.");
             }
-            if (request.NoOfQuestions != questionSet?.Count)
+
+            if (request.NoOfQuestions != request.QuestionSet?.Count)
             {
                 return BadRequest("Total Questions defined doesn't match with quiz set.");
             }
+
             _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").InsertOne(request);
             return Ok();
         }
