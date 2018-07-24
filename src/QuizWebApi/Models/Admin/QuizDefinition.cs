@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace QuizWebApi.Models.Admin
 {
@@ -61,6 +62,6 @@ namespace QuizWebApi.Models.Admin
         public bool PostScoreOnSocialMedia { get; set; }
 
         [BsonElement]
-        public string RulesAndRegulations { get; set; }
+        public string RulesAndRegulations { get; set; } 
     }
 }
