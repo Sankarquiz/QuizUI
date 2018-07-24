@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace QuizWebApi.Models.Admin
 {
@@ -9,6 +10,13 @@ namespace QuizWebApi.Models.Admin
     /// </summary>
     public class QuizDefinition
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuizDefinition"/> class.
+        /// </summary>
+        public QuizDefinition()
+        {
+            QuestionSet = new List<QuizSet>();
+        }
         [BsonId]
         public ObjectId Id { get; set; }
 
@@ -62,5 +70,7 @@ namespace QuizWebApi.Models.Admin
 
         [BsonElement]
         public string RulesAndRegulations { get; set; }
+        [BsonElement]
+        public List<QuizSet> QuestionSet { get; set; }
     }
 }
