@@ -35,7 +35,7 @@ namespace QuizWebApi.Controllers
         {
             if (request == null ||
                 string.IsNullOrEmpty(request.QuizName) ||
-                string.IsNullOrEmpty(request.QuizType) || 
+                string.IsNullOrEmpty(request.QuizType) ||
                 request.QuestionSet?.Count == 0)
             {
                 return BadRequest("Mandatory Fields Missing.");
@@ -106,6 +106,25 @@ namespace QuizWebApi.Controllers
 
             _mongoDatabase.GetCollection<QuizSet>("QuizSet").InsertOne(questionSet);
             return Ok();
+        }
+
+        /// <summary>
+        /// Gets all quiz.
+        /// </summary>
+        /// <returns></returns>
+        [Route("/getquiz")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllQuiz()
+        {
+            var result = _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").Find(FilterDefinition<QuizDefinition>.Empty).ToList();
+            if (result?.Count > 0)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound("No Quizes is defined so far.");
+            }
         }
     }
 }
