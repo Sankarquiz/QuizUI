@@ -19,6 +19,11 @@
 .registration-wrapper .reg-button{
     text-align: center;
 }
+.registration-wrapper .reg-button a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
 
 .registration-wrapper .reg-button button{
     margin: 20px;

@@ -14,6 +14,14 @@ background: #545454;
 color: white;
 
 }
+.create-quiz-section-inner-wrapper a,.create-quiz-section-inner-wrapper a{
+    text-decoration: none;
+    background: #dddddf;
+    color: white;
+    border-right: 1px solid white;
+    
+    }
+
 
 
 .create-quiz-section-inner-wrapper a{

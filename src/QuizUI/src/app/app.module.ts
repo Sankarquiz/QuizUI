@@ -14,6 +14,9 @@ import { SetTheQuizComponent } from './quiz-builder/set-the-quiz/set-the-quiz.co
 import { PublishQuizComponent } from './quiz-builder/publish-quiz/publish-quiz.component';
 import { DefineTheQuizComponent } from './quiz-builder/define-the-quiz/define-the-quiz.component';
 import { FooterComponent } from './footer/footer.component';
+import { PublishQuizMainContentComponent } from './quiz-builder/publish-quiz-main-content/publish-quiz-main-content.component';
+import { SetPagesComponent } from './quiz-builder/set-pages/set-pages.component';
+
 
 
 
@@ -36,12 +39,23 @@ const appRoutes: Routes = [
               component: RegistrationComponent
           },
           {
+            path:'set-pages',
+            component: SetPagesComponent
+        },
+          {
             path:'set-the-quiz',
             component: SetTheQuizComponent
         },
         {
           path:'publish-quiz',
-          component: PublishQuizComponent
+          component: PublishQuizComponent,
+          children: [                          
+            {
+                path:'first-quiz',
+                component: PublishQuizMainContentComponent
+                
+            },     
+        ]
       },
       
       ]
@@ -64,7 +78,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,AboutUsComponent,QuizBankComponent,QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent,  DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent,
+    HeaderComponent,AboutUsComponent,QuizBankComponent,QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent,  DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent,
   ],
   imports: [
     BrowserModule,FormsModule,RouterModule.forRoot(appRoutes)
