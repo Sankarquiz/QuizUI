@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class GetAllQuizDetailsService {
-  _baseUrl: string = environment.quizDefinitionUri;
+  _baseUrl: string = environment.getallquizdetails;
   httpOptions = {
     headers: new HttpHeaders()
       .append('Content-Type', 'application/json')
