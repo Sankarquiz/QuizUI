@@ -22,10 +22,14 @@
 
   <ItemGroup>
     <None Remove="src\app\models\QuizDefinition.ts" />
+    <None Remove="src\app\services\service-getquizdetails.ts" />
+    <None Remove="src\app\services\service-quizdefinition.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="src\app\models\QuizDefinition.ts" />
+    <TypeScriptCompile Include="src\app\services\service-getquizdetails.ts" />
+    <TypeScriptCompile Include="src\app\services\service-quizdefinition.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
