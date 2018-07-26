@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   quizDefinitionUri: 'http://localhost:44370/define/',
+  getallquizdetails: 'http://localhost:44370/getallquiz/',
 };
 
 /*

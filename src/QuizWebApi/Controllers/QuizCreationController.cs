@@ -112,7 +112,7 @@ namespace QuizWebApi.Controllers
         /// Gets all quiz.
         /// </summary>
         /// <returns></returns>
-        [Route("/getquiz")]
+        [Route("/getallquiz")]
         [HttpGet]
         public async Task<IActionResult> GetAllQuiz()
         {
