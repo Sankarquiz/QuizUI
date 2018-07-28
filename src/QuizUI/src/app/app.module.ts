@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import {FormsModule} from '@angular/forms'
+import { FormsModule } from '@angular/forms'
 import { HeaderComponent } from './header/header.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { QuizBankComponent } from './quiz-bank/quiz-bank.component';
@@ -16,60 +16,65 @@ import { DefineTheQuizComponent } from './quiz-builder/define-the-quiz/define-th
 import { FooterComponent } from './footer/footer.component';
 import { PublishQuizMainContentComponent } from './quiz-builder/publish-quiz-main-content/publish-quiz-main-content.component';
 import { SetPagesComponent } from './quiz-builder/set-pages/set-pages.component';
+import { GetAllQuizDetailsService } from './services/service-getquizdetails';
+import { QuizDefineService } from './services/service-quizdefinition';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
 
 const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
-  { path: 'quiz-bank',      component: QuizBankComponent },
-  { path: 'quiz-builder',      component: QuizBuilderComponent, 
-  children: [                          
-    {
-        path:'create-quiz',
+  { path: 'quiz-bank', component: QuizBankComponent },
+  {
+    path: 'quiz-builder', component: QuizBuilderComponent,
+    children: [
+      {
+        path: 'create-quiz',
         component: CreateQuizComponent,
-        children: [                          
+        children: [
           {
-              path:'define-the-Quiz',
-              component: DefineTheQuizComponent
-              
+            path: 'define-the-Quiz',
+            component: DefineTheQuizComponent
+
           },
           {
-              path:'Registration',
-              component: RegistrationComponent
+            path: 'Registration',
+            component: RegistrationComponent
           },
           {
-            path:'set-pages',
+            path: 'set-pages',
             component: SetPagesComponent
-        },
+          },
           {
-            path:'set-the-quiz',
+            path: 'set-the-quiz',
             component: SetTheQuizComponent
-        },
-        {
-          path:'publish-quiz',
-          component: PublishQuizComponent,
-          children: [                          
-            {
-                path:'first-quiz',
+          },
+          {
+            path: 'publish-quiz',
+            component: PublishQuizComponent,
+            children: [
+              {
+                path: 'first-quiz',
                 component: PublishQuizMainContentComponent
-                
-            },     
+
+              },
+            ]
+          },
+
         ]
+
       },
-      
-      ]
-        
-    },
-    {
-        path:'view-previous-quiz',
+      {
+        path: 'view-previous-quiz',
         component: ViewPreviousQuizComponent
-    },
+      },
 
-]
+    ]
 
-},
-  { path: '',
+  },
+  {
+    path: '',
     redirectTo: '/home',
     pathMatch: 'full'
   }
@@ -78,12 +83,15 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,AboutUsComponent,QuizBankComponent,QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent,  DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent,
+    HeaderComponent, AboutUsComponent, QuizBankComponent, QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent, DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent,
   ],
   imports: [
-    BrowserModule,FormsModule,RouterModule.forRoot(appRoutes)
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [GetAllQuizDetailsService, QuizDefineService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

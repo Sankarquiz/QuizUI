@@ -77,6 +77,13 @@ namespace QuizWebApi
             //var mongoClient = new MongoClient("mongodb://localhost:27017");
             //mongoClient.GetDatabase("QuizDB");
             services.AddSingleton<IMongoDatabase>(MongodbClient.GetMongoDatabase());
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,6 +95,7 @@ namespace QuizWebApi
         /// <param name="provider">The provider.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider provider)
         {
+            app.UseCors("CorsPolicy");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -69,6 +69,12 @@ namespace QuizWebApi.Models.Admin
         public bool PostScoreOnSocialMedia { get; set; }
 
         [BsonElement]
+        public string Status { get; set; }
+
+        [BsonElement]
+        public string Stage { get; set; }
+
+        [BsonElement]
         public string RulesAndRegulations { get; set; }
         [BsonElement]
         public List<QuizSet> QuestionSet { get; set; }
