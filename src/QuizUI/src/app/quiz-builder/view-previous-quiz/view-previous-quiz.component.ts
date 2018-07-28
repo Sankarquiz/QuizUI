@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GetAllQuizDetailsService } from '../../services/service-getquizdetails';
+import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { forEach } from '@angular/router/src/utils/collection';
 import { QuizDefinition } from '../../models/QuizDefinition';
 
@@ -11,10 +11,10 @@ import { QuizDefinition } from '../../models/QuizDefinition';
 export class ViewPreviousQuizComponent implements OnInit {
 
   quizDetails = new Array<QuizDefinition>();
-  constructor(private _getAllQuizDetails: GetAllQuizDetailsService) { }
+  constructor(private _getAllQuizDetails: QuizDetailsService) { }
 
   ngOnInit() {
-    this._getAllQuizDetails.getAllQuizData()
+    this._getAllQuizDetails.GetAllQuizData()
       .subscribe((result: any) => {
         this.PopulateResults(result);
       });

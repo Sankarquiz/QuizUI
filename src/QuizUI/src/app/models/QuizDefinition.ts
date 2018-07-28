@@ -1,40 +1,54 @@
-export class QuizDefinition {
-  Id: string;
-  QuizName: string;
-  QuizDomainHost: string;
-  QuizType: string;
-  NoOfQuestions: number;
-  NoOfParticipants: number;
-  QuizDuration: number
-  QuizStartTime: any;
-  QuizEndTime: any;
-  ShuffleQuestions: boolean;
-  IsQuizFromLargerPool: boolean;
-  NoOfQuestionsInPool: number;
-  AllowConcurrentAccess: boolean;
-  ParticipantType: string;
-  IsQuizAutoEvaluate: boolean;
-  ShowScoreAfterAttempt: boolean;
-  PostScoreOnSocialMedia: boolean;
-  Status: string;
-  Stage: string;
-  RulesAndRegulations: string;
-  QuestionSet = new Array<QuizSet>();
+export class QuizDefinition {  
+  quizName: string;
+  quizDomainHost: string;
+  quizType: string;
+  noOfQuestions: number;
+  noOfParticipants: number;
+  quizDuration: number
+  quizStartTime: any;
+  quizEndTime: any;
+  shuffleQuestions: boolean;
+  isQuizFromLargerPool: boolean;
+  noOfQuestionsInPool: number;
+  allowConcurrentAccess: boolean;
+  participantType: string;
+  isQuizAutoEvaluate: boolean;
+  showScoreAfterAttempt: boolean;
+  postScoreOnSocialMedia: boolean;
+  teamName: boolean;
+  emailId: boolean;
+  validateEmail: boolean;
+  contestantName: boolean;
+  phoneNumber: boolean;
+  contactAddress: boolean;
+  status: string;
+  stage: string;
+  rulesAndRegulations: string;
+  questionSet = new Array<QuizSet>();
   constructor() { }
 }
 
 export class QuizSet {
-  QuizName: string;
-  QuizType: string;
-  QuestionNo: string;
-  QuestionText: string;
-  ImageUrl: string;
-  AnswerType: string;
-  Answer: string;
-  Score: string;
-  Option1: string;
-  Option2: string;
-  Option3: string;
-  Option4: string;
+  quizName: string;
+  quizType: string;
+  questionNo: string;
+  questionText: string;
+  imageUrl: string;
+  answerType: string;
+  answer: string;
+  score: string;
+  option1: string;
+  option2: string;
+  option3: string;
+  option4: string;
   constructor() { }
+}
+
+export class RegistrationFields {
+  teamName: boolean;
+  emailId: boolean;
+  validateEmail: boolean;
+  contestantName: boolean;
+  phoneNumber: boolean;
+  contactAddress: boolean;
 }

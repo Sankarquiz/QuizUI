@@ -33,12 +33,19 @@ namespace QuizWebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> DefineQuiz([FromBody]QuizDefinition request)
         {
+            Status status = new Status();
             if (request == null ||
                 string.IsNullOrEmpty(request.QuizName) ||
                 string.IsNullOrEmpty(request.QuizType))
             // || request.QuestionSet?.Count == 0)
             {
-                return BadRequest("Mandatory Fields Missing.");
+                status = new Status
+                {
+                    Code = 101,
+                    Message = "Mandatory Fields Missing.",
+                    Type = "Error"
+                };
+                return BadRequest(status);
             }
 
             var builder = Builders<QuizDefinition>.Filter;
@@ -49,30 +56,43 @@ namespace QuizWebApi.Controllers
             if (_mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
                 .Find(filter).ToList().Count > 0)
             {
-                return BadRequest("This Quiz is already Published.");
+                status = new Status
+                {
+                    Code = 101,
+                    Message = "This Quiz is already Published.",
+                    Type = "Error"
+                };
+                return BadRequest(status);
             }
 
-            //if (request.NoOfQuestions != request.QuestionSet?.Count)
-            //{
-            //    return BadRequest("Total Questions defined doesn't match with quiz set.");
-            //}
-
-            if (_mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
-               .Find(FilterDefinition<QuizDefinition>.Empty).ToList().Count > 1)
-            {
-                builder = Builders<QuizDefinition>.Filter;
-                filter = builder.Eq("QuizName", request.QuizName) &
+            builder = Builders<QuizDefinition>.Filter;
+            filter = builder.Eq("QuizName", request.QuizName) &
                           builder.Eq("QuizType", request.QuizType);
+            if (_mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
+               .Find(filter).ToList().Count > 0)
+            {
                 var update = Builders<QuizDefinition>.Update.Set(o => o, request);
                 var response = _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").UpdateOne(filter, update);
 
                 if (response.MatchedCount > 0 && response.ModifiedCount > 0)
                 {
-                    return Ok();
+                    status = new Status
+                    {
+                        Code = 100,
+                        Message = "Quiz Updated.",
+                        Type = "Info"
+                    };
+                    return Ok(status);
                 }
             }
             _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").InsertOne(request);
-            return Ok();
+            status = new Status
+            {
+                Code = 100,
+                Message = "Quiz Defined.",
+                Type = "Info"
+            };
+            return Ok(status);
         }
 
         ///// <summary>
@@ -142,6 +162,27 @@ namespace QuizWebApi.Controllers
             {
                 return NotFound("No Quizes is defined so far.");
             }
+        }
+
+        /// <summary>
+        /// Gets all quiz.
+        /// </summary>
+        /// <returns></returns>
+        [Route("/getquiz")]
+        [HttpGet]
+        public async Task<IActionResult> GetQuiz(string quizName, string quizType)
+        {
+            var builder = Builders<QuizDefinition>.Filter;
+            var filter = builder.Eq("QuizName", quizName) &
+                            builder.Eq("QuizType", quizType);
+
+            if (_mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
+              .Find(filter).ToList().Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(_mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
+            .Find(filter).First());
         }
     }
 }

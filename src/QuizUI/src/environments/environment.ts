@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  quizDefinitionUri: 'http://172.29.94.20:52671/define/',
-  getallquizdetails: 'http://172.29.94.20:52671/getallquiz/',
+  quizDefinitionUri: 'http://localhost:52671/define/',
+  getallquizdetails: 'http://localhost:52671/getallquiz/',
+  getquizdetail: 'http://localhost:52671/getquiz',
 };
 
 /*
