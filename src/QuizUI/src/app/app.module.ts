@@ -22,6 +22,8 @@ import { NewUserRegComponent } from './new-user-reg/new-user-reg.component';
 import { GetAllQuizDetailsService } from './services/service-getquizdetails';
 import { QuizDefineService } from './services/service-quizdefinition';
 import { HttpClientModule } from '@angular/common/http';
+import { SetLogosComponent } from './quiz-builder/set-logos/set-logos.component';
+import { CreateAccountComponent } from './quiz-builder/create-account/create-account.component';
 
 
 
@@ -30,6 +32,7 @@ const appRoutes: Routes = [
   { path: 'quiz-bank',      component: QuizBankComponent },
   { path: 'adds',      component: MainAddsComponent },
   { path: 'adds-desc',      component: AddsDescComponent },
+  { path: 'create-account',      component: CreateAccountComponent },
   { path: 'user-registration',      component: NewUserRegComponent },
   { path: 'quiz-builder',      component: QuizBuilderComponent, 
   children: [                          
@@ -49,6 +52,10 @@ const appRoutes: Routes = [
           {
             path: 'set-pages',
             component: SetPagesComponent
+          },
+          {
+            path: 'set-logos',
+            component: SetLogosComponent
           },
           {
             path: 'set-the-quiz',
@@ -86,7 +93,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,AboutUsComponent,QuizBankComponent,QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent,  DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent, MainAddsComponent, AddsDescComponent, NewUserRegComponent,
+    HeaderComponent,AboutUsComponent,QuizBankComponent,QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent,  DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent, MainAddsComponent, AddsDescComponent, NewUserRegComponent, SetLogosComponent, CreateAccountComponent,
   ],
   imports: [
     BrowserModule,

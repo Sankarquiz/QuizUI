@@ -9,13 +9,24 @@ import { debug } from 'util';
   styleUrls: ['./define-the-quiz.component.css']
 })
 export class DefineTheQuizComponent implements OnInit {
-
+  Shuffle_Questions='Yes';
+  Create_Quiz_from_larger_Pool='Yes';
+  Allow_Concurrent_Access='Yes';
+  Auto_Evaluate_Quiz='Yes';
+  Show_Score_after_attempt='Yes';
+  Post_score='Yes';
+  duration_of_quiz_time='Hours';
+  hashofparticipants='1';
+  ParticipantType='Cross College';
+  hostquizdomain='KnowledgeVyasa Domain';
+  typeofquiz="Treasure Hunt";
   quizDefinition = new QuizDefinition();
   constructor() { }
 
   ngOnInit() {
   }
   saveDefinequiz(quizform: NgForm): void {
+
     this.quizDefinition.QuizName = quizform.value["quiz-name"];
     this.quizDefinition.QuizDomainHost = quizform.value["host-quiz-domain"];
     this.quizDefinition.QuizType = quizform.value["type-of-quiz"];
