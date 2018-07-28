@@ -35,78 +35,94 @@ namespace QuizWebApi.Controllers
         {
             if (request == null ||
                 string.IsNullOrEmpty(request.QuizName) ||
-                string.IsNullOrEmpty(request.QuizType) ||
-                request.QuestionSet?.Count == 0)
+                string.IsNullOrEmpty(request.QuizType))
+            // || request.QuestionSet?.Count == 0)
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
 
             var builder = Builders<QuizDefinition>.Filter;
-            var filter = builder.Eq("QuizName", request.QuizName) & builder.Eq("QuizType", request.QuizType);
+            var filter = builder.Eq("QuizName", request.QuizName) &
+                            builder.Eq("QuizType", request.QuizType) &
+                            builder.Eq("Status", "Published");
 
             if (_mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
                 .Find(filter).ToList().Count > 0)
             {
-                return BadRequest("This Quiz is already defined.");
+                return BadRequest("This Quiz is already Published.");
             }
 
-            if (request.NoOfQuestions != request.QuestionSet?.Count)
+            //if (request.NoOfQuestions != request.QuestionSet?.Count)
+            //{
+            //    return BadRequest("Total Questions defined doesn't match with quiz set.");
+            //}
+
+            if (_mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
+               .Find(FilterDefinition<QuizDefinition>.Empty).ToList().Count > 1)
             {
-                return BadRequest("Total Questions defined doesn't match with quiz set.");
-            }
+                builder = Builders<QuizDefinition>.Filter;
+                filter = builder.Eq("QuizName", request.QuizName) &
+                          builder.Eq("QuizType", request.QuizType);
+                var update = Builders<QuizDefinition>.Update.Set(o => o, request);
+                var response = _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").UpdateOne(filter, update);
 
+                if (response.MatchedCount > 0 && response.ModifiedCount > 0)
+                {
+                    return Ok();
+                }
+            }
             _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").InsertOne(request);
             return Ok();
         }
 
-        /// <summary>
-        /// Updates the rules.
-        /// </summary>
-        /// <param name="quizName">Name of the quiz.</param>
-        /// <param name="quizType">Type of the quiz.</param>
-        /// <param name="rules">The rules.</param>
-        /// <returns></returns>
-        [Route("/rules")]
-        [HttpGet]
-        public async Task<IActionResult> UpdateRules(string quizName, string quizType, string rules)
-        {
-            if (string.IsNullOrEmpty(rules) || string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
-            {
-                return BadRequest("Mandatory Fields Missing.");
-            }
+        ///// <summary>
+        ///// Updates the rules.
+        ///// </summary>
+        ///// <param name="quizName">Name of the quiz.</param>
+        ///// <param name="quizType">Type of the quiz.</param>
+        ///// <param name="rules">The rules.</param>
+        ///// <returns></returns>
+        //[Route("/rules")]
+        //[HttpGet]
+        //public async Task<IActionResult> UpdateRules(string quizName, string quizType, string rules)
+        //{
+        //    if (string.IsNullOrEmpty(rules) || string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
+        //    {
+        //        return BadRequest("Mandatory Fields Missing.");
+        //    }
 
-            var builder = Builders<QuizDefinition>.Filter;
-            var filter = builder.Eq("QuizName", quizName) & builder.Eq("QuizType", quizType);
-            var update = Builders<QuizDefinition>.Update.Set(o => o.RulesAndRegulations, rules);
-            var response = _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").UpdateOne(filter, update);
+        //    var builder = Builders<QuizDefinition>.Filter;
+        //    var filter = builder.Eq("QuizName", quizName) & builder.Eq("QuizType", quizType);
+        //    var update = Builders<QuizDefinition>.Update.Set(o => o.RulesAndRegulations, rules);
+        //    var response = _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").UpdateOne(filter, update);
 
-            if (response.MatchedCount > 0 && response.ModifiedCount > 0)
-            {
-                return Ok();
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
+        //    if (response.MatchedCount > 0 && response.ModifiedCount > 0)
+        //    {
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        return NotFound();
+        //    }
+        //}
 
-        /// <summary>
-        /// Sets the quiz.
-        /// </summary>
-        /// <param name="questionSet">The question set.</param>
-        /// <returns></returns>
-        [Route("/set")]
-        [HttpPost]
-        public async Task<IActionResult> SetQuiz([FromBody] QuizSet questionSet)
-        {
-            if (questionSet == null || string.IsNullOrEmpty(questionSet.QuizName) || string.IsNullOrEmpty(questionSet.QuizType))
-            {
-                return BadRequest("Mandatory Fields Missing.");
-            }
+        ///// <summary>
+        ///// Sets the quiz.
+        ///// </summary>
+        ///// <param name="questionSet">The question set.</param>
+        ///// <returns></returns>
+        //[Route("/set")]
+        //[HttpPost]
+        //public async Task<IActionResult> SetQuiz([FromBody] QuizSet questionSet)
+        //{
+        //    if (questionSet == null || string.IsNullOrEmpty(questionSet.QuizName) || string.IsNullOrEmpty(questionSet.QuizType))
+        //    {
+        //        return BadRequest("Mandatory Fields Missing.");
+        //    }
 
-            _mongoDatabase.GetCollection<QuizSet>("QuizSet").InsertOne(questionSet);
-            return Ok();
-        }
+        //    _mongoDatabase.GetCollection<QuizSet>("QuizSet").InsertOne(questionSet);
+        //    return Ok();
+        //}
 
         /// <summary>
         /// Gets all quiz.
@@ -116,7 +132,8 @@ namespace QuizWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllQuiz()
         {
-            var result = _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").Find(FilterDefinition<QuizDefinition>.Empty).ToList();
+            var result = _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
+                .Find(FilterDefinition<QuizDefinition>.Empty).ToList();
             if (result?.Count > 0)
             {
                 return Ok(result);
