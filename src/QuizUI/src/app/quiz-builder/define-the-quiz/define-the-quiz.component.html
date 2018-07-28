@@ -1,4 +1,4 @@
-<form #definethequiz="ngForm" (ngSubmit)="saveDefinequiz(definethequiz)">
+<form #definethequiz="ngForm" ngNativeValidate (ngSubmit)="saveDefinequiz(definethequiz)">
   <div class="container create-quiz-wrapper">
 
     <div class="row">
@@ -179,9 +179,15 @@
     </div>
     <div class="reg-button">
       <button type="submit" class="btn btn-danger">
+<<<<<<< HEAD
+        
+        <a routerLink="/quiz-builder/create-quiz/Registration" routerLinkActive="active">Next >></a>
+      
+=======
 
         <a routerLink="['/quiz-builder/create-quiz/Registration',quizDefinition]" routerLinkActive="active">Create Registration Page for Quiz</a>
 
+>>>>>>> origin/Dev
       </button>
     </div>
 

@@ -1,6 +1,9 @@
 <div class="set-the-quiz-wrapper">
   <div class="container">
 
+    <div>
+       <a href="#">  Bulk Upload Questions</a>
+    </div>
     <div class="col-md-6">
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Enter Question Text</label>
@@ -74,10 +77,16 @@
     </div>
   </div>
 
+ 
+
   <div class="reg-button">
       <button type="button" class="btn btn-danger">Preview Question</button>
-      <button type="button" class="btn btn-danger">Submit Question</button>
-      <button type="button" class="btn btn-danger">Bulk Upload Questions</button>
+      <button type="button" class="btn btn-danger">Previous Question</button>
+      <button type="button" class="btn btn-danger">Save & Next </button>      
+      <button type="button" class="btn btn-danger">
+          <a routerLink="/quiz-builder/create-quiz/publish-quiz" routerLinkActive="active">Submit</a>
+      </button>
+     
     </div>
 
   </div>
