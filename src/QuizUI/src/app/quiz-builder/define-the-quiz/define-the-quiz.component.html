@@ -1,4 +1,4 @@
-<form #definethequiz="ngForm" (ngSubmit)="saveDefinequiz(definethequiz)">
+<form #definethequiz="ngForm" ngNativeValidate (ngSubmit)="saveDefinequiz(definethequiz)">
   <div class="container create-quiz-wrapper">
 
     <div class="row">
@@ -7,7 +7,7 @@
 
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" class="form-control" name="quiz-name" [(ngModel)]="Name" id="name" >
+          <input  type="text" class="form-control" name="quiz-name" [(ngModel)]="Name" id="name" >
         </div>
         <div class="form-group">
           <label for="host-quiz-domain">Host Quiz Domain</label>
@@ -180,7 +180,7 @@
     <div class="reg-button">
       <button type="submit" class="btn btn-danger">
         
-        <a routerLink="/quiz-builder/create-quiz/Registration" routerLinkActive="active">Create Registration Page for Quiz</a>
+        <a routerLink="/quiz-builder/create-quiz/Registration" routerLinkActive="active">Next >></a>
       
       </button>
     </div>

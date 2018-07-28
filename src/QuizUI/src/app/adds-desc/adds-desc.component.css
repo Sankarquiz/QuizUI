@@ -1,0 +1,13 @@
+.adds-desc a{
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.adds-desc img{
+    width: 100%;
+}
+
+.adds-desc .reg-button{
+    text-align: center;
+    margin: 20px;
+}
