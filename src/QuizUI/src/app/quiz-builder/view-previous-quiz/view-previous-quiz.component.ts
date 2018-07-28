@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { GetAllQuizDetailsService } from '../../services/service-getquizdetails';
+import { forEach } from '@angular/router/src/utils/collection';
+import { QuizDefinition } from '../../models/QuizDefinition';
 
 @Component({
   selector: 'app-view-previous-quiz',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewPreviousQuizComponent implements OnInit {
 
-  constructor() { }
+  quizDetails = new Array<QuizDefinition>();
+  constructor(private _getAllQuizDetails: GetAllQuizDetailsService) { }
 
   ngOnInit() {
+    this._getAllQuizDetails.getAllQuizData()
+      .subscribe((result: any) => {
+        this.PopulateResults(result);
+      });
   }
-
+  PopulateResults(result: any): any {
+    this.quizDetails = result;
+  }
 }

@@ -4,12 +4,11 @@
 
 export const environment = {
   production: false,
-  quizDefinitionUri: 'http://localhost:44370/define/',
-  getallquizdetails: 'http://localhost:44370/getallquiz/',
+  quizDefinitionUri: 'http://172.29.94.20:52671/define/',
+  getallquizdetails: 'http://172.29.94.20:52671/getallquiz/',
 };
 
 /*
- * In development mode, to ignore zone related error stack frames such as
  * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can
  * import the following file, but please comment it out in production mode
  * because it will have performance impact when throw error

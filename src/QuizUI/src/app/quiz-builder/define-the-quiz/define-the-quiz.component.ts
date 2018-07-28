@@ -16,10 +16,8 @@ export class DefineTheQuizComponent implements OnInit {
   ngOnInit() {
   }
   saveDefinequiz(quizform: NgForm): void {
-  
-  
     this.quizDefinition.QuizName = quizform.value["quiz-name"];
-    this.quizDefinition.QuizDomainHost = quizform.value["host-quiz-domain"]; 
+    this.quizDefinition.QuizDomainHost = quizform.value["host-quiz-domain"];
     this.quizDefinition.QuizType = quizform.value["type-of-quiz"];
     this.quizDefinition.NoOfQuestions = quizform.value["number-of-question"];
     this.quizDefinition.NoOfParticipants = quizform.value["hash-of-participants"];
@@ -33,6 +31,7 @@ export class DefineTheQuizComponent implements OnInit {
     this.quizDefinition.ParticipantType = quizform.value["Participant-Type"];
     this.quizDefinition.IsQuizAutoEvaluate = quizform.value["Auto-Evaluate-Quiz"];
     this.quizDefinition.PostScoreOnSocialMedia = quizform.value["Show-Score-after-attempt?"];
-    this.quizDefinition.RulesAndRegulations = quizform.value["Post-score-on-Social-Media?"];
+    this.quizDefinition.Stage = "Define";
+    this.quizDefinition.Status = "Pending";
   }
 }
