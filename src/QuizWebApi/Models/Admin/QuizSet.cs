@@ -2,9 +2,10 @@
 {
     public class QuizSet
     {
+        public string DocumentType { get; set; }
         public string QuizName { get; set; }
         public string QuizType { get; set; }
-        public string QuestionNo { get; set; }
+        public int QuestionNo { get; set; }
         public string QuestionText { get; set; }
         public string IsImageneeded { get; set; }
         public string ImageUrl { get; set; }

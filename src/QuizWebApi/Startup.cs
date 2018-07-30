@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Couchbase.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -76,7 +77,9 @@ namespace QuizWebApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //var mongoClient = new MongoClient("mongodb://localhost:27017");
             //mongoClient.GetDatabase("QuizDB");
-            services.AddSingleton<IMongoDatabase>(MongodbClient.GetMongoDatabase());
+           // services.AddSingleton<IMongoDatabase>(MongodbClient.GetMongoDatabase());
+            services.AddCouchbase(Configuration.GetSection("Couchbase"));
+            services.AddCouchbaseBucket<IQuizBucketProvider>("Quiz", "quiz@123");
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
@@ -93,7 +96,7 @@ namespace QuizWebApi
         /// <param name="app">The application.</param>
         /// <param name="env">The env.</param>
         /// <param name="provider">The provider.</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider provider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider provider, IApplicationLifetime applicationLifetime)
         {
             app.UseCors("CorsPolicy");
             if (env.IsDevelopment())
@@ -104,7 +107,7 @@ namespace QuizWebApi
             {
                 app.UseHsts();
             }
-
+            CouchbaseHelper.Initialize(app.ApplicationServices.GetRequiredService<IQuizBucketProvider>().GetBucket());
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseSwagger();
@@ -116,6 +119,11 @@ namespace QuizWebApi
                     DescriptionTemplate = "Version {0} docs",
                     RouteTemplate = "/swagger/{0}/swagger.json"
                 });
+            });
+
+            applicationLifetime.ApplicationStopped.Register(() =>
+            {
+                app.ApplicationServices.GetRequiredService<ICouchbaseLifetimeService>().Close();
             });
         }
     }
