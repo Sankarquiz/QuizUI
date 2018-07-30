@@ -4,9 +4,12 @@ export class QuizDefinition {
   QuizType: string;
   NoOfQuestions: number;
   NoOfParticipants: number;
-  QuizDuration: number
-  QuizStartTime: any;
-  QuizEndTime: any;
+  QuizDurationHour: number;
+  QuizDurationTime:string;
+  QuizStartDate: any;
+  QuizStartDateTime: any;
+  QuizEndDate: any;
+  QuizEndDateTime: any;
   ShuffleQuestions: boolean;
   IsQuizFromLargerPool: boolean;
   NoOfQuestionsInPool: number;
