@@ -42,7 +42,7 @@ namespace QuizWebApi.Controllers
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
-
+            request.DocumentType = "Define";
             var parameters = new Dictionary<string, object>();
             var query = string.Format(@"SELECT quizName FROM {0} WHERE status=""{1}"" and quizName = $quizName and quizType = $quizType and documentType=""{2}""", CouchbaseHelper.Bucket, "Published", "Define");
             parameters.Add("$quizName", request.QuizName);

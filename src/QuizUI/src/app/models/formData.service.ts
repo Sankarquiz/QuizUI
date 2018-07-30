@@ -12,9 +12,9 @@ export class FormDataService {
     getQuizDefinition(): QuizDefinition {  
         // Return the Quiz data
         var quizDefinition: QuizDefinition = {
-          quizName : this.formData.quizName,
+          QuizName : this.formData.QuizName,
           hostQuizDomain : this.formData.hostQuizDomain,
-          typeOfQuiz : this.formData.typeOfQuiz,
+          typeOfQuiz : this.formData.TypeOfQuiz,
           noOfQuestion : this.formData.noOfQuestion,
           noOfParticipants : this.formData.noOfParticipants,
           durationHour :this.formData.durationHour,
