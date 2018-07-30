@@ -16,10 +16,9 @@ import { DefineTheQuizComponent } from './quiz-builder/define-the-quiz/define-th
 import { FooterComponent } from './footer/footer.component';
 import { PublishQuizMainContentComponent } from './quiz-builder/publish-quiz-main-content/publish-quiz-main-content.component';
 import { SetPagesComponent } from './quiz-builder/set-pages/set-pages.component';
-import { GetAllQuizDetailsService } from './services/service-getquizdetails';
-import { QuizDefineService } from './services/service-quizdefinition';
+import { QuizDetailsService } from './services/service-getquizdetails';
 import { HttpClientModule } from '@angular/common/http';
-import { FormDataService }     from './models/formData.service'; 
+import { FormDataService } from './models/formData.service';
 
 const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
@@ -33,7 +32,7 @@ const appRoutes: Routes = [
         children: [
           {
             path: 'define-the-Quiz',
-            component: DefineTheQuizComponent 
+            component: DefineTheQuizComponent
           },
           {
             path: 'Registration',
@@ -53,17 +52,17 @@ const appRoutes: Routes = [
             children: [
               {
                 path: 'first-quiz',
-                component: PublishQuizMainContentComponent 
+                component: PublishQuizMainContentComponent
               },
             ]
-          }, 
-        ] 
+          },
+        ]
       },
       {
         path: 'view-previous-quiz',
         component: ViewPreviousQuizComponent
-      }, 
-    ] 
+      },
+    ]
   },
   {
     path: '',
@@ -83,7 +82,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [GetAllQuizDetailsService, QuizDefineService, FormDataService],
+  providers: [QuizDetailsService, FormDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

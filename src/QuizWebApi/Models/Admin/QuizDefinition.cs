@@ -8,12 +8,9 @@ namespace QuizWebApi.Models.Admin
     /// </summary>
     public class QuizDefinition
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="QuizDefinition"/> class.
-        /// </summary>
         public QuizDefinition()
         {
-            LogoPaths = new List<string>();
+            SponserList = new List<SponserDetail>();
         }
         public string DocumentType { get; set; }
         public string QuizName { get; set; }
@@ -36,7 +33,7 @@ namespace QuizWebApi.Models.Admin
         public string Stage { get; set; }
         public string MessageBeforeQuizTime { get; set; }
         public string MessageAfterQuizTime { get; set; }
-        public List<string> LogoPaths { get; set; }
-        public string LogoPosition { get; set; }
+        public RegistrationFields RegistrationFields { get; set; }
+        public List<SponserDetail> SponserList { get; set; }
     }
 }

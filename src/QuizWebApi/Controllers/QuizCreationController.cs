@@ -118,29 +118,54 @@ namespace QuizWebApi.Controllers
             }
         }
 
-        [Route("/setregistration")]
-        [HttpPost]
-        public async Task<IActionResult> SetRegistration([FromBody] RegistrationFields RegistrationSet)
-        {
-            if (RegistrationSet == null || string.IsNullOrEmpty(RegistrationSet.QuizName) || string.IsNullOrEmpty(RegistrationSet.QuizType))
-            {
-                return BadRequest("Mandatory Fields Missing.");
-            }
-            RegistrationSet.DocumentType = "Registration";
-            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(RegistrationSet.QuizName + "_" + RegistrationSet.QuizType + "_registration", RegistrationSet);
-            return Ok(response);
-        }
+        //[Route("/setregistration")]
+        //[HttpPost]
+        //public async Task<IActionResult> SetRegistration([FromBody] RegistrationFields registrationSet)
+        //{
+        //    if (registrationSet == null || string.IsNullOrEmpty(registrationSet.QuizName) || string.IsNullOrEmpty(registrationSet.QuizType))
+        //    {
+        //        return BadRequest("Mandatory Fields Missing.");
+        //    }
+        //    registrationSet.DocumentType = "Registration";
+        //    var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(registrationSet.QuizName + "_" + registrationSet.QuizType + "_registration", registrationSet);
+        //    return Ok(response);
+        //}
 
-        [Route("/getregistration")]
-        [HttpPost]
-        public async Task<IActionResult> GetRegistration(string quizName, string quizType)
-        {
-            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
-            {
-                return BadRequest("Mandatory Fields Missing.");
-            }
-            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<RegistrationFields>(quizName + "_" + quizType + "_registration");
-            return Ok(response);
-        }
+        //[Route("/getregistration")]
+        //[HttpPost]
+        //public async Task<IActionResult> GetRegistration(string quizName, string quizType)
+        //{
+        //    if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
+        //    {
+        //        return BadRequest("Mandatory Fields Missing.");
+        //    }
+        //    var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<RegistrationFields>(quizName + "_" + quizType + "_registration");
+        //    return Ok(response);
+        //}
+
+        //[Route("/setsponserdetails")]
+        //[HttpPost]
+        //public async Task<IActionResult> SetSponserDetails([FromBody] SponserDetail sponserdata)
+        //{
+        //    if (sponserdata == null || string.IsNullOrEmpty(sponserdata.QuizName) || string.IsNullOrEmpty(sponserdata.QuizType))
+        //    {
+        //        return BadRequest("Mandatory Fields Missing.");
+        //    }
+        //    sponserdata.DocumentType = "Registration";
+        //    var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(sponserdata.QuizName + "_" + sponserdata.QuizType + "_sponser", sponserdata);
+        //    return Ok(response);
+        //}
+
+        //[Route("/getsponserdetails")]
+        //[HttpPost]
+        //public async Task<IActionResult> GetSponserDetails(string quizName, string quizType)
+        //{
+        //    if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
+        //    {
+        //        return BadRequest("Mandatory Fields Missing.");
+        //    }
+        //    var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<RegistrationFields>(quizName + "_" + quizType + "_sponser");
+        //    return Ok(response);
+        //}
     }
 }

@@ -5,7 +5,7 @@ export class QuizDefinition {
   NoOfQuestions: number;
   NoOfParticipants: number;
   QuizDurationHour: number;
-  QuizDurationTime:string;
+  QuizDurationTime: string;
   QuizStartDate: any;
   QuizStartDateTime: any;
   QuizEndDate: any;
@@ -20,6 +20,8 @@ export class QuizDefinition {
   PostScoreOnSocialMedia: boolean;
   Status: string;
   Stage: string;
+  RegistrationFields = new RegistrationFields();
+  SponsorList = new Array<SponserDetail>();
 }
 
 export class QuizSet {
@@ -38,12 +40,16 @@ export class QuizSet {
 }
 
 export class RegistrationFields {
-  QuizName: string;
-  QuizType: string;
   TeamName: boolean;
   EmailId: boolean;
   ValidateEmail: boolean;
   ContestantName: boolean;
   PhoneNumber: boolean;
   ContactAddress: boolean;
+  RulesAndRegulations: string;
+}
+
+export class SponserDetail {
+  Path: string;
+  Position: string;
 }
