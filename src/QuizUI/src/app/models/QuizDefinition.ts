@@ -1,26 +1,26 @@
 export class QuizDefinition {
-  Id: string;
-  QuizName: string;
-  QuizDomainHost: string;
-  QuizType: string;
-  NoOfQuestions: number;
-  NoOfParticipants: number;
-  QuizDuration: number
-  QuizStartTime: any;
-  QuizEndTime: any;
-  ShuffleQuestions: boolean;
-  IsQuizFromLargerPool: boolean;
-  NoOfQuestionsInPool: number;
-  AllowConcurrentAccess: boolean;
-  ParticipantType: string;
-  IsQuizAutoEvaluate: boolean;
-  ShowScoreAfterAttempt: boolean;
-  PostScoreOnSocialMedia: boolean;
-  Status: string;
-  Stage: string;
-  RulesAndRegulations: string;
+  //Id: string;
+  quizName: string;
+  hostQuizDomain: string;
+  typeOfQuiz: string;
+  noOfQuestion: number;
+  noOfParticipants: number;
+  durationHour: number;
+  durationTime : number;
+  quizStartDate: any;
+  quizStartDateTime: any;
+  quizEndDate: any;
+  quizEndDateTime: any;
+  shufflleQuestions: boolean;
+  quizFromLargerPool: boolean;
+  poolOfQuestions: number;
+  allowConcurrentAccess: boolean;
+  participantType: string;
+  autoEvaluateQuiz: boolean;
+  showScoreAfterattempt: boolean;
+  postScore: boolean;
   QuestionSet = new Array<QuizSet>();
-  constructor() { }
+ 
 }
 
 export class QuizSet {
@@ -36,5 +36,4 @@ export class QuizSet {
   Option2: string;
   Option3: string;
   Option4: string;
-  constructor() { }
-}
+  }

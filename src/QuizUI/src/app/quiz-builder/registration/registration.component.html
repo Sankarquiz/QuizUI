@@ -1,7 +1,5 @@
-<form>
-  <div class="container registration-wrapper">
-
-   
+<form #registrationDetails="ngForm">
+  <div class="container registration-wrapper"> 
       <div class="col-md-6">
         <div class="form-group radio-box">
           <label for="end-duration">Team Name</label>
@@ -16,14 +14,10 @@
             <label class="form-check-label" for="exampleRadios2">
               Mandatory
             </label>
-          </div>
-
-        </div>
-        
+          </div> 
+        </div> 
         <div class="form-group radio-box">
-          <label for="end-duration">Email Id
-            
-            </label>
+          <label for="end-duration">Email Id </label>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
                 <label class="form-check-label" for="exampleRadios1">
@@ -35,16 +29,13 @@
                <label class="form-check-label" for="exampleRadios2">
                  Mandatory
                </label>
-             </div>
-
-        </div>
-
+             </div> 
+        </div> 
         <div class="form-group">
           <label for="hash-of-questions">Validate Email Id for Corporate?</label>
           <select class="form-control" id="hash-of-questions">
             <option>yes</option>
-            <option>No</option>
-           
+            <option>No</option> 
           </select>
         </div>
         <div class="form-group radio-box">
@@ -99,19 +90,12 @@
           <label for="exampleFormControlTextarea1">Enter Rules and Regulations</label>
           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
-      </div>
-    
-    <div class="reg-button">
-        <button type="button" class="btn btn-danger">
-          Save
-        </button> 
-        
-        <button type="button" class="btn btn-danger">
-            <a routerLink="/quiz-builder/create-quiz/set-pages" routerLinkActive="active">Next</a>
-          
-        </button>  
-       
-    </div>
-
+      </div> 
+    <div class="reg-button"> 
+      <button type="button" class="btn btn-danger" (click)="saveRegistration(registrationDetails)">
+        <a>Submit Registration & Set the Rules Page</a>
+      </button>  
+      <button type="button" class="btn btn-info">Preview Registration Page</button> 
+    </div> 
   </div>
 </form>

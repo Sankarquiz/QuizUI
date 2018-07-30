@@ -1,31 +1,28 @@
-<form #definethequiz="ngForm" ngNativeValidate (ngSubmit)="saveDefinequiz(definethequiz)">
-  <div class="container create-quiz-wrapper">
-
-    <div class="row">
-
-      <div class="col-md-6">
-
+<form #definethequiz="ngForm">
+  <div class="container create-quiz-wrapper"> 
+    <div class="row"> 
+      <div class="col-md-6"> 
         <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" name="quiz-name" [(ngModel)]="Name" id="name">
+          <label for="quizName">Name</label>
+          <input type="text" class="form-control" name="quizName" #quizName="ngModel" [(ngModel)]="quizDefinition.quizName" id="quizName">
         </div>
         <div class="form-group">
           <label for="host-quiz-domain">Host Quiz Domain</label>
-          <select class="form-control" id="host-quiz-domain" name="host-quiz-domain" [(ngModel)]="hostquizdomain">
+          <select class="form-control" id="hostquizdomain" name="hostQuizDomain" [(ngModel)]="quizDefinition.hostQuizDomain" #hostQuizDomain="ngModel">
             <option value="KnowledgeVyasa Domain">KnowledgeVyasa Domain</option>
             <option value="My Own Domain">My Own Domain</option>
           </select>
         </div>
         <div class="form-group">
           <label for="type-of-quiz">Type of Quiz</label>
-          <select class="form-control" id="type-of-quiz" name="type-of-quiz" [(ngModel)]="typeofquiz">
+          <select class="form-control" id="typeofquiz" name="typeOfQuiz" [(ngModel)]="quizDefinition.typeOfQuiz" #typeOfQuiz="ngModel">
             <option value="Treasure Hunt">Treasure Hunt</option>
             <option value="Free Flow">Free Flow</option>
           </select>
         </div>
         <div class="form-group">
           <label for="hash-of-questions"># of Questions</label>
-          <select class="form-control" id="hash-of-questions" name="number-of-question" [(ngModel)]="numberofquestion">
+          <select class="form-control" id="hashofquestions" name="numberofquestion" [(ngModel)]="quizDefinition.noOfQuestion" #numberOfQuestion="ngModel">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -36,7 +33,7 @@
 
         <div class="form-group">
           <label for="hash-of-participants"># of Participants</label>
-          <select class="form-control" id="hash-of-participants" name="hash-of-participants" [(ngModel)]="hashofparticipants">
+          <select class="form-control" id="noOfParticipants" name="noOfParticipants" [(ngModel)]="quizDefinition.noOfParticipants" #noOfParticipants="ngModel">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -44,8 +41,8 @@
         </div>
         <div class="form-group two-groups">
           <label for="duration">Duration of the Quiz</label>
-          <input type="text" class="form-control" id="duration" name="duration-of-quiz" [(ngModel)]="duration_of_quiz">
-          <select class="form-control" id="time" name="duration-of-quiz-time" [(ngModel)]="duration_of_quiz_time" placeholder="Minutes">
+          <input type="text" class="form-control" id="durationhour" name="durationHour" [(ngModel)]="quizDefinition.durationHour" #durationHour="ngModel">
+          <select class="form-control" id="duratontime" name="durationTime" [(ngModel)]="quizDefinition.durationTime" placeholder="Minutes" #durationTime="ngModel">
             <option value="Hours">Hours</option>
             <option Hours="Minutes">Minutes</option>
             <option [ngValue]="undefined" hidden selected> Hours </option>
@@ -53,15 +50,15 @@
         </div>
         <div class="form-group two-groups">
           <label for="start-duration">Start Time for Quiz</label>
-          <input type="text" class="form-control" id="start-duration" value="MM:DD:YY" name="Start-Date-for-Quiz" [(ngModel)]="Start_Date_For_Quiz" placeholder="MM:DD:YY">
-          <input type="text" class="form-control" id="start-duration-second-first" value="HH:MM:SS" name="Start-Time-for-Quiz" [(ngModel)]="Start_Time_For_Quiz" placeholder="HH:MM:SS">
+          <input type="text" class="form-control" id="start-duration" value="MM:DD:YY" name="quizStartDate" [(ngModel)]="quizDefinition.quizStartDate" #quizStartDate="ngModel" placeholder="MM:DD:YY">
+          <input type="text" class="form-control" id="starttimeforquiz" value="HH:MM:SS" name="quizStartDateTime" [(ngModel)]="quizDefinition.quizStartDateTime" #quizStartDateTime="ngModel" placeholder="HH:MM:SS">
 
         </div>
         <div class="form-group two-groups">
           <label for="end-duration">End Time for Quiz</label>
-          <input type="text" name="End-Date-for-Quiz" [(ngModel)]="End_Date_For_Quiz" class="form-control" id="end-duration" value="MM:DD:YY" placeholder="MM:DD:YY">
+          <input type="text" name="quizEndDate" [(ngModel)]="quizDefinition.quizEndDate" #quizEndDate="ngModel" class="form-control" id="end-duration" value="MM:DD:YY" placeholder="MM:DD:YY">
           <input type="text" class="form-control" id="end-duration-second" value="HH:MM:SS"
-                 name="End-Time-for-Quiz" [(ngModel)]="End_Time_For_Quiz" placeholder="HH:MM:SS">
+                 name="quizEndDateTime" [(ngModel)]="quizDefinition.quizEndDateTime" #quizEndDateTime="ngModel" placeholder="HH:MM:SS">
 
         </div>
 
@@ -70,13 +67,13 @@
         <div class="form-group radio-box">
           <label for="end-duration">Shuffle Questions ?</label>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Yes" name="Shuffle-Questions-?" [(ngModel)]="Shuffle_Questions">
+            <input class="form-check-input" type="radio" id="exampleRadios1" value="Yes" #shufflleQuestions="ngModel" name="Shuffle-Questions-?" [(ngModel)]="quizDefinition.shufflleQuestions">
             <label class="form-check-label" for="exampleRadios1">
               yes
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No" name="Shuffle-Questions-?" [(ngModel)]="Shuffle_Questions">
+            <input class="form-check-input" type="radio" #shufflleQuestions="ngModel" id="exampleRadios2" value="No" name="Shuffle-Questions-?" [(ngModel)]="quizDefinition.shufflleQuestions">
             <label class="form-check-label" for="exampleRadios2">
               no
             </label>
@@ -86,13 +83,13 @@
         <div class="form-group radio-box">
           <label for="end-duration">Create Quiz from larger Pool?</label>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Yes" name="Create-Quiz-from-larger-Pool?" [(ngModel)]="Create_Quiz_from_larger_Pool">
+            <input class="form-check-input" type="radio" id="exampleRadios1" value="Yes" name="Create-Quiz-from-larger-Pool?" #quizFromLargerPool="ngModel" [(ngModel)]="quizDefinition.quizFromLargerPool">
             <label class="form-check-label" for="exampleRadios1">
               yes
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No" name="Create-Quiz-from-larger-Pool?" [(ngModel)]="Create_Quiz_from_larger_Pool">
+            <input class="form-check-input" type="radio" id="exampleRadios2" value="No" name="Create-Quiz-from-larger-Pool?" #quizFromLargerPool="ngModel" [(ngModel)]="quizDefinition.quizFromLargerPool">
             <label class="form-check-label" for="exampleRadios2">
               no
             </label>
@@ -101,19 +98,19 @@
         </div>
         <div class="form-group">
           <label for="name"># of Questions in Pool</label>
-          <input type="text" class="form-control" id="name" name="Pool-Of-Questions" [(ngModel)]="Pool_Of_Questions">
+          <input type="text" class="form-control" id="name" name="Pool-Of-Questions" [(ngModel)]="quizDefinition.poolOfQuestions" #poolOfQuestions="ngModel">
         </div>
 
         <div class="form-group radio-box">
           <label for="end-duration">Allow Concurrent Access?</label>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Yes" name="Allow-Concurrent-Access?" [(ngModel)]="Allow_Concurrent_Access">
+            <input class="form-check-input" type="radio" id="exampleRadios1" value="Yes" name="Allow-Concurrent-Access?" #allowConcurrentAccess="ngModel" [(ngModel)]="quizDefinition.allowConcurrentAccess">
             <label class="form-check-label" for="exampleRadios1">
               yes
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No" name="Allow-Concurrent-Access?" [(ngModel)]="Allow_Concurrent_Access">
+            <input class="form-check-input" type="radio" id="exampleRadios2" value="No" name="Allow-Concurrent-Access?" #allowConcurrentAccess="ngModel" [(ngModel)]="quizDefinition.allowConcurrentAccess">
             <label class="form-check-label" for="exampleRadios2">
               no
             </label>
@@ -122,7 +119,7 @@
         </div>
         <div class="form-group">
           <label for="type-of-quiz">Participant Type</label>
-          <select class="form-control" id="type-of-quiz" name="Participant-Type" [(ngModel)]="ParticipantType">
+          <select class="form-control" id="type-of-quiz" name="Participant-Type" [(ngModel)]="quizDefinition.participantType" #participantType="ngModel">
             <option value="Cross College">Cross College</option>
             <option value="Same College">Same College</option>
           </select>
@@ -130,29 +127,28 @@
         <div class="form-group radio-box">
           <label for="end-duration">Auto Evaluate Quiz</label>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Yes" name="Auto-Evaluate-Quiz" [(ngModel)]="Auto_Evaluate_Quiz">
+            <input class="form-check-input" type="radio" id="exampleRadios1" value="Yes" name="Auto-Evaluate-Quiz" #autoEvaluateQuiz="ngModel" [(ngModel)]="quizDefinition.autoEvaluateQuiz">
             <label class="form-check-label" for="exampleRadios1">
               yes
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No" name="Auto-Evaluate-Quiz" [(ngModel)]="Auto_Evaluate_Quiz">
+            <input class="form-check-input" type="radio" id="exampleRadios2" value="No" name="Auto-Evaluate-Quiz" #autoEvaluateQuiz="ngModel" [(ngModel)]="quizDefinition.autoEvaluateQuiz">
             <label class="form-check-label" for="exampleRadios2">
               no
             </label>
-          </div>
-
+          </div> 
         </div>
         <div class="form-group radio-box">
           <label for="end-duration">Show Score after attempt?</label>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Yes" name="Show-Score-after-attempt?" [(ngModel)]="Show_Score_after_attempt">
+            <input class="form-check-input" type="radio" id="exampleRadios1" value="Yes" name="Show-Score-after-attempt?" #showScoreAfterattempt="ngModel" [(ngModel)]="quizDefinition.showScoreAfterattempt">
             <label class="form-check-label" for="exampleRadios1">
               yes
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No" name="Show-Score-after-attempt?" [(ngModel)]="Show_Score_after_attempt">
+            <input class="form-check-input" type="radio" id="exampleRadios2" value="No" name="Show-Score-after-attempt?" #showScoreAfterattempt="ngModel" [(ngModel)]="quizDefinition.showScoreAfterattempt">
             <label class="form-check-label" for="exampleRadios2">
               no
             </label>
@@ -162,37 +158,25 @@
         <div class="form-group radio-box">
           <label for="end-duration">Post score on Social Media?</label>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Yes" name="Post-score-on-Social-Media?" [(ngModel)]="Post_score">
+            <input class="form-check-input" type="radio" id="exampleRadios1" value="Yes" name="Post-score-on-Social-Media?" #postScore="ngModel" [(ngModel)]="quizDefinition.postScore">
             <label class="form-check-label" for="exampleRadios1">
               yes
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No" name="Post-score-on-Social-Media?" [(ngModel)]="Post_score">
+            <input class="form-check-input" type="radio" id="exampleRadios2" value="No" name="Post-score-on-Social-Media?" #postScore="ngModel" [(ngModel)]="quizDefinition.postScore">
             <label class="form-check-label" for="exampleRadios2">
               no
             </label>
-          </div>
-
+          </div> 
         </div>
       </div>
     </div>
-    <div class="reg-button">
-      <button type="submit" class="btn btn-danger">
-<<<<<<< HEAD
-        
-        <a routerLink="/quiz-builder/create-quiz/Registration" routerLinkActive="active">Next >></a>
-      
-=======
-
-        <a routerLink="['/quiz-builder/create-quiz/Registration',quizDefinition]" routerLinkActive="active">Create Registration Page for Quiz</a>
-
->>>>>>> origin/Dev
+    <div class="reg-button"> 
+      <button type="submit" class="btn btn-danger" (click)="saveDefinequiz(definethequiz)"> 
+        <a>Create Registration Page for Quiz</a> 
       </button>
-    </div>
-
-  </div>
-
+    </div> 
+  </div> 
 </form>
-
 {{ definethequiz.value | json }}

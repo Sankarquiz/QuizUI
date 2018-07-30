@@ -16,31 +16,24 @@ import { DefineTheQuizComponent } from './quiz-builder/define-the-quiz/define-th
 import { FooterComponent } from './footer/footer.component';
 import { PublishQuizMainContentComponent } from './quiz-builder/publish-quiz-main-content/publish-quiz-main-content.component';
 import { SetPagesComponent } from './quiz-builder/set-pages/set-pages.component';
-import { MainAddsComponent } from './main-adds/main-adds.component';
-import { AddsDescComponent } from './adds-desc/adds-desc.component';
-import { NewUserRegComponent } from './new-user-reg/new-user-reg.component';
 import { GetAllQuizDetailsService } from './services/service-getquizdetails';
 import { QuizDefineService } from './services/service-quizdefinition';
 import { HttpClientModule } from '@angular/common/http';
-
-
+import { FormDataService }     from './models/formData.service'; 
 
 const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
-  { path: 'quiz-bank',      component: QuizBankComponent },
-  { path: 'adds',      component: MainAddsComponent },
-  { path: 'adds-desc',      component: AddsDescComponent },
-  { path: 'user-registration',      component: NewUserRegComponent },
-  { path: 'quiz-builder',      component: QuizBuilderComponent, 
-  children: [                          
-    {
-        path:'create-quiz',
+  { path: 'quiz-bank', component: QuizBankComponent },
+  {
+    path: 'quiz-builder', component: QuizBuilderComponent,
+    children: [
+      {
+        path: 'create-quiz',
         component: CreateQuizComponent,
         children: [
           {
             path: 'define-the-Quiz',
-            component: DefineTheQuizComponent
-
+            component: DefineTheQuizComponent 
           },
           {
             path: 'Registration',
@@ -60,25 +53,21 @@ const appRoutes: Routes = [
             children: [
               {
                 path: 'first-quiz',
-                component: PublishQuizMainContentComponent
-
+                component: PublishQuizMainContentComponent 
               },
             ]
-          },
-
-        ]
-
+          }, 
+        ] 
       },
       {
         path: 'view-previous-quiz',
         component: ViewPreviousQuizComponent
-      },
-
-    ]
-
-},
-  { path: '',
-    redirectTo: '/adds',
+      }, 
+    ] 
+  },
+  {
+    path: '',
+    redirectTo: '/home',
     pathMatch: 'full'
   }
 ];
@@ -86,7 +75,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,AboutUsComponent,QuizBankComponent,QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent,  DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent, MainAddsComponent, AddsDescComponent, NewUserRegComponent,
+    HeaderComponent, AboutUsComponent, QuizBankComponent, QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent, DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,7 +83,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [GetAllQuizDetailsService, QuizDefineService],
+  providers: [GetAllQuizDetailsService, QuizDefineService, FormDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
