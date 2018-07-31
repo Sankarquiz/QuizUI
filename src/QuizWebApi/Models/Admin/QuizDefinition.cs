@@ -18,7 +18,8 @@ namespace QuizWebApi.Models.Admin
         public string QuizType { get; set; }
         public int NoOfQuestions { get; set; }
         public int NoOfParticipants { get; set; }
-        public int QuizDuration { get; set; }
+        public int QuizDurationTime { get; set; }
+        public string QuizDurationType { get; set; }
         public DateTime QuizStartTime { get; set; }
         public DateTime QuizEndTime { get; set; }
         public bool ShuffleQuestions { get; set; }

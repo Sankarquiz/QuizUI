@@ -5,10 +5,10 @@ import { FormData, QuizDefinition, QuizSet, RegistrationFields, SponserDetail } 
 @Injectable()
 export class FormDataService {
 
-  private formData: FormData  = new FormData ();
+  private formData: FormData = new FormData();
   //private registrationData: RegistrationFields = new RegistrationFields();
   //private sponserData: SponserDetail = new SponserDetail();
- // private questionData: QuizSet = new QuizSet();
+  // private questionData: QuizSet = new QuizSet();
   constructor() {
   }
 
@@ -19,9 +19,9 @@ export class FormDataService {
       QuizName: this.formData.QuizName,
       QuizDomainHost: this.formData.QuizDomainHost,
       QuizType: this.formData.QuizType,
-      NoOfQuestion: this.formData.NoOfQuestion,
+      NoOfQuestions: this.formData.NoOfQuestions,
       NoOfParticipants: this.formData.NoOfParticipants,
-      QuizDurationHour: this.formData.QuizDurationHour,
+      QuizDurationType: this.formData.QuizDurationType,
       QuizDurationTime: this.formData.QuizDurationTime,
       QuizStartDate: this.formData.QuizStartDate,
       QuizStartDateTime: this.formData.QuizStartDateTime,
@@ -37,6 +37,8 @@ export class FormDataService {
       PostScoreOnSocialMedia: this.formData.PostScoreOnSocialMedia,
       Status: this.formData.Status,
       Stage: this.formData.Stage,
+      MessageBeforeQuizTime: this.formData.MessageBeforeQuizTime,
+      MessageAfterQuizTime: this.formData.MessageAfterQuizTime,
       RegistrationFields: this.formData.RegistrationFields,
       SponsorList: this.formData.SponsorList
     };
@@ -47,9 +49,9 @@ export class FormDataService {
     this.formData.QuizName = data.QuizName;
     this.formData.QuizDomainHost = data.QuizDomainHost;
     this.formData.QuizType = data.QuizType;
-    this.formData.NoOfQuestion = data.NoOfQuestion;
+    this.formData.NoOfQuestions = data.NoOfQuestions;
     this.formData.NoOfParticipants = data.NoOfParticipants;
-    this.formData.QuizDurationHour = data.QuizDurationHour;
+    this.formData.QuizDurationType = data.QuizDurationType;
     this.formData.QuizDurationTime = data.QuizDurationTime;
     this.formData.QuizStartDate = data.QuizStartDate;
     this.formData.QuizStartDateTime = data.QuizStartDateTime;
@@ -63,8 +65,12 @@ export class FormDataService {
     this.formData.IsQuizAutoEvaluate = data.IsQuizAutoEvaluate;
     this.formData.ShowScoreAfterAttempt = data.ShowScoreAfterAttempt;
     this.formData.PostScoreOnSocialMedia = data.PostScoreOnSocialMedia;
-    this.formData.RegistrationFields= data.RegistrationFields;
-    this.formData.SponsorList= data.SponsorList;
+    this.formData.Status = data.Status;
+    this.formData.Stage = data.Stage;
+    this.formData.MessageBeforeQuizTime = data.MessageBeforeQuizTime;
+    this.formData.MessageAfterQuizTime = data.MessageAfterQuizTime;
+    this.formData.RegistrationFields = data.RegistrationFields;
+    this.formData.SponsorList = data.SponsorList;
   }
 
 
@@ -138,17 +144,17 @@ export class FormDataService {
   }
 
   getFormData(): QuizDefinition {
-  debugger;
+    debugger;
     return this.formData;
   }
- // getRegistrationData(): RegistrationFields {
+  //getRegistrationData(): RegistrationFields {
   //  return this.registrationData;
   //}
   //getSponsorData(): SponserDetail {
   //  return this.sponserData;
   //}
   //getQuestionData(): QuizSet {
- //   return this.questionData;
- // }
+  //  return this.questionData;
+  //}
 }
 

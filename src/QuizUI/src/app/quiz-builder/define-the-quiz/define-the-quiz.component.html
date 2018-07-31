@@ -43,8 +43,8 @@
         </div>
         <div class="form-group two-groups">
           <label for="duration">Duration of the Quiz</label>
-          <input type="text" class="form-control" id="duration" name="duration-of-quiz" [(ngModel)]="quizDefinition.QuizDurationHour" #QuizDurationHour="ngModel">
-          <select class="form-control" id="time" name="duration-of-quiz-time" [(ngModel)]="quizDefinition.QuizDurationTime" #QuizDurationTime="ngModel">
+          <input type="text" class="form-control" id="duration" name="duration-of-quiz" [(ngModel)]="quizDefinition.QuizDurationTime" #QuizDurationHour="ngModel">
+          <select class="form-control" id="time" name="duration-of-quiz-type" [(ngModel)]="quizDefinition.QuizDurationType" #QuizDurationTime="ngModel">
             <option value="Hours" selected>Hours</option>
             <option Hours="Minutes">Minutes</option>
           </select>
