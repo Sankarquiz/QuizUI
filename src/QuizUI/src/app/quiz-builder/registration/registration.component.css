@@ -4,9 +4,9 @@
     margin-right: 10px;
 }
 
-.registration-wrapper .col-md-6{
+.registration-wrapper .col-md-8{
     margin: 0 auto;
-    width: 60%;
+    width: 80%;
 }
 
 .registration-wrapper .form-group label{
@@ -34,3 +34,5 @@
     width: 55%;
     vertical-align: top;
 }
+
+.registration-wrapper .form-group .form-check-label { width: 100%; }
