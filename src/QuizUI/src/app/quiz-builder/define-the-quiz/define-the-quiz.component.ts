@@ -14,28 +14,16 @@ export class DefineTheQuizComponent implements OnInit {
   quizDefinition: QuizDefinition;
   form: any;
   result;
-  constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
-
-  //Shuffle_Questions='Yes';
-  //Create_Quiz_from_larger_Pool='Yes';
-  //Allow_Concurrent_Access='Yes';
-  //Auto_Evaluate_Quiz='Yes';
-  //Show_Score_after_attempt='Yes';
-  //Post_score='Yes';
-  //duration_of_quiz_time='Hours';
-  //hashofparticipants='1';
-  //ParticipantType='Cross College';
-  //hostquizdomain='KnowledgeVyasa Domain';
-  //typeofquiz="Treasure Hunt";
-  //quizDefinition = new QuizDefinition();
+  constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { } 
 
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    // console.log('Quiz Definition feature loaded!', this.quizDefinition);
+     console.log('Quiz Definition feature loaded!', this.quizDefinition);
   }
 
   saveDefinequiz(form: any) {
-
+    this.quizDefinition.Stage ="Define";
+    this.quizDefinition.Status ="Pending";
     this._saveQuizData.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => { this.result = result });
 
