@@ -1,0 +1,21 @@
+.set-pages-wrapper{
+    width: 50%;
+    margin: 0 auto;
+    }
+    
+    .set-pages-wrapper label{
+        font-weight: bold;
+    }
+    
+    .set-pages-wrapper .reg-button{
+        text-align: center;
+    
+    }
+    
+    .set-pages-wrapper .reg-button button{
+       margin: 10px;
+    }
+
+    .set-pages-wrapper a{
+        color: #ffffff;
+    }
