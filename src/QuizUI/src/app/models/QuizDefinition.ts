@@ -42,7 +42,7 @@ export class FormData {
   Path: string = '';
   Position: string = '';
   RegistrationFields = new RegistrationFields();
-  SponsorList = new Array<SponserDetail>();
+  SponsorList = new Array<SponsorDetail>();
 
 
   clear() {
@@ -51,8 +51,8 @@ export class FormData {
     this.QuizType = '';
     this.NoOfQuestions = 0;
     this.NoOfParticipants = 0;
-    this.QuizDurationTime= 0;
-    this.QuizDurationType= '';
+    this.QuizDurationTime = 0;
+    this.QuizDurationType = '';
     this.QuizStartDate = '';
     this.QuizStartDateTime = '';
     this.QuizEndDate = '';
@@ -89,7 +89,7 @@ export class FormData {
     this.Path = '';
     this.Position = '';
     this.RegistrationFields = new RegistrationFields();
-    this.SponsorList = new Array<SponserDetail>();
+    this.SponsorList = new Array<SponsorDetail>();
   }
 }
 
@@ -120,7 +120,7 @@ export class QuizDefinition {
   MessageBeforeQuizTime: string;
   MessageAfterQuizTime: string;
   RegistrationFields = new RegistrationFields();
-  SponsorList = new Array<SponserDetail>();
+  SponsorList = new Array<SponsorDetail>();
 }
 
 export class QuizSet {
@@ -148,7 +148,7 @@ export class RegistrationFields {
   RulesAndRegulations: string;
 }
 
-export class SponserDetail {
+export class SponsorDetail {
   Path: string;
   Position: string;
 }

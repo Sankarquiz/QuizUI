@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 
-import { FormData, QuizDefinition, QuizSet, RegistrationFields, SponserDetail } from './QuizDefinition';
+import { FormData, QuizDefinition, QuizSet, RegistrationFields, SponsorDetail } from './QuizDefinition';
 
 @Injectable()
 export class FormDataService {
 
   private formData: FormData = new FormData();
   //private registrationData: RegistrationFields = new RegistrationFields();
-  //private sponserData: SponserDetail = new SponserDetail();
+  //private sponserData: SponsorDetail = new SponsorDetail();
   // private questionData: QuizSet = new QuizSet();
   constructor() {
   }
 
   getQuizDefinition(): QuizDefinition {
     // Return the Quiz data
-    debugger;
     var quizDefinition: QuizDefinition = {
       QuizName: this.formData.QuizName,
       QuizDomainHost: this.formData.QuizDomainHost,
@@ -69,8 +68,14 @@ export class FormDataService {
     this.formData.Stage = data.Stage;
     this.formData.MessageBeforeQuizTime = data.MessageBeforeQuizTime;
     this.formData.MessageAfterQuizTime = data.MessageAfterQuizTime;
-    this.formData.RegistrationFields = data.RegistrationFields;
-    this.formData.SponsorList = data.SponsorList;
+    this.formData.IsTeamName = data.RegistrationFields.IsTeamName;
+    this.formData.IsEmail = data.RegistrationFields.IsEmail;
+    this.formData.IsValidateEmail = data.RegistrationFields.IsValidateEmail;
+    this.formData.IsContestantName = data.RegistrationFields.IsContestantName;
+    this.formData.IsPhone = data.RegistrationFields.IsPhone;
+    this.formData.IsContact = data.RegistrationFields.IsContact;
+    this.formData.RulesAndRegulations = data.RegistrationFields.RulesAndRegulations;
+    this.formData.SponsorList.values = data.SponsorList.values;
   }
 
 
@@ -120,41 +125,21 @@ export class FormDataService {
     return quizRegistrationFields;
   }
 
-  setRegistrationFields(data: RegistrationFields) {
-    this.formData.IsTeamName = data.IsTeamName;
-    this.formData.IsEmail = data.IsEmail;
-    this.formData.IsValidateEmail = data.IsValidateEmail;
-    this.formData.IsContestantName = data.IsContestantName;
-    this.formData.IsPhone = data.IsPhone;
-    this.formData.IsContact = data.IsContact;
-    this.formData.RulesAndRegulations = data.RulesAndRegulations;
-  }
-
-  getSponserFields(): SponserDetail {
-    var sponserDetail: SponserDetail = {
+  getSponserFields(): SponsorDetail {
+    var SponsorDetail: SponsorDetail = {
       Path: this.formData.Path,
       Position: this.formData.Position
     };
-    return sponserDetail;
+    return SponsorDetail;
   }
 
-  setSponserFields(data: SponserDetail) {
+  setSponserFields(data: SponsorDetail) {
     this.formData.Path = data.Path;
     this.formData.Position = data.Position;
   }
 
   getFormData(): QuizDefinition {
-    debugger;
     return this.formData;
   }
-  //getRegistrationData(): RegistrationFields {
-  //  return this.registrationData;
-  //}
-  //getSponsorData(): SponserDetail {
-  //  return this.sponserData;
-  //}
-  //getQuestionData(): QuizSet {
-  //  return this.questionData;
-  //}
 }
 

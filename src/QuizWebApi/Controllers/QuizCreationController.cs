@@ -143,9 +143,9 @@ namespace QuizWebApi.Controllers
         //    return Ok(response);
         //}
 
-        //[Route("/setsponserdetails")]
+        //[Route("/setSponsorDetails")]
         //[HttpPost]
-        //public async Task<IActionResult> SetSponserDetails([FromBody] SponserDetail sponserdata)
+        //public async Task<IActionResult> SetSponsorDetails([FromBody] SponsorDetail sponserdata)
         //{
         //    if (sponserdata == null || string.IsNullOrEmpty(sponserdata.QuizName) || string.IsNullOrEmpty(sponserdata.QuizType))
         //    {
@@ -156,9 +156,9 @@ namespace QuizWebApi.Controllers
         //    return Ok(response);
         //}
 
-        //[Route("/getsponserdetails")]
+        //[Route("/getSponsorDetails")]
         //[HttpPost]
-        //public async Task<IActionResult> GetSponserDetails(string quizName, string quizType)
+        //public async Task<IActionResult> GetSponsorDetails(string quizName, string quizType)
         //{
         //    if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
         //    {
