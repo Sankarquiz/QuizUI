@@ -1,13 +1,15 @@
 export class QuizDefinition {
-  Id: string;
   QuizName: string;
   QuizDomainHost: string;
   QuizType: string;
   NoOfQuestions: number;
   NoOfParticipants: number;
-  QuizDuration: number
-  QuizStartTime: any;
-  QuizEndTime: any;
+  QuizDurationHour: number;
+  QuizDurationTime: string;
+  QuizStartDate: any;
+  QuizStartDateTime: any;
+  QuizEndDate: any;
+  QuizEndDateTime: any;
   ShuffleQuestions: boolean;
   IsQuizFromLargerPool: boolean;
   NoOfQuestionsInPool: number;
@@ -18,9 +20,8 @@ export class QuizDefinition {
   PostScoreOnSocialMedia: boolean;
   Status: string;
   Stage: string;
-  RulesAndRegulations: string;
-  QuestionSet = new Array<QuizSet>();
-  constructor() { }
+  RegistrationFields = new RegistrationFields();
+  SponsorList = new Array<SponserDetail>();
 }
 
 export class QuizSet {
@@ -36,5 +37,19 @@ export class QuizSet {
   Option2: string;
   Option3: string;
   Option4: string;
-  constructor() { }
+}
+
+export class RegistrationFields {
+  TeamName: boolean;
+  EmailId: boolean;
+  ValidateEmail: boolean;
+  ContestantName: boolean;
+  PhoneNumber: boolean;
+  ContactAddress: boolean;
+  RulesAndRegulations: string;
+}
+
+export class SponserDetail {
+  Path: string;
+  Position: string;
 }

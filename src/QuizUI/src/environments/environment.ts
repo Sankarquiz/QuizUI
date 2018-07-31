@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   quizDefinitionUri: 'http://172.29.94.20:52671/define/',
   getallquizdetails: 'http://172.29.94.20:52671/getallquiz/',
+  getquizdetail: 'http://172.29.94.20:52671/getquiz/',
+  setquestion: 'http://172.29.94.20:52671/setquestion/',
 };
 
 /*

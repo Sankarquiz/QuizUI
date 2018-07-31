@@ -19,21 +19,10 @@ import { SetPagesComponent } from './quiz-builder/set-pages/set-pages.component'
 import { QuizDetailsService } from './services/service-getquizdetails';
 import { HttpClientModule } from '@angular/common/http';
 import { FormDataService } from './models/formData.service';
-import { SetLogosComponent } from './quiz-builder/set-logos/set-logos.component';
-import { CreateAccountComponent } from './quiz-builder/create-account/create-account.component';
-import { MainAddsComponent } from './main-adds/main-adds.component';
-import { AddsDescComponent } from './adds-desc/adds-desc.component';
-import { NewUserRegComponent } from './new-user-reg/new-user-reg.component';
-
-
 
 const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'quiz-bank', component: QuizBankComponent },
-  { path: 'adds', component: MainAddsComponent },
-  { path: 'adds-desc', component: AddsDescComponent },
-  { path: 'create-account', component: CreateAccountComponent },
-  { path: 'user-registration', component: NewUserRegComponent },
   {
     path: 'quiz-builder', component: QuizBuilderComponent,
     children: [
@@ -52,10 +41,6 @@ const appRoutes: Routes = [
           {
             path: 'set-pages',
             component: SetPagesComponent
-          },
-          {
-            path: 'set-logos',
-            component: SetLogosComponent
           },
           {
             path: 'set-the-quiz',
@@ -89,7 +74,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent, AboutUsComponent, QuizBankComponent, QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent, DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent, MainAddsComponent, AddsDescComponent, NewUserRegComponent, SetLogosComponent, CreateAccountComponent
+    HeaderComponent, AboutUsComponent, QuizBankComponent, QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent, DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent,
   ],
   imports: [
     BrowserModule,

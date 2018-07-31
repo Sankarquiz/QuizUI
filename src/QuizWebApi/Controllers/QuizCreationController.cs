@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
+﻿using Couchbase.N1QL;
+using Microsoft.AspNetCore.Mvc;
 using QuizWebApi.Models.Admin;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace QuizWebApi.Controllers
@@ -13,15 +15,15 @@ namespace QuizWebApi.Controllers
     [ApiController]
     public class QuizCreationController : ControllerBase
     {
-        private IMongoDatabase _mongoDatabase;
+        // private IMongoDatabase _mongoDatabase;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QuizCreationController"/> class.
         /// </summary>
         /// <param name="mongoDatabase">The mongo database.</param>
-        public QuizCreationController(IMongoDatabase mongoDatabase)
+        public QuizCreationController()
         {
-            _mongoDatabase = mongoDatabase;
+            // _mongoDatabase = mongoDatabase;
         }
 
         /// <summary>
@@ -40,89 +42,22 @@ namespace QuizWebApi.Controllers
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
-
-            var builder = Builders<QuizDefinition>.Filter;
-            var filter = builder.Eq("QuizName", request.QuizName) &
-                            builder.Eq("QuizType", request.QuizType) &
-                            builder.Eq("Status", "Published");
-
-            if (_mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
-                .Find(filter).ToList().Count > 0)
+            request.DocumentType = "Define";
+            var parameters = new Dictionary<string, object>();
+            var query = string.Format(@"SELECT quizName FROM {0} WHERE status=""{1}"" and quizName = $quizName and quizType = $quizType and documentType=""{2}""", CouchbaseHelper.Bucket, "Published", "Define");
+            parameters.Add("$quizName", request.QuizName);
+            parameters.Add("$quizType", request.QuizType);
+            var req = new QueryRequest(query);
+            req.AddNamedParameter(parameters.ToArray());
+            var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
+            if (result.Count > 0)
             {
                 return BadRequest("This Quiz is already Published.");
             }
 
-            //if (request.NoOfQuestions != request.QuestionSet?.Count)
-            //{
-            //    return BadRequest("Total Questions defined doesn't match with quiz set.");
-            //}
-
-            if (_mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
-               .Find(FilterDefinition<QuizDefinition>.Empty).ToList().Count > 1)
-            {
-                builder = Builders<QuizDefinition>.Filter;
-                filter = builder.Eq("QuizName", request.QuizName) &
-                          builder.Eq("QuizType", request.QuizType);
-                var update = Builders<QuizDefinition>.Update.Set(o => o, request);
-                var response = _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").UpdateOne(filter, update);
-
-                if (response.MatchedCount > 0 && response.ModifiedCount > 0)
-                {
-                    return Ok();
-                }
-            }
-            _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").InsertOne(request);
-            return Ok();
+            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(request.QuizName + "_" + request.QuizType, request);
+            return Ok(response);
         }
-
-        ///// <summary>
-        ///// Updates the rules.
-        ///// </summary>
-        ///// <param name="quizName">Name of the quiz.</param>
-        ///// <param name="quizType">Type of the quiz.</param>
-        ///// <param name="rules">The rules.</param>
-        ///// <returns></returns>
-        //[Route("/rules")]
-        //[HttpGet]
-        //public async Task<IActionResult> UpdateRules(string quizName, string quizType, string rules)
-        //{
-        //    if (string.IsNullOrEmpty(rules) || string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
-        //    {
-        //        return BadRequest("Mandatory Fields Missing.");
-        //    }
-
-        //    var builder = Builders<QuizDefinition>.Filter;
-        //    var filter = builder.Eq("QuizName", quizName) & builder.Eq("QuizType", quizType);
-        //    var update = Builders<QuizDefinition>.Update.Set(o => o.RulesAndRegulations, rules);
-        //    var response = _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition").UpdateOne(filter, update);
-
-        //    if (response.MatchedCount > 0 && response.ModifiedCount > 0)
-        //    {
-        //        return Ok();
-        //    }
-        //    else
-        //    {
-        //        return NotFound();
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Sets the quiz.
-        ///// </summary>
-        ///// <param name="questionSet">The question set.</param>
-        ///// <returns></returns>
-        //[Route("/set")]
-        //[HttpPost]
-        //public async Task<IActionResult> SetQuiz([FromBody] QuizSet questionSet)
-        //{
-        //    if (questionSet == null || string.IsNullOrEmpty(questionSet.QuizName) || string.IsNullOrEmpty(questionSet.QuizType))
-        //    {
-        //        return BadRequest("Mandatory Fields Missing.");
-        //    }
-
-        //    _mongoDatabase.GetCollection<QuizSet>("QuizSet").InsertOne(questionSet);
-        //    return Ok();
-        //}
 
         /// <summary>
         /// Gets all quiz.
@@ -132,8 +67,9 @@ namespace QuizWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllQuiz()
         {
-            var result = _mongoDatabase.GetCollection<QuizDefinition>("QuizDefinition")
-                .Find(FilterDefinition<QuizDefinition>.Empty).ToList();
+            var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}""", CouchbaseHelper.Bucket, "Define");
+            var req = new QueryRequest(query);
+            var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
             if (result?.Count > 0)
             {
                 return Ok(result);
@@ -143,5 +79,93 @@ namespace QuizWebApi.Controllers
                 return NotFound("No Quizes is defined so far.");
             }
         }
+
+        /// <summary>
+        /// Sets the quiz.
+        /// </summary>
+        /// <param name="questionSet">The question set.</param>
+        /// <returns></returns>
+        [Route("/setquestion")]
+        [HttpPost]
+        public async Task<IActionResult> SetQuiz([FromBody] QuizSet questionSet)
+        {
+            if (questionSet == null || string.IsNullOrEmpty(questionSet.QuizName) || string.IsNullOrEmpty(questionSet.QuizType) || questionSet.QuestionNo == 0)
+            {
+                return BadRequest("Mandatory Fields Missing.");
+            }
+            questionSet.DocumentType = "QuestionSet";
+            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(questionSet.QuizName + "_" + questionSet.QuizType + "_" + questionSet.QuestionNo, questionSet);
+            return Ok(response);
+        }
+
+        [Route("/getquiz")]
+        [HttpPost]
+        public async Task<IActionResult> GetQuiz(string quizName, string quizType, int questionNumber = 0)
+        {
+            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
+            {
+                return BadRequest("Mandatory Fields Missing.");
+            }
+            if (questionNumber == 0)
+            {
+                var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
+                return Ok(response);
+            }
+            else
+            {
+                var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizSet>(quizName + "_" + quizType + "_" + questionNumber);
+                return Ok(response);
+            }
+        }
+
+        //[Route("/setregistration")]
+        //[HttpPost]
+        //public async Task<IActionResult> SetRegistration([FromBody] RegistrationFields registrationSet)
+        //{
+        //    if (registrationSet == null || string.IsNullOrEmpty(registrationSet.QuizName) || string.IsNullOrEmpty(registrationSet.QuizType))
+        //    {
+        //        return BadRequest("Mandatory Fields Missing.");
+        //    }
+        //    registrationSet.DocumentType = "Registration";
+        //    var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(registrationSet.QuizName + "_" + registrationSet.QuizType + "_registration", registrationSet);
+        //    return Ok(response);
+        //}
+
+        //[Route("/getregistration")]
+        //[HttpPost]
+        //public async Task<IActionResult> GetRegistration(string quizName, string quizType)
+        //{
+        //    if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
+        //    {
+        //        return BadRequest("Mandatory Fields Missing.");
+        //    }
+        //    var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<RegistrationFields>(quizName + "_" + quizType + "_registration");
+        //    return Ok(response);
+        //}
+
+        //[Route("/setsponserdetails")]
+        //[HttpPost]
+        //public async Task<IActionResult> SetSponserDetails([FromBody] SponserDetail sponserdata)
+        //{
+        //    if (sponserdata == null || string.IsNullOrEmpty(sponserdata.QuizName) || string.IsNullOrEmpty(sponserdata.QuizType))
+        //    {
+        //        return BadRequest("Mandatory Fields Missing.");
+        //    }
+        //    sponserdata.DocumentType = "Registration";
+        //    var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(sponserdata.QuizName + "_" + sponserdata.QuizType + "_sponser", sponserdata);
+        //    return Ok(response);
+        //}
+
+        //[Route("/getsponserdetails")]
+        //[HttpPost]
+        //public async Task<IActionResult> GetSponserDetails(string quizName, string quizType)
+        //{
+        //    if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
+        //    {
+        //        return BadRequest("Mandatory Fields Missing.");
+        //    }
+        //    var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<RegistrationFields>(quizName + "_" + quizType + "_sponser");
+        //    return Ok(response);
+        //}
     }
 }

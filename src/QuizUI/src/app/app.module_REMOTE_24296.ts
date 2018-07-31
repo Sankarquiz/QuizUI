@@ -16,34 +16,34 @@ import { DefineTheQuizComponent } from './quiz-builder/define-the-quiz/define-th
 import { FooterComponent } from './footer/footer.component';
 import { PublishQuizMainContentComponent } from './quiz-builder/publish-quiz-main-content/publish-quiz-main-content.component';
 import { SetPagesComponent } from './quiz-builder/set-pages/set-pages.component';
-import { QuizDetailsService } from './services/service-getquizdetails';
-import { HttpClientModule } from '@angular/common/http';
-import { FormDataService } from './models/formData.service';
-import { SetLogosComponent } from './quiz-builder/set-logos/set-logos.component';
-import { CreateAccountComponent } from './quiz-builder/create-account/create-account.component';
 import { MainAddsComponent } from './main-adds/main-adds.component';
 import { AddsDescComponent } from './adds-desc/adds-desc.component';
 import { NewUserRegComponent } from './new-user-reg/new-user-reg.component';
+import { GetAllQuizDetailsService } from './services/service-getquizdetails';
+import { QuizDefineService } from './services/service-quizdefinition';
+import { HttpClientModule } from '@angular/common/http';
+import { SetLogosComponent } from './quiz-builder/set-logos/set-logos.component';
+import { CreateAccountComponent } from './quiz-builder/create-account/create-account.component';
 
 
 
 const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
-  { path: 'quiz-bank', component: QuizBankComponent },
-  { path: 'adds', component: MainAddsComponent },
-  { path: 'adds-desc', component: AddsDescComponent },
-  { path: 'create-account', component: CreateAccountComponent },
-  { path: 'user-registration', component: NewUserRegComponent },
-  {
-    path: 'quiz-builder', component: QuizBuilderComponent,
-    children: [
-      {
-        path: 'create-quiz',
+  { path: 'quiz-bank',      component: QuizBankComponent },
+  { path: 'adds',      component: MainAddsComponent },
+  { path: 'adds-desc',      component: AddsDescComponent },
+  { path: 'create-account',      component: CreateAccountComponent },
+  { path: 'user-registration',      component: NewUserRegComponent },
+  { path: 'quiz-builder',      component: QuizBuilderComponent, 
+  children: [                          
+    {
+        path:'create-quiz',
         component: CreateQuizComponent,
         children: [
           {
             path: 'define-the-Quiz',
             component: DefineTheQuizComponent
+
           },
           {
             path: 'Registration',
@@ -68,20 +68,24 @@ const appRoutes: Routes = [
               {
                 path: 'first-quiz',
                 component: PublishQuizMainContentComponent
+
               },
             ]
           },
+
         ]
+
       },
       {
         path: 'view-previous-quiz',
         component: ViewPreviousQuizComponent
       },
+
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/home',
+
+},
+  { path: '',
+    redirectTo: '/adds',
     pathMatch: 'full'
   }
 ];
@@ -89,7 +93,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent, AboutUsComponent, QuizBankComponent, QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent, DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent, MainAddsComponent, AddsDescComponent, NewUserRegComponent, SetLogosComponent, CreateAccountComponent
+    HeaderComponent,AboutUsComponent,QuizBankComponent,QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent,  DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent, MainAddsComponent, AddsDescComponent, NewUserRegComponent, SetLogosComponent, CreateAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,7 +101,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [QuizDetailsService, FormDataService],
+  providers: [GetAllQuizDetailsService, QuizDefineService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

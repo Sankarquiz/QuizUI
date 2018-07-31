@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { QuizDefinition } from '../../models/QuizDefinition';
-import { debug } from 'util';
+import { FormDataService } from '../../models/formData.service';
+import { QuizDetailsService } from '../../services/service-getquizdetails';
 
 @Component({
   selector: 'app-define-the-quiz',
@@ -9,40 +10,40 @@ import { debug } from 'util';
   styleUrls: ['./define-the-quiz.component.css']
 })
 export class DefineTheQuizComponent implements OnInit {
-  Shuffle_Questions='Yes';
-  Create_Quiz_from_larger_Pool='Yes';
-  Allow_Concurrent_Access='Yes';
-  Auto_Evaluate_Quiz='Yes';
-  Show_Score_after_attempt='Yes';
-  Post_score='Yes';
-  duration_of_quiz_time='Hours';
-  hashofparticipants='1';
-  ParticipantType='Cross College';
-  hostquizdomain='KnowledgeVyasa Domain';
-  typeofquiz="Treasure Hunt";
-  quizDefinition = new QuizDefinition();
-  constructor() { }
+
+  quizDefinition: QuizDefinition;
+  form: any;
+  result;
+  constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
+
+  //Shuffle_Questions='Yes';
+  //Create_Quiz_from_larger_Pool='Yes';
+  //Allow_Concurrent_Access='Yes';
+  //Auto_Evaluate_Quiz='Yes';
+  //Show_Score_after_attempt='Yes';
+  //Post_score='Yes';
+  //duration_of_quiz_time='Hours';
+  //hashofparticipants='1';
+  //ParticipantType='Cross College';
+  //hostquizdomain='KnowledgeVyasa Domain';
+  //typeofquiz="Treasure Hunt";
+  //quizDefinition = new QuizDefinition();
 
   ngOnInit() {
+    this.quizDefinition = this.formDataService.getQuizDefinition();
+    // console.log('Quiz Definition feature loaded!', this.quizDefinition);
   }
-  saveDefinequiz(quizform: NgForm): void {
 
-    this.quizDefinition.QuizName = quizform.value["quiz-name"];
-    this.quizDefinition.QuizDomainHost = quizform.value["host-quiz-domain"];
-    this.quizDefinition.QuizType = quizform.value["type-of-quiz"];
-    this.quizDefinition.NoOfQuestions = quizform.value["number-of-question"];
-    this.quizDefinition.NoOfParticipants = quizform.value["hash-of-participants"];
-    this.quizDefinition.QuizDuration = quizform.value["duration-of-quiz"];
-    this.quizDefinition.QuizStartTime = quizform.value["Start-Date-for-Quiz"];
-    this.quizDefinition.QuizEndTime = quizform.value["End-Date-for-Quiz"];
-    this.quizDefinition.ShuffleQuestions = quizform.value["Shuffle-Questions-?"];
-    this.quizDefinition.IsQuizFromLargerPool = quizform.value["Create-Quiz-from-larger-Pool?"];
-    this.quizDefinition.NoOfQuestionsInPool = quizform.value["Pool-Of-Questions"];
-    this.quizDefinition.AllowConcurrentAccess = quizform.value["Allow-Concurrent-Access?"];
-    this.quizDefinition.ParticipantType = quizform.value["Participant-Type"];
-    this.quizDefinition.IsQuizAutoEvaluate = quizform.value["Auto-Evaluate-Quiz"];
-    this.quizDefinition.PostScoreOnSocialMedia = quizform.value["Show-Score-after-attempt?"];
-    this.quizDefinition.Stage = "Define";
-    this.quizDefinition.Status = "Pending";
+  saveDefinequiz(form: any) {
+
+    this._saveQuizData.SaveQuizData(this.quizDefinition)
+      .subscribe((result: any) => { this.result = result });
+
+    if (this.result) {
+      this.formDataService.setQuizDefinition(this.quizDefinition);
+      this.router.navigate(['/quiz-builder/create-quiz/Registration']);
+    } else {
+      alert('Not Saved.');
+    }
   }
-}
+} 

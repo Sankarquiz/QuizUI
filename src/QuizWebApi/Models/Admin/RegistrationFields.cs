@@ -8,5 +8,6 @@
         public bool ContestantName { get; set; }
         public bool PhoneNumber { get; set; }
         public bool ContactAddress { get; set; }
+        public string RulesAndRegulations { get; set; }
     }
 }
