@@ -19,7 +19,7 @@ export class FormDataService {
       QuizName: this.formData.QuizName,
       QuizDomainHost: this.formData.QuizDomainHost,
       QuizType: this.formData.QuizType,
-      NoOfQuestion: this.formData.NoOfQuestion,
+      NoOfQuestions: this.formData.NoOfQuestions,
       NoOfParticipants: this.formData.NoOfParticipants,
       QuizDurationHour: this.formData.QuizDurationHour,
       QuizDurationTime: this.formData.QuizDurationTime,
