@@ -41,8 +41,8 @@ export class FormData {
   RulesAndRegulations: string = '';
   Path: string = '';
   Position: string = '';
-  RegistrationFields = new RegistrationFields();
-  SponsorList = new Array<SponsorDetail>();
+  RegistrationFields: RegistrationFields;
+  SponsorList: Array<SponsorDetail>;
 
 
   clear() {

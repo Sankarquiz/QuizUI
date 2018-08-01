@@ -4,6 +4,7 @@ import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -13,11 +14,18 @@ import { NgForm } from '@angular/forms';
 })
 export class RegistrationComponent implements OnInit {
   quizDefinition: QuizDefinition;
-  result;
+  result: Observable<any>;
   constructor(private _saveRegistration: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
+    this.quizDefinition.RegistrationFields.IsTeamName = true;
+    this.quizDefinition.RegistrationFields.IsEmail = true;
+    this.quizDefinition.RegistrationFields.IsValidateEmail = true;
+    this.quizDefinition.RegistrationFields.IsContestantName = true;
+    this.quizDefinition.RegistrationFields.IsPhone = true;
+    this.quizDefinition.RegistrationFields.IsContact = true;
+
   }
   SaveRegistration(registrationform: NgForm) {
     this.quizDefinition.RegistrationFields.IsTeamName = (registrationform.value["team-name"] == "Yes") ? true : false;

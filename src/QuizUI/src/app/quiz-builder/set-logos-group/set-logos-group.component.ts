@@ -4,6 +4,7 @@ import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { Router } from '@angular/router';
 import { FormDataService } from '../../models/formData.service';
 import { EventEmitter } from 'events';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-set-logos-group',
@@ -14,7 +15,7 @@ export class SetLogosGroupComponent implements OnInit {
 
   quizDefinition: QuizDefinition;
   sponsor;
-  result;
+  result: Observable<any>;
   @Output() originCode = new EventEmitter();
   constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { QuizDefinition } from '../../models/QuizDefinition';
 import { FormDataService } from '../../models/formData.service';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-define-the-quiz',
@@ -13,17 +14,30 @@ export class DefineTheQuizComponent implements OnInit {
 
   quizDefinition: QuizDefinition;
   form: any;
-  result;
-  constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { } 
+  result: Observable<any>;
+  constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
 
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
-     console.log('Quiz Definition feature loaded!', this.quizDefinition);
+    if (this.quizDefinition.QuizName == '') {
+      this.quizDefinition.ShuffleQuestions = true;
+      this.quizDefinition.IsQuizFromLargerPool = true;
+      this.quizDefinition.AllowConcurrentAccess = true;
+      this.quizDefinition.IsQuizAutoEvaluate = true;
+      this.quizDefinition.ShowScoreAfterAttempt = true;
+      this.quizDefinition.PostScoreOnSocialMedia = true;
+      this.quizDefinition.QuizDurationType = 'Hours';
+      this.quizDefinition.NoOfParticipants = 1;
+      this.quizDefinition.ParticipantType = 'Cross College';
+      this.quizDefinition.QuizDomainHost = 'KnowledgeVyasa Domain';
+      this.quizDefinition.QuizType = "Treasure Hunt";
+    } 
+    console.log('Quiz Definition feature loaded!', this.quizDefinition);
   }
 
   saveDefinequiz(form: any) {
-    this.quizDefinition.Stage ="Define";
-    this.quizDefinition.Status ="Pending";
+    this.quizDefinition.Stage = "Define";
+    this.quizDefinition.Status = "Pending";
     this._saveQuizData.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => { this.result = result });
 
