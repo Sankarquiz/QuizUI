@@ -81,7 +81,7 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/adds',
     pathMatch: 'full'
   }
 ];
