@@ -72,7 +72,6 @@ export class FormDataService {
     this.formData.SponsorList.concat(data.SponsorList);
   }
 
-
   getQuizSet(): QuizSet {
     var quizSet: QuizSet = {
       QuizName: this.formData.QuizName,

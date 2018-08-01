@@ -14,15 +14,46 @@ import { Router } from '@angular/router';
 export class SetTheQuizComponent implements OnInit {
   quizDefinition: QuizDefinition;
   result: Observable<any>;
-  currentQuestionNo;
-  questionset: QuizSet;
-  constructor(private _saveRegistration: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
+  currentQuestionNo: number = 0;
+  previousQuestionNo;
+  questionset = new QuizSet();
+  constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
   }
 
   SaveQuestion(question: NgForm) {
+    debugger;
+    this.questionset.QuizName = this.quizDefinition.QuizName;
+    this.questionset.QuizType = this.quizDefinition.QuizType;
+    this.questionset.QuestionNo = this.currentQuestionNo + 1;
+    this._saveQuestion.SaveQuestion(this.questionset)
+      .subscribe((result: any) => { this.result = result });
+    if (this.result) {
+      alert("saved");
+      question.reset();
+    }
+    else {
+      if (this.currentQuestionNo > 0) { }
+      this.currentQuestionNo--;
+    }
+  }
 
+  Publish() {
+    if (this.quizDefinition.NoOfQuestions == this.currentQuestionNo) {
+      this.quizDefinition.Stage = "SetQuestion";
+      this.quizDefinition.Status = "Pending";
+      this._saveQuestion.SaveQuizData(this.quizDefinition)
+        .subscribe((result: any) => { this.result = result });
+
+      if (this.result) {
+        this.formDataService.setQuizDefinition(this.quizDefinition);
+        this.router.navigate(['/quiz-builder/create-quiz/publish-quiz']);
+      } else {
+        alert('Not Submitted.');
+      }
+    }
+    alert('Please enter all questions. You entered' + this.currentQuestionNo + ' question so far.')
   }
 }

@@ -19,7 +19,7 @@ export class QuizDetailsService {
     return this._http.get(environment.getallquizdetails, this.httpOptions);
   }
 
-  GetQuizData(quizName: string, quizType: string, questionNo: Int16Array) {
+  GetQuizData(quizName: string, quizType: string, questionNo: number) {
     let uri = environment.getquizdetail + "?quizName=" + quizName + "&quizType=" + quizType;
     return this._http.get(uri, this.httpOptions);
   }

@@ -126,7 +126,7 @@ export class QuizDefinition {
 export class QuizSet {
   QuizName: string;
   QuizType: string;
-  QuestionNo: string;
+  QuestionNo: number;
   QuestionText: string;
   ImageUrl: string;
   AnswerType: string;
