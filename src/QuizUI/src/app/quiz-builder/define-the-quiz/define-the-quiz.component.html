@@ -24,11 +24,11 @@
             <option value="Free Flow">Free Flow</option>
           </select>
         </div>
-        <div class="form-group" [class.success]="NoOfQuestion.valid" [class.has-error]="NoOfQuestion.invalid && NoOfQuestion.touched">
+        <div class="form-group" [class.success]="NoOfQuestions.valid" [class.has-error]="NoOfQuestions.invalid && NoOfQuestions.touched">
           <label for="hash-of-questions" class="control-label"># of Questions</label>
 
-          <input required type="text" class="form-control" name="number-of-question" [(ngModel)]="quizDefinition.NoOfQuestion" #NoOfQuestion="ngModel">
-          <span class="help-block" *ngIf="NoOfQuestion.invalid && NoOfQuestion.touched">
+          <input required type="text" class="form-control" name="number-of-question" [(ngModel)]="quizDefinition.NoOfQuestions" #NoOfQuestions="ngModel">
+          <span class="help-block" *ngIf="NoOfQuestions.invalid && NoOfQuestions.touched">
             Specify the Number
           </span>
         </div>
