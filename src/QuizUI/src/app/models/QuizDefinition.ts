@@ -39,8 +39,8 @@ export class FormData {
   IsPhone: boolean;
   IsContact: boolean;
   RulesAndRegulations: string = '';
-  Path: string = '';
-  Position: string = '';
+  //Path: string = '';
+  //Position: string = '';
   RegistrationFields = new RegistrationFields();
   SponsorList = new Array<SponsorDetail>();
 
@@ -86,8 +86,8 @@ export class FormData {
     this.IsPhone = true;
     this.IsContact = true;
     this.RulesAndRegulations = '';
-    this.Path = '';
-    this.Position = '';
+    //this.Path = '';
+    //this.Position = '';
     this.RegistrationFields = new RegistrationFields();
     this.SponsorList = new Array<SponsorDetail>();
   }

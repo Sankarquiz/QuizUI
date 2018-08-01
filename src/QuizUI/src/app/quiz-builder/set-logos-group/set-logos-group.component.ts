@@ -45,6 +45,7 @@ export class SetLogosGroupComponent implements OnInit {
       .subscribe((result: any) => { this.result = result });
 
     if (this.result) {
+      this.formDataService.setSponserFields(this.quizDefinition.SponsorList);
       this.formDataService.setQuizDefinition(this.quizDefinition);
       this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
     } else {

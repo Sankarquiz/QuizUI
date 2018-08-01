@@ -1,17 +1,11 @@
 import { Injectable } from '@angular/core';
-
 import { FormData, QuizDefinition, QuizSet, RegistrationFields, SponsorDetail } from './QuizDefinition';
-
 @Injectable()
 export class FormDataService {
 
   private formData: FormData = new FormData();
-  //private registrationData: RegistrationFields = new RegistrationFields();
-  //private sponserData: SponsorDetail = new SponsorDetail();
-  // private questionData: QuizSet = new QuizSet();
   constructor() {
   }
-
   getQuizDefinition(): QuizDefinition {
     // Return the Quiz data
     var quizDefinition: QuizDefinition = {
@@ -38,8 +32,8 @@ export class FormDataService {
       Stage: this.formData.Stage,
       MessageBeforeQuizTime: this.formData.MessageBeforeQuizTime,
       MessageAfterQuizTime: this.formData.MessageAfterQuizTime,
-      RegistrationFields: this.formData.RegistrationFields,
-      SponsorList: this.formData.SponsorList
+      RegistrationFields: this.getRegistrationFields(),
+      SponsorList: this.getSponserFields()
     };
     return quizDefinition;
   }
@@ -75,7 +69,7 @@ export class FormDataService {
     this.formData.IsPhone = data.RegistrationFields.IsPhone;
     this.formData.IsContact = data.RegistrationFields.IsContact;
     this.formData.RulesAndRegulations = data.RegistrationFields.RulesAndRegulations;
-    this.formData.SponsorList.values = data.SponsorList.values;
+    this.formData.SponsorList.concat(data.SponsorList);
   }
 
 
@@ -125,17 +119,13 @@ export class FormDataService {
     return quizRegistrationFields;
   }
 
-  getSponserFields(): SponsorDetail {
-    var SponsorDetail: SponsorDetail = {
-      Path: this.formData.Path,
-      Position: this.formData.Position
-    };
-    return SponsorDetail;
+  getSponserFields(): SponsorDetail[] {
+    return this.formData.SponsorList;
   }
 
-  setSponserFields(data: SponsorDetail) {
-    this.formData.Path = data.Path;
-    this.formData.Position = data.Position;
+  setSponserFields(data: SponsorDetail[]) {
+    this.formData.SponsorList = new Array<SponsorDetail>()
+    this.formData.SponsorList.concat(data);
   }
 
   getFormData(): QuizDefinition {
