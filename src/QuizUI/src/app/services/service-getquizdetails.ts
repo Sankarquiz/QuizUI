@@ -8,6 +8,8 @@ export class QuizDetailsService {
     headers: new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Access-Control-Allow-Origin', '*')
+      .append('Access-Control-Allow-Headers', '*')
+      .append('ccess-Control-Allow-Methods', '*')
   };
 
   constructor(private _http: HttpClient) {
@@ -23,10 +25,10 @@ export class QuizDetailsService {
   }
 
   SaveQuizData(quizDefinition: any) {
-    return this._http.post(environment.quizDefinitionUri, quizDefinition, this.httpOptions);
+    return this._http.post(environment.quizDefinitionUri, JSON.stringify(quizDefinition), this.httpOptions);
   }
   SaveQuestion(question: any) {
-    return this._http.post(environment.setquestion, question, this.httpOptions);
+    return this._http.post(environment.setquestion, JSON.stringify(question), this.httpOptions);
   }
 
   //GetRegistrationData(quizName: string, quizType: string) {

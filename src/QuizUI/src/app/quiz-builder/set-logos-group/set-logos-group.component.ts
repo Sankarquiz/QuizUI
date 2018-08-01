@@ -28,7 +28,13 @@ export class SetLogosGroupComponent implements OnInit {
     this.sponsor = new SponsorDetail();
     this.sponsor.Path = path;
     this.sponsor.Position = location;
-    this.quizDefinition.SponsorList.push(this.sponsor);
+    if (this.quizDefinition.SponsorList.filter(x => x.Position == location).length > 0) {
+      let index = this.quizDefinition.SponsorList.findIndex(x => x.Position == location);
+      this.quizDefinition.SponsorList[index] = this.sponsor;
+    }
+    else {
+      this.quizDefinition.SponsorList.push(this.sponsor);
+    }
   }
 
   SaveSponsorDetails(sponsordetail) {

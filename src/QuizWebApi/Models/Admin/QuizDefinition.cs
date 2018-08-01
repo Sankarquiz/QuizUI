@@ -10,7 +10,7 @@ namespace QuizWebApi.Models.Admin
     {
         public QuizDefinition()
         {
-            SponserList = new List<SponsorDetail>();
+            SponsorList = new List<SponsorDetail>();
         }
         public string DocumentType { get; set; }
         public string QuizName { get; set; }

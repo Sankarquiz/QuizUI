@@ -77,7 +77,7 @@ namespace QuizWebApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //var mongoClient = new MongoClient("mongodb://localhost:27017");
             //mongoClient.GetDatabase("QuizDB");
-           // services.AddSingleton<IMongoDatabase>(MongodbClient.GetMongoDatabase());
+            // services.AddSingleton<IMongoDatabase>(MongodbClient.GetMongoDatabase());
             services.AddCouchbase(Configuration.GetSection("Couchbase"));
             services.AddCouchbaseBucket<IQuizBucketProvider>("Quiz", "quiz@123");
             services.AddCors(options =>
@@ -97,8 +97,8 @@ namespace QuizWebApi
         /// <param name="env">The env.</param>
         /// <param name="provider">The provider.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider provider, IApplicationLifetime applicationLifetime)
-        {
-            app.UseCors("CorsPolicy");
+        {           
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

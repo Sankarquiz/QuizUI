@@ -31,7 +31,7 @@ export class DefineTheQuizComponent implements OnInit {
       this.quizDefinition.ParticipantType = 'Cross College';
       this.quizDefinition.QuizDomainHost = 'KnowledgeVyasa Domain';
       this.quizDefinition.QuizType = "Treasure Hunt";
-    } 
+    }
     console.log('Quiz Definition feature loaded!', this.quizDefinition);
   }
 
@@ -39,7 +39,7 @@ export class DefineTheQuizComponent implements OnInit {
     this.quizDefinition.Stage = "Define";
     this.quizDefinition.Status = "Pending";
     this._saveQuizData.SaveQuizData(this.quizDefinition)
-      .subscribe((result: any) => { this.result = result });
+      .subscribe((response: any) => { this.result = response });
 
     if (this.result) {
       this.formDataService.setQuizDefinition(this.quizDefinition);

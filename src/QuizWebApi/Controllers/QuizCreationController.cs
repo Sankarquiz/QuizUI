@@ -11,7 +11,7 @@ namespace QuizWebApi.Controllers
     /// 
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
-    [Route("api/quiz")]
+    [Route("api/quiz/[action]")]
     [ApiController]
     public class QuizCreationController : ControllerBase
     {
@@ -31,7 +31,7 @@ namespace QuizWebApi.Controllers
         /// </summary>
         /// <param name="request">The request.</param> 
         /// <returns></returns>
-        [Route("/define")]
+        //[Route("/define")]
         [HttpPost]
         public async Task<IActionResult> DefineQuiz([FromBody]QuizDefinition request)
         {
@@ -63,7 +63,7 @@ namespace QuizWebApi.Controllers
         /// Gets all quiz.
         /// </summary>
         /// <returns></returns>
-        [Route("/getallquiz")]
+        //[Route("/getallquiz")]
         [HttpGet]
         public async Task<IActionResult> GetAllQuiz()
         {
@@ -85,7 +85,7 @@ namespace QuizWebApi.Controllers
         /// </summary>
         /// <param name="questionSet">The question set.</param>
         /// <returns></returns>
-        [Route("/setquestion")]
+        //[Route("/setquestion")]
         [HttpPost]
         public async Task<IActionResult> SetQuiz([FromBody] QuizSet questionSet)
         {
@@ -98,7 +98,7 @@ namespace QuizWebApi.Controllers
             return Ok(response);
         }
 
-        [Route("/getquiz")]
+        //[Route("/getquiz")]
         [HttpPost]
         public async Task<IActionResult> GetQuiz(string quizName, string quizType, int questionNumber = 0)
         {

@@ -41,8 +41,8 @@
       <div class="form-group">
         <label for="hash-of-questions">Validate Email Id for Corporate?</label>
         <select class="form-control" id="hash-of-questions" name="validateemail" [(ngModel)]="quizDefinition.RegistrationFields.IsValidateEmail" #IsValidateEmail="ngModel">
-          <option>Yes</option>
-          <option>No</option>
+          <option [value]="true">Yes</option>
+          <option [value]="false">No</option>
 
         </select>
       </div>

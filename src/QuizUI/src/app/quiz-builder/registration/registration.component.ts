@@ -18,7 +18,9 @@ export class RegistrationComponent implements OnInit {
   constructor(private _saveRegistration: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
+    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
+    this.quizDefinition.RegistrationFields = new RegistrationFields();
     this.quizDefinition.RegistrationFields.IsTeamName = true;
     this.quizDefinition.RegistrationFields.IsEmail = true;
     this.quizDefinition.RegistrationFields.IsValidateEmail = true;
@@ -28,13 +30,13 @@ export class RegistrationComponent implements OnInit {
 
   }
   SaveRegistration(registrationform: NgForm) {
-    this.quizDefinition.RegistrationFields.IsTeamName = (registrationform.value["team-name"] == "Yes") ? true : false;
-    this.quizDefinition.RegistrationFields.IsEmail = (registrationform.value["email"] == "Yes") ? true : false;
-    this.quizDefinition.RegistrationFields.IsValidateEmail = (registrationform.value["validateemail"] == "Yes") ? true : false;
-    this.quizDefinition.RegistrationFields.IsContestantName = (registrationform.value["contestant"] == "Yes") ? true : false;
-    this.quizDefinition.RegistrationFields.IsPhone = (registrationform.value["phone"] == "option1") ? true : false;
-    this.quizDefinition.RegistrationFields.IsContact = (registrationform.value["contactaddress"] == "Yes") ? true : false;
-    this.quizDefinition.RegistrationFields.RulesAndRegulations = registrationform.value["rules"];
+    //this.quizDefinition.RegistrationFields.IsTeamName = (registrationform.value["team-name"] == "Yes") ? true : false;
+    //this.quizDefinition.RegistrationFields.IsEmail = (registrationform.value["email"] == "Yes") ? true : false;
+    //this.quizDefinition.RegistrationFields.IsValidateEmail = (registrationform.value["validateemail"] == "Yes") ? true : false;
+    //this.quizDefinition.RegistrationFields.IsContestantName = (registrationform.value["contestant"] == "Yes") ? true : false;
+    //this.quizDefinition.RegistrationFields.IsPhone = (registrationform.value["phone"] == "option1") ? true : false;
+    //this.quizDefinition.RegistrationFields.IsContact = (registrationform.value["contactaddress"] == "Yes") ? true : false;
+    //this.quizDefinition.RegistrationFields.RulesAndRegulations = registrationform.value["rules"];
     this.quizDefinition.Stage = "Registration";
     this.quizDefinition.Status = "Pending";
     this._saveRegistration.SaveQuizData(this.quizDefinition)
