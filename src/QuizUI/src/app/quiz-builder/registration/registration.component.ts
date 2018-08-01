@@ -18,7 +18,6 @@ export class RegistrationComponent implements OnInit {
   constructor(private _saveRegistration: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
-    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.quizDefinition.RegistrationFields = new RegistrationFields();
     this.quizDefinition.RegistrationFields.IsTeamName = true;

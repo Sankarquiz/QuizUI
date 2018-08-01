@@ -2,7 +2,7 @@
   <div class="set-pages-wrapper">
     <div class="form-group">
       <label for="name">Select Logo</label>
-      <input type="file" name="logoselected" [formControl]="imageselectlocation" (focusout)="onFileChanged($event)" class="form-control">
+      <input type="file" name="logoselected" [formControl]="imageselectlocation" (change)="onFileChanged($event)" class="form-control">
     </div>
     <p>Or</p>
     <div class="form-group">

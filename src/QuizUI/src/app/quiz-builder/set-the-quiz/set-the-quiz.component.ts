@@ -17,6 +17,7 @@ export class SetTheQuizComponent implements OnInit {
   currentQuestionNo: number = 0;
   previousQuestionNo;
   questionset = new QuizSet();
+  disablePublish: boolean = true;
   constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
@@ -27,16 +28,20 @@ export class SetTheQuizComponent implements OnInit {
     debugger;
     this.questionset.QuizName = this.quizDefinition.QuizName;
     this.questionset.QuizType = this.quizDefinition.QuizType;
-    this.questionset.QuestionNo = this.currentQuestionNo + 1;
+    this.questionset.QuestionNo = ++this.currentQuestionNo;
     this._saveQuestion.SaveQuestion(this.questionset)
       .subscribe((result: any) => { this.result = result });
     if (this.result) {
-      alert("saved");
-      question.reset();
+      alert("Saved");
+      this.questionset = new QuizSet();
     }
     else {
       if (this.currentQuestionNo > 0) { }
       this.currentQuestionNo--;
+    }
+
+    if (this.quizDefinition.NoOfQuestions == this.currentQuestionNo) {
+      this.disablePublish = false;
     }
   }
 
