@@ -21,6 +21,9 @@ export class QuizDetailsService {
 
   GetQuizData(quizName: string, quizType: string, questionNo: number) {
     let uri = environment.getquizdetail + "?quizName=" + quizName + "&quizType=" + quizType;
+    if (questionNo > 0) {
+      uri += "&questionNumber=" + questionNo;
+    }
     return this._http.get(uri, this.httpOptions);
   }
 
