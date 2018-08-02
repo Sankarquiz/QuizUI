@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizWebApi", "QuizWebApi\QuizWebApi.csproj", "{D7A488A5-8B65-48F7-923A-3A0CA6B01322}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizUI", "QuizUI\QuizUI\QuizUI.csproj", "{5E587B41-6D41-493D-84C6-5CAFD9180BAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizUI", "QuizUI\QuizUI.csproj", "{E31A0B5A-8608-4C80-B002-2D273BA63215}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{D7A488A5-8B65-48F7-923A-3A0CA6B01322}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7A488A5-8B65-48F7-923A-3A0CA6B01322}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7A488A5-8B65-48F7-923A-3A0CA6B01322}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E587B41-6D41-493D-84C6-5CAFD9180BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E587B41-6D41-493D-84C6-5CAFD9180BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E587B41-6D41-493D-84C6-5CAFD9180BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E587B41-6D41-493D-84C6-5CAFD9180BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E31A0B5A-8608-4C80-B002-2D273BA63215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E31A0B5A-8608-4C80-B002-2D273BA63215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E31A0B5A-8608-4C80-B002-2D273BA63215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E31A0B5A-8608-4C80-B002-2D273BA63215}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

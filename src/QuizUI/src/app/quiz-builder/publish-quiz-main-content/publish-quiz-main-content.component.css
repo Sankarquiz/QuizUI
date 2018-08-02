@@ -1,0 +1,50 @@
+.main-content-quiz p{
+    text-align: left;
+    padding-top: 20px;
+    font-weight: 600;
+}
+
+.main-content-quiz img{
+    height: 115px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    margin-top: -32px;
+}
+.question-list{
+    margin-bottom: 20px;
+}
+
+.question-list div{
+width: 300px;
+margin: 0 auto;
+color: #e62f2d;
+}
+
+.question-list div label{
+    width: 50%;
+    text-align: right;
+    margin-right: 12px;
+    color: #00CCFF;
+    }
+    
+    
+    .main-content-quiz .reg-button{
+text-align: center;
+    }
+
+    .main-content-quiz .reg-button a{
+        color: #ffffff;
+        text-decoration: none;
+            }
+
+            
+            
+
+            .main-content-quiz .reg-button button{
+               margin: 10px;
+                    }
+
+                    .main-content-quiz .reg-button{
+                       margin-bottom: 30px;
+                            }

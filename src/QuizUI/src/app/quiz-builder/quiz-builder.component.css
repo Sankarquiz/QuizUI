@@ -1,0 +1,23 @@
+.create-quiz-section{
+display: block;
+height: 76px;
+}
+
+.create-quiz-section >.container  a{
+    color: #545454;
+    font-weight: bold;
+    margin-top: 50px;
+    display: inline-block;
+    margin: 20px;
+    font-size: 24px;
+}
+
+.create-quiz-section >.container a:hover{
+    border-bottom: 5px solid #8bd5f4;
+    text-decoration: none;
+}
+
+.create-quiz-section >.container a.active{
+    border-bottom: 5px solid #8bd5f4;
+    text-decoration: none;
+}

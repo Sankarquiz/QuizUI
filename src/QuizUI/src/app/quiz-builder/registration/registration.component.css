@@ -1,0 +1,38 @@
+.registration-wrapper .radio-box .form-check{
+    width: 20%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.registration-wrapper .col-md-8{
+    margin: 0 auto;
+    width: 80%;
+}
+
+.registration-wrapper .form-group label{
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+.registration-wrapper .reg-button{
+    text-align: center;
+}
+.registration-wrapper .reg-button a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+
+.registration-wrapper .reg-button button{
+    margin: 20px;
+}
+
+.registration-wrapper .form-group >input,.registration-wrapper .form-group >select{
+    display: inline-block;
+    width: 55%;
+    vertical-align: top;
+}
+
+.registration-wrapper .form-group .form-check-label { width: 100%; }

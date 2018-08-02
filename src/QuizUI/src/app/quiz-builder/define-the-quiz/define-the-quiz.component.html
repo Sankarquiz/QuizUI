@@ -1,0 +1,192 @@
+<form #definethequiz="ngForm">
+  <div class="container create-quiz-wrapper">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group" [class.has-error]="QuizName.invalid && QuizName.touched" [class.success]="QuizName.valid">
+          <label for="name" class="control-label">Name</label>
+          <input required type="text" class="form-control" name="quiz-name" #QuizName="ngModel" [(ngModel)]="quizDefinition.QuizName" id="name">
+          <span class="help-block" *ngIf="QuizName.invalid && QuizName.touched">
+            Name is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="host-quiz-domain">Host Quiz Domain</label>
+          <select class="form-control" id="hostquizdomain" name="quiz-domain-host" [(ngModel)]="quizDefinition.QuizDomainHost" #QuizDomainHost="ngModel">
+            <option value="KnowledgeVyasa Domain">KnowledgeVyasa Domain</option>
+            <option value="My Own Domain">My Own Domain</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="type-of-quiz">Type of Quiz</label>
+          <select class="form-control" id="typeofquiz" name="quiz-type" [(ngModel)]="quizDefinition.QuizType" #QuizType="ngModel">
+            <option value="Treasure Hunt">Treasure Hunt</option>
+            <option value="Free Flow">Free Flow</option>
+          </select>
+        </div>
+        <div class="form-group" [class.success]="NoOfQuestions.valid" [class.has-error]="NoOfQuestions.invalid && NoOfQuestions.touched">
+          <label for="hash-of-questions" class="control-label"># of Questions</label>
+
+          <input required type="text" class="form-control" name="number-of-question" [(ngModel)]="quizDefinition.NoOfQuestions" #NoOfQuestions="ngModel">
+          <span class="help-block" *ngIf="NoOfQuestions.invalid && NoOfQuestions.touched">
+            Specify the Number
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="hash-of-participants"># of Participants</label>
+          <select class="form-control" id="noOfParticipants" name="NoOfParticipants" [(ngModel)]="quizDefinition.NoOfParticipants" #NoOfParticipants="ngModel">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="form-group two-groups">
+          <label for="duration">Duration of the Quiz</label>
+          <input type="text" class="form-control" id="duration" name="duration-of-quiz" [(ngModel)]="quizDefinition.QuizDurationTime" #QuizDurationHour="ngModel">
+          <select class="form-control" id="time" name="duration-of-quiz-type" [(ngModel)]="quizDefinition.QuizDurationType" #QuizDurationTime="ngModel">
+            <option value="Hours" selected>Hours</option>
+            <option Hours="Minutes">Minutes</option>
+          </select>
+        </div>
+        <div class="form-group two-groups" [class.has-error]="QuizStartDateTime.invalid && QuizStartDateTime.touched" [class.success]="QuizStartDateTime.valid">
+
+          <label for="start-duration">
+            Start Time for Quiz
+            <span class="help-block" *ngIf="QuizStartDateTime.invalid && QuizStartDateTime.touched">Please Enter the Time</span>
+            <span class="help-block" *ngIf="QuizStartDate.invalid && QuizStartDate.touched">Please Enter the Date</span>
+          </label>
+
+          <input required type="text" class="form-control" id="start-duration" value="MM:DD:YY" name="Start-Date-for-Quiz" [(ngModel)]="quizDefinition.QuizStartDate" placeholder="MM:DD:YY" #QuizStartDate="ngModel">
+          <input type="text" class="form-control" id="start-duration-second-first" value="HH:MM:SS" name="Start-Time-for-Quiz" [(ngModel)]="quizDefinition.QuizStartDateTime" placeholder="HH:MM:SS" #QuizStartDateTime="ngModel">
+        </div>
+
+        <div class="form-group two-groups">
+          <label for="end-duration">End Time for Quiz</label>
+          <input type="text" name="quiz-end-date" [(ngModel)]="quizDefinition.QuizEndDate" #QuizEndDate="ngModel" class="form-control" id="end-duration" value="MM:DD:YY" placeholder="MM:DD:YY">
+          <input type="text" class="form-control" id="end-duration-second" value="HH:MM:SS"
+                 name="quiz-end-date-time" [(ngModel)]="quizDefinition.QuizEndDateTime" #QuizEndDateTime="ngModel" placeholder="HH:MM:SS">
+        </div>
+
+
+      </div>
+      <div class="col-md-6">
+        <div class="form-group radio-box">
+          <label for="end-duration">Shuffle Questions ?</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="true" name="Shuffle-Questions" [(ngModel)]="quizDefinition.ShuffleQuestions" #ShuffleQuestions="ngModel" checked="checked">
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="false" name="Shuffle-Questions" [(ngModel)]="quizDefinition.ShuffleQuestions" #ShuffleQuestions="ngModel">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+
+        </div>
+        <div class="form-group radio-box">
+          <label for="end-duration">Create Quiz from larger Pool?</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="true" name="Create-Quiz-from-larger-Pool?" #IsQuizFromLargerPool="ngModel" [(ngModel)]="quizDefinition.IsQuizFromLargerPool" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="false" name="Create-Quiz-from-larger-Pool?" #IsQuizFromLargerPool="ngModel" [(ngModel)]="quizDefinition.IsQuizFromLargerPool">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+
+        </div>
+        <div class="form-group" [class.success]="NoOfQuestionsInPool.valid" [class.has-error]="NoOfQuestionsInPool.invalid && NoOfQuestionsInPool.touched">
+          <label for="name">
+            # of Questions in Pool
+            <span class="help-block" *ngIf="NoOfQuestionsInPool.invalid && NoOfQuestionsInPool.touched">Enter the Questions</span>
+          </label>
+          <input required type="text" class="form-control" id="name" name="Pool-Of-Questions" [(ngModel)]="quizDefinition.NoOfQuestionsInPool" #NoOfQuestionsInPool="ngModel">
+        </div>
+
+        <div class="form-group radio-box">
+          <label for="end-duration">Allow Concurrent Access?</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="true" name="Allow-Concurrent-Access?" #AllowConcurrentAccess="ngModel" [(ngModel)]="quizDefinition.AllowConcurrentAccess" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="false" name="Allow-Concurrent-Access?" #AllowConcurrentAccess="ngModel" [(ngModel)]="quizDefinition.AllowConcurrentAccess">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label for="type-of-quiz">Participant Type</label>
+          <select class="form-control" id="type-of-quiz" name="Participant-Type" [(ngModel)]="quizDefinition.ParticipantType" #ParticipantType="ngModel">
+            <option value="Cross College" selected>Cross College</option>
+            <option value="Same College">Same College</option>
+          </select>
+        </div>
+        <div class="form-group radio-box">
+          <label for="end-duration">Auto Evaluate Quiz</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="true" name="Auto-Evaluate-Quiz" #IsQuizAutoEvaluate="ngModel" [(ngModel)]="quizDefinition.IsQuizAutoEvaluate" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="false" name="Auto-Evaluate-Quiz" #IsQuizAutoEvaluate="ngModel" [(ngModel)]="quizDefinition.IsQuizAutoEvaluate">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+        </div>
+        <div class="form-group radio-box">
+          <label for="end-duration">Show Score after attempt?</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="true" name="Show-Score-after-attempt?" #ShowScoreAfterAttempt="ngModel" [(ngModel)]="quizDefinition.ShowScoreAfterAttempt" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="false" name="Show-Score-after-attempt?" #ShowScoreAfterAttempt="ngModel" [(ngModel)]="quizDefinition.ShowScoreAfterAttempt">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+
+        </div>
+        <div class="form-group radio-box">
+          <label for="end-duration">Post score on Social Media?</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="true" name="Post-score-on-Social-Media?" #PostScoreOnSocialMedia="ngModel" [(ngModel)]="quizDefinition.PostScoreOnSocialMedia" checked>
+            <label class="form-check-label" for="exampleRadios1">
+              yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="false" name="Post-score-on-Social-Media?" #PostScoreOnSocialMedia="ngModel" [(ngModel)]="quizDefinition.PostScoreOnSocialMedia">
+            <label class="form-check-label" for="exampleRadios2">
+              no
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reg-button">
+      <button type="submit" [class.dont-submit]="definethequiz.invalid" class="btn btn-danger" [disabled]="definethequiz.invalid" (click)="saveDefinequiz(definethequiz)">
+        <a>Next >></a>
+      </button>
+    </div>
+  </div>
+</form>
+{{ definethequiz.value | json }}

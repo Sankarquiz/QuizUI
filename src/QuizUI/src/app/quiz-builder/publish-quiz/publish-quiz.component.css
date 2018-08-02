@@ -1,0 +1,25 @@
+.question-links{
+list-style: none;
+padding: 0;
+text-align: center;
+}
+
+.question-links li{
+
+    width: 40px;
+    height: 24px;
+    text-align: center;
+    background: #68cefe;
+    border-right: 1px solid #ffff;
+    display: inline-block;
+}
+
+.question-links li a{
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+}
+
+.question-links li a.active{
+    background: #7afc0f;
+}

@@ -1,0 +1,82 @@
+.create-quiz-wrapper{
+    padding: 50px;
+    padding-top: 0;
+}
+
+.create-quiz-wrapper .form-group{
+
+  height: 53px;
+    padding-bottom: 15px;
+}
+
+.create-quiz-wrapper .form-group label,.create-quiz-wrapper >.radio-box>label{
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+.create-quiz-wrapper .form-group input,.create-quiz-wrapper .form-group select{
+    display: inline-block;
+    width: 55%;
+    vertical-align: top;
+}
+
+.create-quiz-wrapper .two-groups input{
+    width: 26%;
+    display: inline-block;
+    margin-right: 10px;
+}
+.create-quiz-wrapper .radio-box .form-check{
+    width: 8%;
+    display: inline-block;
+    margin-right: 10px;
+}
+.create-quiz-wrapper .two-groups >input:last-child{
+    width: 27%;
+    display: inline-block;
+    margin-right: 0;
+}
+
+.create-quiz-wrapper .two-groups >select{
+    width: 27%;
+    display: inline-block;
+
+}
+
+.reg-button{
+text-align: center;
+}
+
+.reg-button a{
+   text-decoration: none;
+   color: #ffffff;
+    }
+
+    .has-error label{
+color: red;
+    }
+
+    .help-block{
+        color: red;
+        display: block;
+    }
+    .has-error input{
+        border: 1px solid red;
+    box-shadow: 0 1px 7px red;
+    }
+
+    .success label{
+color: green;
+
+    }
+
+    .success input{
+        border: 1px solid green;
+    box-shadow: 0 1px 7px green;
+    }
+
+    .dont-submit a{
+        pointer-events: none;
+        cursor: not-allowed;
+    }

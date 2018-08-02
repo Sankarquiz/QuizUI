@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="set-pages-wrapper">
+    <div class="form-group">
+      <label for="name">Select Logo</label>
+      <input type="file" name="logoselected" [formControl]="imageselectlocation" (change)="onFileChanged($event)" class="form-control">
+    </div>
+    <p>Or</p>
+    <div class="form-group">
+      <label for="hash-of-questions">Enter Logo Link</label>
+      <input type="text" name="logopath" [formControl]="imagetextlocation" (focusout)="onTextChanged($event)" class="form-control">
+    </div>
+  </div>
+</div>
