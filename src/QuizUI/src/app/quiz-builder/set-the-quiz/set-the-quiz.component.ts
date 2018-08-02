@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QuizDefinition, QuizSet } from '../../models/QuizDefinition';
+import { QuizDefinition, QuizSet, QuizQuestions } from '../../models/QuizDefinition';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { FormDataService } from '../../models/formData.service';
 import { NgForm } from '@angular/forms';
@@ -16,7 +16,8 @@ export class SetTheQuizComponent implements OnInit {
   result: Observable<any>;
   currentQuestionNo: number = 0;
   previousQuestionNo;
-  questionset = new QuizSet();
+  questionset: QuizSet;
+  questions: QuizQuestions;
   disablePublish: boolean = true;
   constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
@@ -26,19 +27,16 @@ export class SetTheQuizComponent implements OnInit {
 
   SaveQuestion(question: NgForm) {
     debugger;
-    this.questionset.QuizName = this.quizDefinition.QuizName;
-    this.questionset.QuizType = this.quizDefinition.QuizType;
     this.questionset.QuestionNo = ++this.currentQuestionNo;
-    this._saveQuestion.SaveQuestion(this.questionset)
-      .subscribe((result: any) => { this.result = result });
-    if (this.result) {
-      alert("Saved");
-      this.questionset = new QuizSet();
+    if (this.questions.Questions.filter(x => x.QuestionNo == this.currentQuestionNo).length > 0) {
+      let index = this.questions.Questions.findIndex(x => x.QuestionNo == this.currentQuestionNo);
+      this.questions.Questions[index] = this.questionset;
     }
     else {
-      if (this.currentQuestionNo > 0) { }
-      this.currentQuestionNo--;
+      this.questions.Questions.push(this.questionset);
     }
+    alert("Saved");
+    this.questionset = new QuizSet();
 
     if (this.quizDefinition.NoOfQuestions == this.currentQuestionNo) {
       this.disablePublish = false;
@@ -46,7 +44,12 @@ export class SetTheQuizComponent implements OnInit {
   }
 
   Publish() {
+    this.questions.QuizName = this.quizDefinition.QuizName;
+    this.questions.QuizType = this.quizDefinition.QuizType;
     if (this.quizDefinition.NoOfQuestions == this.currentQuestionNo) {
+      this._saveQuestion.SaveQuestion(this.questions)
+        .subscribe((result: any) => { this.result = result });
+
       this.quizDefinition.Stage = "SetQuestion";
       this.quizDefinition.Status = "Pending";
       this._saveQuestion.SaveQuizData(this.quizDefinition)

@@ -15,27 +15,24 @@ import { Observable } from 'rxjs';
 export class RegistrationComponent implements OnInit {
   quizDefinition: QuizDefinition;
   result: Observable<any>;
+  form: any;
   constructor(private _saveRegistration: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    this.quizDefinition.RegistrationFields = new RegistrationFields();
-    this.quizDefinition.RegistrationFields.IsTeamName = true;
-    this.quizDefinition.RegistrationFields.IsEmail = true;
-    this.quizDefinition.RegistrationFields.IsValidateEmail = true;
-    this.quizDefinition.RegistrationFields.IsContestantName = true;
-    this.quizDefinition.RegistrationFields.IsPhone = true;
-    this.quizDefinition.RegistrationFields.IsContact = true;
 
+    if (this.quizDefinition.Stage == "Define") {
+      console.log('first time', this.quizDefinition.Stage);
+      this.quizDefinition.RegistrationFields.IsTeamName = true;
+      this.quizDefinition.RegistrationFields.IsEmail = true;
+      this.quizDefinition.RegistrationFields.IsValidateEmail = true;
+      this.quizDefinition.RegistrationFields.IsContestantName = true;
+      this.quizDefinition.RegistrationFields.IsPhone = true;
+      this.quizDefinition.RegistrationFields.IsContact = true;
+    }
   }
+
   SaveRegistration(registrationform: NgForm) {
-    //this.quizDefinition.RegistrationFields.IsTeamName = (registrationform.value["team-name"] == "Yes") ? true : false;
-    //this.quizDefinition.RegistrationFields.IsEmail = (registrationform.value["email"] == "Yes") ? true : false;
-    //this.quizDefinition.RegistrationFields.IsValidateEmail = (registrationform.value["validateemail"] == "Yes") ? true : false;
-    //this.quizDefinition.RegistrationFields.IsContestantName = (registrationform.value["contestant"] == "Yes") ? true : false;
-    //this.quizDefinition.RegistrationFields.IsPhone = (registrationform.value["phone"] == "option1") ? true : false;
-    //this.quizDefinition.RegistrationFields.IsContact = (registrationform.value["contactaddress"] == "Yes") ? true : false;
-    //this.quizDefinition.RegistrationFields.RulesAndRegulations = registrationform.value["rules"];
     this.quizDefinition.Stage = "Registration";
     this.quizDefinition.Status = "Pending";
     this._saveRegistration.SaveQuizData(this.quizDefinition)
@@ -43,6 +40,7 @@ export class RegistrationComponent implements OnInit {
 
     if (this.result) {
       this.formDataService.setQuizDefinition(this.quizDefinition);
+      this.formDataService.setRegistrationFields(this.quizDefinition.RegistrationFields);
       this.router.navigate(['/quiz-builder/create-quiz/set-pages']);
     } else {
       alert('Not Saved.');

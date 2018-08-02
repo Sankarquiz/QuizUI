@@ -11,23 +11,41 @@ import { FormDataService } from '../../models/formData.service';
 })
 export class PublishQuizMainContentComponent implements OnInit {
 
-  questionNo;
+  questionNo: number;
+  totalquestions;
   questionset: QuizSet;
   quizname;
   quizType;
   constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private activatedRoute: ActivatedRoute) {
+    debugger;
     this.activatedRoute.params.subscribe((params: Params) => {
       this.questionNo = params['qn'];
       console.log(this.questionNo);
     });
+    this.totalquestions = this.formDataService.getQuizDefinition().NoOfQuestions;
+    if (!this.questionNo) {
+      this.questionNo = 1;
+    }
+    this._getQuestion.GetQuizData(
+      "B",//this.formDataService.getQuizDefinition().QuizName,
+      "Treasure Hunt",//this.formDataService.getQuizDefinition().QuizType,
+      this.questionNo)
+      .subscribe((result: any) => {
+        this.questionset = result
+      });
   }
 
   ngOnInit() {
-    this._getQuestion.GetQuizData(
-      this.formDataService.getQuizDefinition().QuizName,
-      this.formDataService.getQuizDefinition().QuizType, this.questionNo)
-      .subscribe((result: any) => {
-        this.questionset = result
-      });;
+    
+    //if (!this.questionNo) {
+    //  this.questionNo = 1;
+    //}
+    //this._getQuestion.GetQuizData(
+    //  "B",//this.formDataService.getQuizDefinition().QuizName,
+    //  "Treasure Hunt",//this.formDataService.getQuizDefinition().QuizType,
+    //  this.questionNo)
+    //  .subscribe((result: any) => {
+    //    this.questionset = result
+    //  });
   }
 }
