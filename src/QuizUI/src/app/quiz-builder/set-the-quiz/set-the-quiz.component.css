@@ -10,3 +10,8 @@ font-weight: bold;
 .set-the-quiz-wrapper .reg-button button{
     margin: 20px;
 }
+
+.set-the-quiz-wrapper a{
+  font-weight:bold;
+  margin-left:5%;
+}
