@@ -1,0 +1,61 @@
+<form #sponsordetail="ngForm">
+  <div>
+    <div>
+      <span>
+        Select\Enter image of Top Left Corner
+      </span>
+      <app-set-logos (imagePath)='SaveLogo($event,"TopLeftCorner")'></app-set-logos>
+    </div>
+    <div>
+      <span>
+        Select\Enter image of Top Left
+      </span>
+      <app-set-logos (imagePath)='SaveLogo($event,"TopLeft")'></app-set-logos>
+    </div>
+    <div>
+      <span>
+        Select\Enter image of Top Middle
+      </span>
+      <app-set-logos (imagePath)='SaveLogo($event,"TopMiddle")'></app-set-logos>
+    </div>
+    <div>
+      <span>
+        Select\Enter image of Top Right
+      </span>
+      <app-set-logos (imagePath)='SaveLogo($event,"TopRight")'></app-set-logos>
+    </div>
+    <div>
+      <span>
+        Select\Enter image of Right Top
+      </span>
+      <app-set-logos (imagePath)='SaveLogo($event,"RightTop")'></app-set-logos>
+    </div>
+    <div>
+      <span>
+        Select\Enter image of Right Middle
+      </span>
+      <app-set-logos (imagePath)='SaveLogo($event,"RightMiddle")'></app-set-logos>
+    </div>
+    <div>
+      <span>
+        Select\Enter image of Right Bottom
+      </span>
+      <app-set-logos (imagePath)='SaveLogo($event,"RightBottom")'></app-set-logos>
+    </div>
+    <div>
+      <span>
+        Select\Enter image of Right Bottom Corner
+      </span>
+      <app-set-logos (imagePath)='SaveLogo($event,"RightBottomCorner")'></app-set-logos>
+    </div>
+  </div>
+
+  <div class="reg-button">
+    <button type="submit" class="btn btn-danger" (click)="SaveSponsorDetails(sponsordetail)">Save</button>
+    <button type="submit" class="btn btn-danger" (click)="SaveSponsorDetails(sponsordetail)">
+      Next >>
+    </button>
+  </div>
+</form>
+
+

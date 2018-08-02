@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HeaderComponent } from './header/header.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { QuizBankComponent } from './quiz-bank/quiz-bank.component';
@@ -24,6 +24,7 @@ import { CreateAccountComponent } from './quiz-builder/create-account/create-acc
 import { MainAddsComponent } from './main-adds/main-adds.component';
 import { AddsDescComponent } from './adds-desc/adds-desc.component';
 import { NewUserRegComponent } from './new-user-reg/new-user-reg.component';
+import { SetLogosGroupComponent } from './quiz-builder/set-logos-group/set-logos-group.component';
 
 
 
@@ -54,8 +55,8 @@ const appRoutes: Routes = [
             component: SetPagesComponent
           },
           {
-            path: 'set-logos',
-            component: SetLogosComponent
+            path: 'set-logos-group',
+            component: SetLogosGroupComponent
           },
           {
             path: 'set-the-quiz',
@@ -89,11 +90,12 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent, AboutUsComponent, QuizBankComponent, QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent, DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent, MainAddsComponent, AddsDescComponent, NewUserRegComponent, SetLogosComponent, CreateAccountComponent
+    HeaderComponent, AboutUsComponent, QuizBankComponent, QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent, DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent, MainAddsComponent, AddsDescComponent, NewUserRegComponent, SetLogosComponent, CreateAccountComponent, SetLogosGroupComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
