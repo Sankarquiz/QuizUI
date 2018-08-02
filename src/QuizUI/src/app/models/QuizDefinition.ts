@@ -39,11 +39,9 @@ export class FormData {
   IsPhone: boolean;
   IsContact: boolean;
   RulesAndRegulations: string = '';
-  //Path: string = '';
-  //Position: string = '';
   RegistrationFields = new RegistrationFields();
   SponsorList = new Array<SponsorDetail>();
-
+  Questions = new Array<QuizSet>();
 
   clear() {
     this.QuizName = '';
@@ -86,14 +84,11 @@ export class FormData {
     this.IsPhone = true;
     this.IsContact = true;
     this.RulesAndRegulations = '';
-    //this.Path = '';
-    //this.Position = '';
     this.RegistrationFields = new RegistrationFields();
     this.SponsorList = new Array<SponsorDetail>();
+    this.Questions = new Array<QuizSet>();
   }
 }
-
-
 
 export class QuizDefinition {
   QuizName: string;
@@ -123,21 +118,6 @@ export class QuizDefinition {
   SponsorList = new Array<SponsorDetail>();
 }
 
-export class QuizSet {
-  QuizName: string;
-  QuizType: string;
-  QuestionNo: number;
-  QuestionText: string;
-  ImageUrl: string;
-  AnswerType: string;
-  Answer: string;
-  Score: string;
-  Option1: string;
-  Option2: string;
-  Option3: string;
-  Option4: string;
-}
-
 export class RegistrationFields {
   IsTeamName: boolean;
   IsEmail: boolean;
@@ -151,4 +131,23 @@ export class RegistrationFields {
 export class SponsorDetail {
   Path: string;
   Position: string;
+}
+
+export class QuizQuestions {
+  QuizName: string;
+  QuizType: string;
+  Questions = new Array<QuizSet>();
+}
+
+export class QuizSet {
+  QuestionNo: number;
+  QuestionText: string;
+  ImageUrl: string;
+  AnswerType: string;
+  Answer: string;
+  Score: string;
+  Option1: string;
+  Option2: string;
+  Option3: string;
+  Option4: string;
 }

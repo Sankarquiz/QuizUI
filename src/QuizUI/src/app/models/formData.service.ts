@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormData, QuizDefinition, QuizSet, RegistrationFields, SponsorDetail } from './QuizDefinition';
+import { FormData, QuizDefinition, QuizSet, RegistrationFields, SponsorDetail, QuizQuestions } from './QuizDefinition';
 @Injectable()
 export class FormDataService {
 
@@ -72,39 +72,6 @@ export class FormDataService {
     this.formData.SponsorList.concat(data.SponsorList);
   }
 
-  getQuizSet(): QuizSet {
-    var quizSet: QuizSet = {
-      QuizName: this.formData.QuizName,
-      QuizType: this.formData.QuizType,
-      QuestionNo: this.formData.QuestionNo,
-      QuestionText: this.formData.QuestionText,
-      ImageUrl: this.formData.ImageUrl,
-      AnswerType: this.formData.AnswerType,
-      Answer: this.formData.Answer,
-      Score: this.formData.Score,
-      Option1: this.formData.Option1,
-      Option2: this.formData.Option2,
-      Option3: this.formData.Option3,
-      Option4: this.formData.Option4
-    };
-    return quizSet;
-  }
-
-  setQuizSet(data: QuizSet) {
-    this.formData.QuizName = data.QuizName;
-    this.formData.QuizType = data.QuizType;
-    this.formData.QuestionNo = data.QuestionNo;
-    this.formData.QuestionText = data.QuestionText;
-    this.formData.ImageUrl = data.ImageUrl;
-    this.formData.AnswerType = data.AnswerType;
-    this.formData.Answer = data.Answer;
-    this.formData.Score = data.Score;
-    this.formData.Option1 = data.Option1;
-    this.formData.Option2 = data.Option2;
-    this.formData.Option3 = data.Option3;
-    this.formData.Option4 = data.Option4;
-  }
-
   getRegistrationFields(): RegistrationFields {
     var quizRegistrationFields: RegistrationFields = {
       IsTeamName: this.formData.IsTeamName,
@@ -118,6 +85,17 @@ export class FormDataService {
     return quizRegistrationFields;
   }
 
+  setRegistrationFields(data: RegistrationFields) {
+
+    this.formData.IsTeamName = data.IsTeamName;
+    this.formData.IsEmail = data.IsEmail;
+    this.formData.IsValidateEmail = data.IsValidateEmail;
+    this.formData.IsContestantName = data.IsContestantName;
+    this.formData.IsPhone = data.IsPhone;
+    this.formData.IsContact = data.IsContact;
+    this.formData.RulesAndRegulations = data.RulesAndRegulations;
+  }
+
   getSponserFields(): SponsorDetail[] {
     return this.formData.SponsorList;
   }
@@ -129,6 +107,30 @@ export class FormDataService {
 
   getFormData(): QuizDefinition {
     return this.formData;
+  }
+
+  getQuizQuestions(): QuizQuestions {
+    var quizQuestions: QuizQuestions = {
+      QuizName: this.formData.QuizName,
+      QuizType: this.formData.QuizType,
+      Questions: this.getQuizSet()
+    };
+    return quizQuestions;
+  }
+  setQuizQuestions(data: QuizQuestions) {
+
+    this.formData.QuizName = data.QuizName;
+    this.formData.QuizType = data.QuizType;
+    this.formData.Questions.concat(data.Questions);
+  }
+
+  getQuizSet(): QuizSet[] {
+    return this.formData.Questions;
+  }
+
+  setQuizSet(data: QuizSet[]) {
+    this.formData.Questions = new Array<QuizSet>()
+    this.formData.Questions.concat(data);
   }
 }
 

@@ -81,9 +81,9 @@
       <div class="reg-button">
         <button type="submit" class="btn btn-danger" (click)="PreviewQuestion(setquiz)">Preview Question</button>
         <!--<button type="submit" class="btn btn-danger" (click)="PreviousQuestion(setquiz)">Previous Question</button>-->
-        <button type="submit" class="btn btn-danger" (click)="SaveQuestion(setquiz)">Save & Next </button>
-        <button type="submit" class="btn btn-danger" (click)="Publish()">
-          <a routerLink="/quiz-builder/create-quiz/publish-quiz" routerLinkActive="active">Submit</a>
+        <button type="submit" class="btn btn-danger" *ngIf="disablePublish==true" (click)="SaveQuestion(setquiz)">Save & Next </button>
+        <button type="submit" class="btn btn-danger" *ngIf="disablePublish==false" (click)="Publish()">
+          Submit
         </button>
       </div>
     </div>

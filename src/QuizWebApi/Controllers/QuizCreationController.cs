@@ -87,34 +87,42 @@ namespace QuizWebApi.Controllers
         /// <returns></returns>
         //[Route("/setquestion")]
         [HttpPost]
-        public async Task<IActionResult> SetQuiz([FromBody] QuizSet questionSet)
+        public async Task<IActionResult> SetQuiz([FromBody] QuizQuestions questionSet)
         {
-            if (questionSet == null || string.IsNullOrEmpty(questionSet.QuizName) || string.IsNullOrEmpty(questionSet.QuizType) || questionSet.QuestionNo == 0)
+            if (questionSet == null || string.IsNullOrEmpty(questionSet.QuizName) || string.IsNullOrEmpty(questionSet.QuizType) || questionSet.Questions?.Count == 0)
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
             questionSet.DocumentType = "QuestionSet";
-            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(questionSet.QuizName + "_" + questionSet.QuizType + "_" + questionSet.QuestionNo, questionSet);
+            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(questionSet.QuizName + "_" + questionSet.QuizType + "_" + "questions", questionSet);
             return Ok(response);
         }
 
-        //[Route("/getquiz")]
-        [HttpPost]
-        public async Task<IActionResult> GetQuiz(string quizName, string quizType, int questionNumber = 0)
+
+        /// <summary>
+        /// Gets the quiz.
+        /// </summary>
+        /// <param name="quizName">Name of the quiz.</param>
+        /// <param name="quizType">Type of the quiz.</param>
+        /// <param name="DocumentType">Type of the document.</param>
+        /// <returns></returns>
+        /// //[Route("/getquiz")]
+        [HttpGet]
+        public async Task<IActionResult> GetQuiz(string quizName, string quizType, string DocumentType)
         {
-            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
+            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(DocumentType))
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
-            if (questionNumber == 0)
+            if (DocumentType == "Define")
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
-                return Ok(response);
+                return Ok(response.Success);
             }
             else
             {
-                var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizSet>(quizName + "_" + quizType + "_" + questionNumber);
-                return Ok(response);
+                var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
+                return Ok(response.Success);
             }
         }
 

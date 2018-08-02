@@ -1,0 +1,24 @@
+.logos-grouping{
+  width:23%;
+  display:inline-block;
+  vertical-align:top;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.45);
+  margin:10px;
+}
+
+.logos-grouping >span{
+  width:100%;
+  font-weight:bold;
+  display:block;
+  font-size:12px;
+  text-align:center;
+}
+
+.reg-button {
+  text-align:center;
+}
+
+.reg-button >button{
+  margin:10px;
+  font-weight:bold;
+}
