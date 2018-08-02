@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
-import { QuizDefinition } from '../../models/QuizDefinition';
+import { QuizDefinition, QuizQuestions } from '../../models/QuizDefinition';
 
 @Component({
   selector: 'app-publish-quiz',
@@ -12,10 +12,14 @@ export class PublishQuizComponent implements OnInit {
 
   quizDefinition: QuizDefinition;
   questionsCount;
+  questions = new QuizQuestions();
   constructor(private formDataService: FormDataService, private router: Router) {
     debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    this.questionsCount = Array(20).fill(1);
+    if (this.quizDefinition.NoOfQuestions) {
+      this.questionsCount = Array(parseInt(this.quizDefinition.NoOfQuestions.toString())).fill(1);
+    }
+    this.questions = this.formDataService.getQuizQuestions();
   }
   ngOnInit() {
   }

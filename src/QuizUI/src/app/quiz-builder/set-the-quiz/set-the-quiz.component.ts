@@ -16,13 +16,15 @@ export class SetTheQuizComponent implements OnInit {
   result: Observable<any>;
   currentQuestionNo: number = 0;
   previousQuestionNo;
-  questionset: QuizSet;
-  questions: QuizQuestions;
+  questionset = new QuizSet();
+  questions = new QuizQuestions();
   disablePublish: boolean = true;
   constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
+    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
+    this.questions = this.formDataService.getQuizQuestions();
   }
 
   SaveQuestion(question: NgForm) {
@@ -44,6 +46,7 @@ export class SetTheQuizComponent implements OnInit {
   }
 
   Publish() {
+    debugger;
     this.questions.QuizName = this.quizDefinition.QuizName;
     this.questions.QuizType = this.quizDefinition.QuizType;
     if (this.quizDefinition.NoOfQuestions == this.currentQuestionNo) {
@@ -56,6 +59,7 @@ export class SetTheQuizComponent implements OnInit {
         .subscribe((result: any) => { this.result = result });
 
       if (this.result) {
+        this.formDataService.setQuizQuestions(this.questions);
         this.formDataService.setQuizDefinition(this.quizDefinition);
         this.router.navigate(['/quiz-builder/create-quiz/publish-quiz']);
       } else {
