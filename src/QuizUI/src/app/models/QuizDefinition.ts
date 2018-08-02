@@ -142,6 +142,7 @@ export class QuizQuestions {
 export class QuizSet {
   QuestionNo: number;
   QuestionText: string;
+  IsImageneeded: boolean;
   ImageUrl: string;
   AnswerType: string;
   Answer: string;

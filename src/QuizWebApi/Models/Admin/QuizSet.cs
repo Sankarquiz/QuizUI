@@ -1,10 +1,10 @@
 ﻿namespace QuizWebApi.Models.Admin
 {
     public class QuizSet
-    {        
+    {
         public int QuestionNo { get; set; }
         public string QuestionText { get; set; }
-        public string IsImageneeded { get; set; }
+        public bool IsImageneeded { get; set; }
         public string ImageUrl { get; set; }
         public string AnswerType { get; set; }
         public string Answer { get; set; }

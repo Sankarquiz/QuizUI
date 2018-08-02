@@ -6,7 +6,7 @@
           <label for="name" class="control-label">Name</label>
           <input required type="text" class="form-control" name="quiz-name" #QuizName="ngModel" [(ngModel)]="quizDefinition.QuizName" id="name">
           <span class="help-block" *ngIf="QuizName.invalid && QuizName.touched">
-            Name is required
+            Answer is required
           </span>
         </div>
 

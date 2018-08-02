@@ -118,7 +118,6 @@ export class FormDataService {
     return quizQuestions;
   }
   setQuizQuestions(data: QuizQuestions) {
-
     this.formData.QuizName = data.QuizName;
     this.formData.QuizType = data.QuizType;
     this.formData.Questions.concat(data.Questions);

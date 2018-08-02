@@ -4,84 +4,129 @@
       <div>
         <a href="#">  Bulk Upload Questions</a>
       </div>
+
       <div class="col-md-6">
-        <div class="form-group">
+        <div class="form-group" [class.has-error]="QuestionText.invalid && QuestionText.touched"
+             [class.success]="QuestionText.valid">
           <label for="exampleFormControlTextarea1">Enter Question Text</label>
-          <textarea class="form-control" id="questiontext" name="questiontext" rows="3"
+          <textarea required class="form-control" id="questiontext" name="questiontext" rows="3"
                     [(ngModel)]="questionset.QuestionText" #QuestionText="ngModel"></textarea>
+
+          <!--<span class="help-block" *ngIf="QuestionText.invalid && QuestionText.touched">
+            Enter Question Text
+          </span>-->
         </div>
+
         <div class="form-group radio-box">
           <label for="end-duration">Is Image Needed</label>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="image-needed" id="image-needed" value="true">
+            <input class="form-check-input" type="radio" name="image-needed" [(ngModel)]="questionset.IsImageneeded" #IsImageneeded="ngModel" [value]="true">
             <label class="form-check-label" for="exampleRadios1">
               yes
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="image-needed" id="image-needed" value="false">
+            <input class="form-check-input" type="radio" name="image-needed" [(ngModel)]="questionset.IsImageneeded" #IsImageneeded="ngModel" [value]="false" checked>
             <label class="form-check-label" for="exampleRadios2">
               no
             </label>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="questionset.IsImageneeded==true">
           <label for="name">Upload Image</label>
-          <input type="file" class="form-control" accept="image/*"
-                 name="uploadimage" id="uploadimage" [(ngModel)]="questionset.ImageUrl" #ImageUrl="ngModel" capture>
+          <input type="file" required class="form-control" accept="image/*"
+                 [class.has-error]="ImageUrl.invalid && ImageUrl.touched"
+                 [class.success]="ImageUrl.valid"
+                 name="uploadimage" id="uploadimage" [(ngModel)]="questionset.ImageUrl"
+                 #ImageUrl="ngModel" capture>
         </div>
 
         <div class="form-group">
           <label for="hash-of-questions">Answer Type</label>
           <select class="form-control" name="hash-of-questions" id="hash-of-questions"
                   [(ngModel)]="questionset.AnswerType" #AnswerType="ngModel">
-            <option [value]="multiplechoice">Multiple Choice</option>
-            <option [value]="hangman">Hangman</option>
-            <option [value]="freechoice">Free Choice</option>
+            <option *ngFor="let q of navs" [value]="q">{{q}}</option>
           </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" [class.has-error]="Answer.invalid && Answer.touched"
+             [class.success]="Answer.valid">
           <label for="name">Answer</label>
-          <input type="text" class="form-control" name="answer" id="answer" [(ngModel)]="questionset.Answer" #Answer="ngModel">
+          <input required type="text" class="form-control" name="answer" id="answer"
+                 [(ngModel)]="questionset.Answer" #Answer="ngModel">
+          <!--<span class="help-block" *ngIf="Answer.invalid && Answer.touched">
+            Answer is required
+          </span>-->
         </div>
-        <div class="form-group">
+
+
+        <div class="form-group" [class.has-error]="Score.invalid && Score.touched"
+             [class.success]="Score.valid">
           <label for="name">
             Points for Correct Answer
           </label>
-          <input type="text" class="form-control" name="score" id="score" [(ngModel)]="questionset.Score" #Score="ngModel">
+          <input type="text" required class="form-control" name="score" id="score"
+                 [(ngModel)]="questionset.Score" #Score="ngModel">
+          <!--<span class="help-block" *ngIf="Score.invalid && Score.touched">
+            Please Provide Points for Correct Answer
+          </span>-->
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="form-group">
+      <div class="col-md-6" *ngIf="questionset.AnswerType ==='Multiple Choice'">
+
+        <div class="form-group" [class.has-error]="Option1.invalid && Option1.touched"
+             [class.success]="Option1.valid">
           <label for="name">
-            Question Option 1
+            Option 1
           </label>
-          <input type="text" class="form-control" name="option1" id="option1" [(ngModel)]="questionset.Option1" #Option1="ngModel">
+          <input type="text" class="form-control" name="option1" id="option1"
+                 required [(ngModel)]="questionset.Option1" #Option1="ngModel">
+          <!--<span class="help-block" *ngIf="Option1.invalid && Option1.touched">
+            Please Provide answer for  Option 1
+          </span>-->
         </div>
-        <div class="form-group">
+
+        <div class="form-group" [class.has-error]="Option2.invalid && Option2.touched"
+             [class.success]="Option2.valid">
           <label for="name">
-            Question Option 2
+            Option 2
           </label>
-          <input type="text" class="form-control" name="option2" id="option2" [(ngModel)]="questionset.Option2" #Option2="ngModel">
+          <input type="text" class="form-control" name="option2" id="option2"
+                 required [(ngModel)]="questionset.Option2" #Option2="ngModel">
+          <!--<span class="help-block" *ngIf="Option2.invalid && Option2.touched">
+            Please Provide answer for  Option 2
+          </span>-->
         </div>
-        <div class="form-group">
+
+        <div class="form-group" [class.has-error]="Option3.invalid && Option3.touched"
+             [class.success]="Option3.valid">
           <label for="name">
-            Question Option 3
+            Option 3
           </label>
-          <input type="text" class="form-control" name="option3" id="option3" [(ngModel)]="questionset.Option3" #Option3="ngModel">
+          <input type="text" required class="form-control" name="option3" id="option3"
+                 [(ngModel)]="questionset.Option3" #Option3="ngModel">
+          <!--<span class="help-block" *ngIf="Option3.invalid && Option3.touched">
+            Please Provide answer for  Option 3
+          </span>-->
         </div>
-        <div class="form-group">
+
+        <div class="form-group" [class.has-error]="Option4.invalid && Option4.touched"
+             [class.success]="Option4.valid">
           <label for="name">
-            Question Option 4
+            Option 4
           </label>
-          <input type="text" class="form-control" name="option4" id="option4" [(ngModel)]="questionset.Option4" #Option4="ngModel">
+          <input type="text" required class="form-control" name="option4" id="option4"
+                 [(ngModel)]="questionset.Option4" #Option4="ngModel">
+          <!--<span class="help-block" *ngIf="Option4.invalid && Option4.touched">
+            Please Provide answer for  Option 4
+          </span>-->
         </div>
+
       </div>
       <div class="reg-button">
-        <button type="submit" class="btn btn-danger" (click)="PreviewQuestion(setquiz)">Preview Question</button>
+        <!--<button type="submit" class="btn btn-danger" (click)="PreviewQuestion(setquiz)">Preview Question</button>-->
         <!--<button type="submit" class="btn btn-danger" (click)="PreviousQuestion(setquiz)">Previous Question</button>-->
-        <button type="submit" class="btn btn-danger" *ngIf="disablePublish==true" (click)="SaveQuestion(setquiz)">Save & Next </button>
+        <button type="submit" [class.dont-submit]="setquiz.invalid" [disabled]="setquiz.invalid" class="btn btn-danger" *ngIf="disablePublish==true" (click)="SaveQuestion(setquiz)">Save & Next </button>
         <button type="submit" class="btn btn-danger" *ngIf="disablePublish==false" (click)="Publish()">
           Submit
         </button>

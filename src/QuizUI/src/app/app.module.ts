@@ -26,8 +26,6 @@ import { AddsDescComponent } from './adds-desc/adds-desc.component';
 import { NewUserRegComponent } from './new-user-reg/new-user-reg.component';
 import { SetLogosGroupComponent } from './quiz-builder/set-logos-group/set-logos-group.component';
 
-
-
 const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'quiz-bank', component: QuizBankComponent },
@@ -90,7 +88,25 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent, AboutUsComponent, QuizBankComponent, QuizBuilderComponent, CreateQuizComponent, ViewPreviousQuizComponent, DefineTheQuizComponent, RegistrationComponent, SetTheQuizComponent, PublishQuizComponent, FooterComponent, PublishQuizMainContentComponent, SetPagesComponent, MainAddsComponent, AddsDescComponent, NewUserRegComponent, SetLogosComponent, CreateAccountComponent, SetLogosGroupComponent
+    HeaderComponent,
+    AboutUsComponent,
+    QuizBankComponent,
+    QuizBuilderComponent,
+    CreateQuizComponent,
+    ViewPreviousQuizComponent,
+    DefineTheQuizComponent,
+    RegistrationComponent,
+    SetTheQuizComponent,
+    PublishQuizComponent,
+    FooterComponent,
+    PublishQuizMainContentComponent,
+    SetPagesComponent,
+    MainAddsComponent,
+    AddsDescComponent,
+    NewUserRegComponent,
+    SetLogosComponent,
+    CreateAccountComponent,
+    SetLogosGroupComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +115,10 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [QuizDetailsService, FormDataService],
+  providers: [
+    QuizDetailsService,
+    FormDataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

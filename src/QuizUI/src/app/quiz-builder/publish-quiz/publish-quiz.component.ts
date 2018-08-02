@@ -22,5 +22,6 @@ export class PublishQuizComponent implements OnInit {
     this.questions = this.formDataService.getQuizQuestions();
   }
   ngOnInit() {
+    this.router.navigate(['/quiz-builder/create-quiz/publish-quiz/first-quiz']);
   }
 }

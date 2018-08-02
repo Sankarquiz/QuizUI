@@ -35,8 +35,6 @@
     <button type="submit" class="btn btn-danger">
       <a [routerLink]="['/quiz-builder/create-quiz/publish-quiz/first-quiz']" [queryParams]="{qn:questionNo+1| json }" routerLinkActive="active">Next</a>
     </button>
-    <button type="submit" class="btn btn-danger">
-      <a routerLink="/quiz-builder/create-quiz/" routerLinkActive="active">Publish Quiz</a>
-    </button>
+    <button type="submit" class="btn btn-danger" (click)="Publish()">Publish</button>
   </div>
 </div>
