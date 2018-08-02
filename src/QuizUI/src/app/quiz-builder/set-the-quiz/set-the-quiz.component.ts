@@ -18,20 +18,24 @@ export class SetTheQuizComponent implements OnInit {
   previousQuestionNo;
   questionset = new QuizSet();
   questions = new QuizQuestions();
-  disablePublish: boolean = true;  
-  navs = ['Multiple Choice', 'Hangman', 'Free Choice'];
+  disablePublish: boolean = true;
+  navs = ['Multiple Choice', 'Hangman', 'Free Text'];
 
   constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
+    // if (this.questionset.QuestionNo == 0) {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
     this.questionset.AnswerType = 'Multiple Choice';
     this.questionset.IsImageneeded = false;
+    //}
+    //else {
+    //  this.questionset = this.formDataService.getQuizSet();
+    //}
   }
 
   SaveQuestion(question: NgForm) {
-    debugger;
     this.questionset.QuestionNo = ++this.currentQuestionNo;
     if (this.questions.Questions.filter(x => x.QuestionNo == this.currentQuestionNo).length > 0) {
       let index = this.questions.Questions.findIndex(x => x.QuestionNo == this.currentQuestionNo);
@@ -71,5 +75,5 @@ export class SetTheQuizComponent implements OnInit {
     else {
       alert('Please enter all questions. You entered' + this.currentQuestionNo + ' question so far.')
     }
-  } 
+  }
 }

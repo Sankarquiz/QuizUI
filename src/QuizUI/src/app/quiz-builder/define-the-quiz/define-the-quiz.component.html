@@ -184,9 +184,8 @@
     </div>
     <div class="reg-button">
       <button type="submit" [class.dont-submit]="definethequiz.invalid" class="btn btn-danger" [disabled]="definethequiz.invalid" (click)="saveDefinequiz(definethequiz)">
-        <a>Next >></a>
+        Save & Next
       </button>
     </div>
   </div>
 </form>
-{{ definethequiz.value | json }}

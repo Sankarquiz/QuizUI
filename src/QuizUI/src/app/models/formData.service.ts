@@ -131,5 +131,12 @@ export class FormDataService {
     this.formData.Questions = new Array<QuizSet>()
     this.formData.Questions.concat(data);
   }
+
+  //getQuestion(): QuizSet {
+  //  var this.formData.Questions;
+  //}
+  //setQuestion(): QuizSet {
+  //  return this.formData.Questions;
+  //}
 }
 

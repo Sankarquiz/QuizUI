@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { QuizSet, QuizQuestions, QuizDefinition } from '../../models/QuizDefinition';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
@@ -8,11 +8,12 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-publish-quiz-main-content',
   templateUrl: './publish-quiz-main-content.component.html',
-  styleUrls: ['./publish-quiz-main-content.component.css']
+  styleUrls: ['./publish-quiz-main-content.component.css'],
 })
-export class PublishQuizMainContentComponent implements OnInit {
+export class PublishQuizMainContentComponent implements OnInit, OnChanges {
+
   quizDefinition: QuizDefinition;
-  questionNo: number;
+  @Input() questionNo: number;
   totalquestions;
   questionset = new QuizSet();
   questions = new QuizQuestions();
@@ -23,32 +24,54 @@ export class PublishQuizMainContentComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    alert('hi');
-    debugger;
-    this.activatedRoute.params.subscribe((params: Params) => {
-      this.questionNo = Number.parseInt(params['qn']);
-      console.log(this.questionNo);
-    });
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.totalquestions = this.quizDefinition.NoOfQuestions;
     this.questions = this.formDataService.getQuizQuestions();
     if (!this.questionNo) {
       this.questionNo = 1;
     }
-    debugger;
+
+    this.questionset = this.questions.Questions[this.questionNo - 1];
+  }
+  ngOnChanges() {
     this.questionset = this.questions.Questions[this.questionNo - 1];
   }
 
   Publish() {
     this.quizDefinition.Stage = "Publish";
     this.quizDefinition.Status = "Published";
-    this._getQuestion.SaveQuestion(this.questions)
+
+    this._getQuestion.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => { this.result = result });
 
     if (this.result) {
-      this._getQuestion.SaveQuizData(this.quizDefinition)
-        .subscribe((result: any) => { this.result = result });
+      alert('Published');
       this.router.navigate(['/quiz-builder/create-quiz/']);
+    }
+  }
+
+  UpdateQuestionNo(action) {
+    if (action) {
+      if (action == 'First' && this.questionNo > 1) {
+        this.questionNo = 1;
+        this.ngOnChanges();
+      }
+      if (action == 'Next' && this.questionNo < this.quizDefinition.NoOfQuestions) {
+        this.questionNo++;
+        this.ngOnChanges();
+      }
+      if (action == 'Last') {
+        this.questionNo = this.quizDefinition.NoOfQuestions;
+        this.ngOnChanges();
+      }
+      if (action == 'Prev' && this.questionNo > 1) {
+        this.questionNo--;
+        this.ngOnChanges();
+      }
+      if (action == 'Edit') {
+         //this.formDataService.setQuizSet = this.questionset;
+         //this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
+      }
     }
   }
 }
