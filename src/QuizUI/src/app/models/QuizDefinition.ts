@@ -6,10 +6,8 @@ export class FormData {
   NoOfParticipants: number;
   QuizDurationTime: number;
   QuizDurationType: string;
-  QuizStartDate: any;
-  QuizStartDateTime: any;
-  QuizEndDate: any;
-  QuizEndDateTime: any;
+  QuizStartTime: any;
+  QuizEndTime: any;
   ShuffleQuestions: boolean;
   IsQuizFromLargerPool: boolean;
   NoOfQuestionsInPool: number;
@@ -22,8 +20,9 @@ export class FormData {
   Stage: string = '';
   MessageBeforeQuizTime: string = '';
   MessageAfterQuizTime: string = '';
-  QuestionNo: string = '';
+  QuestionNo: number;
   QuestionText: string = '';
+  IsImageneeded: boolean;
   ImageUrl: string = '';
   AnswerType: string = '';
   Answer: string = '';
@@ -42,6 +41,7 @@ export class FormData {
   RegistrationFields = new RegistrationFields();
   SponsorList = new Array<SponsorDetail>();
   Questions = new Array<QuizSet>();
+  IsEditQuestion: boolean;
 
   clear() {
     this.QuizName = '';
@@ -51,10 +51,8 @@ export class FormData {
     this.NoOfParticipants = 0;
     this.QuizDurationTime = 0;
     this.QuizDurationType = '';
-    this.QuizStartDate = '';
-    this.QuizStartDateTime = '';
-    this.QuizEndDate = '';
-    this.QuizEndDateTime = '';
+    this.QuizStartTime = '';
+    this.QuizEndTime = '';
     this.ShuffleQuestions = true;
     this.IsQuizFromLargerPool = true;
     this.NoOfQuestionsInPool = 0;
@@ -67,8 +65,9 @@ export class FormData {
     this.Stage = '';
     this.MessageBeforeQuizTime = '';
     this.MessageAfterQuizTime = '';
-    this.QuestionNo = '';
+    this.QuestionNo = 0;
     this.QuestionText = '';
+    this.IsImageneeded = false;
     this.ImageUrl = '';
     this.AnswerType = '';
     this.Answer = '';
@@ -87,6 +86,7 @@ export class FormData {
     this.RegistrationFields = new RegistrationFields();
     this.SponsorList = new Array<SponsorDetail>();
     this.Questions = new Array<QuizSet>();
+    this.IsEditQuestion = false;
   }
 }
 
@@ -98,10 +98,8 @@ export class QuizDefinition {
   NoOfParticipants: number;
   QuizDurationTime: number;
   QuizDurationType: string;
-  QuizStartDate: any;
-  QuizStartDateTime: any;
-  QuizEndDate: any;
-  QuizEndDateTime: any;
+  QuizStartTime: any;
+  QuizEndTime: any;
   ShuffleQuestions: boolean;
   IsQuizFromLargerPool: boolean;
   NoOfQuestionsInPool: number;

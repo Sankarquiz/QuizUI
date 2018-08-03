@@ -16,10 +16,8 @@ export class FormDataService {
       NoOfParticipants: this.formData.NoOfParticipants,
       QuizDurationType: this.formData.QuizDurationType,
       QuizDurationTime: this.formData.QuizDurationTime,
-      QuizStartDate: this.formData.QuizStartDate,
-      QuizStartDateTime: this.formData.QuizStartDateTime,
-      QuizEndDate: this.formData.QuizEndDate,
-      QuizEndDateTime: this.formData.QuizEndDateTime,
+      QuizStartTime: this.formData.QuizStartTime,
+      QuizEndTime: this.formData.QuizEndTime,
       ShuffleQuestions: this.formData.ShuffleQuestions,
       IsQuizFromLargerPool: this.formData.IsQuizFromLargerPool,
       NoOfQuestionsInPool: this.formData.NoOfQuestionsInPool,
@@ -46,10 +44,8 @@ export class FormDataService {
     this.formData.NoOfParticipants = data.NoOfParticipants;
     this.formData.QuizDurationType = data.QuizDurationType;
     this.formData.QuizDurationTime = data.QuizDurationTime;
-    this.formData.QuizStartDate = data.QuizStartDate;
-    this.formData.QuizStartDateTime = data.QuizStartDateTime;
-    this.formData.QuizEndDate = data.QuizEndDate;
-    this.formData.QuizEndDateTime = data.QuizEndDateTime;
+    this.formData.QuizStartTime = data.QuizStartTime;
+    this.formData.QuizEndTime = data.QuizEndTime;
     this.formData.ShuffleQuestions = data.ShuffleQuestions;
     this.formData.IsQuizFromLargerPool = data.IsQuizFromLargerPool;
     this.formData.NoOfQuestionsInPool = data.NoOfQuestionsInPool;
@@ -131,5 +127,44 @@ export class FormDataService {
     this.formData.Questions = new Array<QuizSet>()
     this.formData.Questions.concat(data);
   }
-}
 
+  getQuestion(): QuizSet {
+    var question: QuizSet = {
+      QuestionText: this.formData.QuestionText,
+      QuestionNo: this.formData.QuestionNo,
+      Answer: this.formData.Answer,
+      AnswerType: this.formData.AnswerType,
+      IsImageneeded: this.formData.IsImageneeded,
+      ImageUrl: this.formData.ImageUrl,
+      Score: this.formData.Score,
+      Option1: this.formData.Option1,
+      Option2: this.formData.Option2,
+      Option3: this.formData.Option3,
+      Option4: this.formData.Option4
+    };
+    return question;
+  }
+  setQuestion(data: QuizSet) {
+    this.formData.QuestionText = data.QuestionText;
+    this.formData.QuestionNo = data.QuestionNo;
+    this.formData.Answer = data.Answer;
+    this.formData.AnswerType = data.AnswerType;
+    this.formData.IsImageneeded = data.IsImageneeded;
+    this.formData.ImageUrl = data.ImageUrl;
+    this.formData.Score = data.Score;
+    this.formData.Option1 = data.Option1;
+    this.formData.Option2 = data.Option2;
+    this.formData.Option3 = data.Option3;
+    this.formData.Option4 = data.Option4;
+  }
+
+  setEditQuestion(value: boolean) {
+    this.formData.IsEditQuestion = value;
+  }
+  getEditQuestion(): boolean {
+    return this.formData.IsEditQuestion;
+  }
+  Clear(): void {
+    this.formData.clear();
+  }
+}

@@ -127,9 +127,9 @@
         <!--<button type="submit" class="btn btn-danger" (click)="PreviewQuestion(setquiz)">Preview Question</button>-->
         <!--<button type="submit" class="btn btn-danger" (click)="PreviousQuestion(setquiz)">Previous Question</button>-->
         <button type="submit" [class.dont-submit]="setquiz.invalid" [disabled]="setquiz.invalid" class="btn btn-danger" *ngIf="disablePublish==true" (click)="SaveQuestion(setquiz)">Save & Next </button>
-        <button type="submit" class="btn btn-danger" *ngIf="disablePublish==false" (click)="Publish()">
+        <!--<button type="submit" class="btn btn-danger" *ngIf="disablePublish==false" (click)="Publish()">
           Submit
-        </button>
+        </button>-->
       </div>
     </div>
   </div>

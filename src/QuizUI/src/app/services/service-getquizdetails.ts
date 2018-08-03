@@ -8,8 +8,8 @@ export class QuizDetailsService {
     headers: new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Access-Control-Allow-Origin', '*')
-      .append('Access-Control-Allow-Headers', '*')
-      .append('ccess-Control-Allow-Methods', '*')
+      .append('Access-Control-Allow-Headers', '*') 
+      .append('ccess-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT')
   };
 
   constructor(private _http: HttpClient) {

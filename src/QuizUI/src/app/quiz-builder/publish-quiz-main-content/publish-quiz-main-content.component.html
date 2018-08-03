@@ -1,9 +1,9 @@
 <div class="main-content-quiz container" *ngIf="questionset.QuestionText">
 
   <p>{{questionset.QuestionText}}</p>
-  <!--<label #QuestionText="ngModel" [(ngModel)]="questionset.QuestionText"></label>-->
+
   <img src="assets/images/u464.png">
-  <form class="question-list">
+  <form class="question-list" *ngIf="questionset.AnswerType ==='Multiple Choice'">
     <div> <label>Option 1</label><input type="radio" name="gender"> {{questionset.Option1}}</div>
     <div><label>Option 2</label><input type="radio" name="gender"> {{questionset.Option2}}</div>
     <div><label>Option 3</label><input type="radio" name="gender"> {{questionset.Option3}} </div>
@@ -11,30 +11,30 @@
   </form>
 
   <div class="reg-button">
-    <button type="submit" class="btn btn-warning ">
-      <a [routerLink]="['/quiz-builder/create-quiz/publish-quiz/first-quiz']" [queryParams]="{qn:1| json }" routerLinkActive="active">First</a>
+    <button type="button" class="btn btn-warning" (click)="UpdateQuestionNo('First')">
+      First
     </button>
-    <button type="submit" class="btn btn-warning ">
-      <a [routerLink]="['/quiz-builder/create-quiz/publish-quiz/first-quiz']" [queryParams]="{qn:questionNo-1| json }" routerLinkActive="active">Prev</a>
+    <button type="button" *ngIf="questionNo>1" class="btn btn-warning" (click)="UpdateQuestionNo('Prev')">
+      Prev
     </button>
-    <button type="submit" class="btn btn-info">
-      <a routerLink="/quiz-builder/create-quiz/Registration" routerLinkActive="active">Save Answer</a>
+    <button type="button" class="btn btn-info">
+      Save Answer
     </button>
-    <button type="submit" class="btn btn-danger">
-      <a [routerLink]="['/quiz-builder/create-quiz/publish-quiz/first-quiz']" [queryParams]="{qn:questionNo+1| json }" routerLinkActive="active">Next </a>
+    <button type="button" *ngIf="questionNo<totalquestions" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
+      Next
     </button>
-    <button type="submit" class="btn btn-danger">
-      <a [routerLink]="['/quiz-builder/create-quiz/publish-quiz/first-quiz']" [queryParams]="{qn:totalquestions| json }" routerLinkActive="active">Last</a>
+    <button type="button" class="btn btn-danger" (click)="UpdateQuestionNo('Last')">
+      Last
     </button><br>
-    <button type="submit" class="btn btn-danger">
-      <a routerLink="/quiz-builder/create-quiz/Registration" routerLinkActive="active">Edit this Question</a>
+    <button type="button" class="btn btn-danger" (click)="UpdateQuestionNo('Edit')">
+      Edit this Question
     </button>
-    <button type="submit" class="btn btn-warning">
-      <a [routerLink]="['/quiz-builder/create-quiz/publish-quiz/first-quiz']" [queryParams]="{qn:questionNo-1| json }" routerLinkActive="active"> Prev</a>
+    <button type="button" *ngIf="questionNo>1" class="btn btn-warning" (click)="UpdateQuestionNo('Prev')">
+      Prev
     </button>
-    <button type="submit" class="btn btn-danger">
-      <a [routerLink]="['/quiz-builder/create-quiz/publish-quiz/first-quiz']" [queryParams]="{qn:questionNo+1| json }" routerLinkActive="active">Next</a>
+    <button type="button" *ngIf="questionNo<totalquestions" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
+      Next
     </button>
-    <button type="submit" class="btn btn-danger" (click)="Publish()">Publish</button>
+    <button type="button" class="btn btn-danger" (click)="Publish()">Publish</button>
   </div>
 </div>
