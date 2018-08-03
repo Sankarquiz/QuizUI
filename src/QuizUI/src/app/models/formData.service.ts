@@ -132,11 +132,43 @@ export class FormDataService {
     this.formData.Questions.concat(data);
   }
 
-  //getQuestion(): QuizSet {
-  //  var this.formData.Questions;
-  //}
-  //setQuestion(): QuizSet {
-  //  return this.formData.Questions;
-  //}
-}
+  getQuestion(): QuizSet {
+    var question: QuizSet = {
+      QuestionText: this.formData.QuestionText,
+      QuestionNo: this.formData.QuestionNo,
+      Answer: this.formData.Answer,
+      AnswerType: this.formData.AnswerType,
+      IsImageneeded: this.formData.IsImageneeded,
+      ImageUrl: this.formData.ImageUrl,
+      Score: this.formData.Score,
+      Option1: this.formData.Option1,
+      Option2: this.formData.Option2,
+      Option3: this.formData.Option3,
+      Option4: this.formData.Option4
+    };
+    return question;
+  }
+  setQuestion(data: QuizSet) {
+    this.formData.QuestionText = data.QuestionText;
+    this.formData.QuestionNo = data.QuestionNo;
+    this.formData.Answer = data.Answer;
+    this.formData.AnswerType = data.AnswerType;
+    this.formData.IsImageneeded = data.IsImageneeded;
+    this.formData.ImageUrl = data.ImageUrl;
+    this.formData.Score = data.Score;
+    this.formData.Option1 = data.Option1;
+    this.formData.Option2 = data.Option2;
+    this.formData.Option3 = data.Option3;
+    this.formData.Option4 = data.Option4;
+  }
 
+  setEditQuestion(value: boolean) {
+    this.formData.IsEditQuestion = value;
+  }
+  getEditQuestion(): boolean {
+    return this.formData.IsEditQuestion;
+  }
+  Clear(): void {
+    this.formData.clear();
+  }
+}

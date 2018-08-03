@@ -19,43 +19,58 @@ export class SetTheQuizComponent implements OnInit {
   questionset = new QuizSet();
   questions = new QuizQuestions();
   disablePublish: boolean = true;
+  iseditquestion: boolean = false;
   navs = ['Multiple Choice', 'Hangman', 'Free Text'];
 
   constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
-    // if (this.questionset.QuestionNo == 0) {
+    this.iseditquestion = this.formDataService.getEditQuestion();
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
-    this.questionset.AnswerType = 'Multiple Choice';
-    this.questionset.IsImageneeded = false;
-    //}
-    //else {
-    //  this.questionset = this.formDataService.getQuizSet();
-    //}
+    if (!this.iseditquestion) {
+      this.questionset.AnswerType = 'Multiple Choice';
+      this.questionset.IsImageneeded = false;
+    }
+    else {
+      this.questionset = this.formDataService.getQuestion();
+    }
   }
 
   SaveQuestion(question: NgForm) {
-    this.questionset.QuestionNo = ++this.currentQuestionNo;
-    if (this.questions.Questions.filter(x => x.QuestionNo == this.currentQuestionNo).length > 0) {
-      let index = this.questions.Questions.findIndex(x => x.QuestionNo == this.currentQuestionNo);
-      this.questions.Questions[index] = this.questionset;
+    alert('t');
+    debugger;
+    if (!this.iseditquestion) {
+      this.questionset.QuestionNo = ++this.currentQuestionNo;
+      if (this.questions.Questions.filter(x => x.QuestionNo == this.currentQuestionNo).length > 0) {
+        let index = this.questions.Questions.findIndex(x => x.QuestionNo == this.currentQuestionNo);
+        this.questions.Questions[index] = this.questionset;
+      }
+      else {
+        this.questions.Questions.push(this.questionset);
+      }
     }
     else {
-      this.questions.Questions.push(this.questionset);
+      if (this.questions.Questions.filter(x => x.QuestionNo == this.questionset.QuestionNo).length > 0) {
+        let index = this.questions.Questions.findIndex(x => x.QuestionNo == this.questionset.QuestionNo);
+        this.questions.Questions[index] = this.questionset;
+        this.formDataService.setEditQuestion(false);
+        this.Publish();
+      }
     }
     alert("Saved");
     this.questionset = new QuizSet();
     this.ngOnInit();
     if (this.quizDefinition.NoOfQuestions == this.currentQuestionNo) {
       this.disablePublish = false;
+      this.Publish();
     }
   }
 
   Publish() {
     this.questions.QuizName = this.quizDefinition.QuizName;
     this.questions.QuizType = this.quizDefinition.QuizType;
-    if (this.quizDefinition.NoOfQuestions == this.currentQuestionNo) {
+    if (this.quizDefinition.NoOfQuestions == this.currentQuestionNo || this.iseditquestion) {
       this._saveQuestion.SaveQuestion(this.questions)
         .subscribe((result: any) => { this.result = result });
 
@@ -64,13 +79,13 @@ export class SetTheQuizComponent implements OnInit {
       this._saveQuestion.SaveQuizData(this.quizDefinition)
         .subscribe((result: any) => { this.result = result });
 
-      if (this.result) {
-        this.formDataService.setQuizQuestions(this.questions);
-        this.formDataService.setQuizDefinition(this.quizDefinition);
-        this.router.navigate(['/quiz-builder/create-quiz/publish-quiz']);
-      } else {
-        alert('Not Submitted.');
-      }
+      //if (this.result) {
+      this.formDataService.setQuizQuestions(this.questions);
+      this.formDataService.setQuizDefinition(this.quizDefinition);
+      this.router.navigate(['/quiz-builder/create-quiz/publish-quiz']);
+      //} else {
+      //  alert('Not Submitted.');
+      //}
     }
     else {
       alert('Please enter all questions. You entered' + this.currentQuestionNo + ' question so far.')

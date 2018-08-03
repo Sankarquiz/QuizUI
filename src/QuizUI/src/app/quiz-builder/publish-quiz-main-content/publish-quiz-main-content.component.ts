@@ -68,9 +68,10 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
         this.questionNo--;
         this.ngOnChanges();
       }
-      if (action == 'Edit') {
-         //this.formDataService.setQuizSet = this.questionset;
-         //this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
+      if (action == 'Edit') { 
+        this.formDataService.setQuestion(this.questionset);
+        this.formDataService.setEditQuestion(true);
+        this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
       }
     }
   }

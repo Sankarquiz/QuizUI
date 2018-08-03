@@ -22,8 +22,9 @@ export class FormData {
   Stage: string = '';
   MessageBeforeQuizTime: string = '';
   MessageAfterQuizTime: string = '';
-  QuestionNo: string = '';
+  QuestionNo: number;
   QuestionText: string = '';
+  IsImageneeded: boolean;
   ImageUrl: string = '';
   AnswerType: string = '';
   Answer: string = '';
@@ -42,6 +43,7 @@ export class FormData {
   RegistrationFields = new RegistrationFields();
   SponsorList = new Array<SponsorDetail>();
   Questions = new Array<QuizSet>();
+  IsEditQuestion: boolean;
 
   clear() {
     this.QuizName = '';
@@ -67,8 +69,9 @@ export class FormData {
     this.Stage = '';
     this.MessageBeforeQuizTime = '';
     this.MessageAfterQuizTime = '';
-    this.QuestionNo = '';
+    this.QuestionNo = 0;
     this.QuestionText = '';
+    this.IsImageneeded = false;
     this.ImageUrl = '';
     this.AnswerType = '';
     this.Answer = '';
@@ -87,6 +90,7 @@ export class FormData {
     this.RegistrationFields = new RegistrationFields();
     this.SponsorList = new Array<SponsorDetail>();
     this.Questions = new Array<QuizSet>();
+    this.IsEditQuestion = false;
   }
 }
 
