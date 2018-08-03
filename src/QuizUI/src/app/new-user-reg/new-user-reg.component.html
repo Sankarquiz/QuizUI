@@ -1,3 +1,7 @@
+
+
+<form #alreadyuser="ngForm">
+
 <div class="container">
   <form>
     <div class="row">
@@ -22,8 +26,25 @@
           <p>Or sign in manually:</p>
         </div>
 
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
+
+
+        
+    
+      <div class="form-group" [class.has-error]="login.invalid && login.touched" [class.success]="login.valid">
+        <input type="text" name="username" placeholder="Username" required #login="ngModel" [(ngModel)]="loginnew">
+        <span class="help-block" *ngIf="login.invalid && login.touched">
+          Username  is required
+        </span>
+      </div>
+
+
+      <div class="form-group" [class.has-error]="loginpass.invalid && loginpass.touched" [class.success]="login.valid">
+        <input type="password" name="password" placeholder="Password" required #loginpass="ngModel" [(ngModel)]="loginnewpassword">
+        <span class="help-block" *ngIf="loginpass.invalid && loginpass.touched">
+      please Enter   password
+        </span>
+      </div>
+
         <input type="submit" value="Login">
       </div>
       
@@ -37,5 +58,5 @@
     </button>
   </div>
 </div>
-
+</form>
 
