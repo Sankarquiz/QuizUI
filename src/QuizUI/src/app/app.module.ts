@@ -25,8 +25,14 @@ import { MainAddsComponent } from './main-adds/main-adds.component';
 import { AddsDescComponent } from './adds-desc/adds-desc.component';
 import { NewUserRegComponent } from './new-user-reg/new-user-reg.component';
 import { SetLogosGroupComponent } from './quiz-builder/set-logos-group/set-logos-group.component';
+<<<<<<< HEAD
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+=======
+import { QuizRunnerComponent } from './quiz-runner/quiz-runner.component';
+import { QuizHeaderComponent } from './quiz-runner/quiz-header/quiz-header.component';
+import { QuizRunnerContentComponent } from './quiz-runner/quiz-runner-content/quiz-runner-content.component';
+>>>>>>> origin/Dev
 
 const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
@@ -35,6 +41,7 @@ const appRoutes: Routes = [
   { path: 'adds-desc', component: AddsDescComponent },
   { path: 'create-account', component: CreateAccountComponent },
   { path: 'user-registration', component: NewUserRegComponent },
+  { path: 'quiz-runner', component: QuizRunnerComponent },
   {
     path: 'quiz-builder', component: QuizBuilderComponent,
     children: [
@@ -108,7 +115,10 @@ const appRoutes: Routes = [
     NewUserRegComponent,
     SetLogosComponent,
     CreateAccountComponent,
-    SetLogosGroupComponent
+    SetLogosGroupComponent,
+    QuizRunnerComponent,
+    QuizHeaderComponent,
+    QuizRunnerContentComponent
   ],
   imports: [
     BrowserModule,
