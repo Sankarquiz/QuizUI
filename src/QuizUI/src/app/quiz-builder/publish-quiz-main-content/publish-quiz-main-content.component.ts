@@ -46,7 +46,8 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
 
     if (this.result) {
       alert('Published');
-      this.router.navigate(['/quiz-builder/create-quiz/']);
+      this.formDataService.Clear();
+      this.router.navigate(['/quiz-builder/create-quiz/define-the-Quiz']);
     }
   }
 

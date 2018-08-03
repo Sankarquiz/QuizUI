@@ -16,10 +16,8 @@ export class FormDataService {
       NoOfParticipants: this.formData.NoOfParticipants,
       QuizDurationType: this.formData.QuizDurationType,
       QuizDurationTime: this.formData.QuizDurationTime,
-      QuizStartDate: this.formData.QuizStartDate,
-      QuizStartDateTime: this.formData.QuizStartDateTime,
-      QuizEndDate: this.formData.QuizEndDate,
-      QuizEndDateTime: this.formData.QuizEndDateTime,
+      QuizStartTime: this.formData.QuizStartTime,
+      QuizEndTime: this.formData.QuizEndTime,
       ShuffleQuestions: this.formData.ShuffleQuestions,
       IsQuizFromLargerPool: this.formData.IsQuizFromLargerPool,
       NoOfQuestionsInPool: this.formData.NoOfQuestionsInPool,
@@ -46,10 +44,8 @@ export class FormDataService {
     this.formData.NoOfParticipants = data.NoOfParticipants;
     this.formData.QuizDurationType = data.QuizDurationType;
     this.formData.QuizDurationTime = data.QuizDurationTime;
-    this.formData.QuizStartDate = data.QuizStartDate;
-    this.formData.QuizStartDateTime = data.QuizStartDateTime;
-    this.formData.QuizEndDate = data.QuizEndDate;
-    this.formData.QuizEndDateTime = data.QuizEndDateTime;
+    this.formData.QuizStartTime = data.QuizStartTime;
+    this.formData.QuizEndTime = data.QuizEndTime;
     this.formData.ShuffleQuestions = data.ShuffleQuestions;
     this.formData.IsQuizFromLargerPool = data.IsQuizFromLargerPool;
     this.formData.NoOfQuestionsInPool = data.NoOfQuestionsInPool;

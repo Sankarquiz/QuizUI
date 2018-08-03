@@ -6,10 +6,8 @@ export class FormData {
   NoOfParticipants: number;
   QuizDurationTime: number;
   QuizDurationType: string;
-  QuizStartDate: any;
-  QuizStartDateTime: any;
-  QuizEndDate: any;
-  QuizEndDateTime: any;
+  QuizStartTime: any;
+  QuizEndTime: any;
   ShuffleQuestions: boolean;
   IsQuizFromLargerPool: boolean;
   NoOfQuestionsInPool: number;
@@ -53,10 +51,8 @@ export class FormData {
     this.NoOfParticipants = 0;
     this.QuizDurationTime = 0;
     this.QuizDurationType = '';
-    this.QuizStartDate = '';
-    this.QuizStartDateTime = '';
-    this.QuizEndDate = '';
-    this.QuizEndDateTime = '';
+    this.QuizStartTime = '';
+    this.QuizEndTime = '';
     this.ShuffleQuestions = true;
     this.IsQuizFromLargerPool = true;
     this.NoOfQuestionsInPool = 0;
@@ -102,10 +98,8 @@ export class QuizDefinition {
   NoOfParticipants: number;
   QuizDurationTime: number;
   QuizDurationType: string;
-  QuizStartDate: any;
-  QuizStartDateTime: any;
-  QuizEndDate: any;
-  QuizEndDateTime: any;
+  QuizStartTime: any;
+  QuizEndTime: any;
   ShuffleQuestions: boolean;
   IsQuizFromLargerPool: boolean;
   NoOfQuestionsInPool: number;
