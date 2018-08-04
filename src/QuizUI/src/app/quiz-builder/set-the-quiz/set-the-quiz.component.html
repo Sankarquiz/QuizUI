@@ -38,7 +38,7 @@
                  [class.has-error]="ImageUrl.invalid && ImageUrl.touched"
                  [class.success]="ImageUrl.valid"
                  name="uploadimage" id="uploadimage" [(ngModel)]="questionset.ImageUrl"
-                 #ImageUrl="ngModel" capture>
+                 (change)="onFileSelected($event)" #ImageUrl="ngModel" capture>
         </div>
 
         <div class="form-group">

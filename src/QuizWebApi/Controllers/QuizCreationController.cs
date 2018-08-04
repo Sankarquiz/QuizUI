@@ -1,8 +1,13 @@
 ﻿using Couchbase.N1QL;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizWebApi.Models.Admin;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace QuizWebApi.Controllers
@@ -13,18 +18,11 @@ namespace QuizWebApi.Controllers
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/quiz/[action]")]
     [ApiController]
+    [AllowAnonymous]
     public class QuizCreationController : ControllerBase
     {
         // private IMongoDatabase _mongoDatabase;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="QuizCreationController"/> class.
-        /// </summary>
-        /// <param name="mongoDatabase">The mongo database.</param>
-        public QuizCreationController()
-        {
-            // _mongoDatabase = mongoDatabase;
-        }
+        const string _imagePath = @"..\QuizWebApi\Images";
 
         /// <summary>
         /// Defines the quiz.
@@ -126,6 +124,33 @@ namespace QuizWebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Uploads the image.
+        /// </summary>
+        /// <returns></returns> 
+
+        [HttpPost, DisableRequestSizeLimit]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            try
+            {
+                var filePath = Path.Combine(_imagePath, file.FileName);
+                if (file.Length > 0)
+                {
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                }
+
+                return Ok(true);
+            }
+            catch (Exception e)
+            {
+                return Ok(false);
+            }
+        }
+
         //[Route("/setregistration")]
         //[HttpPost]
         //public async Task<IActionResult> SetRegistration([FromBody] RegistrationFields registrationSet)
@@ -174,6 +199,6 @@ namespace QuizWebApi.Controllers
         //    }
         //    var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<RegistrationFields>(quizName + "_" + quizType + "_sponser");
         //    return Ok(response);
-        //}
+        //}  
     }
 }

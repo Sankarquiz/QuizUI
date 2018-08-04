@@ -8,6 +8,7 @@ export const environment = {
   getallquizdetails: 'http://localhost:52671/api/quiz/GetAllQuiz/',
   getquizdetail: 'http://localhost:52671/api/quiz/GetQuiz/',
   setquestion: 'http://localhost:52671/api/quiz/SetQuiz/',
+  uploadimage: 'http://localhost:52671/api/quiz/UploadImage/',
 
   //quizDefinitionUri: 'http://172.29.94.20:52671/api/quiz/DefineQuiz/',
   //getallquizdetails: 'http://172.29.94.20:52671/api/quiz/GetAllQuiz/',

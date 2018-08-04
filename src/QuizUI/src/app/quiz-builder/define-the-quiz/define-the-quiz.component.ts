@@ -42,11 +42,7 @@ export class DefineTheQuizComponent implements OnInit {
   }
 
   saveDefinequiz(form: any) {
-    if (this.quizDefinition.QuizEndTime > this.quizDefinition.QuizStartTime) {
-      alert('Start time cannot be greater than end time.');
-      return;
-    }
-
+    
     this.quizDefinition.Stage = 'Define';
     this.quizDefinition.Status = 'Pending';
     this._saveQuizData.SaveQuizData(this.quizDefinition)

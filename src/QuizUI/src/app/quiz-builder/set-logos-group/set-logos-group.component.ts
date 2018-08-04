@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { FormDataService } from '../../models/formData.service';
 import { EventEmitter } from 'events';
 import { Observable } from 'rxjs';
-
+import { BrowserModule } from '@angular/platform-browser';
 @Component({
   selector: 'app-set-logos-group',
   templateUrl: './set-logos-group.component.html',
@@ -16,18 +16,29 @@ export class SetLogosGroupComponent implements OnInit {
   quizDefinition: QuizDefinition;
   sponsor;
   result: Observable<any>;
-  @Output() originCode = new EventEmitter();
   constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
 
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.sponsor = this.formDataService.getSponserFields();
   }
-  SaveLogo(path, location) {
+
+  SaveImage(image, location) {
+    debugger;
+    const fd = new FormData();
+    let imgname = this.quizDefinition.QuizName + "_" + this.quizDefinition.QuizType + "_" + location;
+    fd.append("file", image, imgname);
+    this._saveQuizData.UploadImage(fd)
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
+  SavePath(path, location) {
     debugger;
     this.sponsor = new SponsorDetail();
     this.sponsor.Path = path;
     this.sponsor.Position = location;
+    this.sponsor.ImageName = this.quizDefinition.QuizName + "_" + this.quizDefinition.QuizType + "_" + location;
     if (this.quizDefinition.SponsorList.filter(x => x.Position == location).length > 0) {
       let index = this.quizDefinition.SponsorList.findIndex(x => x.Position == location);
       this.quizDefinition.SponsorList[index] = this.sponsor;
@@ -36,7 +47,6 @@ export class SetLogosGroupComponent implements OnInit {
       this.quizDefinition.SponsorList.push(this.sponsor);
     }
   }
-
   SaveSponsorDetails(sponsordetail) {
     debugger;
     this.quizDefinition.Stage = "SetLogo";

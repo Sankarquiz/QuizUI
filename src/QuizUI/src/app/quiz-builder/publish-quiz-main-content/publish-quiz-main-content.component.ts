@@ -24,6 +24,7 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
     private router: Router) { }
 
   ngOnInit() {
+    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.totalquestions = this.quizDefinition.NoOfQuestions;
     this.questions = this.formDataService.getQuizQuestions();
@@ -32,14 +33,17 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
     }
 
     this.questionset = this.questions.Questions[this.questionNo - 1];
+    this.questionset.ImageUrl = 'http:\\localhost:52671QuizWebApi\Images\\' + this.questionset.ImageUrl;
   }
   ngOnChanges() {
+    debugger;
     this.questionset = this.questions.Questions[this.questionNo - 1];
+    this.questionset.ImageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.ImageUrl;
   }
 
   Publish() {
-    this.quizDefinition.Stage = "Publish";
-    this.quizDefinition.Status = "Published";
+    this.quizDefinition.Stage = 'Publish';
+    this.quizDefinition.Status = 'Published';
 
     this._getQuestion.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => { this.result = result });
@@ -69,7 +73,7 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
         this.questionNo--;
         this.ngOnChanges();
       }
-      if (action == 'Edit') { 
+      if (action == 'Edit') {
         this.formDataService.setQuestion(this.questionset);
         this.formDataService.setEditQuestion(true);
         this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);

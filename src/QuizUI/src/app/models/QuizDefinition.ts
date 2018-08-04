@@ -1,4 +1,4 @@
-export class FormData {
+export class FormDataModel {
   QuizName: string = '';
   QuizDomainHost: string = '';
   QuizType: string = '';
@@ -127,6 +127,7 @@ export class RegistrationFields {
 }
 
 export class SponsorDetail {
+  ImageName: string;
   Path: string;
   Position: string;
 }

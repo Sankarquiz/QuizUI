@@ -1,6 +1,7 @@
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Injectable()
 export class QuizDetailsService {
@@ -8,8 +9,9 @@ export class QuizDetailsService {
     headers: new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Access-Control-Allow-Origin', '*')
-      .append('Access-Control-Allow-Headers', '*') 
-      .append('ccess-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT')
+      .append('Access-Control-Allow-Headers', '*')
+      .append('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT')
+      .append('Access-Control-Expose-Headers', 'Content-Length,Content-Range')
   };
 
   constructor(private _http: HttpClient) {
@@ -32,6 +34,10 @@ export class QuizDetailsService {
   }
   SaveQuestion(question: any) {
     return this._http.post(environment.setquestion, JSON.stringify(question), this.httpOptions);
+  }
+
+  UploadImage(image: any) {
+    return this._http.post(environment.uploadimage, image);
   }
 
   //GetRegistrationData(quizName: string, quizType: string) {

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FormData, QuizDefinition, QuizSet, RegistrationFields, SponsorDetail, QuizQuestions } from './QuizDefinition';
+import { FormDataModel, QuizDefinition, QuizSet, RegistrationFields, SponsorDetail, QuizQuestions } from './QuizDefinition';
 @Injectable()
 export class FormDataService {
 
-  private formData: FormData = new FormData();
+  private formData: FormDataModel = new FormDataModel();
   constructor() {
   }
   getQuizDefinition(): QuizDefinition {
