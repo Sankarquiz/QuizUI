@@ -107,7 +107,7 @@
           </div>
 
         </div>
-        <div class="form-group" [class.success]="NoOfQuestionsInPool.valid" [class.has-error]="NoOfQuestionsInPool.invalid && NoOfQuestionsInPool.touched">
+        <div class="form-group" *ngIf="quizDefinition.IsQuizFromLargerPool==true" [class.success]="NoOfQuestionsInPool.valid" [class.has-error]="NoOfQuestionsInPool.invalid && NoOfQuestionsInPool.touched">
           <label for="name">
             # of Questions in Pool
             <span class="help-block" *ngIf="NoOfQuestionsInPool.invalid && NoOfQuestionsInPool.touched">Enter the Questions</span>

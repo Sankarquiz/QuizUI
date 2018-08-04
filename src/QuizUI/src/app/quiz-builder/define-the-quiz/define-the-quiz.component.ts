@@ -28,7 +28,7 @@ export class DefineTheQuizComponent implements OnInit {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     if (this.quizDefinition.QuizName == '') {
       this.quizDefinition.ShuffleQuestions = true;
-      this.quizDefinition.IsQuizFromLargerPool = true;
+      this.quizDefinition.IsQuizFromLargerPool = false;
       this.quizDefinition.AllowConcurrentAccess = true;
       this.quizDefinition.IsQuizAutoEvaluate = true;
       this.quizDefinition.ShowScoreAfterAttempt = true;
@@ -42,17 +42,20 @@ export class DefineTheQuizComponent implements OnInit {
   }
 
   saveDefinequiz(form: any) {
-    
-    this.quizDefinition.Stage = 'Define';
-    this.quizDefinition.Status = 'Pending';
-    this._saveQuizData.SaveQuizData(this.quizDefinition)
-      .subscribe((response: any) => { this.result = response });
-
-    if (this.result) {
-      this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.router.navigate(['/quiz-builder/create-quiz/Registration']);
-    } else {
-      alert('Not Saved.');
+  if(this.quizDefinition.NoOfQuestionsInPool <= this.quizDefinition.NoOfQuestions){ 
+      this.quizDefinition.Stage = 'Define';
+      this.quizDefinition.Status = 'Pending';
+      this._saveQuizData.SaveQuizData(this.quizDefinition)
+        .subscribe((response: any) => { this.result = response }); 
+      if (this.result) {
+        this.formDataService.setQuizDefinition(this.quizDefinition);
+        this.router.navigate(['/quiz-builder/create-quiz/Registration']);
+      } else {
+        alert('Not Saved.');
+      }
+    }
+    else{ 
+      alert('Question pool should be less than or equal to Question number..!');
     }
   }
 
