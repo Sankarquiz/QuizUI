@@ -94,13 +94,15 @@
         <div class="form-group radio-box">
           <label for="end-duration">Create Quiz from larger Pool?</label>
           <div class="form-check">
-            <input class="form-check-input" type="radio" [value]="true" name="Create-Quiz-from-larger-Pool?" #IsQuizFromLargerPool="ngModel" [(ngModel)]="quizDefinition.IsQuizFromLargerPool" checked>
+            <input class="form-check-input" type="radio" [value]="true" name="Create-Quiz-from-larger-Pool?" #IsQuizFromLargerPool="ngModel"
+                   [(ngModel)]="quizDefinition.IsQuizFromLargerPool" checked>
             <label class="form-check-label" for="exampleRadios1">
               yes
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" [value]="false" name="Create-Quiz-from-larger-Pool?" #IsQuizFromLargerPool="ngModel" [(ngModel)]="quizDefinition.IsQuizFromLargerPool">
+            <input class="form-check-input" type="radio" [value]="false" name="Create-Quiz-from-larger-Pool?" #IsQuizFromLargerPool="ngModel"
+                   [(ngModel)]="quizDefinition.IsQuizFromLargerPool">
             <label class="form-check-label" for="exampleRadios2">
               no
             </label>
