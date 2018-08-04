@@ -2,8 +2,7 @@
 
 <form #alreadyuser="ngForm">
 
-<div class="container">
-  <form>
+  <div class="container">
     <div class="row">
       <div class="vl">
         <span class="vl-innertext">or</span>
@@ -12,11 +11,12 @@
       <div class="col">
         <a href="#" class="fb btn">
           <i class="fa fa-facebook fa-fw"></i> Login with Facebook
-         </a>
+        </a>
         <a href="#" class="twitter btn">
           <i class="fa fa-twitter fa-fw"></i> Login with Twitter
         </a>
-        <a href="#" class="google btn"><i class="fa fa-google fa-fw">
+        <a href="#" class="google btn">
+          <i class="fa fa-google fa-fw">
           </i> Login with Google+
         </a>
       </div>
@@ -26,37 +26,33 @@
           <p>Or sign in manually:</p>
         </div>
 
+        <div class="form-group" [class.has-error]="username.invalid && username.touched"
+             [class.success]="username.valid">
+          <input type="text" name="username" placeholder="Username" required
+                 #username1="ngModel" [(ngModel)]="username">
+          <span class="help-block" *ngIf="username.invalid && username.touched">
+            Username  is required
+          </span>
+        </div>
 
+        <div class="form-group" [class.has-error]="password.invalid && password.touched"
+             [class.success]="password.valid">
+          <input type="password" name="password" placeholder="Password" required #password1="ngModel"
+                 [(ngModel)]="password">
+          <span class="help-block" *ngIf="password.invalid && password.touched">
+            please Enter   password
+          </span>
+        </div>
 
-        
-    
-      <div class="form-group" [class.has-error]="login.invalid && login.touched" [class.success]="login.valid">
-        <input type="text" name="username" placeholder="Username" required #login="ngModel" [(ngModel)]="loginnew">
-        <span class="help-block" *ngIf="login.invalid && login.touched">
-          Username  is required
-        </span>
+        <input type="submit" value="Login" (click)="Login()">
       </div>
 
-
-      <div class="form-group" [class.has-error]="loginpass.invalid && loginpass.touched" [class.success]="login.valid">
-        <input type="password" name="password" placeholder="Password" required #loginpass="ngModel" [(ngModel)]="loginnewpassword">
-        <span class="help-block" *ngIf="loginpass.invalid && loginpass.touched">
-      please Enter   password
-        </span>
-      </div>
-
-        <input type="submit" value="Login">
-      </div>
-      
     </div>
-  </form>
-  <div class="reg-button">
-    <button type="submit" class="btn btn-primary">
-      
-      <a routerLink="/create-account" routerLinkActive="active">Create Account</a>
-    
-    </button>
+    <div class="reg-button">
+      <button type="submit" class="btn btn-primary"> 
+        <a routerLink="/create-account" routerLinkActive="active">Create Account</a> 
+      </button>
+    </div>
   </div>
-</div>
 </form>
 

@@ -1,3 +1,39 @@
-<p>
-  quiz-runner-content works!
-</p>
+<div class="main-content-quiz container" *ngIf="questionset.QuestionText">
+
+  <p>{{questionset.QuestionText}}</p>
+  <div *ngIf="questionset.IsImageneeded==true">
+    <img onerror="this.src='../../../../QuizWebApi/Images/No_image_available.jpg'" src="questionset.ImageUrl">
+  </div>
+  <form class="question-list" *ngIf="questionset.AnswerType ==='Multiple Choice'">
+    <div> <label>Option 1</label><input type="radio" name="gender"> {{questionset.Option1}}</div>
+    <div><label>Option 2</label><input type="radio" name="gender"> {{questionset.Option2}}</div>
+    <div><label>Option 3</label><input type="radio" name="gender"> {{questionset.Option3}} </div>
+    <div><label>Option 4</label><input type="radio" name="gender"> {{questionset.Option4}}</div>
+  </form>
+  <div *ngIf="questionset.AnswerType !='Multiple Choice'">
+    <label for="name" class="control-label">Answer</label>
+    <input required type="text" class="form-control" name="answer" #QuizName="ngModel"
+           [(ngModel)]="quizDefinition.QuizName" id="name">
+    <span class="help-block" *ngIf="QuizName.invalid && QuizName.touched">
+      Answer is required
+    </span>
+  </div>
+
+  <div class="reg-button">
+    <button type="button" class="btn btn-warning" (click)="UpdateQuestionNo('First')">
+      First
+    </button>
+    <button type="button" *ngIf="questionNo>1" class="btn btn-warning" (click)="UpdateQuestionNo('Prev')">
+      Prev
+    </button>
+    <button type="button" class="btn btn-info" (click)="SaveAnswer()">
+      Save Answer
+    </button>
+    <button type="button" *ngIf="questionNo<totalquestions" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
+      Next
+    </button>
+    <button type="button" class="btn btn-danger" (click)="UpdateQuestionNo('Last')">
+      Last
+    </button><br>
+  </div>
+</div>

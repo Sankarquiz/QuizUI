@@ -58,13 +58,13 @@ export class FormDataService {
     this.formData.Stage = data.Stage;
     this.formData.MessageBeforeQuizTime = data.MessageBeforeQuizTime;
     this.formData.MessageAfterQuizTime = data.MessageAfterQuizTime;
-    this.formData.IsTeamName = data.RegistrationFields.IsTeamName;
-    this.formData.IsEmail = data.RegistrationFields.IsEmail;
-    this.formData.IsValidateEmail = data.RegistrationFields.IsValidateEmail;
-    this.formData.IsContestantName = data.RegistrationFields.IsContestantName;
-    this.formData.IsPhone = data.RegistrationFields.IsPhone;
-    this.formData.IsContact = data.RegistrationFields.IsContact;
-    this.formData.RulesAndRegulations = data.RegistrationFields.RulesAndRegulations;
+    //this.formData.IsTeamName = data.RegistrationFields.IsTeamName;
+    //this.formData.IsEmail = data.RegistrationFields.IsEmail;
+    //this.formData.IsValidateEmail = data.RegistrationFields.IsValidateEmail;
+    //this.formData.IsContestantName = data.RegistrationFields.IsContestantName;
+    //this.formData.IsPhone = data.RegistrationFields.IsPhone;
+    //this.formData.IsContact = data.RegistrationFields.IsContact;
+    //this.formData.RulesAndRegulations = data.RegistrationFields.RulesAndRegulations;
     this.formData.SponsorList.concat(data.SponsorList);
   }
 

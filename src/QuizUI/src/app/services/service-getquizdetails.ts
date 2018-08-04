@@ -21,11 +21,8 @@ export class QuizDetailsService {
     return this._http.get(environment.getallquizdetails, this.httpOptions);
   }
 
-  GetQuizData(quizName: string, quizType: string, questionNo: number) {
-    let uri = environment.getquizdetail + "?quizName=" + quizName + "&quizType=" + quizType;
-    if (questionNo > 0) {
-      uri += "&questionNumber=" + questionNo;
-    }
+  GetQuizData(quizName: string, quizType: string, documenttype: string) {
+    let uri = environment.getquizdetail + "?quizName=" + quizName + "&quizType=" + quizType + "&documentType=" + documenttype;
     return this._http.get(uri, this.httpOptions);
   }
 
@@ -40,6 +37,14 @@ export class QuizDetailsService {
     return this._http.post(environment.uploadimage, image);
   }
 
+  Register(userdetails: any) {
+    return this._http.post(environment.register, JSON.stringify(userdetails), this.httpOptions);
+  }
+
+  Login(username: string, password: string) {
+    let uri = environment.login + "?username=" + username + "&password=" + password;
+    return this._http.get(uri, this.httpOptions);
+  }
   //GetRegistrationData(quizName: string, quizType: string) {
   //  let uri = environment.getregistration + "?quizName=" + quizName + "&quizType=" + quizType;
   //  return this._http.get(uri, this.httpOptions);

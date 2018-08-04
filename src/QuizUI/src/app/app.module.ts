@@ -39,6 +39,8 @@ const appRoutes: Routes = [
   { path: 'create-account', component: CreateAccountComponent },
   { path: 'user-registration', component: NewUserRegComponent },
   { path: 'quiz-runner', component: QuizRunnerComponent },
+  { path: 'quiz-header', component: QuizHeaderComponent },
+  { path: 'quiz-runner-content', component: QuizRunnerContentComponent },
   {
     path: 'quiz-builder', component: QuizBuilderComponent,
     children: [

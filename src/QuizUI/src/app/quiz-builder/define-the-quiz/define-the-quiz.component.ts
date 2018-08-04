@@ -42,20 +42,19 @@ export class DefineTheQuizComponent implements OnInit {
   }
 
   saveDefinequiz(form: any) {
-  if(this.quizDefinition.NoOfQuestionsInPool <= this.quizDefinition.NoOfQuestions){ 
-      this.quizDefinition.Stage = 'Define';
-      this.quizDefinition.Status = 'Pending';
-      this._saveQuizData.SaveQuizData(this.quizDefinition)
-        .subscribe((response: any) => { this.result = response }); 
-      if (this.result) {
-        this.formDataService.setQuizDefinition(this.quizDefinition);
-        this.router.navigate(['/quiz-builder/create-quiz/Registration']);
-      } else {
-        alert('Not Saved.');
-      }
-    }
-    else{ 
+    if (this.quizDefinition.NoOfQuestionsInPool <= this.quizDefinition.NoOfQuestions && this.quizDefinition.IsQuizFromLargerPool) {
       alert('Question pool should be less than or equal to Question number..!');
+      return;
+    }
+    this.quizDefinition.Stage = 'Define';
+    this.quizDefinition.Status = 'Pending';
+    this._saveQuizData.SaveQuizData(this.quizDefinition)
+      .subscribe((response: any) => { this.result = response });
+    if (this.result) {
+      this.formDataService.setQuizDefinition(this.quizDefinition);
+      this.router.navigate(['/quiz-builder/create-quiz/Registration']);
+    } else {
+      alert('Not Saved.');
     }
   }
 

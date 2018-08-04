@@ -115,12 +115,12 @@ namespace QuizWebApi.Controllers
             if (DocumentType == "Define")
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
-                return Ok(response.Success);
+                return Ok(response.Value);
             }
             else
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
-                return Ok(response.Success);
+                return Ok(response.Value);
             }
         }
 

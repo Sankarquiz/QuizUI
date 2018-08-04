@@ -36,6 +36,7 @@ export class SetTheQuizComponent implements OnInit {
     }
     else {
       this.questionset = this.formDataService.getQuestion();
+      this.currentQuestionNo = this.questionset.QuestionNo;
     }
   }
 
@@ -84,13 +85,9 @@ export class SetTheQuizComponent implements OnInit {
       this._saveQuestion.SaveQuizData(this.quizDefinition)
         .subscribe((result: any) => { this.result = result });
 
-      //if (this.result) {
       this.formDataService.setQuizQuestions(this.questions);
       this.formDataService.setQuizDefinition(this.quizDefinition);
       this.router.navigate(['/quiz-builder/create-quiz/publish-quiz']);
-      //} else {
-      //  alert('Not Submitted.');
-      //}
     }
     else {
       alert('Please enter all questions. You entered' + this.currentQuestionNo + ' question so far.')

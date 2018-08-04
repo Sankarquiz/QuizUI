@@ -9,6 +9,8 @@ export const environment = {
   getquizdetail: 'http://localhost:52671/api/quiz/GetQuiz/',
   setquestion: 'http://localhost:52671/api/quiz/SetQuiz/',
   uploadimage: 'http://localhost:52671/api/quiz/UploadImage/',
+  register: 'http://localhost:52671/api/quiz/Register/',
+  login: 'http://localhost:52671/api/quiz/Login/'
 
   //quizDefinitionUri: 'http://172.29.94.20:52671/api/quiz/DefineQuiz/',
   //getallquizdetails: 'http://172.29.94.20:52671/api/quiz/GetAllQuiz/',

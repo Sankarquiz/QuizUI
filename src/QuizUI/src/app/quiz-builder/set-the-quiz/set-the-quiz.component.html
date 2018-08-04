@@ -4,7 +4,9 @@
       <div>
         <a href="#">  Bulk Upload Questions</a>
       </div>
-
+      <div>
+        <label for="questionnotext"> Question Number :  {{currentQuestionNo}} </label>
+      </div>
       <div class="col-md-6">
         <div class="form-group" [class.has-error]="QuestionText.invalid && QuestionText.touched"
              [class.success]="QuestionText.valid">

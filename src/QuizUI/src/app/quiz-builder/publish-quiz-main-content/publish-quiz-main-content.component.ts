@@ -33,7 +33,7 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
     }
 
     this.questionset = this.questions.Questions[this.questionNo - 1];
-    this.questionset.ImageUrl = 'http:\\localhost:52671QuizWebApi\Images\\' + this.questionset.ImageUrl;
+    this.questionset.ImageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.ImageUrl;
   }
   ngOnChanges() {
     debugger;
