@@ -42,7 +42,10 @@ export class DefineTheQuizComponent implements OnInit {
   }
 
   saveDefinequiz(form: any) {
-  if(this.quizDefinition.NoOfQuestionsInPool <= this.quizDefinition.NoOfQuestions){ 
+  if(this.quizDefinition.NoOfQuestionsInPool > this.quizDefinition.NoOfQuestions && this.quizDefinition.IsQuizFromLargerPool){
+    alert('Question pool should be less than or equal to Question number..!');
+    return;
+    }
       this.quizDefinition.Stage = 'Define';
       this.quizDefinition.Status = 'Pending';
       this._saveQuizData.SaveQuizData(this.quizDefinition)
@@ -53,10 +56,7 @@ export class DefineTheQuizComponent implements OnInit {
       } else {
         alert('Not Saved.');
       }
-    }
-    else{ 
-      alert('Question pool should be less than or equal to Question number..!');
-    }
+    
   }
 
   UpdateDate(value) {
