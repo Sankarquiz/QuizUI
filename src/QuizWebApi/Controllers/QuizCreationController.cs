@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using QuizWebApi.Models.Admin;
 using System;
 using System.Collections.Generic;
@@ -134,7 +135,11 @@ namespace QuizWebApi.Controllers
         {
             try
             {
-                var filePath = Path.Combine(_imagePath, file.FileName);
+                var parsedContentDisposition = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
+                var filename = Path.Combine(_imagePath, parsedContentDisposition.FileName.Trim().ToString());
+
+                // var filePath = Path.Combine(_imagePath, file.FileName);
+                var filePath = filename;
                 if (file.Length > 0)
                 {
                     using (var stream = new FileStream(filePath, FileMode.Create))
