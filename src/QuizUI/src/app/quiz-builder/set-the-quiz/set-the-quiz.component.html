@@ -8,7 +8,7 @@
         <label for="questionnotext"> Question Number :  {{currentQuestionNo}} </label>
       </div>
       <div class="col-md-6">
-        <div class="form-group" [class.has-error]="QuestionText.invalid && QuestionText.touched"
+        <div class="form-group" [class.has-error]="questionText.invalid && questionText.touched"
              [class.success]="questionText.valid">
           <label for="exampleFormControlTextarea1">Enter Question Text</label>
           <textarea required class="form-control" id="questiontext" name="questiontext" rows="3"

@@ -1,10 +1,10 @@
 <div class="main-content-quiz container" *ngIf="questionset.questionText">
 
-  <p>{{questionset.QuestionText}}</p>
+  <p>{{questionset.questionText}}</p>
   <div *ngIf="questionset.isImageneeded==true">
     <img onerror="this.src='../../../../QuizWebApi/Images/No_image_available.jpg'" src="questionset.imageUrl">
   </div>
-  <form class="question-list" *ngIf="questionset.AnswerType ==='Multiple Choice'">
+  <form class="question-list" *ngIf="questionset.answerType ==='Multiple Choice'">
     <div><label>Option 1</label><input type="radio" name="gender"> {{questionset.option1}}</div>
     <div><label>Option 2</label><input type="radio" name="gender"> {{questionset.option2}}</div>
     <div><label>Option 3</label><input type="radio" name="gender"> {{questionset.option3}} </div>
