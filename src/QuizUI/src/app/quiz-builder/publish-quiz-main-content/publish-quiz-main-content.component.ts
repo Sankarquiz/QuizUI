@@ -26,24 +26,24 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
   ngOnInit() {
     debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    this.totalquestions = this.quizDefinition.NoOfQuestions;
+    this.totalquestions = this.quizDefinition.noOfQuestions;
     this.questions = this.formDataService.getQuizQuestions();
     if (!this.questionNo) {
       this.questionNo = 1;
     }
 
-    this.questionset = this.questions.Questions[this.questionNo - 1];
-    this.questionset.ImageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.ImageUrl;
+    this.questionset = this.questions.questions[this.questionNo - 1];
+    this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
   }
   ngOnChanges() {
     debugger;
-    this.questionset = this.questions.Questions[this.questionNo - 1];
-    this.questionset.ImageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.ImageUrl;
+    this.questionset = this.questions.questions[this.questionNo - 1];
+    this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
   }
 
   Publish() {
-    this.quizDefinition.Stage = 'Publish';
-    this.quizDefinition.Status = 'Published';
+    this.quizDefinition.stage = 'Publish';
+    this.quizDefinition.status = 'Published';
 
     this._getQuestion.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => { this.result = result });
@@ -61,12 +61,12 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
         this.questionNo = 1;
         this.ngOnChanges();
       }
-      if (action == 'Next' && this.questionNo < this.quizDefinition.NoOfQuestions) {
+      if (action == 'Next' && this.questionNo < this.quizDefinition.noOfQuestions) {
         this.questionNo++;
         this.ngOnChanges();
       }
       if (action == 'Last') {
-        this.questionNo = this.quizDefinition.NoOfQuestions;
+        this.questionNo = this.quizDefinition.noOfQuestions;
         this.ngOnChanges();
       }
       if (action == 'Prev' && this.questionNo > 1) {

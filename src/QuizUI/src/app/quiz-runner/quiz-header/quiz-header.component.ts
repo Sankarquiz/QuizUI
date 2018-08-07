@@ -13,9 +13,9 @@ import { Observable } from 'rxjs';
 export class QuizHeaderComponent implements OnInit {
 
   selectedQuestionNumber: number;
-  quizDefinition: any;
+  quizDefinition: QuizDefinition;
   questionsCount;
-  questions: any;
+  questions: QuizQuestions;
   result: any;
   constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
@@ -25,8 +25,8 @@ export class QuizHeaderComponent implements OnInit {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
 
-    if (this.quizDefinition.NoOfQuestions) {
-      this.questionsCount = Array(parseInt(this.quizDefinition.NoOfQuestions.toString())).fill(1);
+    if (this.quizDefinition.noOfQuestions) {
+      this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestions.toString())).fill(1);
     }
 
     this.router.navigate(['/quiz-runner-content']);

@@ -26,22 +26,18 @@ export class QuizRunnerContentComponent implements OnInit {
     debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
- 
+    this.totalquestions = this.quizDefinition.noOfQuestions;
 
     if (!this.questionNo) {
       this.questionNo = 1;
     }
 
-    this.questionset = this.questions.Questions[this.questionNo - 1];
+    this.questionset = this.questions.questions[this.questionNo - 1];
   }
-  //ngOnChanges() {
-  //  debugger;
-  //  this.questionset = this.questions.Questions[this.questionNo - 1];
-  //}
 
   Publish() {
-    this.quizDefinition.Stage = 'Publish';
-    this.quizDefinition.Status = 'Published';
+    this.quizDefinition.stage = 'Publish';
+    this.quizDefinition.status = 'Published';
 
     this._getQuestion.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => { this.result = result });
@@ -57,19 +53,19 @@ export class QuizRunnerContentComponent implements OnInit {
     if (action) {
       if (action == 'First' && this.questionNo > 1) {
         this.questionNo = 1;
-        this.ngOnChanges();
+        this.questionset = this.questions.questions[this.questionNo - 1];
       }
-      if (action == 'Next' && this.questionNo < this.quizDefinition.NoOfQuestions) {
+      if (action == 'Next' && this.questionNo < this.quizDefinition.noOfQuestions) {
         this.questionNo++;
-        this.ngOnChanges();
+        this.questionset = this.questions.questions[this.questionNo - 1];
       }
       if (action == 'Last') {
-        this.questionNo = this.quizDefinition.NoOfQuestions;
-        this.ngOnChanges();
+        this.questionNo = this.quizDefinition.noOfQuestions;
+        this.questionset = this.questions.questions[this.questionNo - 1];
       }
       if (action == 'Prev' && this.questionNo > 1) {
         this.questionNo--;
-        this.ngOnChanges();
+        this.questionset = this.questions.questions[this.questionNo - 1];
       }
     }
   }

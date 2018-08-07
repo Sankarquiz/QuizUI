@@ -26,7 +26,7 @@ export class SetLogosGroupComponent implements OnInit {
   SaveImage(image, location) {
     debugger;
     const fd = new FormData();
-    let imgname = this.quizDefinition.QuizName + "_" + this.quizDefinition.QuizType + "_" + location;
+    let imgname = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
     fd.append("file", image, imgname);
     this._saveQuizData.UploadImage(fd)
       .subscribe(res => {
@@ -38,24 +38,24 @@ export class SetLogosGroupComponent implements OnInit {
     this.sponsor = new SponsorDetail();
     this.sponsor.Path = path;
     this.sponsor.Position = location;
-    this.sponsor.ImageName = this.quizDefinition.QuizName + "_" + this.quizDefinition.QuizType + "_" + location;
-    if (this.quizDefinition.SponsorList.filter(x => x.Position == location).length > 0) {
-      let index = this.quizDefinition.SponsorList.findIndex(x => x.Position == location);
-      this.quizDefinition.SponsorList[index] = this.sponsor;
+    this.sponsor.ImageName = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
+    if (this.quizDefinition.sponsorList.filter(x => x.position == location).length > 0) {
+      let index = this.quizDefinition.sponsorList.findIndex(x => x.position == location);
+      this.quizDefinition.sponsorList[index] = this.sponsor;
     }
     else {
-      this.quizDefinition.SponsorList.push(this.sponsor);
+      this.quizDefinition.sponsorList.push(this.sponsor);
     }
   }
   SaveSponsorDetails(sponsordetail) {
     debugger;
-    this.quizDefinition.Stage = "SetLogo";
-    this.quizDefinition.Status = "Pending";
+    this.quizDefinition.stage = "SetLogo";
+    this.quizDefinition.status = "Pending";
     this._saveQuizData.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => { this.result = result });
 
     if (this.result) {
-      this.formDataService.setSponserFields(this.quizDefinition.SponsorList);
+      this.formDataService.setSponserFields(this.quizDefinition.sponsorList);
       this.formDataService.setQuizDefinition(this.quizDefinition);
       this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
     } else {

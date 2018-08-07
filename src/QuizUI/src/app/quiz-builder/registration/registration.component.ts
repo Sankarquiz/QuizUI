@@ -21,26 +21,26 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
 
-    if (this.quizDefinition.Stage == "Define") {
-      console.log('first time', this.quizDefinition.Stage);
-      this.quizDefinition.RegistrationFields.IsTeamName = true;
-      this.quizDefinition.RegistrationFields.IsEmail = true;
-      this.quizDefinition.RegistrationFields.IsValidateEmail = true;
-      this.quizDefinition.RegistrationFields.IsContestantName = true;
-      this.quizDefinition.RegistrationFields.IsPhone = true;
-      this.quizDefinition.RegistrationFields.IsContact = true;
+    if (this.quizDefinition.stage == "Define") {
+      console.log('first time', this.quizDefinition.stage);
+      this.quizDefinition.registrationFields.isTeamName = true;
+      this.quizDefinition.registrationFields.isEmail = true;
+      this.quizDefinition.registrationFields.isValidateEmail = true;
+      this.quizDefinition.registrationFields.isContestantName = true;
+      this.quizDefinition.registrationFields.isPhone = true;
+      this.quizDefinition.registrationFields.isContact = true;
     }
   }
 
   SaveRegistration(registrationform: NgForm) {
-    this.quizDefinition.Stage = "Registration";
-    this.quizDefinition.Status = "Pending";
+    this.quizDefinition.stage = "Registration";
+    this.quizDefinition.status = "Pending";
     this._saveRegistration.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => { this.result = result });
 
     if (this.result) {
       this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.formDataService.setRegistrationFields(this.quizDefinition.RegistrationFields);
+      this.formDataService.setRegistrationFields(this.quizDefinition.registrationFields);
       this.router.navigate(['/quiz-builder/create-quiz/set-pages']);
     } else {
       alert('Not Saved.');

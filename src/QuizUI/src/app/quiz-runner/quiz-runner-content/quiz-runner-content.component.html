@@ -1,20 +1,20 @@
-<div class="main-content-quiz container" *ngIf="questionset.QuestionText">
+<div class="main-content-quiz container" *ngIf="questionset.questionText">
 
-  <p>{{questionset.QuestionText}}</p>
-  <div *ngIf="questionset.IsImageneeded==true">
-    <img onerror="this.src='../../../../QuizWebApi/Images/No_image_available.jpg'" src="questionset.ImageUrl">
+  <p>{{questionset.questionText}}</p>
+  <div *ngIf="questionset.isImageneeded==true">
+    <img onerror="this.src='../../../../QuizWebApi/Images/No_image_available.jpg'" src="questionset.imageUrl">
   </div>
-  <form class="question-list" *ngIf="questionset.AnswerType ==='Multiple Choice'">
-    <div> <label>Option 1</label><input type="radio" name="gender"> {{questionset.Option1}}</div>
-    <div><label>Option 2</label><input type="radio" name="gender"> {{questionset.Option2}}</div>
-    <div><label>Option 3</label><input type="radio" name="gender"> {{questionset.Option3}} </div>
-    <div><label>Option 4</label><input type="radio" name="gender"> {{questionset.Option4}}</div>
+  <form class="question-list" *ngIf="questionset.answerType ==='Multiple Choice'">
+    <div><label>Option 1</label><input type="radio" name="gender"> {{questionset.option1}}</div>
+    <div><label>Option 2</label><input type="radio" name="gender"> {{questionset.option2}}</div>
+    <div><label>Option 3</label><input type="radio" name="gender"> {{questionset.option3}} </div>
+    <div><label>Option 4</label><input type="radio" name="gender"> {{questionset.option4}}</div>
   </form>
-  <div *ngIf="questionset.AnswerType !='Multiple Choice'">
+  <div *ngIf="questionset.answerType !='Multiple Choice'">
     <label for="name" class="control-label">Answer</label>
-    <input required type="text" class="form-control" name="answer" #QuizName="ngModel"
-           [(ngModel)]="quizDefinition.QuizName" id="name">
-    <span class="help-block" *ngIf="QuizName.invalid && QuizName.touched">
+    <input required type="text" class="form-control" name="answer" #quizName="ngModel"
+           [(ngModel)]="quizDefinition.quizName" id="name">
+    <span class="help-block" *ngIf="quizName.invalid && quizName.touched">
       Answer is required
     </span>
   </div>
@@ -29,7 +29,7 @@
     <button type="button" class="btn btn-info" (click)="SaveAnswer()">
       Save Answer
     </button>
-    <button type="button" *ngIf="questionNo<totalquestions" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
+    <button type="button" *ngIf="totalquestions!=questionNo" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
       Next
     </button>
     <button type="button" class="btn btn-danger" (click)="UpdateQuestionNo('Last')">

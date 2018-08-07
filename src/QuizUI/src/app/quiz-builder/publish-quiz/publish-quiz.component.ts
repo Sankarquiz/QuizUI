@@ -18,8 +18,8 @@ export class PublishQuizComponent implements OnInit {
   }
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    if (this.quizDefinition.NoOfQuestions) {
-      this.questionsCount = Array(parseInt(this.quizDefinition.NoOfQuestions.toString())).fill(1);
+    if (this.quizDefinition.noOfQuestions) {
+      this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestions.toString())).fill(1);
     }
     this.questions = this.formDataService.getQuizQuestions();
     this.router.navigate(['/quiz-builder/create-quiz/publish-quiz/first-quiz']);
