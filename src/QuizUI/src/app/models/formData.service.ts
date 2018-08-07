@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormDataModel, QuizDefinition, QuizSet, RegistrationFields, SponsorDetail, QuizQuestions } from './QuizDefinition';
+import { UserDataModel, UserRegistration, QuizAdv } from './Registration';
 @Injectable()
 export class FormDataService {
 
-  private formData: FormDataModel = new FormDataModel();
+  private formData = new FormDataModel();
+  private userData = new UserDataModel();
+  private quizadv = new QuizAdv();
   constructor() {
   }
   getQuizDefinition(): QuizDefinition {
@@ -166,5 +169,30 @@ export class FormDataService {
   }
   Clear(): void {
     this.formData.clear();
+  }
+
+  getUserData(): UserDataModel {
+    var userdata: UserDataModel = {
+      teamName: this.userData.teamName,
+      email: this.userData.email
+    }
+    return this.userData;
+  }
+
+  setUserData(data: UserRegistration) {
+    this.userData.teamName = data.teamName;
+    this.userData.email = data.email;
+  }
+
+  setquizadv(data: QuizAdv) {
+    this.quizadv.quizName = data.quizName;
+    this.quizadv.quizType = data.quizType;
+  }
+  getquizadv(): QuizAdv {
+    var advertiseData: QuizAdv = {
+      quizName: this.quizadv.quizName,
+      quizType: this.quizadv.quizType
+    }
+    return advertiseData;
   }
 }

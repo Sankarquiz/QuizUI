@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormDataService } from '../../models/formData.service';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { Observable } from 'rxjs';
+import { QuizResult, QuizResultDetails } from '../../models/QuizRunner';
 
 @Component({
   selector: 'app-quiz-runner-content',
@@ -17,7 +18,9 @@ export class QuizRunnerContentComponent implements OnInit {
   totalquestions;
   questionset = new QuizSet();
   questions: QuizQuestions;
-  result: Observable<any>;
+  quizresult = new QuizResult();
+  quizresultdetails = new QuizResultDetails();
+
   constructor(private _getQuestion: QuizDetailsService,
     private formDataService: FormDataService,
     private router: Router) { }
@@ -27,26 +30,15 @@ export class QuizRunnerContentComponent implements OnInit {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
     this.totalquestions = this.quizDefinition.noOfQuestions;
-
+    this.quizresult.quizName = this.quizDefinition.quizName;
+    this.quizresult.quizType = this.quizDefinition.quizType;
+    this.quizresult.teamName = this.formDataService.getUserData().teamName;
+    this.quizresult.quizResultDetails = new Array<QuizResultDetails>();
     if (!this.questionNo) {
       this.questionNo = 1;
     }
 
     this.questionset = this.questions.questions[this.questionNo - 1];
-  }
-
-  Publish() {
-    this.quizDefinition.stage = 'Publish';
-    this.quizDefinition.status = 'Published';
-
-    this._getQuestion.SaveQuizData(this.quizDefinition)
-      .subscribe((result: any) => { this.result = result });
-
-    if (this.result) {
-      alert('Published');
-      this.formDataService.Clear();
-      this.router.navigate(['/quiz-builder/create-quiz/define-the-Quiz']);
-    }
   }
 
   UpdateQuestionNo(action) {
@@ -67,6 +59,27 @@ export class QuizRunnerContentComponent implements OnInit {
         this.questionNo--;
         this.questionset = this.questions.questions[this.questionNo - 1];
       }
+    }
+  }
+  SaveAnswer() {
+    debugger;
+    if (this.quizresultdetails.userAnswer) {
+      this.quizresultdetails.adminAnswer = this.questionset.answer;
+      this.quizresultdetails.questionNo = this.questionset.questionNo;
+      this.quizresultdetails.questionText = this.questionset.questionText;
+      this.quizresultdetails.adminScore = this.questionset.score;
+      if (this.quizresultdetails.adminAnswer == this.quizresultdetails.userAnswer) {
+        this.quizresult.numberOfCorrectAnswers++;
+        this.quizresult.totalScored = this.quizresult.totalScored + this.questionset.score;
+        this.quizresultdetails.userScored = this.questionset.score;
+      }
+      else {
+        this.quizresult.numberOfWrongAnswers++;
+      }
+
+      this.quizresultdetails.answerType = this.questionset.answerType;
+      this.quizresult.quizResultDetails.push(this.quizresultdetails);
+      this.quizresultdetails = new QuizResultDetails();
     }
   }
 }

@@ -4,58 +4,58 @@
     <p>Please fill in this form to create an account.</p>
     <hr>
 
-    <div class="form-group" [class.has-error]="TeamName.invalid && TeamName.touched" [class.success]="TeamName.valid">
-      <label for="TeamName"><b>Team Name</b></label>
-      <input type="text" placeholder="Enter Name" name="Name" required #TeamName="ngModel"
-             [(ngModel)]="registrationDetails.TeamName">
-      <span class="help-block" *ngIf="TeamName.invalid && TeamName.touched">
+    <div class="form-group" [class.has-error]="teamName.invalid && teamName.touched" [class.success]="teamName.valid">
+      <label for="teamName"><b>Team Name</b></label>
+      <input type="text" placeholder="Enter Name" name="Name" required #teamName="ngModel"
+             [(ngModel)]="registrationDetails.teamName">
+      <span class="help-block" *ngIf="teamName.invalid && teamName.touched">
         Name is required
       </span>
     </div>
 
-    <div class="form-group" [class.has-error]="Email.invalid && Email.touched" [class.success]="Email.valid">
+    <div class="form-group" [class.has-error]="email.invalid && email.touched" [class.success]="email.valid">
       <label for="email"><b>Your Email Address</b></label>
-      <input type="text" placeholder="Enter Email" name="email" required #Email="ngModel"
-             [(ngModel)]="registrationDetails.Email">
-      <span class="help-block" *ngIf="Email.invalid && Email.touched">
+      <input type="text" placeholder="Enter Email" name="email" required #email="ngModel"
+             [(ngModel)]="registrationDetails.email">
+      <span class="help-block" *ngIf="email.invalid && email.touched">
         Email is required
       </span>
     </div>
 
 
-    <div class="form-group" [class.has-error]="Phone.invalid && Phone.touched" [class.success]="Phone.valid">
-      <label for="email"><b>Mobile Number</b></label>
-      <input type="text" placeholder="Enter Mobile Number" name="Phone" required
-             #Phone="ngModel" [(ngModel)]="registrationDetails.Phone">
-      <span class="help-block" *ngIf="Phone.invalid && Phone.touched">
+    <div class="form-group" [class.has-error]="phone.invalid && phone.touched" [class.success]="phone.valid">
+      <label for="phone"><b>Mobile Number</b></label>
+      <input type="text" placeholder="Enter Mobile Number" name="phone" required
+             #phone="ngModel" [(ngModel)]="registrationDetails.phone">
+      <span class="help-block" *ngIf="phone.invalid && phone.touched">
         Mobile Number  is required
       </span>
     </div>
 
-    <div class="form-group" [class.has-error]="Password.invalid && Password.touched" [class.success]="Password.valid">
+    <div class="form-group" [class.has-error]="password.invalid && password.touched" [class.success]="password.valid">
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required #Password="ngModel"
-             [(ngModel)]="registrationDetails.Password">
-      <span class="help-block" *ngIf="Password.invalid && Password.touched">
+      <input type="password" placeholder="Enter password" name="psw" required #password="ngModel"
+             [(ngModel)]="registrationDetails.password">
+      <span class="help-block" *ngIf="password.invalid && password.touched">
         Password  is required
       </span>
     </div>
 
-    <div class="form-group" [class.has-error]="ContestantName.invalid && ContestantName.touched"
-         [class.success]="ContestantName.valid">
-      <label for="ContestantName"><b>Contestant Name</b></label>
-      <input type="text" placeholder="Enter Contestant Name" name="contestantname" required #ContestantName="ngModel"
-             [(ngModel)]="registrationDetails.ContestantName">
-      <span class="help-block" *ngIf="ContestantName.invalid && ContestantName.touched">
+    <div class="form-group" [class.has-error]="contestantName.invalid && contestantName.touched"
+         [class.success]="contestantName.valid">
+      <label for="contestantName"><b>Contestant Name</b></label>
+      <input type="text" placeholder="Enter Contestant Name" name="contestantname" required #contestantName="ngModel"
+             [(ngModel)]="registrationDetails.contestantName">
+      <span class="help-block" *ngIf="contestantName.invalid && contestantName.touched">
         Contestant Name is required
       </span>
     </div>
 
     <div class="form-group" [class.has-error]="contact.invalid && contact.touched"
-         [class.success]="phone.valid">
+         [class.success]="contact.valid">
       <label for="contact"><b>Contact</b></label>
-      <input type="text" placeholder="Enter Contact Address" name="contact" required #Contact="ngModel"
-             [(ngModel)]="registrationDetails.Contact">
+      <input type="text" placeholder="Enter Contact Address" name="contact" required #contact="ngModel"
+             [(ngModel)]="registrationDetails.contact">
       <span class="help-block" *ngIf="contact.invalid && contact.touched">
         Contact is required
       </span>
