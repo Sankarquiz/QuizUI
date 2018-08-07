@@ -6,6 +6,7 @@ import { FormDataService } from '../../models/formData.service';
 import { EventEmitter } from 'events';
 import { Observable } from 'rxjs';
 import { BrowserModule } from '@angular/platform-browser';
+import { isUndefined } from 'util';
 @Component({
   selector: 'app-set-logos-group',
   templateUrl: './set-logos-group.component.html',
@@ -26,7 +27,11 @@ export class SetLogosGroupComponent implements OnInit {
   SaveImage(image, location) {
     debugger;
     const fd = new FormData();
+    var extn = image.name.split(".").pop();
     let imgname = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
+    if (!isUndefined(extn))
+      imgname = imgname + "." + extn;
+    
     fd.append("file", image, imgname);
     this._saveQuizData.UploadImage(fd)
       .subscribe(res => {
