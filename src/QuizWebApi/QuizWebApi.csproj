@@ -14,7 +14,10 @@
 
   <ItemGroup>
     <Folder Include="Images\" />
-    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\__TopLeft.jpg" />
   </ItemGroup>
 
   <ItemGroup>
