@@ -25,17 +25,21 @@ export class QuizRunnerComponent implements OnInit {
   Start() {
     debugger;
     this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "Define")
-      .subscribe((res: any) => this.quizDefinition = res);
+      .subscribe((res: any) => {
+        this.quizDefinition = res;
 
-    this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions")
-      .subscribe((res: any) => this.questions = res);
+        this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions")
+          .subscribe((res: any) => {
+            this.questions = res;
 
-    if (this.quizDefinition && this.questions) {
-      this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.formDataService.setQuizQuestions(this.questions);
-      this.router.navigate(['/quiz-header']);
-    } else {
-      alert('Not Saved.');
-    }
+            if (this.quizDefinition && this.questions) {
+              this.formDataService.setQuizDefinition(this.quizDefinition);
+              this.formDataService.setQuizQuestions(this.questions);
+              this.router.navigate(['/quiz-header']);
+            } else {
+              alert('Not Found.');
+            }
+          });
+      });
   }
 }

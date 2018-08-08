@@ -30,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuizRunnerComponent } from './quiz-runner/quiz-runner.component';
 import { QuizHeaderComponent } from './quiz-runner/quiz-header/quiz-header.component';
 import { QuizRunnerContentComponent } from './quiz-runner/quiz-runner-content/quiz-runner-content.component';
+import { QuizFinisherComponent } from './quiz-runner/quiz-finisher/quiz-finisher.component';
 
 const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
@@ -39,15 +40,15 @@ const appRoutes: Routes = [
   { path: 'create-account', component: CreateAccountComponent },
   { path: 'user-registration', component: NewUserRegComponent },
   { path: 'quiz-runner', component: QuizRunnerComponent },
+  { path: 'quiz-finisher', component: QuizFinisherComponent },
   {
     path: 'quiz-header', component: QuizHeaderComponent,
-       children: [
+    children: [
       {
-           path: 'quiz-runner-content',
-           component: QuizRunnerContentComponent
+        path: 'quiz-runner-content',
+        component: QuizRunnerContentComponent
       },
-    ]
-
+    ] 
   },
 
   {
@@ -126,7 +127,8 @@ const appRoutes: Routes = [
     SetLogosGroupComponent,
     QuizRunnerComponent,
     QuizHeaderComponent,
-    QuizRunnerContentComponent
+    QuizRunnerContentComponent,
+    QuizFinisherComponent
   ],
   imports: [
     BrowserModule,

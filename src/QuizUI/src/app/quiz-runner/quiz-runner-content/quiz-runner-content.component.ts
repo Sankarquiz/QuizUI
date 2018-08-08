@@ -20,7 +20,9 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
   questions: QuizQuestions;
   quizresult = new QuizResult();
   quizresultdetails = new QuizResultDetails();
-
+  timeLeftSeconds: number = 59;
+  timeLeftMinutes: number = 0;
+  interval;
   constructor(private _getQuestion: QuizDetailsService,
     private formDataService: FormDataService,
     private router: Router) { }
@@ -28,28 +30,47 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
   ngOnInit() {
     debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
+    this.questionset.isImageneeded == false;
+    this.questionset.questionText == '';
     this.questions = this.formDataService.getQuizQuestions();
-    this.totalquestions = this.quizDefinition.noOfQuestions;
+    this.totalquestions = (this.quizDefinition.noOfQuestionsInPool &&
+      this.quizDefinition.isQuizFromLargerPool) ?
+      this.quizDefinition.noOfQuestionsInPool :
+      this.quizDefinition.noOfQuestions;
+
     this.quizresult.totalScored = 0;
+    this.quizresult.numberOfCorrectAnswers = 0;
+    this.quizresult.numberOfWrongAnswers = 0;
     this.quizresult.quizName = this.quizDefinition.quizName;
     this.quizresult.quizType = this.quizDefinition.quizType;
     this.quizresult.teamName = this.formDataService.getUserData().teamName;
     this.quizresult.quizResultDetails = new Array<QuizResultDetails>();
     this.quizresultdetails = new QuizResultDetails();
+
+    if (this.quizDefinition.quizDurationType == "Hours") {
+      this.timeLeftMinutes = Math.floor(this.quizDefinition.quizDurationTime * 60) - 1;
+    }
+    else {
+      this.timeLeftMinutes = this.quizDefinition.quizDurationTime - 1;
+    }
+
+    this.StartTimer();
     if (!this.questionNo) {
       this.questionNo = 1;
     }
-
     this.questionset = this.questions.questions[this.questionNo - 1];
   }
   ngOnChanges() {
     debugger;
-    this.quizresultdetails = new QuizResultDetails();
-    this.questionset = this.questions.questions[this.questionNo - 1];
-    if (this.questionset.isImageneeded) {
-      this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
+    if (this.questions) {
+      this.quizresultdetails = new QuizResultDetails();
+      this.questionset = this.questions.questions[this.questionNo - 1];
+      if (this.questionset.isImageneeded) {
+        this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
+      }
     }
   }
+
   UpdateQuestionNo(action) {
     if (action) {
       if (action == 'First' && this.questionNo > 1) {
@@ -71,14 +92,13 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
     }
   }
   SaveAnswer() {
-    debugger;
     if (this.quizresultdetails.userAnswer) {
       this.quizresultdetails.adminAnswer = this.questionset.answer;
       this.quizresultdetails.questionNo = this.questionset.questionNo;
       this.quizresultdetails.questionText = this.questionset.questionText;
       this.quizresultdetails.adminScore = this.questionset.score;
 
-      if (this.quizresultdetails.adminAnswer == this.quizresultdetails.userAnswer) {
+      if (this.quizresultdetails.adminAnswer.toLowerCase() == this.quizresultdetails.userAnswer.toLowerCase()) {
         this.quizresult.numberOfCorrectAnswers++;
         this.quizresult.totalScored = this.quizresult.totalScored + this.questionset.score;
         this.quizresultdetails.userScored = this.questionset.score;
@@ -90,6 +110,9 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
       this.quizresultdetails.answerType = this.questionset.answerType;
       this.quizresult.quizResultDetails.push(this.quizresultdetails);
       this.questionNo++;
+      if (this.questionNo > this.totalquestions) {
+        this.SaveQuizResult(this.quizresult);
+      }
       this.ngOnChanges();
     }
   }
@@ -100,5 +123,32 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
       return true;
     }
     return false;
+  }
+
+  StartTimer() {
+    this.interval = setInterval(() => {
+      if (this.timeLeftSeconds > 0) {
+        this.timeLeftSeconds--;
+      } else {
+        if (this.timeLeftMinutes > 0) {
+          this.timeLeftSeconds = 59;
+          this.timeLeftMinutes--;
+        }
+      }
+    }, 1000)
+
+    if (this.timeLeftMinutes == 0 && this.timeLeftSeconds) {
+      //Save Quiz..
+      this.SaveQuizResult(this.quizresult);
+    }
+  }
+
+  SaveQuizResult(quizResult) {
+    this._getQuestion.SaveQuizRunner(quizResult)
+      .subscribe((response: any) => {
+        if (response) {
+          this.router.navigate(['/quiz-finisher']);
+        }
+      });
   }
 }

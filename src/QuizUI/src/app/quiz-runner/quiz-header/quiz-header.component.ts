@@ -24,12 +24,14 @@ export class QuizHeaderComponent implements OnInit {
 
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
-
-    if (this.quizDefinition.noOfQuestions) {
+    if (this.quizDefinition.noOfQuestionsInPool && this.quizDefinition.isQuizFromLargerPool) {
+      this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestionsInPool.toString())).fill(1);
+    }
+    else {
       this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestions.toString())).fill(1);
     }
 
-    this.router.navigate(['/quiz-runner-content']);
+    //this.router.navigate(['/quiz-runner-content']);
   }
 
   AssignQuestionNumber(questionNumber) {

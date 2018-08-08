@@ -26,15 +26,16 @@ export class NewUserRegComponent implements OnInit {
     debugger;
     if (this.username && this.password) {
       this._register.Login(this.username, this.password)
-        .subscribe((response: any) => { this.result = response });
-
-      if (this.result) {
-        this.userDetails.teamName = this.username;
-        this.formDataService.setUserData(this.userDetails);
-        this.router.navigate(['/quiz-runner']);
-      } else {
-        alert('Not Saved.');
-      }
+        .subscribe((response: any) => {
+          this.result = response;
+          if (response) {
+            this.userDetails.teamName = this.username;
+            this.formDataService.setUserData(this.userDetails);
+            this.router.navigate(['/quiz-runner']);
+          } else {
+            alert('Not Saved.');
+          }
+        });
     }
   }
 }
