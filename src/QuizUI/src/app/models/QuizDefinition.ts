@@ -26,7 +26,7 @@ export class FormDataModel {
   imageUrl: string = '';
   answerType: string = '';
   answer: string = '';
-  score: string = '';
+  score: number;
   option1: string = '';
   option2: string = '';
   option3: string = '';
@@ -71,7 +71,7 @@ export class FormDataModel {
     this.imageUrl = '';
     this.answerType = '';
     this.answer = '';
-    this.score = '';
+    this.score = 0;
     this.option1 = '';
     this.option2 = '';
     this.option3 = '';
@@ -145,7 +145,7 @@ export class QuizSet {
   imageUrl: string;
   answerType: string;
   answer: string;
-  score: string;
+  score: number;
   option1: string;
   option2: string;
   option3: string;

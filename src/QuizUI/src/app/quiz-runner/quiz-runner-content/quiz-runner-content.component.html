@@ -5,34 +5,50 @@
     <img onerror="this.src='../../../../QuizWebApi/Images/No_image_available.jpg'" src="questionset.imageUrl">
   </div>
   <form class="question-list" *ngIf="questionset.answerType ==='Multiple Choice'">
-    <div><label>Option 1</label><input type="radio" name="gender"> {{questionset.option1}}</div>
-    <div><label>Option 2</label><input type="radio" name="gender"> {{questionset.option2}}</div>
-    <div><label>Option 3</label><input type="radio" name="gender"> {{questionset.option3}} </div>
-    <div><label>Option 4</label><input type="radio" name="gender"> {{questionset.option4}}</div>
+    <div>
+      <label>Option 1</label>
+      <input for="userAnswer" type="radio" name="userAnswer"
+             value={{questionset.option1}} [(ngModel)]="quizresultdetails.userAnswer"> {{questionset.option1}}
+    </div>
+    <div>
+      <label>Option 2</label>
+      <input for="userAnswer" type="radio" name="userAnswer"
+             value={{questionset.option2}} [(ngModel)]="quizresultdetails.userAnswer"> {{questionset.option2}}
+    </div>
+    <div>
+      <label>Option 3</label>
+      <input for="userAnswer" type="radio" name="userAnswer"
+             value={{questionset.option3}} [(ngModel)]="quizresultdetails.userAnswer"> {{questionset.option3}}
+    </div>
+    <div>
+      <label>Option 4</label>
+      <input for="userAnswer" type="radio" name="userAnswer"
+             value={{questionset.option4}} [(ngModel)]="quizresultdetails.userAnswer"> {{questionset.option4}}
+    </div>
   </form>
-  <div *ngIf="questionset.answerType !='Multiple Choice'">
+  <div *ngIf="questionset.answerType !='Multiple Choice'" class="text-answer" [class.has-error]="userAnswer.invalid && userAnswer.touched">
     <label for="name" class="control-label">Answer</label>
-    <input required type="text" class="form-control" name="answer" #quizName="ngModel"
-           [(ngModel)]="quizDefinition.quizName" id="name">
-    <span class="help-block" *ngIf="quizName.invalid && quizName.touched">
+    <input required type="text" class="form-control" name="answer" #userAnswer="ngModel"
+           [(ngModel)]="quizresultdetails.userAnswer" id="name" value="">
+    <span class="help-block" *ngIf="userAnswer.invalid && userAnswer.touched">
       Answer is required
     </span>
   </div>
 
   <div class="reg-button">
-    <button type="button" class="btn btn-warning" (click)="UpdateQuestionNo('First')">
+    <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-warning" (click)="UpdateQuestionNo('First')">
       First
     </button>
-    <button type="button" *ngIf="questionNo>1" class="btn btn-warning" (click)="UpdateQuestionNo('Prev')">
+    <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && questionNo>1" class="btn btn-warning" (click)="UpdateQuestionNo('Prev')">
       Prev
     </button>
-    <button type="button" class="btn btn-info" (click)="SaveAnswer()">
+    <button type="button" class="btn btn-info" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
       Save Answer
     </button>
-    <button type="button" *ngIf="totalquestions!=questionNo" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
+    <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && totalquestions!=questionNo" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
       Next
     </button>
-    <button type="button" class="btn btn-danger" (click)="UpdateQuestionNo('Last')">
+    <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-danger" (click)="UpdateQuestionNo('Last')">
       Last
     </button><br>
   </div>

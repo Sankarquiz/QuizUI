@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { QuizDetailsService } from '../services/service-getquizdetails';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { FormDataService } from '../models/formData.service';
+import { UserRegistration } from '../models/Registration';
 
 @Component({
   selector: 'app-new-user-reg',
@@ -13,7 +15,8 @@ export class NewUserRegComponent implements OnInit {
   username: string;
   password: string;
   result: Observable<any>;
-  constructor(private _register: QuizDetailsService, private router: Router) { }
+  userDetails = new UserRegistration();
+  constructor(private _register: QuizDetailsService, private router: Router, private formDataService: FormDataService, ) { }
 
   ngOnInit() {
     this.username = '';
@@ -26,6 +29,8 @@ export class NewUserRegComponent implements OnInit {
         .subscribe((response: any) => { this.result = response });
 
       if (this.result) {
+        this.userDetails.teamName = this.username;
+        this.formDataService.setUserData(this.userDetails);
         this.router.navigate(['/quiz-runner']);
       } else {
         alert('Not Saved.');

@@ -29,6 +29,7 @@ export class QuizDetailsService {
   SaveQuizData(quizDefinition: any) {
     return this._http.post(environment.quizDefinitionUri, JSON.stringify(quizDefinition), this.httpOptions);
   }
+
   SaveQuestion(question: any) {
     return this._http.post(environment.setquestion, JSON.stringify(question), this.httpOptions);
   }
@@ -45,21 +46,13 @@ export class QuizDetailsService {
     let uri = environment.login + "?username=" + username + "&password=" + password;
     return this._http.get(uri, this.httpOptions);
   }
-  //GetRegistrationData(quizName: string, quizType: string) {
-  //  let uri = environment.getregistration + "?quizName=" + quizName + "&quizType=" + quizType;
-  //  return this._http.get(uri, this.httpOptions);
-  //}
 
-  //SaveRegistrationData(registration: any) {
-  //  return this._http.post(environment.setregistration, registration, this.httpOptions);
-  //}
+  CheckQuiztaken(quizName: string, quizType: string, teamName: string) {
+    let uri = environment.checkquiztaken + "?quizName=" + quizName + "&quizType=" + quizType + "&teamName=" + teamName;
+    return this._http.get(uri, this.httpOptions);
+  }
 
-  //GetSponsorData(quizName: string, quizType: string) {
-  //  let uri = environment.getsponser + "?quizName=" + quizName + "&quizType=" + quizType;
-  //  return this._http.get(uri, this.httpOptions);
-  //}
-
-  //SaveSponsorData(sponsor: any) {
-  //  return this._http.post(environment.setsponser, sponsor, this.httpOptions);
-  //}
+  SaveQuizRunner(quizResult: any) {
+    return this._http.post(environment.savequizrunner, JSON.stringify(quizResult), this.httpOptions);
+  }
 }
