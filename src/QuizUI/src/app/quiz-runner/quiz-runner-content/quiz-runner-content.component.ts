@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { QuizDefinition, QuizQuestions, QuizSet } from '../../models/QuizDefinition';
 import { Router } from '@angular/router';
 import { FormDataService } from '../../models/formData.service';
@@ -11,7 +11,7 @@ import { QuizResult, QuizResultDetails } from '../../models/QuizRunner';
   templateUrl: './quiz-runner-content.component.html',
   styleUrls: ['./quiz-runner-content.component.css']
 })
-export class QuizRunnerContentComponent implements OnInit {
+export class QuizRunnerContentComponent implements OnInit, OnChanges {
 
   quizDefinition: QuizDefinition;
   @Input() questionNo: number;
@@ -40,7 +40,13 @@ export class QuizRunnerContentComponent implements OnInit {
 
     this.questionset = this.questions.questions[this.questionNo - 1];
   }
-
+  ngOnChanges() {
+    debugger;
+    this.questionset = this.questions.questions[this.questionNo - 1];
+    if (this.questionset.isImageneeded) {
+      this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
+    }
+  }
   UpdateQuestionNo(action) {
     if (action) {
       if (action == 'First' && this.questionNo > 1) {
