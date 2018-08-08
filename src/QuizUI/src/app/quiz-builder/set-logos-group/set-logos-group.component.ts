@@ -57,14 +57,17 @@ export class SetLogosGroupComponent implements OnInit {
     this.quizDefinition.stage = "SetLogo";
     this.quizDefinition.status = "Pending";
     this._saveQuizData.SaveQuizData(this.quizDefinition)
-      .subscribe((result: any) => { this.result = result });
+      .subscribe((result: any) => {
+        this.result = result;
+        if (result) {
+          this.formDataService.setSponserFields(this.quizDefinition.sponsorList);
+          this.formDataService.setQuizDefinition(this.quizDefinition);
+          this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
+        } else {
+          alert('Not Saved.');
+        }
+      });
 
-    if (this.result) {
-      this.formDataService.setSponserFields(this.quizDefinition.sponsorList);
-      this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
-    } else {
-      alert('Not Saved.');
-    }
+   
   }
 }

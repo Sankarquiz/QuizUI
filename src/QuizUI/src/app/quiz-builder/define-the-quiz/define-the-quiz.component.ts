@@ -49,13 +49,18 @@ export class DefineTheQuizComponent implements OnInit {
     this.quizDefinition.stage = 'Define';
     this.quizDefinition.status = 'Pending';
     this._saveQuizData.SaveQuizData(this.quizDefinition)
-      .subscribe((response: any) => { this.result = response });
-    if (this.result) {
-      this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.router.navigate(['/quiz-builder/create-quiz/Registration']);
-    } else {
-      alert('Not Saved.');
-    }
+      .subscribe((response: any) => {
+        debugger;
+        this.result = response;        
+        if (response) {
+          this.formDataService.setQuizDefinition(this.quizDefinition);
+          this.router.navigate(['/quiz-builder/create-quiz/Registration']);
+        } else {
+          alert('Not Saved.');
+        }
+      });
+    
+   
   }
 
   UpdateDate(value) {
