@@ -36,14 +36,17 @@ export class RegistrationComponent implements OnInit {
     this.quizDefinition.stage = "Registration";
     this.quizDefinition.status = "Pending";
     this._saveRegistration.SaveQuizData(this.quizDefinition)
-      .subscribe((result: any) => { this.result = result });
+      .subscribe((result: any) => {
+        this.result = result;
+        if (result) {
+          this.formDataService.setQuizDefinition(this.quizDefinition);
+          this.formDataService.setRegistrationFields(this.quizDefinition.registrationFields);
+          this.router.navigate(['/quiz-builder/create-quiz/set-pages']);
+        } else {
+          alert('Not Saved.');
+        }
+      });
 
-    if (this.result) {
-      this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.formDataService.setRegistrationFields(this.quizDefinition.registrationFields);
-      this.router.navigate(['/quiz-builder/create-quiz/set-pages']);
-    } else {
-      alert('Not Saved.');
-    }
+    
   }
 }
