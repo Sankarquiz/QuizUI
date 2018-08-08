@@ -99,6 +99,7 @@ namespace QuizWebApi
         /// <param name="provider">The provider.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider provider, IApplicationLifetime applicationLifetime)
         {
+            app.UseStaticFiles();
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             if (env.IsDevelopment())
             {
@@ -111,7 +112,7 @@ namespace QuizWebApi
             CouchbaseHelper.Initialize(app.ApplicationServices.GetRequiredService<IQuizBucketProvider>().GetBucket());
             app.UseHttpsRedirection();
             app.UseMvc();
-            app.UseSwagger();
+            app.UseSwagger();          
             app.UseSwaggerUI(c =>
             {
                 // from asp.net api versioning shim

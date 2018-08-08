@@ -1,5 +1,6 @@
 ﻿using Couchbase.N1QL;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
@@ -13,7 +14,8 @@ using System.Threading.Tasks;
 
 namespace QuizWebApi.Controllers
 {
-    /// <summary>
+
+    
     /// 
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
@@ -23,8 +25,20 @@ namespace QuizWebApi.Controllers
     public class QuizCreationController : ControllerBase
     {
         // private IMongoDatabase _mongoDatabase;
-        const string _imagePath = @"..\QuizWebApi\Images";
+        const string _imagePath = @"images";
+        private readonly IHostingEnvironment _hostingEnvironment;
 
+
+        /// <summary>
+        /// <summary>
+        /// QuizCreationController
+        /// </summary>              
+        public QuizCreationController(IHostingEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
+
+        /// <summary>
         /// <summary>
         /// Defines the quiz.
         /// </summary>
@@ -156,8 +170,11 @@ namespace QuizWebApi.Controllers
         {
             try
             {
+                string webRootPath = _hostingEnvironment.WebRootPath;
+                string contentRootPath = _hostingEnvironment.ContentRootPath;
+
                 var parsedContentDisposition = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
-                var filename = Path.Combine(_imagePath, parsedContentDisposition.FileName.Trim().ToString());
+                var filename = Path.Combine(webRootPath,_imagePath.Trim(), parsedContentDisposition.FileName.Trim().ToString());
 
                 // var filePath = Path.Combine(_imagePath, file.FileName);
                 var filePath = filename;
