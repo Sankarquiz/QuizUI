@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Couchbase.Extensions.DependencyInjection;
+﻿using Couchbase.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
-using MongoDB.Driver;
 using Swashbuckle.AspNetCore.Swagger;
 using SwashbuckleAspNetVersioningShim;
+using System.IO;
 
 namespace QuizWebApi
 {
@@ -75,9 +67,6 @@ namespace QuizWebApi
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            //var mongoClient = new MongoClient("mongodb://localhost:27017");
-            //mongoClient.GetDatabase("QuizDB");
-            // services.AddSingleton<IMongoDatabase>(MongodbClient.GetMongoDatabase());
             services.AddCouchbase(Configuration.GetSection("Couchbase"));
             services.AddCouchbaseBucket<IQuizBucketProvider>("Quiz", "quiz@123");
             services.AddCors(options =>
@@ -85,7 +74,6 @@ namespace QuizWebApi
                 options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                //.AllowCredentials()
                 );
             });
         }
@@ -112,7 +100,7 @@ namespace QuizWebApi
             CouchbaseHelper.Initialize(app.ApplicationServices.GetRequiredService<IQuizBucketProvider>().GetBucket());
             app.UseHttpsRedirection();
             app.UseMvc();
-            app.UseSwagger();          
+            app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 // from asp.net api versioning shim

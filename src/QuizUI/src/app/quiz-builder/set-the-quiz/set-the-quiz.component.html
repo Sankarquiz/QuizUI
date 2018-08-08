@@ -13,10 +13,6 @@
           <label for="exampleFormControlTextarea1">Enter Question Text</label>
           <textarea required class="form-control" id="questiontext" name="questiontext" rows="3"
                     [(ngModel)]="questionset.questionText" #questionText="ngModel"></textarea>
-
-          <!--<span class="help-block" *ngIf="QuestionText.invalid && QuestionText.touched">
-            Enter Question Text
-          </span>-->
         </div>
 
         <div class="form-group radio-box">
@@ -35,12 +31,13 @@
           </div>
         </div>
         <div class="form-group" *ngIf="questionset.isImageneeded==true">
-          <label for="name">Upload Image</label>
-          <input type="file" required class="form-control" accept="image/*"
-                 [class.has-error]="imageUrl.invalid && imageUrl.touched"
-                 [class.success]="imageUrl.valid"
+          <label for="name">Upload Image or Enter Image Link</label>
+          <input type="file" class="form-control" accept="image/*"
                  name="uploadimage" id="uploadimage" [(ngModel)]="questionset.imageUrl"
                  (change)="onFileSelected($event)" #ImageUrl="ngModel" capture>
+          <label for="hash-of-questions">Image Link</label>
+          <input type="text" name="imagepath" class="form-control" #ImageUrl="ngModel"
+                 [(ngModel)]="questionset.imageUrl">
         </div>
 
         <div class="form-group">
@@ -126,12 +123,7 @@
 
       </div>
       <div class="reg-button">
-        <!--<button type="submit" class="btn btn-danger" (click)="PreviewQuestion(setquiz)">Preview Question</button>-->
-        <!--<button type="submit" class="btn btn-danger" (click)="PreviousQuestion(setquiz)">Previous Question</button>-->
         <button type="submit" [class.dont-submit]="setquiz.invalid" [disabled]="setquiz.invalid" class="btn btn-danger" *ngIf="disablePublish==true" (click)="SaveQuestion(setquiz)">Save & Next </button>
-        <!--<button type="submit" class="btn btn-danger" *ngIf="disablePublish==false" (click)="Publish()">
-          Submit
-        </button>-->
       </div>
     </div>
   </div>

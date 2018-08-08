@@ -4,6 +4,7 @@ import { QuizSet, QuizQuestions, QuizDefinition } from '../../models/QuizDefinit
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { FormDataService } from '../../models/formData.service';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-publish-quiz-main-content',
@@ -18,6 +19,8 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
   questionset = new QuizSet();
   questions = new QuizQuestions();
   result: Observable<any>;
+  errorImageurl: string;
+  imageurl: any;
   constructor(private _getQuestion: QuizDetailsService,
     private formDataService: FormDataService,
     private activatedRoute: ActivatedRoute,
@@ -25,6 +28,7 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     debugger;
+    this.errorImageurl = environment.imageprefixpath + 'No_image_available.jpg'
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.totalquestions = this.quizDefinition.noOfQuestions;
     this.questions = this.formDataService.getQuizQuestions();
@@ -34,14 +38,26 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
 
     this.questionset = this.questions.questions[this.questionNo - 1];
     if (this.questionset.isImageneeded) {
-      this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
+      if (this.questionset.imageUrl.startsWith('http')) {
+        this.imageurl = this.questionset.imageUrl
+      }
+      else {
+        this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
+      }
     }
   }
   ngOnChanges() {
     debugger;
-    this.questionset = this.questions.questions[this.questionNo - 1];
-    if (this.questionset.isImageneeded) {
-      this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
+    if (this.questions) {
+      this.questionset = this.questions.questions[this.questionNo - 1];
+      if (this.questionset.isImageneeded) {
+        if (this.questionset.imageUrl.startsWith('http')) {
+          this.imageurl = this.questionset.imageUrl
+        }
+        else {
+          this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
+        }
+      }
     }
   }
 

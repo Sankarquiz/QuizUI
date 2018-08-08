@@ -20,6 +20,13 @@ export class QuizRunnerComponent implements OnInit {
   ngOnInit() {
     debugger;
     this.quizadv = this.formDataService.getquizadv();
+    this._getQuestion.CheckQuiztaken(this.quizadv.quizName, this.quizadv.quizType, this.formDataService.getUserData().teamName)
+      .subscribe((res) => {
+        if (!res) {
+          alert('You have already taken this quiz. Please try with some other quiz.');
+          this.router.navigate(['']);
+        }
+      });
   }
 
   Start() {

@@ -65,9 +65,6 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
     if (this.questions) {
       this.quizresultdetails = new QuizResultDetails();
       this.questionset = this.questions.questions[this.questionNo - 1];
-      if (this.questionset.isImageneeded) {
-        this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
-      }
     }
   }
 
