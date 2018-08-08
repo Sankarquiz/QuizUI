@@ -4,13 +4,15 @@
       <div>
         <a href="#">  Bulk Upload Questions</a>
       </div>
-
+      <div>
+        <label for="questionnotext"> Question Number :  {{currentQuestionNo}} </label>
+      </div>
       <div class="col-md-6">
-        <div class="form-group" [class.has-error]="QuestionText.invalid && QuestionText.touched"
-             [class.success]="QuestionText.valid">
+        <div class="form-group" [class.has-error]="questionText.invalid && questionText.touched"
+             [class.success]="questionText.valid">
           <label for="exampleFormControlTextarea1">Enter Question Text</label>
           <textarea required class="form-control" id="questiontext" name="questiontext" rows="3"
-                    [(ngModel)]="questionset.QuestionText" #QuestionText="ngModel"></textarea>
+                    [(ngModel)]="questionset.questionText" #questionText="ngModel"></textarea>
 
           <!--<span class="help-block" *ngIf="QuestionText.invalid && QuestionText.touched">
             Enter Question Text
@@ -20,13 +22,13 @@
         <div class="form-group radio-box">
           <label for="end-duration">Is Image Needed</label>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="image-needed" [(ngModel)]="questionset.IsImageneeded" #IsImageneeded="ngModel" [value]="true">
+            <input class="form-check-input" type="radio" name="image-needed" [(ngModel)]="questionset.isImageneeded" #isImageneeded="ngModel" [value]="true">
             <label class="form-check-label" for="exampleRadios1">
               yes
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="image-needed" [(ngModel)]="questionset.IsImageneeded" #IsImageneeded="ngModel" [value]="false" checked>
+            <input class="form-check-input" type="radio" name="image-needed" [(ngModel)]="questionset.isImageneeded" #isImageneeded="ngModel" [value]="false" checked>
             <label class="form-check-label" for="exampleRadios2">
               no
             </label>
@@ -35,88 +37,88 @@
         <div class="form-group" *ngIf="questionset.IsImageneeded==true">
           <label for="name">Upload Image</label>
           <input type="file" required class="form-control" accept="image/*"
-                 [class.has-error]="ImageUrl.invalid && ImageUrl.touched"
-                 [class.success]="ImageUrl.valid"
-                 name="uploadimage" id="uploadimage" [(ngModel)]="questionset.ImageUrl"
-                 #ImageUrl="ngModel" capture>
+                 [class.has-error]="imageUrl.invalid && imageUrl.touched"
+                 [class.success]="imageUrl.valid"
+                 name="uploadimage" id="uploadimage" [(ngModel)]="questionset.imageUrl"
+                 (change)="onFileSelected($event)" #ImageUrl="ngModel" capture>
         </div>
 
         <div class="form-group">
           <label for="hash-of-questions">Answer Type</label>
           <select class="form-control" name="hash-of-questions" id="hash-of-questions"
-                  [(ngModel)]="questionset.AnswerType" #AnswerType="ngModel">
+                  [(ngModel)]="questionset.answerType" #answerType="ngModel">
             <option *ngFor="let q of navs" [value]="q">{{q}}</option>
           </select>
         </div>
 
-        <div class="form-group" [class.has-error]="Answer.invalid && Answer.touched"
-             [class.success]="Answer.valid">
+        <div class="form-group" [class.has-error]="answer.invalid && answer.touched"
+             [class.success]="answer.valid">
           <label for="name">Answer</label>
           <input required type="text" class="form-control" name="answer" id="answer"
-                 [(ngModel)]="questionset.Answer" #Answer="ngModel">
+                 [(ngModel)]="questionset.answer" #answer="ngModel">
           <!--<span class="help-block" *ngIf="Answer.invalid && Answer.touched">
             Answer is required
           </span>-->
         </div>
 
 
-        <div class="form-group" [class.has-error]="Score.invalid && Score.touched"
-             [class.success]="Score.valid">
+        <div class="form-group" [class.has-error]="score.invalid && score.touched"
+             [class.success]="score.valid">
           <label for="name">
             Points for Correct Answer
           </label>
           <input type="text" required class="form-control" name="score" id="score"
-                 [(ngModel)]="questionset.Score" #Score="ngModel">
+                 [(ngModel)]="questionset.score" #score="ngModel">
           <!--<span class="help-block" *ngIf="Score.invalid && Score.touched">
             Please Provide Points for Correct Answer
           </span>-->
         </div>
       </div>
-      <div class="col-md-6" *ngIf="questionset.AnswerType ==='Multiple Choice'">
+      <div class="col-md-6" *ngIf="questionset.answerType ==='Multiple Choice'">
 
-        <div class="form-group" [class.has-error]="Option1.invalid && Option1.touched"
-             [class.success]="Option1.valid">
+        <div class="form-group" [class.has-error]="option1.invalid && option1.touched"
+             [class.success]="option1.valid">
           <label for="name">
             Option 1
           </label>
           <input type="text" class="form-control" name="option1" id="option1"
-                 required [(ngModel)]="questionset.Option1" #Option1="ngModel">
+                 required [(ngModel)]="questionset.option1" #option1="ngModel">
           <!--<span class="help-block" *ngIf="Option1.invalid && Option1.touched">
             Please Provide answer for  Option 1
           </span>-->
         </div>
 
-        <div class="form-group" [class.has-error]="Option2.invalid && Option2.touched"
-             [class.success]="Option2.valid">
+        <div class="form-group" [class.has-error]="option2.invalid && option2.touched"
+             [class.success]="option2.valid">
           <label for="name">
             Option 2
           </label>
           <input type="text" class="form-control" name="option2" id="option2"
-                 required [(ngModel)]="questionset.Option2" #Option2="ngModel">
+                 required [(ngModel)]="questionset.option2" #option2="ngModel">
           <!--<span class="help-block" *ngIf="Option2.invalid && Option2.touched">
             Please Provide answer for  Option 2
           </span>-->
         </div>
 
-        <div class="form-group" [class.has-error]="Option3.invalid && Option3.touched"
-             [class.success]="Option3.valid">
+        <div class="form-group" [class.has-error]="option3.invalid && option3.touched"
+             [class.success]="option3.valid">
           <label for="name">
             Option 3
           </label>
           <input type="text" required class="form-control" name="option3" id="option3"
-                 [(ngModel)]="questionset.Option3" #Option3="ngModel">
+                 [(ngModel)]="questionset.option3" #option3="ngModel">
           <!--<span class="help-block" *ngIf="Option3.invalid && Option3.touched">
             Please Provide answer for  Option 3
           </span>-->
         </div>
 
-        <div class="form-group" [class.has-error]="Option4.invalid && Option4.touched"
-             [class.success]="Option4.valid">
+        <div class="form-group" [class.has-error]="option4.invalid && option4.touched"
+             [class.success]="option4.valid">
           <label for="name">
             Option 4
           </label>
           <input type="text" required class="form-control" name="option4" id="option4"
-                 [(ngModel)]="questionset.Option4" #Option4="ngModel">
+                 [(ngModel)]="questionset.option4" #option4="ngModel">
           <!--<span class="help-block" *ngIf="Option4.invalid && Option4.touched">
             Please Provide answer for  Option 4
           </span>-->

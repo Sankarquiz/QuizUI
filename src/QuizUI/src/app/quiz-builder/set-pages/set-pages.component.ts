@@ -22,10 +22,10 @@ export class SetPagesComponent implements OnInit {
   }
   saveDefinequiz(form: any) {
 
-    this.quizDefinition.MessageBeforeQuizTime = form.value["message-before-quiz"];
-    this.quizDefinition.MessageAfterQuizTime = form.value["message-after-quiz"];
-    this.quizDefinition.Stage = "SetPage";
-    this.quizDefinition.Status = "Pending";
+    this.quizDefinition.messageBeforeQuizTime = form.value["message-before-quiz"];
+    this.quizDefinition.messageAfterQuizTime = form.value["message-after-quiz"];
+    this.quizDefinition.stage = "SetPage";
+    this.quizDefinition.status = "Pending";
     this._saveQuizData.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => { this.result = result });
 

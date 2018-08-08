@@ -24,10 +24,14 @@
 
   <ItemGroup>
     <None Remove="src\app\models\QuizDefinition.ts" />
+    <None Remove="src\app\models\QuizRunner.ts" />
+    <None Remove="src\app\models\Registration.ts" />
     <None Remove="src\app\services\service-getquizdetails.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="src\app\models\QuizRunner.ts" />
+    <TypeScriptCompile Include="src\app\models\Registration.ts" />
     <TypeScriptCompile Include="src\app\models\QuizDefinition.ts" />
     <TypeScriptCompile Include="src\app\services\service-getquizdetails.ts" />
   </ItemGroup>

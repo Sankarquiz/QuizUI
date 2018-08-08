@@ -26,32 +26,30 @@ export class DefineTheQuizComponent implements OnInit {
 
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    if (this.quizDefinition.QuizName == '') {
-      this.quizDefinition.ShuffleQuestions = true;
-      this.quizDefinition.IsQuizFromLargerPool = true;
-      this.quizDefinition.AllowConcurrentAccess = true;
-      this.quizDefinition.IsQuizAutoEvaluate = true;
-      this.quizDefinition.ShowScoreAfterAttempt = true;
-      this.quizDefinition.PostScoreOnSocialMedia = true;
-      this.quizDefinition.QuizDurationType = 'Hours';
-      this.quizDefinition.NoOfParticipants = 1;
-      this.quizDefinition.ParticipantType = 'Cross College';
-      this.quizDefinition.QuizDomainHost = 'KnowledgeVyasa Domain';
-      this.quizDefinition.QuizType = 'Treasure Hunt';
+    if (this.quizDefinition.quizName == '') {
+      this.quizDefinition.shuffleQuestions = true;
+      this.quizDefinition.isQuizFromLargerPool = false;
+      this.quizDefinition.allowConcurrentAccess = true;
+      this.quizDefinition.isQuizAutoEvaluate = true;
+      this.quizDefinition.showScoreAfterAttempt = true;
+      this.quizDefinition.postScoreOnSocialMedia = true;
+      this.quizDefinition.quizDurationType = 'Hours';
+      this.quizDefinition.noOfParticipants = 1;
+      this.quizDefinition.participantType = 'Cross College';
+      this.quizDefinition.quizDomainHost = 'KnowledgeVyasa Domain';
+      this.quizDefinition.quizType = 'Treasure Hunt';
     }
   }
 
   saveDefinequiz(form: any) {
-    if (this.quizDefinition.QuizEndTime > this.quizDefinition.QuizStartTime) {
-      alert('Start time cannot be greater than end time.');
+    if (this.quizDefinition.noOfQuestionsInPool <= this.quizDefinition.noOfQuestions && this.quizDefinition.isQuizFromLargerPool) {
+      alert('Question pool should be less than or equal to Question number..!');
       return;
     }
-
-    this.quizDefinition.Stage = 'Define';
-    this.quizDefinition.Status = 'Pending';
+    this.quizDefinition.stage = 'Define';
+    this.quizDefinition.status = 'Pending';
     this._saveQuizData.SaveQuizData(this.quizDefinition)
       .subscribe((response: any) => { this.result = response });
-
     if (this.result) {
       this.formDataService.setQuizDefinition(this.quizDefinition);
       this.router.navigate(['/quiz-builder/create-quiz/Registration']);
