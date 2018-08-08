@@ -123,7 +123,10 @@ const appRoutes: Routes = [
     NewUserRegComponent,
     SetLogosComponent,
     CreateAccountComponent,
-    SetLogosGroupComponent
+    SetLogosGroupComponent,
+    QuizRunnerComponent,
+    QuizHeaderComponent,
+    QuizRunnerContentComponent
   ],
   imports: [
     BrowserModule,
