@@ -5,3 +5,4 @@
 .question-links li a { color: #ffffff; text-decoration: none; display: block; }
 
 .question-links li a.active { background: #7afc0f; }
+.question-links li button { background: none; border: none; }

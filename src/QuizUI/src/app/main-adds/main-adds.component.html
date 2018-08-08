@@ -1,16 +1,18 @@
-<div class="container adds">
-  <a routerLinkActive="active" (click)="SelectQuiz()"><img src=" assets/images/asian-paints.jpg">
-<p class="quiz-name">Quizardry 
-  #Thomso, IIT Roorkee</p>
-<p class="quiz-name-desc">
-  #Indian Institute of Technology (IIT), Roorkee</p>
-<p class="quiz-start">10 Aug'18, 10:00 PM IST -</p>
-<p class="quiz-end"> 10 Aug'18, 10:20 PM IST</p>
-<p class="quiz-type">Quiz Type: free-flow</p>
-<p></p>
-
-  </a>
-
-
+<div *ngFor="let detail of quizdefinition  let i=index">
+  <div class="container adds">
+    <a routerLinkActive="active" (click)="SelectQuiz(i)">
+      <img src=" assets/images/asian-paints.jpg">
+      <p class="quiz-name">
+        {{detail.quizName}}
+      </p>
+      <!--<p class="quiz-name-desc">
+        #Indian Institute of Technology (IIT), Roorkee
+      </p>-->
+      <p class="quiz-start">{{detail.quizStartTime}}</p>
+      <p class="quiz-end">{{detail.quizEndTime}}</p>
+      <p class="quiz-type">{{detail.quizType}}</p>
+      <p></p>
+    </a>
+  </div>
 </div>
 <router-outlet></router-outlet>

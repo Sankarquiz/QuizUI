@@ -5,7 +5,7 @@
         <a href="#">  Bulk Upload Questions</a>
       </div>
       <div>
-        <label for="questionnotext"> Question Number :  {{currentQuestionNo}} </label>
+        <label for="questionnotext" class="questions-number"> Question Number :  {{currentQuestionNo}} </label>
       </div>
       <div class="col-md-6">
         <div class="form-group" [class.has-error]="questionText.invalid && questionText.touched"
@@ -34,7 +34,7 @@
             </label>
           </div>
         </div>
-        <div class="form-group" *ngIf="questionset.IsImageneeded==true">
+        <div class="form-group" *ngIf="questionset.isImageneeded==true">
           <label for="name">Upload Image</label>
           <input type="file" required class="form-control" accept="image/*"
                  [class.has-error]="imageUrl.invalid && imageUrl.touched"

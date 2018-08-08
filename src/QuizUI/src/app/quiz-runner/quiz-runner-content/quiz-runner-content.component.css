@@ -3,7 +3,7 @@
 .main-content-quiz img { height: 115px; width: auto; display: block; margin: 0 auto; margin-top: -32px; }
 .question-list { margin-bottom: 20px; }
 
-.question-list div { width: 300px; margin: 0 auto; color: #e62f2d; }
+.question-list div { width: 100%; margin: 0 auto; color: #e62f2d; }
 
 .question-list div label { width: 50%; text-align: right; margin-right: 12px; color: #00CCFF; }
 
@@ -35,3 +35,7 @@
 .success input { border: 1px solid green; box-shadow: 0 1px 7px green; }
 
 .dont-submit a { pointer-events: none; cursor: not-allowed; }
+
+.text-answer .control-label { display: inline-block;margin-right:10px;font-weight:bold; }
+
+.text-answer  .form-control { display: inline-block; width: 76%; }

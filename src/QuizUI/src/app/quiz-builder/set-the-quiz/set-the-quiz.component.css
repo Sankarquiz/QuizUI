@@ -25,3 +25,9 @@ font-weight: bold;
 
 .success input { border: 1px solid green; box-shadow: 0 1px 7px green; }
 .dont-submit a { pointer-events: none; cursor: not-allowed; }
+.questions-number{
+  display:block;
+  text-align:center;
+  font-weight:bold;
+  text-decoration:underline;
+}

@@ -21,6 +21,10 @@ export class QuizDetailsService {
     return this._http.get(environment.getallquizdetails, this.httpOptions);
   }
 
+  GetActiveQuizData() {
+    return this._http.get(environment.getactivequizdetails, this.httpOptions);
+  }
+
   GetQuizData(quizName: string, quizType: string, documenttype: string) {
     let uri = environment.getquizdetail + "?quizName=" + quizName + "&quizType=" + quizType + "&documentType=" + documenttype;
     return this._http.get(uri, this.httpOptions);

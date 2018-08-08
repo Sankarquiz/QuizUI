@@ -1,9 +1,12 @@
-<div>
+
+
+<div class="container">
+ 
   <div *ngIf="quizDetails == '' || quizDetails?.length==0">
     <p>No Quizzes are defined before.</p>
   </div>
-  <div *ngIf="quizDetails?.length>0">
-    <table border="1">
+  <table class="table table-striped" *ngIf="quizDetails?.length>0">
+    <thead>
       <tr>
         <th>Quiz Name</th>
         <th>Quiz Type</th>
@@ -12,6 +15,8 @@
         <th>Quiz End Time</th>
         <th>Current Stage</th>
       </tr>
+    </thead>
+    <tbody>
       <tr *ngFor="let detail of quizDetails">
         <td>{{detail.quizName}}</td>
         <td>{{detail.quizType}}</td>
@@ -20,6 +25,6 @@
         <td>{{detail.quizEndTime}}</td>
         <td>{{detail.stage}}</td>
       </tr>
-    </table>
-  </div>
+    </tbody>
+  </table>
 </div>

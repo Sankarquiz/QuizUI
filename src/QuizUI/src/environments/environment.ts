@@ -11,6 +11,7 @@ export const environment = {
   uploadimage: 'http://localhost:52671/api/quiz/UploadImage/',
   register: 'http://localhost:52671/api/quiz/Register/',
   login: 'http://localhost:52671/api/quiz/Login/',
+  getactivequizdetails: 'http://localhost:52671/api/quiz/GetActiveQuizDetails/',
   checkquiztaken: 'http://localhost:52671/api/quiz/CheckQuizTaken/',
   savequizrunner: 'http://localhost:52671/api/quiz/SaveQuizRunner/'
 
