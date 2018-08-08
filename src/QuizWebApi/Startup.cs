@@ -85,7 +85,8 @@ namespace QuizWebApi
                 options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .AllowCredentials());
+                //.AllowCredentials()
+                );
             });
         }
 
@@ -97,7 +98,7 @@ namespace QuizWebApi
         /// <param name="env">The env.</param>
         /// <param name="provider">The provider.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider provider, IApplicationLifetime applicationLifetime)
-        {           
+        {
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             if (env.IsDevelopment())
             {

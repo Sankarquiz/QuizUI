@@ -40,6 +40,17 @@ const appRoutes: Routes = [
   { path: 'user-registration', component: NewUserRegComponent },
   { path: 'quiz-runner', component: QuizRunnerComponent },
   {
+    path: 'quiz-header', component: QuizHeaderComponent,
+       children: [
+      {
+           path: 'quiz-runner-content',
+           component: QuizRunnerContentComponent
+      },
+    ]
+
+  },
+
+  {
     path: 'quiz-builder', component: QuizBuilderComponent,
     children: [
       {
@@ -112,10 +123,7 @@ const appRoutes: Routes = [
     NewUserRegComponent,
     SetLogosComponent,
     CreateAccountComponent,
-    SetLogosGroupComponent,
-    QuizRunnerComponent,
-    QuizHeaderComponent,
-    QuizRunnerContentComponent
+    SetLogosGroupComponent
   ],
   imports: [
     BrowserModule,

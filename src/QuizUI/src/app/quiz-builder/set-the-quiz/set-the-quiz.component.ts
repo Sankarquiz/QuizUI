@@ -20,6 +20,7 @@ export class SetTheQuizComponent implements OnInit {
   questions = new QuizQuestions();
   disablePublish: boolean = true;
   iseditquestion: boolean = false;
+  isimagesaved: boolean = true;
   navs = ['Multiple Choice', 'Hangman', 'Free Text'];
 
   constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
@@ -29,66 +30,79 @@ export class SetTheQuizComponent implements OnInit {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
     if (!this.iseditquestion) {
-      this.questionset.AnswerType = 'Multiple Choice';
-      this.questionset.IsImageneeded = false;
+      this.questionset.answerType = 'Multiple Choice';
+      this.questionset.isImageneeded = false;
+      ++this.currentQuestionNo;
     }
     else {
       this.questionset = this.formDataService.getQuestion();
+      this.currentQuestionNo = this.questionset.questionNo;
     }
   }
 
   SaveQuestion(question: NgForm) {
-    alert('t');
     debugger;
+    if (!this.isimagesaved) {
+      alert('Image not uploaded. Please upload again.')
+      this.isimagesaved = true;
+      return;
+    }
     if (!this.iseditquestion) {
-      this.questionset.QuestionNo = ++this.currentQuestionNo;
-      if (this.questions.Questions.filter(x => x.QuestionNo == this.currentQuestionNo).length > 0) {
-        let index = this.questions.Questions.findIndex(x => x.QuestionNo == this.currentQuestionNo);
-        this.questions.Questions[index] = this.questionset;
+      this.questionset.questionNo = this.currentQuestionNo;
+      if (this.questions.questions.filter(x => x.questionNo == this.currentQuestionNo).length > 0) {
+        let index = this.questions.questions.findIndex(x => x.questionNo == this.currentQuestionNo);
+        this.questions.questions[index] = this.questionset;
       }
       else {
-        this.questions.Questions.push(this.questionset);
+        this.questions.questions.push(this.questionset);
       }
     }
     else {
-      if (this.questions.Questions.filter(x => x.QuestionNo == this.questionset.QuestionNo).length > 0) {
-        let index = this.questions.Questions.findIndex(x => x.QuestionNo == this.questionset.QuestionNo);
-        this.questions.Questions[index] = this.questionset;
+      if (this.questions.questions.filter(x => x.questionNo == this.questionset.questionNo).length > 0) {
+        let index = this.questions.questions.findIndex(x => x.questionNo == this.questionset.questionNo);
+        this.questions.questions[index] = this.questionset;
         this.formDataService.setEditQuestion(false);
         this.Publish();
       }
     }
-    alert("Saved");
     this.questionset = new QuizSet();
     this.ngOnInit();
-    if (this.quizDefinition.NoOfQuestions == this.currentQuestionNo) {
+    if (this.quizDefinition.noOfQuestions < this.currentQuestionNo) {
       this.disablePublish = false;
       this.Publish();
     }
   }
 
   Publish() {
-    this.questions.QuizName = this.quizDefinition.QuizName;
-    this.questions.QuizType = this.quizDefinition.QuizType;
-    if (this.quizDefinition.NoOfQuestions == this.currentQuestionNo || this.iseditquestion) {
+    this.questions.quizName = this.quizDefinition.quizName;
+    this.questions.quizType = this.quizDefinition.quizType;
+    if (this.quizDefinition.noOfQuestions < this.currentQuestionNo || this.iseditquestion) {
       this._saveQuestion.SaveQuestion(this.questions)
         .subscribe((result: any) => { this.result = result });
 
-      this.quizDefinition.Stage = "SetQuestion";
-      this.quizDefinition.Status = "Pending";
+      this.quizDefinition.stage = "SetQuestion";
+      this.quizDefinition.status = "Pending";
       this._saveQuestion.SaveQuizData(this.quizDefinition)
         .subscribe((result: any) => { this.result = result });
 
-      //if (this.result) {
       this.formDataService.setQuizQuestions(this.questions);
       this.formDataService.setQuizDefinition(this.quizDefinition);
       this.router.navigate(['/quiz-builder/create-quiz/publish-quiz']);
-      //} else {
-      //  alert('Not Submitted.');
-      //}
     }
     else {
       alert('Please enter all questions. You entered' + this.currentQuestionNo + ' question so far.')
     }
+  }
+
+  onFileSelected(event) {
+    debugger;
+    const fd = new FormData();
+    let imgname = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + this.currentQuestionNo;
+    this.questionset.imageUrl = imgname;
+    fd.append("file", <File>event.target.files[0], imgname);
+    this._saveQuestion.UploadImage(fd)
+      .subscribe(res => {
+        this.isimagesaved = <boolean>res;
+      });
   }
 }
