@@ -1,0 +1,16 @@
+.Start-page{
+  text-align:center;
+  color:#007bff;
+  margin-top:30px;
+}
+
+.start-button{
+  background: none;
+    border: none;
+    background-color: blue;
+    padding: 10px 30px;
+    border-radius: 7px;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+}
