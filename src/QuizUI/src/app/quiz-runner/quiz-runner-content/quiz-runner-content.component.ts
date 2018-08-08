@@ -54,22 +54,18 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
     if (action) {
       if (action == 'First' && this.questionNo > 1) {
         this.questionNo = 1;
-        this.questionset = this.questions.questions[this.questionNo - 1];
         this.ngOnChanges();
       }
       if (action == 'Next' && this.questionNo < this.quizDefinition.noOfQuestions) {
         this.questionNo++;
-        this.questionset = this.questions.questions[this.questionNo - 1];
         this.ngOnChanges();
       }
       if (action == 'Last') {
         this.questionNo = this.quizDefinition.noOfQuestions;
-        this.questionset = this.questions.questions[this.questionNo - 1];
         this.ngOnChanges();
       }
       if (action == 'Prev' && this.questionNo > 1) {
         this.questionNo--;
-        this.questionset = this.questions.questions[this.questionNo - 1];
         this.ngOnChanges();
       }
     }
@@ -93,7 +89,16 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
 
       this.quizresultdetails.answerType = this.questionset.answerType;
       this.quizresult.quizResultDetails.push(this.quizresultdetails);
-      this.quizresultdetails = new QuizResultDetails();
+      this.questionNo++;
+      this.ngOnChanges();
     }
+  }
+
+  IsAnswered(): boolean {
+    debugger;
+    if (this.quizresultdetails.userAnswer) {
+      return true;
+    }
+    return false;
   }
 }

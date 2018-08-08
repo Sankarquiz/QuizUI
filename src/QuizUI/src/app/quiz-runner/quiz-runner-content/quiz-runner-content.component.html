@@ -42,10 +42,10 @@
     <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && questionNo>1" class="btn btn-warning" (click)="UpdateQuestionNo('Prev')">
       Prev
     </button>
-    <button type="button" class="btn btn-info" [disabled]="questionset.answerType==''" (click)="SaveAnswer()">
+    <button type="button" class="btn btn-info" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
       Save Answer
     </button>
-    <button type="button" *ngIf="totalquestions!=questionNo" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
+    <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && totalquestions!=questionNo" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
       Next
     </button>
     <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-danger" (click)="UpdateQuestionNo('Last')">
