@@ -30,10 +30,12 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
     this.totalquestions = this.quizDefinition.noOfQuestions;
+    this.quizresult.totalScored = 0;
     this.quizresult.quizName = this.quizDefinition.quizName;
     this.quizresult.quizType = this.quizDefinition.quizType;
     this.quizresult.teamName = this.formDataService.getUserData().teamName;
     this.quizresult.quizResultDetails = new Array<QuizResultDetails>();
+    this.quizresultdetails = new QuizResultDetails();
     if (!this.questionNo) {
       this.questionNo = 1;
     }
@@ -42,6 +44,7 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
   }
   ngOnChanges() {
     debugger;
+    this.quizresultdetails = new QuizResultDetails();
     this.questionset = this.questions.questions[this.questionNo - 1];
     if (this.questionset.isImageneeded) {
       this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
@@ -52,18 +55,22 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
       if (action == 'First' && this.questionNo > 1) {
         this.questionNo = 1;
         this.questionset = this.questions.questions[this.questionNo - 1];
+        this.ngOnChanges();
       }
       if (action == 'Next' && this.questionNo < this.quizDefinition.noOfQuestions) {
         this.questionNo++;
         this.questionset = this.questions.questions[this.questionNo - 1];
+        this.ngOnChanges();
       }
       if (action == 'Last') {
         this.questionNo = this.quizDefinition.noOfQuestions;
         this.questionset = this.questions.questions[this.questionNo - 1];
+        this.ngOnChanges();
       }
       if (action == 'Prev' && this.questionNo > 1) {
         this.questionNo--;
         this.questionset = this.questions.questions[this.questionNo - 1];
+        this.ngOnChanges();
       }
     }
   }
@@ -74,6 +81,7 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
       this.quizresultdetails.questionNo = this.questionset.questionNo;
       this.quizresultdetails.questionText = this.questionset.questionText;
       this.quizresultdetails.adminScore = this.questionset.score;
+
       if (this.quizresultdetails.adminAnswer == this.quizresultdetails.userAnswer) {
         this.quizresult.numberOfCorrectAnswers++;
         this.quizresult.totalScored = this.quizresult.totalScored + this.questionset.score;

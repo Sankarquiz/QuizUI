@@ -107,13 +107,13 @@ namespace QuizWebApi.Controllers
         /// <returns></returns>
         /// //[Route("/getquiz")]
         [HttpGet]
-        public async Task<IActionResult> GetQuiz(string quizName, string quizType, string DocumentType)
+        public async Task<IActionResult> GetQuiz(string quizName, string quizType, string documentType)
         {
-            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(DocumentType))
+            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(documentType))
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
-            if (DocumentType == "Define")
+            if (documentType == "Define")
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
                 return Ok(response.Value);
