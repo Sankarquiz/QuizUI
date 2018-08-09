@@ -17,7 +17,7 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
   totalquestions;
   questionset = new QuizSet();
   questions = new QuizQuestions();
-  result: Observable<any>;
+
   constructor(private _getQuestion: QuizDetailsService,
     private formDataService: FormDataService,
     private activatedRoute: ActivatedRoute,
@@ -50,13 +50,13 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
     this.quizDefinition.status = 'Published';
 
     this._getQuestion.SaveQuizData(this.quizDefinition)
-      .subscribe((result: any) => { this.result = result });
-
-    if (this.result) {
-      alert('Published');
-      this.formDataService.Clear();
-      this.router.navigate(['/quiz-builder/create-quiz/define-the-Quiz']);
-    }
+      .subscribe((result: any) => {
+        if (result) {
+          alert('Published');
+          this.formDataService.Clear();
+          this.router.navigate(['/quiz-builder/create-quiz/define-the-Quiz']);
+        }
+      });
   }
 
   UpdateQuestionNo(action) {
