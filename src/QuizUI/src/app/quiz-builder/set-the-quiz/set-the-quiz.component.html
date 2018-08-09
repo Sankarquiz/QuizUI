@@ -18,6 +18,41 @@
         <div class="form-group radio-box">
           <label for="end-duration">Is Image Needed</label>
           <div class="form-check">
+            <input class="form-check-input" type="radio" name="image-needed1"
+                   [(ngModel)]="imagepath" #imagepathtype="ngModel" value="upload" for="image">
+            <label class="form-check-label">
+              Yes, Upload Image.
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="image-needed2"
+                   [(ngModel)]="imagepath" #imagepathtype="ngModel" value="enter" for="image">
+            <label class="form-check-label">
+              Yes, Enter Image Link.
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="image-needed3"
+                   [(ngModel)]="imagepath" #imagepathtype="ngModel" value="no" for="image" checked>
+            <label class="form-check-label">
+              No
+            </label>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="imagepath==='upload'">
+          <label for="name">Upload Image</label>
+          <input [required] type="file" class="form-control" accept="image/*"
+                 name="uploadimage" id="uploadimage" [(ngModel)]="questionset.imageUrl"
+                 (change)="onFileSelected($event)" #ImageUrl="ngModel" capture>
+        </div>
+        <div class="form-group" *ngIf="imagepath==='enter'">
+          <label for="hash-of-questions">Enter Image Link</label>
+          <input [required] type="text" name="imagepath" class="form-control" #ImageUrl="ngModel"
+                 [(ngModel)]="questionset.imageUrl">
+        </div>
+        <!--<div class="form-group radio-box">
+          <label for="end-duration">Is Image Needed</label>
+          <div class="form-check">
             <input class="form-check-input" type="radio" name="image-needed" [(ngModel)]="questionset.isImageneeded" #isImageneeded="ngModel" [value]="true">
             <label class="form-check-label" for="exampleRadios1">
               yes
@@ -29,8 +64,8 @@
               no
             </label>
           </div>
-        </div>
-        <div class="form-group" *ngIf="questionset.isImageneeded==true">
+        </div>-->
+        <!--<div class="form-group" *ngIf="questionset.isImageneeded==true">
           <label for="name">Upload Image or Enter Image Link</label>
           <input type="file" class="form-control" accept="image/*"
                  name="uploadimage" id="uploadimage" [(ngModel)]="questionset.imageUrl"
@@ -38,7 +73,7 @@
           <label for="hash-of-questions">Image Link</label>
           <input type="text" name="imagepath" class="form-control" #ImageUrl="ngModel"
                  [(ngModel)]="questionset.imageUrl">
-        </div>
+        </div>-->
 
         <div class="form-group">
           <label for="hash-of-questions">Answer Type</label>

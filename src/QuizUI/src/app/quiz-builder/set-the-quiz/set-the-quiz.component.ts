@@ -23,6 +23,7 @@ export class SetTheQuizComponent implements OnInit {
   disablePublish: boolean = true;
   iseditquestion: boolean = false;
   isimagesaved: boolean = true;
+  imagepath: string;
   navs = ['Multiple Choice', 'Hangman', 'Free Text'];
 
   constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
@@ -31,6 +32,7 @@ export class SetTheQuizComponent implements OnInit {
     this.iseditquestion = this.formDataService.getEditQuestion();
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
+    this.imagepath = 'no';
     if (!this.iseditquestion) {
       this.questionset.answerType = 'Multiple Choice';
       this.questionset.isImageneeded = false;
