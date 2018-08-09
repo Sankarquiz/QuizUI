@@ -1,7 +1,7 @@
 <div class="main-content-quiz container" *ngIf="questionset.questionText">
-  <p>Time Left => {{timeLeftMinutes}}:{{timeLeftSeconds}}</p>
+  <p>Time Left: <span style="color:red">{{timeLeftMinutes}}:{{timeLeftSeconds}}</span></p>
   <p>{{questionset.questionText}}</p>
-  <div *ngIf="questionset.isImageneeded==true">
+  <div class="runner-image" *ngIf="questionset.isImageneeded==true">
     <img src={{questionset.imageUrl}}>
   </div>
   <form class="question-list" *ngIf="questionset.answerType ==='Multiple Choice'">

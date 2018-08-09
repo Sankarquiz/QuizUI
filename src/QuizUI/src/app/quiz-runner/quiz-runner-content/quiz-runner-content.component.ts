@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { QuizDefinition, QuizQuestions, QuizSet } from '../../models/QuizDefinition';
 import { Router } from '@angular/router';
 import { FormDataService } from '../../models/formData.service';
@@ -15,6 +15,7 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
 
   quizDefinition: QuizDefinition;
   @Input() questionNo: number;
+  @Output() activequestion = new EventEmitter();
   totalquestions;
   questionset = new QuizSet();
   questions: QuizQuestions;
@@ -28,7 +29,6 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
     private router: Router) { }
 
   ngOnInit() {
-    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questionset.isImageneeded == false;
     this.questionset.questionText == '';
@@ -59,12 +59,14 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
       this.questionNo = 1;
     }
     this.questionset = this.questions.questions[this.questionNo - 1];
+    this.activequestion.emit(this.questionNo);
   }
   ngOnChanges() {
     debugger;
     if (this.questions) {
       this.quizresultdetails = new QuizResultDetails();
       this.questionset = this.questions.questions[this.questionNo - 1];
+      this.activequestion.emit(this.questionNo);
     }
   }
 
@@ -115,7 +117,6 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
   }
 
   IsAnswered(): boolean {
-    debugger;
     if (this.quizresultdetails.userAnswer) {
       return true;
     }

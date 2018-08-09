@@ -39,3 +39,4 @@
 .text-answer .control-label { display: inline-block;margin-right:10px;font-weight:bold; }
 
 .text-answer  .form-control { display: inline-block; width: 76%; }
+.runner-image > img { width: 220px; height: auto; margin-top: 20px; margin-bottom: 20px; }
