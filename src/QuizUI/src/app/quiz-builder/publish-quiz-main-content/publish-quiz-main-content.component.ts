@@ -66,13 +66,13 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
     this.quizDefinition.status = 'Published';
 
     this._getQuestion.SaveQuizData(this.quizDefinition)
-      .subscribe((result: any) => { this.result = result });
-
-    if (this.result) {
-      alert('Published');
-      this.formDataService.Clear();
-      this.router.navigate(['/quiz-builder/create-quiz/define-the-Quiz']);
-    }
+      .subscribe((result: any) => {
+        if (this.result) {
+          alert('Published');
+          this.formDataService.Clear();
+          this.router.navigate(['/quiz-builder/create-quiz/define-the-Quiz']);
+        }
+      });
   }
 
   UpdateQuestionNo(action) {

@@ -67,6 +67,9 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
       this.quizresultdetails = new QuizResultDetails();
       this.questionset = this.questions.questions[this.questionNo - 1];
       this.activequestion.emit(this.questionNo);
+      if (this.quizresult.quizResultDetails[this.questionNo - 1]) {
+        this.quizresultdetails = this.quizresult.quizResultDetails[this.questionNo - 1]
+      }
     }
   }
 
@@ -91,6 +94,7 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
     }
   }
   SaveAnswer() {
+    debugger;
     if (this.quizresultdetails.userAnswer) {
       this.quizresultdetails.adminAnswer = this.questionset.answer;
       this.quizresultdetails.questionNo = this.questionset.questionNo;
@@ -106,8 +110,14 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
         this.quizresult.numberOfWrongAnswers++;
       }
 
-      this.quizresultdetails.answerType = this.questionset.answerType;
-      this.quizresult.quizResultDetails.push(this.quizresultdetails);
+      this.quizresultdetails.answerType = this.questionset.answerType; 
+      if (this.quizresult.quizResultDetails.filter(x => x.questionNo == this.quizresultdetails.questionNo).length > 0) {
+        let index = this.quizresult.quizResultDetails.findIndex(x => x.questionNo == this.quizresultdetails.questionNo);
+        this.quizresult.quizResultDetails[index] = this.quizresultdetails;
+      }
+      else {
+        this.quizresult.quizResultDetails.push(this.quizresultdetails);        
+      }
       this.questionNo++;
       if (this.questionNo > this.totalquestions) {
         this.SaveQuizResult(this.quizresult);
