@@ -46,6 +46,9 @@ export class SetTheQuizComponent implements OnInit {
 
   SaveQuestion(question: NgForm) {
     debugger;
+    if (this.imagepath) {
+      this.questionset.isImageneeded = true;
+    }
     if (!this.isimagesaved) {
       alert('Image not uploaded. Please upload again.')
       this.isimagesaved = true;

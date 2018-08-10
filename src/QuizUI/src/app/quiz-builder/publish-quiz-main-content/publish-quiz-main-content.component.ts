@@ -17,8 +17,7 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
   @Input() questionNo: number;
   totalquestions;
   questionset = new QuizSet();
-  questions = new QuizQuestions();
-  result: Observable<any>;
+  questions = new QuizQuestions();  
   errorImageurl: string;
   imageurl: any;
   constructor(private _getQuestion: QuizDetailsService,
@@ -48,7 +47,7 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
   }
   ngOnChanges() {
     debugger;
-    if (this.questions) {
+    if (this.questions && this.questionNo) {
       this.questionset = this.questions.questions[this.questionNo - 1];
       if (this.questionset.isImageneeded) {
         if (this.questionset.imageUrl.startsWith('http')) {
@@ -64,13 +63,13 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
   Publish() {
     this.quizDefinition.stage = 'Publish';
     this.quizDefinition.status = 'Published';
-
+    debugger;
     this._getQuestion.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => {
-        if (this.result) {
+        if (result) {
           alert('Published');
           this.formDataService.Clear();
-          this.router.navigate(['/quiz-builder/create-quiz/define-the-Quiz']);
+          this.router.navigate(['/quiz-builder/view-previous-quiz']);
         }
       });
   }
