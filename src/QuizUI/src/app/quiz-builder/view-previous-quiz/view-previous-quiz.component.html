@@ -24,16 +24,14 @@
           <td>{{detail.status}}</td>
           <td>{{detail.quizStartTime}}</td>
           <td>{{detail.quizEndTime}}</td>
-          <td>{{detail.stage}}</td>
-          <!--<td>
+          <td>
             <div *ngIf="detail.status == 'Pending' else showpublish">
-              <a href="#" (click)>{{detail.stage}}</a>
+              <a [routerLink]="" (click)="quizScreen(detail)">{{detail.stage}}</a>
             </div>
             <ng-template #showpublish>
-              {{detail.stage}}
-              this.formDataService.setQuizDefinition(this.quizDefinition);
+              {{detail.stage}}           
             </ng-template>
-          </td>-->
+          </td>
         </tr>
       </tbody>
     </table>
