@@ -4,6 +4,7 @@ import { QuizSet, QuizQuestions, QuizDefinition } from '../../models/QuizDefinit
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { FormDataService } from '../../models/formData.service';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-publish-quiz-main-content',
@@ -16,14 +17,8 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
   @Input() questionNo: number;
   totalquestions;
   questionset = new QuizSet();
-<<<<<<< HEAD
   questions = new QuizQuestions();
-
-=======
-  questions = new QuizQuestions();  
-  errorImageurl: string;
   imageurl: any;
->>>>>>> 196558b17fd3bc493071767e70ae5968aeb5072e
   constructor(private _getQuestion: QuizDetailsService,
     private formDataService: FormDataService,
     private activatedRoute: ActivatedRoute,
@@ -45,11 +40,6 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
   }
   ngOnChanges() {
     debugger;
-<<<<<<< HEAD
-    this.questionset = this.questions.questions[this.questionNo - 1];
-    if (this.questionset.isImageneeded) {
-      this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
-=======
     if (this.questions && this.questionNo) {
       this.questionset = this.questions.questions[this.questionNo - 1];
       if (this.questionset.isImageneeded) {
@@ -60,7 +50,6 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
           this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
         }
       }
->>>>>>> 196558b17fd3bc493071767e70ae5968aeb5072e
     }
   }
 

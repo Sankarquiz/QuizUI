@@ -54,42 +54,6 @@
           <input [required] type="text" name="imagepath" class="form-control" #ImageUrl="ngModel"
                  [(ngModel)]="questionset.imageUrl">
         </div>
-        <!--<div class="form-group radio-box">
-          <label for="end-duration">Is Image Needed</label>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="image-needed" [(ngModel)]="questionset.isImageneeded" #isImageneeded="ngModel" [value]="true">
-            <label class="form-check-label" for="exampleRadios1">
-              yes
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="image-needed" [(ngModel)]="questionset.isImageneeded" #isImageneeded="ngModel" [value]="false" checked>
-            <label class="form-check-label" for="exampleRadios2">
-              no
-            </label>
-          </div>
-<<<<<<< HEAD
-        </div>
-        <div class="form-group" *ngIf="questionset.isImageneeded==true">
-          <label for="name">Upload Image</label>
-          <input type="file" required class="form-control" accept="image/*"
-                 [class.has-error]="imageUrl.invalid && imageUrl.touched"
-                 [class.success]="imageUrl.valid"
-                 name="uploadimage" id="uploadimage" [(ngModel)]="questionset.imageUrl"
-                 (change)="onFileSelected($event)" #ImageUrl="ngModel" capture>
-        </div>
-=======
-        </div>-->
-        <!--<div class="form-group" *ngIf="questionset.isImageneeded==true">
-          <label for="name">Upload Image or Enter Image Link</label>
-          <input type="file" class="form-control" accept="image/*"
-                 name="uploadimage" id="uploadimage" [(ngModel)]="questionset.imageUrl"
-                 (change)="onFileSelected($event)" #ImageUrl="ngModel" capture>
-          <label for="hash-of-questions">Image Link</label>
-          <input type="text" name="imagepath" class="form-control" #ImageUrl="ngModel"
-                 [(ngModel)]="questionset.imageUrl">
-        </div>-->
->>>>>>> 196558b17fd3bc493071767e70ae5968aeb5072e
 
         <div class="form-group">
           <label for="hash-of-questions">Answer Type</label>
