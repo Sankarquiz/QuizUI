@@ -16,8 +16,14 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
   @Input() questionNo: number;
   totalquestions;
   questionset = new QuizSet();
+<<<<<<< HEAD
   questions = new QuizQuestions();
 
+=======
+  questions = new QuizQuestions();  
+  errorImageurl: string;
+  imageurl: any;
+>>>>>>> 196558b17fd3bc493071767e70ae5968aeb5072e
   constructor(private _getQuestion: QuizDetailsService,
     private formDataService: FormDataService,
     private activatedRoute: ActivatedRoute,
@@ -39,22 +45,35 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
   }
   ngOnChanges() {
     debugger;
+<<<<<<< HEAD
     this.questionset = this.questions.questions[this.questionNo - 1];
     if (this.questionset.isImageneeded) {
       this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
+=======
+    if (this.questions && this.questionNo) {
+      this.questionset = this.questions.questions[this.questionNo - 1];
+      if (this.questionset.isImageneeded) {
+        if (this.questionset.imageUrl.startsWith('http')) {
+          this.imageurl = this.questionset.imageUrl
+        }
+        else {
+          this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
+        }
+      }
+>>>>>>> 196558b17fd3bc493071767e70ae5968aeb5072e
     }
   }
 
   Publish() {
     this.quizDefinition.stage = 'Publish';
     this.quizDefinition.status = 'Published';
-
+    debugger;
     this._getQuestion.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => {
         if (result) {
           alert('Published');
           this.formDataService.Clear();
-          this.router.navigate(['/quiz-builder/create-quiz/define-the-Quiz']);
+          this.router.navigate(['/quiz-builder/view-previous-quiz']);
         }
       });
   }
