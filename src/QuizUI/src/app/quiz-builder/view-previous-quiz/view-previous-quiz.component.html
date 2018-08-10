@@ -4,7 +4,7 @@
 
   <div *ngIf="quizDetails?.length==0 else viewshow">
     <p> Quizzes are not defined.</p>
-  </div>  
+  </div>
   <ng-template #viewshow>
     <table class="table table-striped">
       <thead>
@@ -24,7 +24,8 @@
           <td>{{detail.status}}</td>
           <td>{{detail.quizStartTime}}</td>
           <td>{{detail.quizEndTime}}</td>
-          <td>
+          <td>{{detail.stage}}</td>
+          <!--<td>
             <div *ngIf="detail.status == 'Pending' else showpublish">
               <a href="#" (click)>{{detail.stage}}</a>
             </div>
@@ -32,7 +33,7 @@
               {{detail.stage}}
               this.formDataService.setQuizDefinition(this.quizDefinition);
             </ng-template>
-          </td>
+          </td>-->
         </tr>
       </tbody>
     </table>
