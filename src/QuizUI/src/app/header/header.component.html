@@ -5,11 +5,13 @@
     </div>
     <ul class="menu-head">
       <a routerLink="/about-us" routerLinkActive="active">About Us</a>
-      <a routerLink="/quiz-builder" routerLinkActive="active">Quiz Builder</a>
-      <a routerLink="/quiz-bank" routerLinkActive="active">Quiz Bank</a>
+      <a routerLink="/quiz-builder" routerLinkActive="active" *ngIf="userDetails.role=='admin'">Quiz Builder</a> 
     </ul>
     <ul class="menu-log-in">
-      <a routerLink="/user-registration">Login</a>
+      <a routerLink="/user-registration"  *ngIf="!userDetails.teamName">Login</a>      
+    </ul>
+    <ul class="menu-log-in">
+      <a routerLink="/adds" routerLinkActive="active" *ngIf="userDetails.teamName" (click)="Logout()">Logout</a>
     </ul>
   </div>
 </header>

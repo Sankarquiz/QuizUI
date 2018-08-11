@@ -16,7 +16,7 @@ export class NewUserRegComponent implements OnInit {
   password: string;
   result: Observable<any>;
   userDetails = new UserRegistration();
-  constructor(private _register: QuizDetailsService, private router: Router, private formDataService: FormDataService ) { }
+  constructor(private _register: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
 
   ngOnInit() {
     this.username = '';
@@ -38,5 +38,6 @@ export class NewUserRegComponent implements OnInit {
           }
         });
     }
-  }
+  } 
 }
+

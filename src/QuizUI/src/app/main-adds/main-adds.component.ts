@@ -34,7 +34,7 @@ export class MainAddsComponent implements OnInit {
       this.router.navigate(['/quiz-runner']);
     }
     else {
-      this.router.navigate(['/adds-desc']);
+      this.router.navigate(['/user-registration']);
     }
   }
 }

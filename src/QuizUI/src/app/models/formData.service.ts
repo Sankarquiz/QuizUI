@@ -189,6 +189,11 @@ export class FormDataService {
     this.userData.email = data.email;
     this.userData.role = data.role;
   }
+  clearUserData() {
+    this.userData.teamName = '';
+    this.userData.email = '';
+    this.userData.role = '';
+  }
 
   setquizadv(data: QuizAdv) {
     this.quizadv.quizName = data.quizName;
