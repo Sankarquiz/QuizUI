@@ -28,13 +28,13 @@ export class CreateAccountComponent implements OnInit {
   }
 
   Register() {
-    debugger;
+    this.registrationDetails.role = 'user';
     this._register.Register(this.registrationDetails)
       .subscribe((response: any) => {
         this.result = response;
         if (response) {
           this.formDataService.setUserData(this.registrationDetails);
-          this.router.navigate(['/quiz-runner']);
+          this.router.navigate(['/adds']);
         } else {
           alert('Not Saved.');
         }

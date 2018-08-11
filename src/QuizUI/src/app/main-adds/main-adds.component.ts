@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormDataService } from '../models/formData.service';
 import { Router } from '@angular/router';
-import { QuizAdv } from '../models/Registration';
+import { QuizAdv, UserDataModel } from '../models/Registration';
 import { QuizDetailsService } from '../services/service-getquizdetails';
 import { QuizDefinition } from '../models/QuizDefinition';
 
@@ -16,11 +16,13 @@ export class MainAddsComponent implements OnInit {
 
   quizAdv: any;
   quizdefinition = new Array<QuizDefinition>();
+  userdetails: UserDataModel;
   ngOnInit() {
     this._getquizdetails.GetActiveQuizData()
       .subscribe((result: any) => {
         this.quizdefinition = result;
-      });;
+      });
+    this.userdetails = this.formDataService.getUserData();
   }
   SelectQuiz(index) {
     debugger;
@@ -28,6 +30,11 @@ export class MainAddsComponent implements OnInit {
     this.quizAdv.quizName = this.quizdefinition[index].quizName;
     this.quizAdv.quizType = this.quizdefinition[index].quizType;
     this.formDataService.setquizadv(this.quizAdv);
-    this.router.navigate(['/adds-desc']);
+    if (this.userdetails.teamName && this.userdetails.role) {
+      this.router.navigate(['/quiz-runner']);
+    }
+    else {
+      this.router.navigate(['/adds-desc']);
+    }
   }
 }

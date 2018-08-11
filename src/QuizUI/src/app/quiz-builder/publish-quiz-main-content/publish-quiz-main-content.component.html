@@ -1,8 +1,8 @@
 <div class="main-content-quiz container" *ngIf="questionset.questionText">
-
-  <p>{{questionset.questionText}}</p>
+  <p class="Start-page">{{questionset.questionText}}</p>
+  
   <div *ngIf="questionset.isImageneeded==true">
-    <img onerror="this.src='../../../../QuizWebApi/Images/No_image_available.jpg'" src="questionset.imageUrl">
+    <img src={{imageurl}}>
   </div>
   <form class="question-list" *ngIf="questionset.answerType ==='Multiple Choice'">
     <div><label>Option 1</label><input type="radio" name="gender"> {{questionset.option1}}</div>
@@ -12,21 +12,6 @@
   </form>
 
   <div class="reg-button">
-    <button type="button" class="btn btn-warning" (click)="UpdateQuestionNo('First')">
-      First
-    </button>
-    <button type="button" *ngIf="questionNo>1" class="btn btn-warning" (click)="UpdateQuestionNo('Prev')">
-      Prev
-    </button>
-    <button type="button" class="btn btn-info">
-      Save Answer
-    </button>
-    <button type="button" *ngIf="questionNo<totalquestions" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
-      Next
-    </button>
-    <button type="button" class="btn btn-danger" (click)="UpdateQuestionNo('Last')">
-      Last
-    </button><br>
     <button type="button" class="btn btn-danger" (click)="UpdateQuestionNo('Edit')">
       Edit this Question
     </button>

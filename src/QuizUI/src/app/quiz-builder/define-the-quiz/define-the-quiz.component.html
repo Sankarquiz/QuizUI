@@ -55,12 +55,15 @@
           <!--<span class="help-block" *ngIf="QuizStartDateTime.invalid && QuizStartDateTime.touched">Please Enter the Time</span>-->
           <!--<span class="help-block" *ngIf="QuizStartDate.invalid && QuizStartDate.touched">Please Select the Date and Time</span>-->
           <!--<input required type="text" class="form-control" id="start-duration" value="MM:DD:YY" name="Start-Date-for-Quiz" [(ngModel)]="quizDefinition.QuizStartDate" placeholder="MM:DD:YY" #QuizStartDate="ngModel">
-          <input type="text" class="form-control" id="start-duration-second-first" value="HH:MM:SS" name="Start-Time-for-Quiz" [(ngModel)]="quizDefinition.QuizStartDateTime" placeholder="HH:MM:SS" #QuizStartDateTime="ngModel">-->
+    <input type="text" class="form-control" id="start-duration-second-first" value="HH:MM:SS" name="Start-Time-for-Quiz" [(ngModel)]="quizDefinition.QuizStartDateTime" placeholder="HH:MM:SS" #QuizStartDateTime="ngModel">-->
           <input required type="text" class="form-control" id="start-duration" [min]="currentDate"
                  [owlDateTimeTrigger]="quizStartTime" [owlDateTime]="quizStartTime" name="quiz-start-date"
                  [(ngModel)]="quizDefinition.quizStartTime" #quizStartTime="ngModel" (ngModelChange)="UpdateDate($event)" readonly>
           <owl-date-time #quizStartTime></owl-date-time>
         </div>
+
+      
+
 
         <div class="form-group">
           <label for="end-duration">End Time for Quiz</label>
@@ -69,7 +72,7 @@
                  [(ngModel)]="quizDefinition.quizEndTime" #quizEndTime="ngModel" readonly>
           <owl-date-time #quizEndTime></owl-date-time>
           <!--<input type="text" class="form-control" id="end-duration-second" value="HH:MM:SS"
-          name="quiz-end-date-time" [(ngModel)]="quizDefinition.QuizEndDateTime" #QuizEndDateTime="ngModel" placeholder="HH:MM:SS">-->
+    name="quiz-end-date-time" [(ngModel)]="quizDefinition.QuizEndDateTime" #QuizEndDateTime="ngModel" placeholder="HH:MM:SS">-->
         </div>
 
 

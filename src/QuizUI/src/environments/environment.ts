@@ -14,8 +14,7 @@ export const environment = {
   getactivequizdetails: 'http://localhost:52671/api/quiz/GetActiveQuizDetails/',
   checkquiztaken: 'http://localhost:52671/api/quiz/CheckQuizTaken/',
   savequizrunner: 'http://localhost:52671/api/quiz/SaveQuizRunner/',
-  imageprefixpath: 'http://localhost:52671/api/images/'
-
+  imageprefixpath: 'http://localhost:52671/images/'
   //quizDefinitionUri: 'http://172.29.94.20:52671/api/quiz/DefineQuiz/',
   //getallquizdetails: 'http://172.29.94.20:52671/api/quiz/GetAllQuiz/',
   //getquizdetail: 'http://172.29.94.20:52671/api/quiz/GetQuiz/',

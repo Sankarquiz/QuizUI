@@ -1,5 +1,5 @@
 .adds a{
-    width: 80%;
+    width: 50%;
     margin: 0 auto;
     height: 100px;
     box-shadow: 0 1px 7px rgba(0, 0, 0, 0.45);
@@ -18,7 +18,7 @@
 .quiz-name{
     position: absolute;
     top: 7px;
-    left: 184px;
+    left: 120px;
     font-weight: bold;
     font-size: 14px;
 }
@@ -33,7 +33,7 @@
 
 .quiz-start{
     position: absolute;
-    left: 184px;
+    left: 120px;
     font-weight: bold;
     font-size: 13px;
     bottom: -7px;
@@ -41,21 +41,33 @@
 
 .quiz-end{
     position: absolute;
-    left: 349px;
+    left: 325px;
     font-weight: bold;
     font-size: 13px;
     bottom: -7px;
 }
 
 .quiz-type{
-    position: absolute;
+ position: absolute;
     font-weight: bold;
     font-size: 13px;
     bottom: -7px;
-    right: 12px;
+    top: 7px;
+    left: 325px;
 }
 #adspace1 {
   padding: 2px;
   margin :2px;
   text-align: center;
+  
+}
+
+.adds-wrapper{
+  margin-bottom:30px;
+}
+
+
+.link-quizbuilder, .link-quizbbank { background: blue; color: white; padding: 10px 20px; top: 0; position: absolute; left: 30%; }
+.link-quizbuilder{
+  left:39%;
 }

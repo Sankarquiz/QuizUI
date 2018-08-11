@@ -1,39 +1,30 @@
 
 
 <div class="container">
-
-  <div *ngIf="quizDetails?.length==0 else viewshow">
-    <p> Quizzes are not defined.</p>
+ 
+  <div *ngIf="quizDetails == '' || quizDetails?.length==0">
+    <p>No Quizzes are defined before.</p>
   </div>
-  <ng-template #viewshow>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Quiz Name</th>
-          <th>Quiz Type</th>
-          <th>Quiz Status</th>
-          <th>Quiz Start Time</th>
-          <th>Quiz End Time</th>
-          <th>Current Stage</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let detail of quizDetails">
-          <td>{{detail.quizName}}</td>
-          <td>{{detail.quizType}}</td>
-          <td>{{detail.status}}</td>
-          <td>{{detail.quizStartTime}}</td>
-          <td>{{detail.quizEndTime}}</td>
-          <td>
-            <div *ngIf="detail.status == 'Pending' else showpublish">
-              <a [routerLink]="" (click)="quizScreen(detail)">{{detail.stage}}</a>
-            </div>
-            <ng-template #showpublish>
-              {{detail.stage}}           
-            </ng-template>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </ng-template>
+  <table class="table table-striped" *ngIf="quizDetails?.length>0">
+    <thead>
+      <tr>
+        <th>Quiz Name</th>
+        <th>Quiz Type</th>
+        <th>Quiz Status</th>
+        <th>Quiz Start Time</th>
+        <th>Quiz End Time</th>
+        <th>Current Stage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let detail of quizDetails">
+        <td>{{detail.quizName}}</td>
+        <td>{{detail.quizType}}</td>
+        <td>{{detail.status}}</td>
+        <td>{{detail.quizStartTime}}</td>
+        <td>{{detail.quizEndTime}}</td>
+        <td>{{detail.stage}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -9,13 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace QuizWebApi.Controllers
 {
-
-    
     /// 
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
@@ -24,7 +21,6 @@ namespace QuizWebApi.Controllers
     [AllowAnonymous]
     public class QuizCreationController : ControllerBase
     {
-        // private IMongoDatabase _mongoDatabase;
         const string _imagePath = @"images";
         private readonly IHostingEnvironment _hostingEnvironment;
 
@@ -138,7 +134,7 @@ namespace QuizWebApi.Controllers
         /// </summary>
         /// <param name="quizName">Name of the quiz.</param>
         /// <param name="quizType">Type of the quiz.</param>
-        /// <param name="DocumentType">Type of the document.</param>
+        /// <param name="documentType">Type of the document.</param>
         /// <returns></returns>
         /// //[Route("/getquiz")]
         [HttpGet]
@@ -156,6 +152,13 @@ namespace QuizWebApi.Controllers
             else
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
+                var host = Request.Scheme + "://" + Request.Host + "/images/";
+                foreach (var item in response.Value.Questions.Where(x => x.IsImageneeded == true && !x.ImageUrl.ToLower().StartsWith("http")))
+                {
+                    item.ImageUrl = host + item.ImageUrl;
+                }
+                //for (int i = 0; i <= response.Value.Questions.Count; i++)
+                //{ }
                 return Ok(response.Value);
             }
         }
@@ -174,9 +177,8 @@ namespace QuizWebApi.Controllers
                 string contentRootPath = _hostingEnvironment.ContentRootPath;
 
                 var parsedContentDisposition = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
-                var filename = Path.Combine(webRootPath,_imagePath.Trim(), parsedContentDisposition.FileName.Trim().ToString());
+                var filename = Path.Combine(webRootPath, _imagePath.Trim(), parsedContentDisposition.FileName.Trim().ToString());
 
-                // var filePath = Path.Combine(_imagePath, file.FileName);
                 var filePath = filename;
                 if (file.Length > 0)
                 {
@@ -193,55 +195,5 @@ namespace QuizWebApi.Controllers
                 return Ok(false);
             }
         }
-
-        //[Route("/setregistration")]
-        //[HttpPost]
-        //public async Task<IActionResult> SetRegistration([FromBody] RegistrationFields registrationSet)
-        //{
-        //    if (registrationSet == null || string.IsNullOrEmpty(registrationSet.QuizName) || string.IsNullOrEmpty(registrationSet.QuizType))
-        //    {
-        //        return BadRequest("Mandatory Fields Missing.");
-        //    }
-        //    registrationSet.DocumentType = "Registration";
-        //    var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(registrationSet.QuizName + "_" + registrationSet.QuizType + "_registration", registrationSet);
-        //    return Ok(response);
-        //}
-
-        //[Route("/getregistration")]
-        //[HttpPost]
-        //public async Task<IActionResult> GetRegistration(string quizName, string quizType)
-        //{
-        //    if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
-        //    {
-        //        return BadRequest("Mandatory Fields Missing.");
-        //    }
-        //    var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<RegistrationFields>(quizName + "_" + quizType + "_registration");
-        //    return Ok(response);
-        //}
-
-        //[Route("/setSponsorDetails")]
-        //[HttpPost]
-        //public async Task<IActionResult> SetSponsorDetails([FromBody] SponsorDetail sponserdata)
-        //{
-        //    if (sponserdata == null || string.IsNullOrEmpty(sponserdata.QuizName) || string.IsNullOrEmpty(sponserdata.QuizType))
-        //    {
-        //        return BadRequest("Mandatory Fields Missing.");
-        //    }
-        //    sponserdata.DocumentType = "Registration";
-        //    var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(sponserdata.QuizName + "_" + sponserdata.QuizType + "_sponser", sponserdata);
-        //    return Ok(response);
-        //}
-
-        //[Route("/getSponsorDetails")]
-        //[HttpPost]
-        //public async Task<IActionResult> GetSponsorDetails(string quizName, string quizType)
-        //{
-        //    if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType))
-        //    {
-        //        return BadRequest("Mandatory Fields Missing.");
-        //    }
-        //    var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<RegistrationFields>(quizName + "_" + quizType + "_sponser");
-        //    return Ok(response);
-        //}  
     }
 }

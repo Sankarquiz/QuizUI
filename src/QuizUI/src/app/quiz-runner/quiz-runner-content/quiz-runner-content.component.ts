@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { QuizDefinition, QuizQuestions, QuizSet } from '../../models/QuizDefinition';
 import { Router } from '@angular/router';
 import { FormDataService } from '../../models/formData.service';
@@ -15,6 +15,7 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
 
   quizDefinition: QuizDefinition;
   @Input() questionNo: number;
+  @Output() activequestion = new EventEmitter();
   totalquestions;
   questionset = new QuizSet();
   questions: QuizQuestions;
@@ -28,7 +29,6 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
     private router: Router) { }
 
   ngOnInit() {
-    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questionset.isImageneeded == false;
     this.questionset.questionText == '';
@@ -59,14 +59,16 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
       this.questionNo = 1;
     }
     this.questionset = this.questions.questions[this.questionNo - 1];
+    this.activequestion.emit(this.questionNo);
   }
   ngOnChanges() {
     debugger;
     if (this.questions) {
       this.quizresultdetails = new QuizResultDetails();
       this.questionset = this.questions.questions[this.questionNo - 1];
-      if (this.questionset.isImageneeded) {
-        this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
+      this.activequestion.emit(this.questionNo);
+      if (this.quizresult.quizResultDetails[this.questionNo - 1]) {
+        this.quizresultdetails = this.quizresult.quizResultDetails[this.questionNo - 1]
       }
     }
   }
@@ -92,6 +94,7 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
     }
   }
   SaveAnswer() {
+    debugger;
     if (this.quizresultdetails.userAnswer) {
       this.quizresultdetails.adminAnswer = this.questionset.answer;
       this.quizresultdetails.questionNo = this.questionset.questionNo;
@@ -107,8 +110,14 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
         this.quizresult.numberOfWrongAnswers++;
       }
 
-      this.quizresultdetails.answerType = this.questionset.answerType;
-      this.quizresult.quizResultDetails.push(this.quizresultdetails);
+      this.quizresultdetails.answerType = this.questionset.answerType; 
+      if (this.quizresult.quizResultDetails.filter(x => x.questionNo == this.quizresultdetails.questionNo).length > 0) {
+        let index = this.quizresult.quizResultDetails.findIndex(x => x.questionNo == this.quizresultdetails.questionNo);
+        this.quizresult.quizResultDetails[index] = this.quizresultdetails;
+      }
+      else {
+        this.quizresult.quizResultDetails.push(this.quizresultdetails);        
+      }
       this.questionNo++;
       if (this.questionNo > this.totalquestions) {
         this.SaveQuizResult(this.quizresult);
@@ -118,7 +127,6 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
   }
 
   IsAnswered(): boolean {
-    debugger;
     if (this.quizresultdetails.userAnswer) {
       return true;
     }

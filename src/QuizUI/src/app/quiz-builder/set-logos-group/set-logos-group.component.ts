@@ -17,6 +17,7 @@ export class SetLogosGroupComponent implements OnInit {
   quizDefinition: QuizDefinition;
   sponsor;
   result: Observable<any>;
+  imagename: string = '';
   constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
 
   ngOnInit() {
@@ -28,22 +29,23 @@ export class SetLogosGroupComponent implements OnInit {
     debugger;
     const fd = new FormData();
     var extn = image.name.split(".").pop();
-    let imgname = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
+    this.imagename = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
     if (!isUndefined(extn))
-      imgname = imgname + "." + extn;
+      this.imagename = this.imagename + "." + extn;
     
-    fd.append("file", image, imgname);
+    fd.append("file", image, this.imagename);
     this._saveQuizData.UploadImage(fd)
       .subscribe(res => {
         console.log(res);
       });
   }
+
   SavePath(path, location) {
     debugger;
     this.sponsor = new SponsorDetail();
     this.sponsor.Path = path;
     this.sponsor.Position = location;
-    this.sponsor.ImageName = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
+    this.sponsor.ImageName = this.imagename;
     if (this.quizDefinition.sponsorList.filter(x => x.position == location).length > 0) {
       let index = this.quizDefinition.sponsorList.findIndex(x => x.position == location);
       this.quizDefinition.sponsorList[index] = this.sponsor;
@@ -52,6 +54,7 @@ export class SetLogosGroupComponent implements OnInit {
       this.quizDefinition.sponsorList.push(this.sponsor);
     }
   }
+
   SaveSponsorDetails(sponsordetail) {
     debugger;
     this.quizDefinition.stage = "SetLogo";
@@ -67,7 +70,5 @@ export class SetLogosGroupComponent implements OnInit {
           alert('Not Saved.');
         }
       });
-
-   
   }
 }

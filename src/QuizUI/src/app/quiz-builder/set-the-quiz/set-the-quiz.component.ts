@@ -5,6 +5,8 @@ import { FormDataService } from '../../models/formData.service';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { element } from 'protractor';
+import { isUndefined } from 'util';
 
 @Component({
   selector: 'app-set-the-quiz',
@@ -101,8 +103,12 @@ export class SetTheQuizComponent implements OnInit {
 
   onFileSelected(event) {
     debugger;
+    var extn = <File>event.target.files[0].name.split(".").pop();
     const fd = new FormData();
     let imgname = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + this.currentQuestionNo;
+    if (!isUndefined(extn)) {
+      imgname = imgname + "." + extn;
+    }
     this.questionset.imageUrl = imgname;
     fd.append("file", <File>event.target.files[0], imgname);
     this._saveQuestion.UploadImage(fd)

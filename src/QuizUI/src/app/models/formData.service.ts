@@ -116,6 +116,7 @@ export class FormDataService {
     };
     return quizQuestions;
   }
+
   setQuizQuestions(data: QuizQuestions) {
     this.formData.quizName = data.quizName;
     this.formData.quizType = data.quizType;
@@ -147,6 +148,7 @@ export class FormDataService {
     };
     return question;
   }
+
   setQuestion(data: QuizSet) {
     this.formData.questionText = data.questionText;
     this.formData.questionNo = data.questionNo;
@@ -164,9 +166,11 @@ export class FormDataService {
   setEditQuestion(value: boolean) {
     this.formData.isEditQuestion = value;
   }
+
   getEditQuestion(): boolean {
     return this.formData.isEditQuestion;
   }
+
   Clear(): void {
     this.formData.clear();
   }
@@ -174,7 +178,8 @@ export class FormDataService {
   getUserData(): UserDataModel {
     var userdata: UserDataModel = {
       teamName: this.userData.teamName,
-      email: this.userData.email
+      email: this.userData.email,
+      role: this.userData.role
     }
     return this.userData;
   }
@@ -182,12 +187,14 @@ export class FormDataService {
   setUserData(data: UserRegistration) {
     this.userData.teamName = data.teamName;
     this.userData.email = data.email;
+    this.userData.role = data.role;
   }
 
   setquizadv(data: QuizAdv) {
     this.quizadv.quizName = data.quizName;
     this.quizadv.quizType = data.quizType;
   }
+
   getquizadv(): QuizAdv {
     var advertiseData: QuizAdv = {
       quizName: this.quizadv.quizName,
