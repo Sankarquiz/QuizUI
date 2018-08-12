@@ -27,10 +27,7 @@ export class QuizRunnerComponent implements OnInit {
           this.router.navigate(['/adds']);
         }
       });
-  }
 
-  Start() {
-    debugger;
     this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "Define")
       .subscribe((res: any) => {
         this.quizDefinition = res;
@@ -38,15 +35,19 @@ export class QuizRunnerComponent implements OnInit {
         this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions")
           .subscribe((res: any) => {
             this.questions = res;
-
-            if (this.quizDefinition && this.questions) {
-              this.formDataService.setQuizDefinition(this.quizDefinition);
-              this.formDataService.setQuizQuestions(this.questions);
-              this.router.navigate(['/quiz-header']);
-            } else {
-              alert('Not Found.');
-            }
           });
       });
+
+  }
+
+  Start() {
+
+    if (this.quizDefinition && this.questions) {
+      this.formDataService.setQuizDefinition(this.quizDefinition);
+      this.formDataService.setQuizQuestions(this.questions);
+      this.router.navigate(['/quiz-header']);
+    } else {
+      alert('Not Found.');
+    }
   }
 }
