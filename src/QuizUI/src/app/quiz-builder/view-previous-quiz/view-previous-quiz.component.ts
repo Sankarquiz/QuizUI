@@ -18,6 +18,9 @@ export class ViewPreviousQuizComponent implements OnInit {
     private formDataService: FormDataService) { }
   ngOnInit() {
     this.formDataService.Clear();
+    if (!this.formDataService.getUserData().teamName || this.formDataService.getUserData().role != 'admin') {
+      this.router.navigate(['/user-registration'])
+    }
     this._getAllQuizDetails.GetAllQuizData()
       .subscribe((result: any) => {
         this.PopulateResults(result);
@@ -30,28 +33,29 @@ export class ViewPreviousQuizComponent implements OnInit {
   quizScreen(index, stage) {
     debugger;
     this.formDataService.setQuizDefinition(this.quizDetails[index]);
-    let reurl = "/quiz-builder/create-quiz/define-the-Quiz";
     if (stage.toLowerCase() == 'define') {
-      reurl = "/quiz-builder/create-quiz/define-the-Quiz";
+      this.router.navigate(['/quiz-builder/create-quiz/define-the-Quiz']);
     }
     if (stage.toLowerCase() == 'registration') {
       this.formDataService.setRegistrationFields(this.quizDetails[index].registrationFields);
-      reurl = "/quiz-builder/create-quiz/Registration";
+      this.router.navigate(['/quiz-builder/create-quiz/Registration']);
     }
     if (stage.toLowerCase() == 'setlogo') {
-      reurl = "/quiz-builder/create-quiz/set-logos-group";
+      this.router.navigate(['/quiz-builder/create-quiz/set-logos-group']);
     }
     if (stage.toLowerCase() == 'setquestion') {
       this._getAllQuizDetails.GetQuizData(this.quizDetails[index].quizName, this.quizDetails[index].quizType, 'questions')
         .subscribe((result: any) => {
-          this.formDataService.setQuizQuestions(result);
+          this.PopulateQuestionSet(result);
         });
-
-      reurl = "/quiz-builder/create-quiz/publish-quiz";
     }
     if (stage.toLowerCase() == 'setpage') {
-      reurl = "/quiz-builder/create-quiz/set-pages";
+      this.router.navigate(['/quiz-builder/create-quiz/set-pages']);
     }
-    this.router.navigate([reurl]);
+  }
+  PopulateQuestionSet(result) {
+    debugger;
+    this.formDataService.setQuizQuestions(result);
+    this.router.navigate(['/quiz-builder/create-quiz/publish-quiz']);
   }
 }

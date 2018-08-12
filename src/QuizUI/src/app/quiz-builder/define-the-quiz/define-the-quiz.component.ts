@@ -24,7 +24,7 @@ export class DefineTheQuizComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
+   
     this.quizDefinition = this.formDataService.getQuizDefinition();
     if (this.quizDefinition.quizName == '') {
       this.quizDefinition.shuffleQuestions = true;
@@ -51,7 +51,7 @@ export class DefineTheQuizComponent implements OnInit {
     this._saveQuizData.SaveQuizData(this.quizDefinition)
       .subscribe((response: any) => {
         debugger;
-        this.result = response;        
+        this.result = response;
         if (response) {
           this.formDataService.setQuizDefinition(this.quizDefinition);
           this.router.navigate(['/quiz-builder/create-quiz/Registration']);
@@ -59,8 +59,8 @@ export class DefineTheQuizComponent implements OnInit {
           alert('Not Saved.');
         }
       });
-    
-   
+
+
   }
 
   UpdateDate(value) {
