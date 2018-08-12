@@ -18,6 +18,7 @@ export class QuizHeaderComponent implements OnInit {
   questionsCount;
   questions: QuizQuestions;
   result: any;
+  isanswered = new Array<number>();
   constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
@@ -40,5 +41,10 @@ export class QuizHeaderComponent implements OnInit {
   isActive(item) {
     debugger;
     this.activeQuestion = item - 1;
+  };
+
+  isAnswered(item) {
+    debugger;
+    this.isanswered.push(item - 1);
   };
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormDataService } from '../../models/formData.service';
 
 @Component({
   selector: 'app-create-quiz',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateQuizComponent implements OnInit {
 
-  constructor() { }
+  constructor(private formDataService: FormDataService) { }
 
   ngOnInit() {
+    this.formDataService.Clear();
   }
-
 }

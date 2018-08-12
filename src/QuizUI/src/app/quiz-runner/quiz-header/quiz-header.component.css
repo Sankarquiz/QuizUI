@@ -8,4 +8,5 @@
 
 .question-links li.active { background: #808080; }
 
-.question-links li.active button{color:white;}
+.question-links li.active button { color: white; }
+.question-links li.answered { background: greenyellow; }

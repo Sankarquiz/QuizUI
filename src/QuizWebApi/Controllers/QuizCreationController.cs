@@ -144,21 +144,27 @@ namespace QuizWebApi.Controllers
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
+
+            var host = Request.Scheme + "://" + Request.Host + "/images/";
+
             if (documentType == "Define")
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
+                foreach (var item in response.Value.SponsorList.Select(x => x))
+                {
+                    item.ImageName = host + item.ImageName;
+                }
                 return Ok(response.Value);
             }
             else
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
-                var host = Request.Scheme + "://" + Request.Host + "/images/";
+               
                 foreach (var item in response.Value.Questions.Where(x => x.IsImageneeded == true && !x.ImageUrl.ToLower().StartsWith("http")))
                 {
                     item.ImageUrl = host + item.ImageUrl;
                 }
-                //for (int i = 0; i <= response.Value.Questions.Count; i++)
-                //{ }
+                
                 return Ok(response.Value);
             }
         }

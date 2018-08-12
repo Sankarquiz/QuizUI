@@ -32,23 +32,37 @@ export class SetLogosGroupComponent implements OnInit {
     this.imagename = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
     if (!isUndefined(extn))
       this.imagename = this.imagename + "." + extn;
-    
+
     fd.append("file", image, this.imagename);
     this._saveQuizData.UploadImage(fd)
-      .subscribe(res => {
-        console.log(res);
+      .subscribe((res) => {
+        if (res) {
+          this.sponsor = new SponsorDetail();
+          this.sponsor.position = location;
+          this.sponsor.imageName = this.imagename;
+          if (this.quizDefinition.sponsorList.filter(x => x.position == location).length > 0) {
+            let index = this.quizDefinition.sponsorList.findIndex(x => x.position == location);
+            let updatesponsor = this.quizDefinition.sponsorList.find(x => x.position == location);
+            updatesponsor.imageName = this.imagename;
+            this.quizDefinition.sponsorList[index] = updatesponsor;
+          }
+          else {
+            this.quizDefinition.sponsorList.push(this.sponsor);
+          }
+        }
       });
   }
 
   SavePath(path, location) {
     debugger;
     this.sponsor = new SponsorDetail();
-    this.sponsor.Path = path;
-    this.sponsor.Position = location;
-    this.sponsor.ImageName = this.imagename;
+    this.sponsor.path = path;
+    this.sponsor.position = location;
     if (this.quizDefinition.sponsorList.filter(x => x.position == location).length > 0) {
       let index = this.quizDefinition.sponsorList.findIndex(x => x.position == location);
-      this.quizDefinition.sponsorList[index] = this.sponsor;
+      let updatesponsor = this.quizDefinition.sponsorList.find(x => x.position == location);
+      updatesponsor.path = path;
+      this.quizDefinition.sponsorList[index] = updatesponsor;
     }
     else {
       this.quizDefinition.sponsorList.push(this.sponsor);

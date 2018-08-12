@@ -1,5 +1,30 @@
 <div class="main-content-quiz container" *ngIf="questionset.questionText">
   <p>Time Left: <span style="color:red">{{timeLeftMinutes}}:{{timeLeftSeconds}}</span></p>
+
+  <div *ngIf="topleft">
+    <img src={{topleft}}>
+  </div>
+  <div *ngIf="topleftcorner">
+    <img src={{topright}}>
+  </div>
+  <div *ngIf="topmiddle">
+    <img src={{topmiddle}}>
+  </div>
+  <div *ngIf="topright">
+    <img src={{leftmiddle}}>
+  </div>
+  <div *ngIf="righttop">
+    <img src={{rightmiddle}}>
+  </div>
+  <div *ngIf="rightmiddle">
+    <img src={{bottomleft}}>
+  </div>
+  <div *ngIf="rightbottom">
+    <img src={{bottomright}}>
+  </div>
+  <div *ngIf="rightbottomcorner">
+    <img src={{bottommiddle}}>
+  </div>
   <p>{{questionset.questionText}}</p>
   <div class="runner-image" *ngIf="questionset.isImageneeded==true">
     <img src={{questionset.imageUrl}}>

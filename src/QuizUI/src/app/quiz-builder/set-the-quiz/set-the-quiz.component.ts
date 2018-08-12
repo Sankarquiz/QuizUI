@@ -29,6 +29,7 @@ export class SetTheQuizComponent implements OnInit {
   constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
+    debugger;
     this.iseditquestion = this.formDataService.getEditQuestion();
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
@@ -46,7 +47,7 @@ export class SetTheQuizComponent implements OnInit {
 
   SaveQuestion(question: NgForm) {
     debugger;
-    if (this.imagepath) {
+    if (this.imagepath && this.imagepath != 'no') {
       this.questionset.isImageneeded = true;
     }
     if (!this.isimagesaved) {

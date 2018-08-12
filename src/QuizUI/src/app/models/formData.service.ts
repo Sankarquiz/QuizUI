@@ -61,14 +61,7 @@ export class FormDataService {
     this.formData.stage = data.stage;
     this.formData.messageBeforeQuizTime = data.messageBeforeQuizTime;
     this.formData.messageAfterQuizTime = data.messageAfterQuizTime;
-    //this.formData.IsTeamName = data.RegistrationFields.IsTeamName;
-    //this.formData.IsEmail = data.RegistrationFields.IsEmail;
-    //this.formData.IsValidateEmail = data.RegistrationFields.IsValidateEmail;
-    //this.formData.IsContestantName = data.RegistrationFields.IsContestantName;
-    //this.formData.IsPhone = data.RegistrationFields.IsPhone;
-    //this.formData.IsContact = data.RegistrationFields.IsContact;
-    //this.formData.RulesAndRegulations = data.RegistrationFields.RulesAndRegulations;
-    this.formData.sponsorList.concat(data.sponsorList);
+    this.formData.sponsorList = data.sponsorList;
   }
 
   getRegistrationFields(): RegistrationFields {
@@ -101,7 +94,7 @@ export class FormDataService {
 
   setSponserFields(data: SponsorDetail[]) {
     this.formData.sponsorList = new Array<SponsorDetail>()
-    this.formData.sponsorList.concat(data);
+    this.formData.sponsorList = data;
   }
 
   getFormData(): QuizDefinition {

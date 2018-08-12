@@ -16,6 +16,7 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
   quizDefinition: QuizDefinition;
   @Input() questionNo: number;
   @Output() activequestion = new EventEmitter();
+  @Output() answered = new EventEmitter();
   totalquestions;
   questionset = new QuizSet();
   questions: QuizQuestions;
@@ -24,12 +25,46 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
   timeLeftSeconds: number = 59;
   timeLeftMinutes: number = 0;
   interval;
+  topleft: string = '';
+  topright: string = '';
+  topmiddle: string = '';
+  leftmiddle: string = '';
+  rightmiddle: string = '';
+  bottomleft: string = '';
+  bottomright: string = '';
+  bottommiddle: string = '';
+
   constructor(private _getQuestion: QuizDetailsService,
     private formDataService: FormDataService,
     private router: Router) { }
 
   ngOnInit() {
+    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
+    if (this.quizDefinition.sponsorList.filter(x => x.position == 'TopLeft').length > 0) {
+      this.topleft = this.quizDefinition.sponsorList.find(x => x.position == 'TopLeft').imageName;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position == 'TopRight').length > 0) {
+      this.topright = this.quizDefinition.sponsorList.find(x => x.position == 'TopRight').imageName;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position == 'TopMiddle').length > 0) {
+      this.topmiddle = this.quizDefinition.sponsorList.find(x => x.position == 'TopMiddle').imageName;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position == 'LeftMiddle').length > 0) {
+      this.leftmiddle = this.quizDefinition.sponsorList.find(x => x.position == 'LeftMiddle').imageName;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position == 'RightMiddle').length > 0) {
+      this.rightmiddle = this.quizDefinition.sponsorList.find(x => x.position == 'RightMiddle').imageName;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position == 'BottomLeft').length > 0) {
+      this.bottomleft = this.quizDefinition.sponsorList.find(x => x.position == 'BottomLeft').imageName;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position == 'BottomRight').length > 0) {
+      this.bottomright = this.quizDefinition.sponsorList.find(x => x.position == 'BottomRight').imageName;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position == 'BottomMiddle').length > 0) {
+      this.bottommiddle = this.quizDefinition.sponsorList.find(x => x.position == 'BottomMiddle').imageName;
+    }
     this.questionset.isImageneeded == false;
     this.questionset.questionText == '';
     this.questions = this.formDataService.getQuizQuestions();
@@ -66,7 +101,7 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
     if (this.questions) {
       this.quizresultdetails = new QuizResultDetails();
       this.questionset = this.questions.questions[this.questionNo - 1];
-      this.activequestion.emit(this.questionNo);
+      this.activequestion.emit(this.questionNo);     
       if (this.quizresult.quizResultDetails[this.questionNo - 1]) {
         this.quizresultdetails = this.quizresult.quizResultDetails[this.questionNo - 1]
       }
@@ -110,14 +145,16 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
         this.quizresult.numberOfWrongAnswers++;
       }
 
-      this.quizresultdetails.answerType = this.questionset.answerType; 
+      this.quizresultdetails.answerType = this.questionset.answerType;
       if (this.quizresult.quizResultDetails.filter(x => x.questionNo == this.quizresultdetails.questionNo).length > 0) {
         let index = this.quizresult.quizResultDetails.findIndex(x => x.questionNo == this.quizresultdetails.questionNo);
         this.quizresult.quizResultDetails[index] = this.quizresultdetails;
       }
       else {
-        this.quizresult.quizResultDetails.push(this.quizresultdetails);        
+        this.quizresult.quizResultDetails.push(this.quizresultdetails);
       }
+
+      this.answered.emit(this.questionNo);
       this.questionNo++;
       if (this.questionNo > this.totalquestions) {
         this.SaveQuizResult(this.quizresult);
