@@ -10,7 +10,6 @@ import { DatePipe } from '@angular/common';
   selector: 'app-define-the-quiz',
   templateUrl: './define-the-quiz.component.html',
   styleUrls: ['./define-the-quiz.component.css'],
-  providers: [DatePipe]
 })
 export class DefineTheQuizComponent implements OnInit {
   quizDefinition: QuizDefinition;
@@ -18,13 +17,14 @@ export class DefineTheQuizComponent implements OnInit {
   result: Observable<any>;
   currentDate: Date;
   endDate: Date;
-  constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService, private datepipe: DatePipe) {
+  constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) {
     this.currentDate = new Date();
     this.endDate = new Date();
     this.currentDate.setDate(this.currentDate.getDate());
   }
 
   ngOnInit() {
+    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     if (this.quizDefinition.quizName == '') {
       this.quizDefinition.shuffleQuestions = true;

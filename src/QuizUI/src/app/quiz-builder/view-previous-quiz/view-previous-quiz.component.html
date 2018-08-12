@@ -17,13 +17,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let detail of quizDetails">
+      <tr *ngFor="let detail of quizDetails let i=index">
         <td>{{detail.quizName}}</td>
         <td>{{detail.quizType}}</td>
         <td>{{detail.status}}</td>
         <td>{{detail.quizStartTime}}</td>
         <td>{{detail.quizEndTime}}</td>
-        <td>{{detail.stage}}</td>
+        <td *ngIf="detail.status=='Published'">{{detail.stage}}</td>
+        <td *ngIf="detail.status!='Published'"><a  (click)="quizScreen(i,detail.stage)">{{detail.stage}}</a></td>
       </tr>
     </tbody>
   </table>

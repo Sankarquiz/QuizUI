@@ -11,6 +11,6 @@ export class CreateQuizComponent implements OnInit {
   constructor(private formDataService: FormDataService) { }
 
   ngOnInit() {
-    this.formDataService.Clear();
+    //this.formDataService.Clear();
   }
 }

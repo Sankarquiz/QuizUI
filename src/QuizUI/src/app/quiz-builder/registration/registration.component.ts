@@ -19,10 +19,10 @@ export class RegistrationComponent implements OnInit {
   constructor(private _saveRegistration: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
+    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
 
     if (this.quizDefinition.stage == "Define") {
-      console.log('first time', this.quizDefinition.stage);
       this.quizDefinition.registrationFields.isTeamName = true;
       this.quizDefinition.registrationFields.isEmail = true;
       this.quizDefinition.registrationFields.isValidateEmail = true;
@@ -45,8 +45,6 @@ export class RegistrationComponent implements OnInit {
         } else {
           alert('Not Saved.');
         }
-      });
-
-    
+      });    
   }
 }

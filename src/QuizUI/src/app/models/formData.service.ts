@@ -61,6 +61,7 @@ export class FormDataService {
     this.formData.stage = data.stage;
     this.formData.messageBeforeQuizTime = data.messageBeforeQuizTime;
     this.formData.messageAfterQuizTime = data.messageAfterQuizTime;
+    this.formData.registrationFields = data.registrationFields;
     this.formData.sponsorList = data.sponsorList;
   }
 
