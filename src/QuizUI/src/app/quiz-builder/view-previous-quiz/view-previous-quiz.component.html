@@ -1,9 +1,12 @@
-<div>
+
+
+<div class="container">
+
   <div *ngIf="quizDetails == '' || quizDetails?.length==0">
     <p>No Quizzes are defined before.</p>
   </div>
-  <div *ngIf="quizDetails?.length>0">
-    <table border="1">
+  <table class="table table-striped" *ngIf="quizDetails?.length>0">
+    <thead>
       <tr>
         <th>Quiz Name</th>
         <th>Quiz Type</th>
@@ -12,14 +15,17 @@
         <th>Quiz End Time</th>
         <th>Current Stage</th>
       </tr>
-      <tr *ngFor="let detail of quizDetails">
+    </thead>
+    <tbody>
+      <tr *ngFor="let detail of quizDetails let i=index">
         <td>{{detail.quizName}}</td>
         <td>{{detail.quizType}}</td>
         <td>{{detail.status}}</td>
         <td>{{detail.quizStartTime}}</td>
         <td>{{detail.quizEndTime}}</td>
-        <td>{{detail.stage}}</td>
+        <td *ngIf="detail.status=='Published'">{{detail.stage}}</td>
+        <td *ngIf="detail.status!='Published'"><a (click)="quizScreen(i,detail.stage)">{{detail.stage}}</a></td>
       </tr>
-    </table>
-  </div>
+    </tbody>
+  </table>
 </div>

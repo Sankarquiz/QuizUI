@@ -15,20 +15,9 @@ export class SetLogosComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    //this.imageselectlocation.valueChanges
-    //  .subscribe(next => {
-    //    this.image.emit(this.imageselectlocation)
-    //  });
-
-    //this.imagetextlocation.valueChanges
-    //  .subscribe(next => {
-    //    this.imagePath.emit(this.imagetextlocation.value)
-    //  });
   }
 
   onFileSelected(event) {
-    //debugger;
-    //this.imageselectlocation = event.target.value;
     debugger;
     this.image.emit(<File>event.target.files[0]);
   }

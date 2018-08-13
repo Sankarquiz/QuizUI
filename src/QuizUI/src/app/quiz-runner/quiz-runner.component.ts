@@ -20,22 +20,34 @@ export class QuizRunnerComponent implements OnInit {
   ngOnInit() {
     debugger;
     this.quizadv = this.formDataService.getquizadv();
+    this._getQuestion.CheckQuiztaken(this.quizadv.quizName, this.quizadv.quizType, this.formDataService.getUserData().teamName)
+      .subscribe((res) => {
+        if (!res) {
+          alert('You have already taken this quiz. Please try with some other quiz.');
+          this.router.navigate(['/adds']);
+        }
+      });
+
+    this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "Define")
+      .subscribe((res: any) => {
+        this.quizDefinition = res;
+
+        this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions")
+          .subscribe((res: any) => {
+            this.questions = res;
+          });
+      });
+
   }
 
   Start() {
-    debugger;
-    this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "Define")
-      .subscribe((res: any) => this.quizDefinition = res);
-
-    this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions")
-      .subscribe((res: any) => this.questions = res);
 
     if (this.quizDefinition && this.questions) {
       this.formDataService.setQuizDefinition(this.quizDefinition);
       this.formDataService.setQuizQuestions(this.questions);
       this.router.navigate(['/quiz-header']);
     } else {
-      alert('Not Saved.');
+      alert('Not Found.');
     }
   }
 }

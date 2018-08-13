@@ -2,21 +2,9 @@
   <div class="container">
     <div class="logos-grouping">
       <span>
-        Select\Enter image of Top Left Corner
-      </span>
-      <app-set-logos (image)='SaveImage($event,"TopLeftCorner")' (imagePath)='SavePath($event,"TopLeftCorner")'></app-set-logos>
-    </div>
-    <div class="logos-grouping">
-      <span>
         Select\Enter image of Top Left
       </span>
       <app-set-logos (image)='SaveImage($event,"TopLeft")' (imagePath)='SavePath($event,"TopLeft")'></app-set-logos>
-    </div>
-    <div class="logos-grouping">
-      <span>
-        Select\Enter image of Top Middle
-      </span>
-      <app-set-logos (image)='SaveImage($event,"TopMiddle")' (imagePath)='SavePath($event,"TopMiddle")'></app-set-logos>
     </div>
     <div class="logos-grouping">
       <span>
@@ -26,9 +14,15 @@
     </div>
     <div class="logos-grouping">
       <span>
-        Select\Enter image of Right Top
+        Select\Enter image of Top Middle
       </span>
-      <app-set-logos (image)='SaveImage($event,"RightTop")' (imagePath)='SavePath($event,"RightTop")'></app-set-logos>
+      <app-set-logos (image)='SaveImage($event,"TopMiddle")' (imagePath)='SavePath($event,"TopMiddle")'></app-set-logos>
+    </div>
+    <div class="logos-grouping">
+      <span>
+        Select\Enter image of Left Middle
+      </span>
+      <app-set-logos (image)='SaveImage($event,"LeftMiddle")' (imagePath)='SavePath($event,"LeftMiddle")'></app-set-logos>
     </div>
     <div class="logos-grouping">
       <span>
@@ -38,15 +32,21 @@
     </div>
     <div class="logos-grouping">
       <span>
-        Select\Enter image of Right Bottom
+        Select\Enter image of Bottom Left
       </span>
-      <app-set-logos (image)='SaveImage($event,"RightBottom")' (imagePath)='SavePath($event,"RightBottom")'></app-set-logos>
+      <app-set-logos (image)='SaveImage($event,"BottomLeft")' (imagePath)='SavePath($event,"BottomLeft")'></app-set-logos>
     </div>
     <div class="logos-grouping">
       <span>
-        Select\Enter image of Right Bottom Corner
+        Select\Enter image of  Bottom Right
       </span>
-      <app-set-logos (image)='SaveImage($event,"RightBottomCorner")' (imagePath)='SavePath($event,"RightBottomCorner")'></app-set-logos>
+      <app-set-logos (image)='SaveImage($event,"BottomRight")' (imagePath)='SavePath($event,"BottomRight")'></app-set-logos>
+    </div>
+    <div class="logos-grouping">
+      <span>
+        Select\Enter image of Bottom Middle
+      </span>
+      <app-set-logos (image)='SaveImage($event,"BottomMiddle")' (imagePath)='SavePath($event,"BottomMiddle")'></app-set-logos>
     </div>
   </div>
 

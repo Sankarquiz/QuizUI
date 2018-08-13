@@ -61,14 +61,8 @@ export class FormDataService {
     this.formData.stage = data.stage;
     this.formData.messageBeforeQuizTime = data.messageBeforeQuizTime;
     this.formData.messageAfterQuizTime = data.messageAfterQuizTime;
-    //this.formData.IsTeamName = data.RegistrationFields.IsTeamName;
-    //this.formData.IsEmail = data.RegistrationFields.IsEmail;
-    //this.formData.IsValidateEmail = data.RegistrationFields.IsValidateEmail;
-    //this.formData.IsContestantName = data.RegistrationFields.IsContestantName;
-    //this.formData.IsPhone = data.RegistrationFields.IsPhone;
-    //this.formData.IsContact = data.RegistrationFields.IsContact;
-    //this.formData.RulesAndRegulations = data.RegistrationFields.RulesAndRegulations;
-    this.formData.sponsorList.concat(data.sponsorList);
+    this.formData.registrationFields = data.registrationFields;
+    this.formData.sponsorList = data.sponsorList;
   }
 
   getRegistrationFields(): RegistrationFields {
@@ -101,7 +95,7 @@ export class FormDataService {
 
   setSponserFields(data: SponsorDetail[]) {
     this.formData.sponsorList = new Array<SponsorDetail>()
-    this.formData.sponsorList.concat(data);
+    this.formData.sponsorList = data;
   }
 
   getFormData(): QuizDefinition {
@@ -116,6 +110,7 @@ export class FormDataService {
     };
     return quizQuestions;
   }
+
   setQuizQuestions(data: QuizQuestions) {
     this.formData.quizName = data.quizName;
     this.formData.quizType = data.quizType;
@@ -147,6 +142,7 @@ export class FormDataService {
     };
     return question;
   }
+
   setQuestion(data: QuizSet) {
     this.formData.questionText = data.questionText;
     this.formData.questionNo = data.questionNo;
@@ -164,9 +160,11 @@ export class FormDataService {
   setEditQuestion(value: boolean) {
     this.formData.isEditQuestion = value;
   }
+
   getEditQuestion(): boolean {
     return this.formData.isEditQuestion;
   }
+
   Clear(): void {
     this.formData.clear();
   }
@@ -174,7 +172,8 @@ export class FormDataService {
   getUserData(): UserDataModel {
     var userdata: UserDataModel = {
       teamName: this.userData.teamName,
-      email: this.userData.email
+      email: this.userData.email,
+      role: this.userData.role
     }
     return this.userData;
   }
@@ -182,12 +181,19 @@ export class FormDataService {
   setUserData(data: UserRegistration) {
     this.userData.teamName = data.teamName;
     this.userData.email = data.email;
+    this.userData.role = data.role;
+  }
+  clearUserData() {
+    this.userData.teamName = '';
+    this.userData.email = '';
+    this.userData.role = '';
   }
 
   setquizadv(data: QuizAdv) {
     this.quizadv.quizName = data.quizName;
     this.quizadv.quizType = data.quizType;
   }
+
   getquizadv(): QuizAdv {
     var advertiseData: QuizAdv = {
       quizName: this.quizadv.quizName,

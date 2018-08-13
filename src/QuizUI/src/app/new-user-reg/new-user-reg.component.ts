@@ -16,7 +16,7 @@ export class NewUserRegComponent implements OnInit {
   password: string;
   result: Observable<any>;
   userDetails = new UserRegistration();
-  constructor(private _register: QuizDetailsService, private router: Router, private formDataService: FormDataService, ) { }
+  constructor(private _register: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
 
   ngOnInit() {
     this.username = '';
@@ -26,15 +26,18 @@ export class NewUserRegComponent implements OnInit {
     debugger;
     if (this.username && this.password) {
       this._register.Login(this.username, this.password)
-        .subscribe((response: any) => { this.result = response });
-
-      if (this.result) {
-        this.userDetails.teamName = this.username;
-        this.formDataService.setUserData(this.userDetails);
-        this.router.navigate(['/quiz-runner']);
-      } else {
-        alert('Not Saved.');
-      }
+        .subscribe((response: any) => {
+          this.result = response;
+          if (response) {
+            this.userDetails.teamName = this.username;
+            this.userDetails.role = response[0].role;
+            this.formDataService.setUserData(this.userDetails);
+            this.router.navigate(['/adds']);
+          } else {
+            alert('Not Saved.');
+          }
+        });
     }
-  }
+  } 
 }
+

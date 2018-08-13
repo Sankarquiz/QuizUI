@@ -1,8 +1,33 @@
 <div class="main-content-quiz container" *ngIf="questionset.questionText">
+  <p>Time Left: <span style="color:red">{{timeLeftMinutes}}:{{timeLeftSeconds}}</span></p>
 
+  <div *ngIf="topleft">
+    <img src={{topleft}}>
+  </div>
+  <div *ngIf="topleftcorner">
+    <img src={{topright}}>
+  </div>
+  <div *ngIf="topmiddle">
+    <img src={{topmiddle}}>
+  </div>
+  <div *ngIf="topright">
+    <img src={{leftmiddle}}>
+  </div>
+  <div *ngIf="righttop">
+    <img src={{rightmiddle}}>
+  </div>
+  <div *ngIf="rightmiddle">
+    <img src={{bottomleft}}>
+  </div>
+  <div *ngIf="rightbottom">
+    <img src={{bottomright}}>
+  </div>
+  <div *ngIf="rightbottomcorner">
+    <img src={{bottommiddle}}>
+  </div>
   <p>{{questionset.questionText}}</p>
-  <div *ngIf="questionset.isImageneeded==true">
-    <img onerror="this.src='../../../../QuizWebApi/Images/No_image_available.jpg'" src="questionset.imageUrl">
+  <div class="runner-image" *ngIf="questionset.isImageneeded==true">
+    <img src={{questionset.imageUrl}}>
   </div>
   <form class="question-list" *ngIf="questionset.answerType ==='Multiple Choice'">
     <div>
@@ -42,10 +67,10 @@
     <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && questionNo>1" class="btn btn-warning" (click)="UpdateQuestionNo('Prev')">
       Prev
     </button>
-    <button type="button" class="btn btn-info" [disabled]="questionset.answerType==''" (click)="SaveAnswer()">
+    <button type="button" class="btn btn-info" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
       Save Answer
     </button>
-    <button type="button" *ngIf="totalquestions!=questionNo" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
+    <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && totalquestions!=questionNo" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
       Next
     </button>
     <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-danger" (click)="UpdateQuestionNo('Last')">

@@ -11,9 +11,10 @@ export const environment = {
   uploadimage: 'http://localhost:52671/api/quiz/UploadImage/',
   register: 'http://localhost:52671/api/quiz/Register/',
   login: 'http://localhost:52671/api/quiz/Login/',
+  getactivequizdetails: 'http://localhost:52671/api/quiz/GetActiveQuizDetails/',
   checkquiztaken: 'http://localhost:52671/api/quiz/CheckQuizTaken/',
-  savequizrunner: 'http://localhost:52671/api/quiz/SaveQuizRunner/'
-
+  savequizrunner: 'http://localhost:52671/api/quiz/SaveQuizRunner/',
+  imageprefixpath: 'http://localhost:52671/images/'
   //quizDefinitionUri: 'http://172.29.94.20:52671/api/quiz/DefineQuiz/',
   //getallquizdetails: 'http://172.29.94.20:52671/api/quiz/GetAllQuiz/',
   //getquizdetail: 'http://172.29.94.20:52671/api/quiz/GetQuiz/',

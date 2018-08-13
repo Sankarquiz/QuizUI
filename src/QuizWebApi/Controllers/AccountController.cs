@@ -21,11 +21,12 @@ namespace QuizWebApi.Controllers
             var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(user.TeamName, user);
             return Ok(result);
         }
+
         [HttpGet]
         public async Task<IActionResult> Login(string username, string password)
         {
             var parameters = new Dictionary<string, object>();
-            var query = string.Format(@"SELECT {0}.teamName FROM {0} WHERE  teamName = $teamName and `password` = $password", CouchbaseHelper.Bucket);
+            var query = string.Format(@"SELECT {0}.* FROM {0} WHERE  teamName = $teamName and `password` = $password", CouchbaseHelper.Bucket);
             parameters.Add("$teamName", username);
             parameters.Add("$password", password);
             var req = new QueryRequest(query);
@@ -33,10 +34,10 @@ namespace QuizWebApi.Controllers
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<UserRegistration>(req);
             if (result.Count > 0)
             {
-                return Ok(true);
+                return Ok(result);
             }
 
-            return Ok(false);
+            return Unauthorized();
         }
     }
 }

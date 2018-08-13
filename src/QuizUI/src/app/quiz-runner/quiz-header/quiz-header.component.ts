@@ -13,26 +13,38 @@ import { Observable } from 'rxjs';
 export class QuizHeaderComponent implements OnInit {
 
   selectedQuestionNumber: number;
+  activeQuestion: number;
   quizDefinition: QuizDefinition;
   questionsCount;
   questions: QuizQuestions;
   result: any;
+  isanswered = new Array<number>();
   constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
-    debugger;
-
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
-
-    if (this.quizDefinition.noOfQuestions) {
+    if (this.quizDefinition.noOfQuestionsInPool && this.quizDefinition.isQuizFromLargerPool) {
+      this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestionsInPool.toString())).fill(1);
+    }
+    else {
       this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestions.toString())).fill(1);
     }
-
-    this.router.navigate(['/quiz-runner-content']);
   }
 
   AssignQuestionNumber(questionNumber) {
     this.selectedQuestionNumber = questionNumber;
+    this.activeQuestion = questionNumber - 1;
   }
+
+  //For highlighting question number
+  isActive(item) {
+    debugger;
+    this.activeQuestion = item - 1;
+  };
+
+  isAnswered(item) {
+    debugger;
+    this.isanswered.push(item - 1);
+  };
 }

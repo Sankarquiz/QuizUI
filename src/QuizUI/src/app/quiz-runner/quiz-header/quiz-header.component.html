@@ -1,9 +1,12 @@
 <div class="container">
   <ul class="question-links">
-    <li *ngFor="let number of questionsCount let i=index">
-    <a (click)="AssignQuestionNumber(i+1)">{{i+1}}</a>
-  </li>
-   
+    <li *ngFor="let number of questionsCount let i=index" [ngClass]="{'active': activeQuestion == i}"
+        [class.answered]="isanswered.includes(i)">
+      <button [disabled]="quizDefinition.quizType=='Treasure Hunt'"
+              (click)="AssignQuestionNumber(i+1)">
+        {{i+1}}
+      </button>
+    </li>
   </ul>
 </div>
-<app-quiz-runner-content [questionNo]="selectedQuestionNumber"></app-quiz-runner-content>
+<app-quiz-runner-content (activequestion)="isActive($event)" (answered)="isAnswered($event)" [questionNo]="selectedQuestionNumber"></app-quiz-runner-content>

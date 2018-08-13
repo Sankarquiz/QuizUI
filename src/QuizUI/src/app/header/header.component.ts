@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserRegistration, UserDataModel } from '../models/Registration';
+import { Router } from '@angular/router';
+import { FormDataService } from '../models/formData.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+
+  userDetails = new UserDataModel();
+  constructor(private router: Router, private formDataService: FormDataService) { }
 
   ngOnInit() {
+    this.userDetails = this.formDataService.getUserData();
   }
 
+  Logout() {
+    debugger;
+    this.formDataService.clearUserData();
+    this.formDataService.Clear();
+  }
 }

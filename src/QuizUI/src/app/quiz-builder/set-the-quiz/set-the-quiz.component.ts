@@ -5,6 +5,8 @@ import { FormDataService } from '../../models/formData.service';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { element } from 'protractor';
+import { isUndefined } from 'util';
 
 @Component({
   selector: 'app-set-the-quiz',
@@ -21,14 +23,17 @@ export class SetTheQuizComponent implements OnInit {
   disablePublish: boolean = true;
   iseditquestion: boolean = false;
   isimagesaved: boolean = true;
+  imagepath: string;
   navs = ['Multiple Choice', 'Hangman', 'Free Text'];
 
   constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
+    debugger;
     this.iseditquestion = this.formDataService.getEditQuestion();
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
+    this.imagepath = 'no';
     if (!this.iseditquestion) {
       this.questionset.answerType = 'Multiple Choice';
       this.questionset.isImageneeded = false;
@@ -42,6 +47,9 @@ export class SetTheQuizComponent implements OnInit {
 
   SaveQuestion(question: NgForm) {
     debugger;
+    if (this.imagepath && this.imagepath != 'no') {
+      this.questionset.isImageneeded = true;
+    }
     if (!this.isimagesaved) {
       alert('Image not uploaded. Please upload again.')
       this.isimagesaved = true;
@@ -96,8 +104,12 @@ export class SetTheQuizComponent implements OnInit {
 
   onFileSelected(event) {
     debugger;
+    var extn = <File>event.target.files[0].name.split(".").pop();
     const fd = new FormData();
     let imgname = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + this.currentQuestionNo;
+    if (!isUndefined(extn)) {
+      imgname = imgname + "." + extn;
+    }
     this.questionset.imageUrl = imgname;
     fd.append("file", <File>event.target.files[0], imgname);
     this._saveQuestion.UploadImage(fd)

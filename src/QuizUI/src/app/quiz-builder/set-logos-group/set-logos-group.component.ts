@@ -17,6 +17,7 @@ export class SetLogosGroupComponent implements OnInit {
   quizDefinition: QuizDefinition;
   sponsor;
   result: Observable<any>;
+  imagename: string = '';
   constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
 
   ngOnInit() {
@@ -28,43 +29,60 @@ export class SetLogosGroupComponent implements OnInit {
     debugger;
     const fd = new FormData();
     var extn = image.name.split(".").pop();
-    let imgname = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
+    this.imagename = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
     if (!isUndefined(extn))
-      imgname = imgname + "." + extn;
-    
-    fd.append("file", image, imgname);
+      this.imagename = this.imagename + "." + extn;
+
+    fd.append("file", image, this.imagename);
     this._saveQuizData.UploadImage(fd)
-      .subscribe(res => {
-        console.log(res);
+      .subscribe((res) => {
+        if (res) {
+          this.sponsor = new SponsorDetail();
+          this.sponsor.position = location;
+          this.sponsor.imageName = this.imagename;
+          if (this.quizDefinition.sponsorList.filter(x => x.position == location).length > 0) {
+            let index = this.quizDefinition.sponsorList.findIndex(x => x.position == location);
+            let updatesponsor = this.quizDefinition.sponsorList.find(x => x.position == location);
+            updatesponsor.imageName = this.imagename;
+            this.quizDefinition.sponsorList[index] = updatesponsor;
+          }
+          else {
+            this.quizDefinition.sponsorList.push(this.sponsor);
+          }
+        }
       });
   }
+
   SavePath(path, location) {
     debugger;
     this.sponsor = new SponsorDetail();
-    this.sponsor.Path = path;
-    this.sponsor.Position = location;
-    this.sponsor.ImageName = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
+    this.sponsor.path = path;
+    this.sponsor.position = location;
     if (this.quizDefinition.sponsorList.filter(x => x.position == location).length > 0) {
       let index = this.quizDefinition.sponsorList.findIndex(x => x.position == location);
-      this.quizDefinition.sponsorList[index] = this.sponsor;
+      let updatesponsor = this.quizDefinition.sponsorList.find(x => x.position == location);
+      updatesponsor.path = path;
+      this.quizDefinition.sponsorList[index] = updatesponsor;
     }
     else {
       this.quizDefinition.sponsorList.push(this.sponsor);
     }
   }
+
   SaveSponsorDetails(sponsordetail) {
     debugger;
     this.quizDefinition.stage = "SetLogo";
     this.quizDefinition.status = "Pending";
     this._saveQuizData.SaveQuizData(this.quizDefinition)
-      .subscribe((result: any) => { this.result = result });
-
-    if (this.result) {
-      this.formDataService.setSponserFields(this.quizDefinition.sponsorList);
-      this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
-    } else {
-      alert('Not Saved.');
-    }
+      .subscribe((result: any) => {
+        this.result = result;
+        if (result) {
+          this.formDataService.setSponserFields(this.quizDefinition.sponsorList);
+          this.formDataService.setQuizDefinition(this.quizDefinition);
+          this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
+        } else {
+          alert('Not Saved.');
+        }
+      });
   }
 }

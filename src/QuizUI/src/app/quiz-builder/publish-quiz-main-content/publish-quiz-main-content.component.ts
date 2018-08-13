@@ -4,6 +4,7 @@ import { QuizSet, QuizQuestions, QuizDefinition } from '../../models/QuizDefinit
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { FormDataService } from '../../models/formData.service';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-publish-quiz-main-content',
@@ -16,8 +17,9 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
   @Input() questionNo: number;
   totalquestions;
   questionset = new QuizSet();
-  questions = new QuizQuestions();
-  result: Observable<any>;
+  questions = new QuizQuestions();  
+  errorImageurl: string;
+  imageurl: any;
   constructor(private _getQuestion: QuizDetailsService,
     private formDataService: FormDataService,
     private activatedRoute: ActivatedRoute,
@@ -25,6 +27,7 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     debugger;
+    this.errorImageurl = environment.imageprefixpath + 'No_image_available.jpg'
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.totalquestions = this.quizDefinition.noOfQuestions;
     this.questions = this.formDataService.getQuizQuestions();
@@ -34,29 +37,41 @@ export class PublishQuizMainContentComponent implements OnInit, OnChanges {
 
     this.questionset = this.questions.questions[this.questionNo - 1];
     if (this.questionset.isImageneeded) {
-      this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
+      if (this.questionset.imageUrl.startsWith('http')) {
+        this.imageurl = this.questionset.imageUrl
+      }
+      else {
+        this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
+      }
     }
   }
   ngOnChanges() {
     debugger;
-    this.questionset = this.questions.questions[this.questionNo - 1];
-    if (this.questionset.isImageneeded) {
-      this.questionset.imageUrl = 'http:\\localhost:52671\QuizWebApi\Images\\' + this.questionset.imageUrl;
+    if (this.questions && this.questionNo) {
+      this.questionset = this.questions.questions[this.questionNo - 1];
+      if (this.questionset.isImageneeded) {
+        if (this.questionset.imageUrl.startsWith('http')) {
+          this.imageurl = this.questionset.imageUrl
+        }
+        else {
+          this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
+        }
+      }
     }
   }
 
   Publish() {
     this.quizDefinition.stage = 'Publish';
     this.quizDefinition.status = 'Published';
-
+    debugger;
     this._getQuestion.SaveQuizData(this.quizDefinition)
-      .subscribe((result: any) => { this.result = result });
-
-    if (this.result) {
-      alert('Published');
-      this.formDataService.Clear();
-      this.router.navigate(['/quiz-builder/create-quiz/define-the-Quiz']);
-    }
+      .subscribe((result: any) => {
+        if (result) {
+          alert('Published');
+          this.formDataService.Clear();
+          this.router.navigate(['/quiz-builder/view-previous-quiz']);
+        }
+      });
   }
 
   UpdateQuestionNo(action) {

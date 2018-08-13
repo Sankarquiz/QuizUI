@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HeaderComponent } from './header/header.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { QuizBankComponent } from './quiz-bank/quiz-bank.component';
 import { QuizBuilderComponent } from './quiz-builder/quiz-builder.component';
-import { RouterModule, Routes } from '@angular/router';
 import { CreateQuizComponent } from './quiz-builder/create-quiz/create-quiz.component';
 import { ViewPreviousQuizComponent } from './quiz-builder/view-previous-quiz/view-previous-quiz.component';
 import { RegistrationComponent } from './quiz-builder/registration/registration.component';
@@ -30,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuizRunnerComponent } from './quiz-runner/quiz-runner.component';
 import { QuizHeaderComponent } from './quiz-runner/quiz-header/quiz-header.component';
 import { QuizRunnerContentComponent } from './quiz-runner/quiz-runner-content/quiz-runner-content.component';
+import { QuizFinisherComponent } from './quiz-runner/quiz-finisher/quiz-finisher.component';
 
 const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
@@ -39,19 +40,19 @@ const appRoutes: Routes = [
   { path: 'create-account', component: CreateAccountComponent },
   { path: 'user-registration', component: NewUserRegComponent },
   { path: 'quiz-runner', component: QuizRunnerComponent },
+  { path: 'quiz-finisher', component: QuizFinisherComponent },
   {
     path: 'quiz-header', component: QuizHeaderComponent,
-       children: [
+    children: [
       {
-           path: 'quiz-runner-content',
-           component: QuizRunnerContentComponent
+        path: 'quiz-runner-content',
+        component: QuizRunnerContentComponent
       },
-    ]
-
+    ] 
   },
 
   {
-    path: 'quiz-builder', component: QuizBuilderComponent,
+    path: 'quiz-builder',  component: QuizBuilderComponent,
     children: [
       {
         path: 'create-quiz',
@@ -87,12 +88,23 @@ const appRoutes: Routes = [
               },
             ]
           },
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'define-the-Quiz'
+          },
         ]
       },
       {
         path: 'view-previous-quiz',
-        component: ViewPreviousQuizComponent
+        component: ViewPreviousQuizComponent,
       },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'view-previous-quiz'
+      },
+      
     ]
   },
   {
@@ -126,7 +138,8 @@ const appRoutes: Routes = [
     SetLogosGroupComponent,
     QuizRunnerComponent,
     QuizHeaderComponent,
-    QuizRunnerContentComponent
+    QuizRunnerContentComponent,
+    QuizFinisherComponent
   ],
   imports: [
     BrowserModule,

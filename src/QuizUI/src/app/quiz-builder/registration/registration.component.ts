@@ -19,10 +19,10 @@ export class RegistrationComponent implements OnInit {
   constructor(private _saveRegistration: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
+    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
 
     if (this.quizDefinition.stage == "Define") {
-      console.log('first time', this.quizDefinition.stage);
       this.quizDefinition.registrationFields.isTeamName = true;
       this.quizDefinition.registrationFields.isEmail = true;
       this.quizDefinition.registrationFields.isValidateEmail = true;
@@ -36,14 +36,15 @@ export class RegistrationComponent implements OnInit {
     this.quizDefinition.stage = "Registration";
     this.quizDefinition.status = "Pending";
     this._saveRegistration.SaveQuizData(this.quizDefinition)
-      .subscribe((result: any) => { this.result = result });
-
-    if (this.result) {
-      this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.formDataService.setRegistrationFields(this.quizDefinition.registrationFields);
-      this.router.navigate(['/quiz-builder/create-quiz/set-pages']);
-    } else {
-      alert('Not Saved.');
-    }
+      .subscribe((result: any) => {
+        this.result = result;
+        if (result) {
+          this.formDataService.setQuizDefinition(this.quizDefinition);
+          this.formDataService.setRegistrationFields(this.quizDefinition.registrationFields);
+          this.router.navigate(['/quiz-builder/create-quiz/set-pages']);
+        } else {
+          alert('Not Saved.');
+        }
+      });    
   }
 }
