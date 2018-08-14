@@ -33,7 +33,7 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
   bottomleft: string = '';
   bottomright: string = '';
   bottommiddle: string = '';
-
+  public mask: Array<any>;
   constructor(private _getQuestion: QuizDetailsService,
     private formDataService: FormDataService,
     private router: Router) { }
@@ -94,14 +94,32 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
       this.questionNo = 1;
     }
     this.questionset = this.questions.questions[this.questionNo - 1];
+
+    this.UpdateMask();
     this.activequestion.emit(this.questionNo);
   }
+
+  UpdateMask() {
+    this.mask = [];
+    if (this.questionset.answerType.toLocaleLowerCase() == 'hangman') {
+      for (var char in this.questionset.answer.split('')) {
+        if (this.questionset.answer[char] == ' ') {
+          this.mask.push(' ');
+        }
+        else {
+          this.mask.push(/[0-9a-zA-Z]/);
+        }
+      }
+    }
+  }
+
   ngOnChanges() {
     debugger;
     if (this.questions) {
       this.quizresultdetails = new QuizResultDetails();
       this.questionset = this.questions.questions[this.questionNo - 1];
-      this.activequestion.emit(this.questionNo);     
+      this.UpdateMask();
+      this.activequestion.emit(this.questionNo);
       if (this.quizresult.quizResultDetails[this.questionNo - 1]) {
         this.quizresultdetails = this.quizresult.quizResultDetails[this.questionNo - 1]
       }

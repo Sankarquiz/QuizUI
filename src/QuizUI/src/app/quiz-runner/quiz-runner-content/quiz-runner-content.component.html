@@ -51,13 +51,21 @@
              value={{questionset.option4}} [(ngModel)]="quizresultdetails.userAnswer"> {{questionset.option4}}
     </div>
   </form>
-  <div *ngIf="questionset.answerType !='Multiple Choice'" class="text-answer" [class.has-error]="userAnswer.invalid && userAnswer.touched">
+  <div *ngIf="questionset.answerType !='Multiple Choice'" class="text-answer">
+    <!--[class.has-error]="userAnswer.invalid && userAnswer.touched">-->
     <label for="name" class="control-label">Answer</label>
-    <input required type="text" class="form-control" name="answer" #userAnswer="ngModel"
+    <input *ngIf="questionset.answerType !='Hangman'" required type="text" class="form-control" name="answer" #userAnswer="ngModel"
            [(ngModel)]="quizresultdetails.userAnswer" id="name" value="">
-    <span class="help-block" *ngIf="userAnswer.invalid && userAnswer.touched">
+    <input *ngIf="questionset.answerType =='Hangman'" name="mask"
+           [(ngModel)]="quizresultdetails.userAnswer" guide="true" autofocus
+           [textMask]="{mask: mask,guide: true}" [value]="value" type="text" />
+
+    <!--<input *ngIf="questionset.answerType =='Hangman'" required type="text" class="form-control" name="answer"
+           #userAnswer="ngModel" [(ngModel)]="quizresultdetails.userAnswer"
+           [textMask]="{mask: mask}" />-->
+    <!--<span class="help-block" *ngIf="userAnswer.invalid && userAnswer.touched">
       Answer is required
-    </span>
+    </span>-->
   </div>
 
   <div class="reg-button">

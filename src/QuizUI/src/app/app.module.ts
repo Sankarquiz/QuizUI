@@ -31,6 +31,7 @@ import { QuizRunnerComponent } from './quiz-runner/quiz-runner.component';
 import { QuizHeaderComponent } from './quiz-runner/quiz-header/quiz-header.component';
 import { QuizRunnerContentComponent } from './quiz-runner/quiz-runner-content/quiz-runner-content.component';
 import { QuizFinisherComponent } from './quiz-runner/quiz-finisher/quiz-finisher.component';
+import { TextMaskModule } from 'angular2-text-mask';
 
 const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
@@ -48,11 +49,11 @@ const appRoutes: Routes = [
         path: 'quiz-runner-content',
         component: QuizRunnerContentComponent
       },
-    ] 
+    ]
   },
 
   {
-    path: 'quiz-builder',  component: QuizBuilderComponent,
+    path: 'quiz-builder', component: QuizBuilderComponent,
     children: [
       {
         path: 'create-quiz',
@@ -104,7 +105,7 @@ const appRoutes: Routes = [
         pathMatch: 'full',
         redirectTo: 'view-previous-quiz'
       },
-      
+
     ]
   },
   {
@@ -149,6 +150,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    TextMaskModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
