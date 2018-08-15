@@ -12,6 +12,95 @@
               <p class="form-control-static">  <span class="badge badge-success">1</span></p>
             </div>
           </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="textarea-input">Enter Question Text</label>
+            <div class="col-md-9">
+              <textarea id="questiontext" name="questiontext" rows="9" class="form-control" placeholder="Enter the question.."></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="textarea-input">Is Image Needed</label>
+            <div class="col-md-9">
+              <label class="switch switch-label switch-pill switch-success">
+                <input type="checkbox" name="phone" class="switch-input" checked>
+                <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="inline-radios">Source of Image</label>
+            <div class="col-md-9 col-form-label">
+              <div class="form-check form-check-inline mr-1" id="inline-radios">
+                <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Upload Image</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2">URL Link</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Enter Image Link</label>
+            <div class="col-md-9">
+              <input type="text" id="imagepath" name="imagepath" class="form-control" placeholder="Enter the URL Link">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="file-input">Upload Image</label>
+            <div class="col-md-9">
+              <input type="file" id="uploadimage" name="uploadimage">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="answer-type">Answer Type</label>
+            <div class="col-md-9">
+              <select id="hash-of-question" name="hash-of-questions" class="form-control">
+                <option value="0">Please select</option>
+                <option value="1">Option #1</option>
+                <option value="2">Option #2</option>
+                <option value="3">Option #3</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Answer</label>
+            <div class="col-md-9">
+              <input type="text" name="answer" id="answer" class="form-control" placeholder="Enter the answer">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Points for Correct Answer</label>
+            <div class="col-md-9">
+              <input type="text" name="score" id="score" class="form-control" placeholder="Enter the point">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Option 1</label>
+              <div class="col-md-9">
+                <input type="text" name="option1" id="option1" class="form-control" placeholder="Enter the answer for option 1">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Option 2</label>
+              <div class="col-md-9">
+                <input type="text" name="option2" id="option2" class="form-control" placeholder="Enter the answer for option 2">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Option 3</label>
+              <div class="col-md-9">
+                <input type="text" name="option3" id="option3" class="form-control" placeholder="Enter the answer for option 3">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Option 4</label>
+              <div class="col-md-9">
+                <input type="text" name="option4" id="option4" class="form-control" placeholder="Enter the answer for option 4">
+              </div>
+            </div>
+          </div>
           <div class="card-footer">
             <button type="submit" class="btn btn-sm btn-primary">Save</button>
             <button type="button" class="btn btn-sm btn-danger">Next</button>
