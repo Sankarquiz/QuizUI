@@ -5,7 +5,6 @@ import { FormDataService } from '../../models/formData.service';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { Observable } from 'rxjs';
 import { QuizResult, QuizResultDetails } from '../../models/QuizRunner';
-
 @Component({
   selector: 'app-quiz-runner-content',
   templateUrl: './quiz-runner-content.component.html',
@@ -41,29 +40,31 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
   ngOnInit() {
     debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    if (this.quizDefinition.sponsorList.filter(x => x.position == 'TopLeft').length > 0) {
-      this.topleft = this.quizDefinition.sponsorList.find(x => x.position == 'TopLeft').imageName;
-    }
-    if (this.quizDefinition.sponsorList.filter(x => x.position == 'TopRight').length > 0) {
-      this.topright = this.quizDefinition.sponsorList.find(x => x.position == 'TopRight').imageName;
-    }
-    if (this.quizDefinition.sponsorList.filter(x => x.position == 'TopMiddle').length > 0) {
-      this.topmiddle = this.quizDefinition.sponsorList.find(x => x.position == 'TopMiddle').imageName;
-    }
-    if (this.quizDefinition.sponsorList.filter(x => x.position == 'LeftMiddle').length > 0) {
-      this.leftmiddle = this.quizDefinition.sponsorList.find(x => x.position == 'LeftMiddle').imageName;
-    }
-    if (this.quizDefinition.sponsorList.filter(x => x.position == 'RightMiddle').length > 0) {
-      this.rightmiddle = this.quizDefinition.sponsorList.find(x => x.position == 'RightMiddle').imageName;
-    }
-    if (this.quizDefinition.sponsorList.filter(x => x.position == 'BottomLeft').length > 0) {
-      this.bottomleft = this.quizDefinition.sponsorList.find(x => x.position == 'BottomLeft').imageName;
-    }
-    if (this.quizDefinition.sponsorList.filter(x => x.position == 'BottomRight').length > 0) {
-      this.bottomright = this.quizDefinition.sponsorList.find(x => x.position == 'BottomRight').imageName;
-    }
-    if (this.quizDefinition.sponsorList.filter(x => x.position == 'BottomMiddle').length > 0) {
-      this.bottommiddle = this.quizDefinition.sponsorList.find(x => x.position == 'BottomMiddle').imageName;
+    if (this.quizDefinition.sponsorList) {
+      if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'topleft').length > 0) {
+        this.topleft = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'topleft').imageName;
+      }
+      if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'topright').length > 0) {
+        this.topright = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'topright').imageName;
+      }
+      if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'topmiddle').length > 0) {
+        this.topmiddle = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'topmiddle').imageName;
+      }
+      if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'leftmiddle').length > 0) {
+        this.leftmiddle = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'leftmiddle').imageName;
+      }
+      if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'rightmiddle').length > 0) {
+        this.rightmiddle = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'rightmiddle').imageName;
+      }
+      if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'bottomleft').length > 0) {
+        this.bottomleft = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'bottomleft').imageName;
+      }
+      if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'bottomright').length > 0) {
+        this.bottomright = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'bottomright').imageName;
+      }
+      if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'bottommiddle').length > 0) {
+        this.bottommiddle = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'bottommiddle').imageName;
+      }
     }
     this.questionset.isImageneeded == false;
     this.questionset.questionText == '';
@@ -82,7 +83,7 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
     this.quizresult.quizResultDetails = new Array<QuizResultDetails>();
     this.quizresultdetails = new QuizResultDetails();
 
-    if (this.quizDefinition.quizDurationType == "Hours") {
+    if (this.quizDefinition.quizDurationType && this.quizDefinition.quizDurationType.toLocaleLowerCase() == "hours") {
       this.timeLeftMinutes = Math.floor(this.quizDefinition.quizDurationTime * 60) - 1;
     }
     else {
@@ -101,13 +102,15 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
 
   UpdateMask() {
     this.mask = [];
-    if (this.questionset.answerType.toLocaleLowerCase() == 'hangman') {
-      for (var char in this.questionset.answer.split('')) {
-        if (this.questionset.answer[char] == ' ') {
-          this.mask.push(' ');
-        }
-        else {
-          this.mask.push(/[0-9a-zA-Z]/);
+    if (this.questionset && this.questionset.answerType) {
+      if (this.questionset.answerType.toLocaleLowerCase() == 'hangman') {
+        for (var char in this.questionset.answer.split('')) {
+          if (this.questionset.answer[char] == ' ') {
+            this.mask.push(' ');
+          }
+          else {
+            this.mask.push(/[0-9a-zA-Z]/);
+          }
         }
       }
     }
@@ -149,20 +152,8 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
   SaveAnswer() {
     debugger;
     if (this.quizresultdetails.userAnswer) {
-      this.quizresultdetails.adminAnswer = this.questionset.answer;
       this.quizresultdetails.questionNo = this.questionset.questionNo;
       this.quizresultdetails.questionText = this.questionset.questionText;
-      this.quizresultdetails.adminScore = this.questionset.score;
-
-      if (this.quizresultdetails.adminAnswer.toLowerCase() == this.quizresultdetails.userAnswer.toLowerCase()) {
-        this.quizresult.numberOfCorrectAnswers++;
-        this.quizresult.totalScored = this.quizresult.totalScored + this.questionset.score;
-        this.quizresultdetails.userScored = this.questionset.score;
-      }
-      else {
-        this.quizresult.numberOfWrongAnswers++;
-      }
-
       this.quizresultdetails.answerType = this.questionset.answerType;
       if (this.quizresult.quizResultDetails.filter(x => x.questionNo == this.quizresultdetails.questionNo).length > 0) {
         let index = this.quizresult.quizResultDetails.findIndex(x => x.questionNo == this.quizresultdetails.questionNo);
@@ -200,7 +191,7 @@ export class QuizRunnerContentComponent implements OnInit, OnChanges {
       }
     }, 1000)
 
-    if (this.timeLeftMinutes == 0 && this.timeLeftSeconds) {
+    if (this.timeLeftMinutes == 0 && this.timeLeftSeconds == 0) {
       //Save Quiz..
       this.SaveQuizResult(this.quizresult);
     }

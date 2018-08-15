@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuizDetailsService } from '../services/service-getquizdetails';
 import { FormDataService } from '../models/formData.service';
 import { Router } from '@angular/router';
-import { QuizDefinition, QuizQuestions } from '../models/QuizDefinition';
+import { QuizDefinition, QuizQuestions, RegistrationFields } from '../models/QuizDefinition';
 import { QuizAdv } from '../models/Registration';
 
 @Component({
@@ -14,12 +14,13 @@ export class QuizRunnerComponent implements OnInit {
 
   constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
   result: any;
-  quizDefinition: QuizDefinition;
+  quizDefinition = new QuizDefinition();
   questions: QuizQuestions;
   quizadv: QuizAdv;
   ngOnInit() {
     debugger;
     this.quizadv = this.formDataService.getquizadv();
+    this.quizDefinition.registrationFields = new RegistrationFields();
     this._getQuestion.CheckQuiztaken(this.quizadv.quizName, this.quizadv.quizType, this.formDataService.getUserData().teamName)
       .subscribe((res) => {
         if (!res) {

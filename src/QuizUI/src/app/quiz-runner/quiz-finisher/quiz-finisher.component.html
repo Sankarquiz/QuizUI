@@ -3,6 +3,6 @@
   <h2>
     Thank You...!
   </h2>
-
+  <h1 *ngIf="quizDefinition && quizDefinition.isQuizAutoEvaluate">Your score is : {{score}}</h1>
   <button (click)="Gottohome()">Go to Home Page</button>
 </div>

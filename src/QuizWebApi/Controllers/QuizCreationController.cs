@@ -147,7 +147,7 @@ namespace QuizWebApi.Controllers
 
             var host = Request.Scheme + "://" + Request.Host + "/images/";
 
-            if (documentType == "Define")
+            if (documentType.ToLower() == "define")
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
                 foreach (var item in response.Value.SponsorList.Select(x => x))
@@ -156,15 +156,30 @@ namespace QuizWebApi.Controllers
                 }
                 return Ok(response.Value);
             }
-            else
+            else if (documentType.ToLower() == "withanswer")
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
-               
+
                 foreach (var item in response.Value.Questions.Where(x => x.IsImageneeded == true && !x.ImageUrl.ToLower().StartsWith("http")))
                 {
                     item.ImageUrl = host + item.ImageUrl;
                 }
-                
+
+                return Ok(response.Value);
+            }
+            else
+            {
+                var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
+                foreach (var item in response.Value.Questions)
+                {
+                    item.Score = 0;
+                    item.Answer = new string(item.Answer.ToCharArray().Select(x => (x == ' ') ? ' ' : '*').ToArray());
+                    if (item.IsImageneeded && !item.ImageUrl.ToLower().StartsWith("http"))
+                    {
+                        item.ImageUrl = host + item.ImageUrl;
+                    }
+                }
+
                 return Ok(response.Value);
             }
         }
