@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { ViewQuizComponent } from './viewquiz.component';
 import { CreateQuizComponent } from './createquiz.component';
 import { DefineQuizComponent } from './definequiz.component';
@@ -27,6 +26,7 @@ const routes: Routes = [
       {
         path: 'createquiz',
         component: DefineQuizComponent,
+
         data: {
           title: 'Create Quiz'
         }

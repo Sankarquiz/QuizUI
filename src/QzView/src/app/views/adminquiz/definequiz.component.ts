@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 //import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
 @Component({
+  selector: 'app-set-definequiz',
   templateUrl: 'definequiz.component.html'
 })
 export class DefineQuizComponent implements OnInit {
