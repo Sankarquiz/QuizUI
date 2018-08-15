@@ -26,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'createquiz',
-        component: SetQuestionComponent,
+        component: DefineQuizComponent,
         data: {
           title: 'Create Quiz'
         }
@@ -37,7 +37,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes)
+  ],
   exports: [RouterModule]
 })
-export class AdminQuizRoutingModule {}
+export class AdminQuizRoutingModule { }

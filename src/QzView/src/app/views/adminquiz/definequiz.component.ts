@@ -39,7 +39,8 @@ export class DefineQuizComponent implements OnInit {
     }
   }
 
-  saveDefinequiz(form: any) {
+  saveDefinequiz() {
+    debugger;
     if (this.quizDefinition.noOfQuestionsInPool <= this.quizDefinition.noOfQuestions && this.quizDefinition.isQuizFromLargerPool) {
       alert('Question pool should be less than or equal to Question number..!');
       return;

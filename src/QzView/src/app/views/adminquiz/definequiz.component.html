@@ -17,14 +17,18 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="email-input">Quiz Name</label>
             <div class="col-md-9">
-              <input type="email" id="email-input" name="email-input" class="form-control" placeholder="Enter Quiz Name">
+              <input type="text" class="form-control" name="quiz-name"
+                     [(ngModel)]="quizDefinition.quizName" #quizName="ngModel"
+                     id="name" placeholder="Enter Quiz Name">
+
               <span class="help-block">Please enter your quiz name</span>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Host Quiz Domain</label>
             <div class="col-md-9">
-              <select class="form-control" id="hostquizdomain" name="quiz-domain-host">
+              <select class="form-control" id="hostquizdomain" name="quiz-domain-host"
+                      [(ngModel)]="quizDefinition.quizDomainHost" #quizDomainHost="ngModel">
                 <option value="KnowledgeVyasa Domain">KnowledgeVyasa Domain</option>
                 <option value="My Own Domain">My Own Domain</option>
               </select>
@@ -33,7 +37,7 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Type of Quiz</label>
             <div class="col-md-9">
-              <select class="form-control" id="typeofquiz" name="quiz-type">
+              <select class="form-control" id="typeofquiz" name="quiz-type" [(ngModel)]="quizDefinition.quizType" #quizType="ngModel">
                 <option value="Treasure Hunt">Treasure Hunt</option>
                 <option value="Free Flow">Free Flow</option>
               </select>
@@ -42,21 +46,25 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="hash-of-questions">No. of Questions</label>
             <div class="col-md-9">
-              <input type="number" id="number-of-question" name="number-of-question" class="form-control" placeholder="Enter Quiz Name">
+              <input required type="number" class="form-control" name="number-of-question"
+                     placeholder="Enter No of Questions" [(ngModel)]="quizDefinition.noOfQuestions" #noOfQuestions="ngModel">
               <span class="help-block">Please enter total numer of quiz questions</span>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="hash-of-participants">No. of Participants</label>
             <div class="col-md-9">
-              <input type="number" id="noOfParticipants" name="noOfParticipants" class="form-control" placeholder="Number of participants">
-              <span class="help-block">Please enter numer of participant(s)</span>
+              <select class="form-control" id="noOfParticipants" name="noOfParticipants" [(ngModel)]="quizDefinition.noOfParticipants" #noOfParticipants="ngModel">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="type-of-quiz">Participant Type</label>
             <div class="col-md-9">
-              <select class="form-control" id="type-of-quiz" name="Participant-Type">
+              <select class="form-control" id="type-of-quiz" name="Participant-Type" [(ngModel)]="quizDefinition.participantType" #participantType="ngModel">
                 <option value="Cross College" selected>Cross College</option>
                 <option value="Same College">Same College</option>
               </select>
@@ -67,52 +75,71 @@
             <div class="col-md-9">
               <div class="input-group">
                 <div class="input-group-prepend" dropdown>
-                  <select class="btn btn-primary dropdown-toggle" id="type-of-quiz" name="Participant-Type">
-                    <option value="Hours" selected>Hours</option>
+                  <select class="btn btn-primary dropdown-toggle" id="duration-of-quiz-type" name="duration-of-quiz-type" [(ngModel)]="quizDefinition.quizDurationType" #quizDurationType="ngModel">
                     <option value="Minutes">Minutes</option>
+                    <option value="Hours" selected>Hours</option>
                   </select>
                 </div>
-                <input type="number" id="duration" name="duration" class="form-control" placeholder="Duration of the quiz">
+                <input type="number" id="duration" name="duration" class="form-control"
+                       placeholder="Duration of the quiz" [(ngModel)]="quizDefinition.quizDurationTime" #quizDurationTime="ngModel">
               </div>
             </div>
           </div>
-          <div class="form-group row">
+          <!--<div class="form-group row">
             <label class="col-md-3 col-form-label" for="hash-of-questions">Start Time for Quiz </label>
             <div class="col-md-9">
-              <input type="text" id="start-duration" name="start-duration" class="form-control" placeholder="Enter Start Time for Quiz">
+              <input required type="text" class="form-control" id="start-duration" [min]="currentDate"
+                     [owlDateTimeTrigger]="quizStartTime" [owlDateTime]="quizStartTime" name="quiz-start-date"
+                     [(ngModel)]="quizDefinition.quizStartTime" #quizStartTime="ngModel" (ngModelChange)="UpdateDate($event)" readonly>
+              <owl-date-time #quizStartTime></owl-date-time>
               <span class="help-block">Please enter start date time of quiz</span>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="hash-of-questions">End Time for Quiz </label>
             <div class="col-md-9">
-              <input type="text" id="end-duration" name="end-duration" class="form-control" placeholder="Enter End Time for Quiz">
-              <span class="help-block">Please enter start date time of quiz</span>
+              <input required type="text" class="form-control" id="end-duration" [min]="endDate"
+                     [owlDateTimeTrigger]="quizEndTime" [owlDateTime]="quizEndTime" name="quiz-end-date"
+                     [(ngModel)]="quizDefinition.quizEndTime" #quizEndTime="ngModel" readonly>
+              <owl-date-time #quizEndTime></owl-date-time>
+              <span class="help-block">Please enter end date time of quiz</span>
             </div>
-          </div>
+          </div>-->
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="shuffle-questions">Shuffle Questions </label>
             <div class="col-md-9">
               <label class="switch switch-label switch-pill switch-success">
-                <input type="checkbox" name="Shuffle-Questions" class="switch-input" checked>
+                <input class="switch-input" type="checkbox" [value]="true" name="Shuffle-Questions"
+                       [(ngModel)]="quizDefinition.shuffleQuestions" #shuffleQuestions="ngModel" checked="checked">
                 <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
               </label>
             </div>
           </div>
+
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="create-quiz-from-larger-pool">Create Quiz from larger Pool </label>
             <div class="col-md-9">
               <label class="switch switch-label switch-pill switch-success">
-                <input type="checkbox" name="Create-Quiz-from-larger-Pool" class="switch-input" checked>
+                <input type="checkbox" class="switch-input" name="Create-Quiz-from-larger-Pool?" #isQuizFromLargerPool="ngModel"
+                       [(ngModel)]="quizDefinition.isQuizFromLargerPool" checked>
                 <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
               </label>
             </div>
           </div>
+
+          <div class="form-group row" *ngIf="quizDefinition.isQuizFromLargerPool==true">
+            <label class="col-md-3 col-form-label" for="name">No. of Questions in Pool</label>
+            <div class="col-md-9">
+              <input required type="number" class="form-control" id="name" name="Pool-Of-Questions"
+                     placeholder="Enter No of Questions for a pool" [(ngModel)]="quizDefinition.noOfQuestionsInPool" #noOfQuestionsInPool="ngModel">
+            </div>
+          </div>
+
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="allow-concurrent-access">Allow Concurrent Access </label>
             <div class="col-md-9">
               <label class="switch switch-label switch-pill switch-success">
-                <input type="checkbox" name="Allow-Concurrent-Access" class="switch-input" checked>
+                <input type="checkbox" name="Allow-Concurrent-Access" class="switch-input" #allowConcurrentAccess="ngModel" [(ngModel)]="quizDefinition.allowConcurrentAccess" checked>
                 <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
               </label>
             </div>
@@ -121,7 +148,7 @@
             <label class="col-md-3 col-form-label" for="auto-evaluate-quiz">Auto Evaluate Quiz </label>
             <div class="col-md-9">
               <label class="switch switch-label switch-pill switch-success">
-                <input type="checkbox" name="Auto-Evaluate-Quiz" class="switch-input" checked>
+                <input type="checkbox" name="Auto-Evaluate-Quiz" class="switch-input" #isQuizAutoEvaluate="ngModel" [(ngModel)]="quizDefinition.isQuizAutoEvaluate" checked>
                 <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
               </label>
             </div>
@@ -130,7 +157,7 @@
             <label class="col-md-3 col-form-label" for="auto-evaluate-quiz">Show Score after attempt </label>
             <div class="col-md-9">
               <label class="switch switch-label switch-pill switch-success">
-                <input type="checkbox" name="Show-Score-after-attempt" class="switch-input" checked>
+                <input type="checkbox" name="Show-Score-after-attempt" class="switch-input" #showScoreAfterAttempt="ngModel" [(ngModel)]="quizDefinition.showScoreAfterAttempt" checked>
                 <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
               </label>
             </div>
@@ -139,17 +166,17 @@
             <label class="col-md-3 col-form-label" for="post-score-on-social-media">Post score on Social Media</label>
             <div class="col-md-9">
               <label class="switch switch-label switch-pill switch-success">
-                <input type="checkbox" name="Post-score-on-Social-Media" class="switch-input" checked>
+                <input type="checkbox" name="Post-score-on-Social-Media" class="switch-input" #postScoreOnSocialMedia="ngModel" [(ngModel)]="quizDefinition.postScoreOnSocialMedia" checked>
                 <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
               </label>
             </div>
           </div>
           <div class="card-footer">
-            <button type="submit" class="btn btn-sm btn-primary">Save</button>
-            <button type="button" class="btn btn-sm btn-danger">Next</button>             
+            <button type="submit" class="btn btn-sm btn-primary" (click)="saveDefinequiz()">Save</button>
+            <button type="button" class="btn btn-sm btn-danger">Next</button>
           </div>
         </form>
-        </div>
       </div>
+    </div>
   </div> <!--/.col-->
 </div>
