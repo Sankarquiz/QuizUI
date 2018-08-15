@@ -1,0 +1,105 @@
+<div class="animated fadeIn">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-edit"></i>Set Ads Logo for Quiz
+      </div>
+      <div class="card-body">
+        <form class="form-horizontal">
+          <div class="row">
+            <div class="col-sm-6 col-md-4">
+              <div class="card">
+                <div class="card-header">
+                  <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Top Left</span> Logo</i>
+                </div>
+                <div class="card-body">
+                  <app-set-logos (image)='SaveImage($event,"TopLeft")' (imagePath)='SavePath($event,"TopLeft")'></app-set-logos>
+                </div>
+              </div>
+            </div><!--/.col-->
+            <div class="col-sm-6 col-md-4">
+              <div class="card">
+                <div class="card-header">
+                  <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Top Middle</span> Logo</i>
+                </div>
+                <div class="card-body">
+                  <app-set-logos (image)='SaveImage($event,"TopMiddle")' (imagePath)='SavePath($event,"TopMiddle")'></app-set-logos>
+                </div>
+              </div>
+            </div><!--/.col-->
+
+            <div class="col-sm-6 col-md-4">
+              <div class="card">
+                <div class="card-header">
+                  <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Top Right </span> Logo</i>
+                </div>
+                <div class="card-body">
+                  <app-set-logos (image)='SaveImage($event,"TopRight")' (imagePath)='SavePath($event,"TopRight")'></app-set-logos>
+                </div>
+              </div>
+            </div><!--/.col-->
+            <div class="col-sm-6 col-md-4">
+              <div class="card">
+                <div class="card-header">
+                  <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Left Middle</span> Logo</i>
+                </div>
+                <div class="card-body">
+                  <app-set-logos (image)='SaveImage($event,"LeftMiddle")' (imagePath)='SavePath($event,"LeftMiddle")'></app-set-logos>
+                </div>
+              </div>
+            </div><!--/.col-->
+            <div class="col-sm-6 col-md-4">
+              <div class="card">
+
+              </div>
+            </div><!--/.col-->
+            <div class="col-sm-6 col-md-4">
+              <div class="card">
+                <div class="card-header">
+                  <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Right Middle</span> Logo</i>
+                </div>
+                <div class="card-body">
+                  <app-set-logos (image)='SaveImage($event,"RightMiddle")' (imagePath)='SavePath($event,"RightMiddle")'></app-set-logos>
+                </div>
+              </div>
+            </div><!--/.col-->
+            <div class="col-sm-6 col-md-4">
+              <div class="card">
+                <div class="card-header">
+                  <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Bottom Left</span> Logo</i>
+                </div>
+                <div class="card-body">
+                  <app-set-logos (image)='SaveImage($event,"BottomLeft")' (imagePath)='SavePath($event,"BottomLeft")'></app-set-logos>
+                </div>
+              </div>
+            </div><!--/.col-->
+            <div class="col-sm-6 col-md-4">
+              <div class="card">
+                <div class="card-header">
+                  <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Bottom Middle</span> Logo</i>
+                </div>
+                <div class="card-body">
+                  <app-set-logos (image)='SaveImage($event,"BottomMiddle")' (imagePath)='SavePath($event,"BottomMiddle")'></app-set-logos>
+                </div>
+              </div>
+            </div><!--/.col-->
+            <div class="col-sm-6 col-md-4">
+              <div class="card">
+                <div class="card-header">
+                  <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Bottom Right</span> Logo</i>
+                </div>
+                <div class="card-body">
+                  <app-set-logos (image)='SaveImage($event,"BottomRight")' (imagePath)='SavePath($event,"BottomRight")'></app-set-logos>
+                </div>
+              </div>
+            </div><!--/.col-->
+          </div><!--/.row-->
+          <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+            <button type="button" class="btn btn-sm btn-danger">Next</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

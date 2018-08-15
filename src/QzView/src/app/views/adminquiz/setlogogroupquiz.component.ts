@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 //import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
 @Component({
-  templateUrl: 'registerquiz.component.html'
+  templateUrl: 'setlogogroupquiz.component.html'
 })
-export class RegisterQuizComponent implements OnInit {
+export class SetLogoGroupQuizComponent implements OnInit {
   quizDefinition: QuizDefinition;
   form: any;
   result: Observable<any>;

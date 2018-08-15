@@ -5,6 +5,10 @@ import { ViewQuizComponent } from './viewquiz.component';
 import { CreateQuizComponent } from './createquiz.component';
 import { DefineQuizComponent } from './definequiz.component';
 import { RegisterQuizComponent } from './registerquiz.component';
+import { SetPageQuizComponent } from './setpagequiz.component';
+import { SetLogoQuizComponent } from './setlogoquiz.component';
+import { SetLogoGroupQuizComponent } from './setlogogroupquiz.component';
+import { SetQuestionComponent } from './setquestion.component';
 
 const routes: Routes = [
   {
@@ -22,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'createquiz',
-        component: RegisterQuizComponent,
+        component: SetQuestionComponent,
         data: {
           title: 'Create Quiz'
         }

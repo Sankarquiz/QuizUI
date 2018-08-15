@@ -5,6 +5,13 @@ import { ViewQuizComponent } from './viewquiz.component';
 import { CreateQuizComponent } from './createquiz.component';
 import { DefineQuizComponent } from './definequiz.component';
 import { RegisterQuizComponent } from './registerquiz.component';
+import { SetPageQuizComponent } from './setpagequiz.component';
+import { SetLogoQuizComponent } from './setlogoquiz.component';
+import { SetLogoGroupQuizComponent } from './setlogogroupquiz.component';
+import { SetQuestionComponent } from './setquestion.component';
+
+
+
 import { HttpClientModule } from '@angular/common/http';
 // AdminQuiz Routing
 import { AdminQuizRoutingModule } from './adminquiz-routing.module';
@@ -26,7 +33,11 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     ViewQuizComponent,
     CreateQuizComponent,
     DefineQuizComponent,
-    RegisterQuizComponent
+    RegisterQuizComponent,
+    SetPageQuizComponent,
+    SetLogoQuizComponent,
+    SetLogoGroupQuizComponent,
+    SetQuestionComponent
   ],
   providers: [
     QuizDetailsService,
