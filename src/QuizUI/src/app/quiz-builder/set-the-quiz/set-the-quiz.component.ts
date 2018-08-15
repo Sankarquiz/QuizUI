@@ -45,7 +45,7 @@ export class SetTheQuizComponent implements OnInit {
     }
   }
 
-  SaveQuestion(question: NgForm) {
+  SaveQuestion() {
     debugger;
     if (this.imagepath && this.imagepath != 'no') {
       this.questionset.isImageneeded = true;

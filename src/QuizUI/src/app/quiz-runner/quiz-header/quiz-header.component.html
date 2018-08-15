@@ -2,6 +2,7 @@
   <ul class="question-links">
     <li *ngFor="let number of questionsCount let i=index" [ngClass]="{'active': activeQuestion == i}"
         [class.answered]="isanswered.includes(i)">
+      <input type="checkbox" [disabled]="true" ng-checked="all" [checked]="isanswered.includes(i)">
       <button [disabled]="quizDefinition.quizType=='Treasure Hunt'"
               (click)="AssignQuestionNumber(i+1)">
         {{i+1}}

@@ -12,7 +12,8 @@ export const environment = {
   register: 'http://localhost:52671/api/quiz/Register/',
   login: 'http://localhost:52671/api/quiz/Login/',
   getactivequizdetails: 'http://localhost:52671/api/quiz/GetActiveQuizDetails/',
-  checkquiztaken: 'http://localhost:52671/api/quiz/CheckQuizTaken/',
+  checkquiztaken: 'http://localhost:52671/api/quiz/CheckQuizTaken/', 
+  getquizresult: 'http://localhost:52671/api/quiz/GetQuizResult/',
   savequizrunner: 'http://localhost:52671/api/quiz/SaveQuizRunner/',
   imageprefixpath: 'http://localhost:52671/images/'
   //quizDefinitionUri: 'http://172.29.94.20:52671/api/quiz/DefineQuiz/',

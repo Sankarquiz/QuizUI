@@ -1,4 +1,4 @@
-<div class="main-content-quiz container" *ngIf="questionset.questionText">
+<div class="main-content-quiz container" *ngIf="questionset && questionset.questionText">
   <p>Time Left: <span style="color:red">{{timeLeftMinutes}}:{{timeLeftSeconds}}</span></p>
 
   <div *ngIf="topleft">
@@ -25,7 +25,9 @@
   <div *ngIf="rightbottomcorner">
     <img src={{bottommiddle}}>
   </div>
-  <p>{{questionset.questionText}}</p>
+  <div *ngIf="questionset.questionText">
+    <p>{{questionset.questionText}}</p>
+  </div>
   <div class="runner-image" *ngIf="questionset.isImageneeded==true">
     <img src={{questionset.imageUrl}}>
   </div>
@@ -51,13 +53,14 @@
              value={{questionset.option4}} [(ngModel)]="quizresultdetails.userAnswer"> {{questionset.option4}}
     </div>
   </form>
-  <div *ngIf="questionset.answerType !='Multiple Choice'" class="text-answer" [class.has-error]="userAnswer.invalid && userAnswer.touched">
+  <div *ngIf="questionset.answerType !='Multiple Choice'" class="text-answer">
     <label for="name" class="control-label">Answer</label>
-    <input required type="text" class="form-control" name="answer" #userAnswer="ngModel"
+    <input *ngIf="questionset.answerType !='Hangman'" required type="text" class="form-control" name="answer" #userAnswer="ngModel"
            [(ngModel)]="quizresultdetails.userAnswer" id="name" value="">
-    <span class="help-block" *ngIf="userAnswer.invalid && userAnswer.touched">
-      Answer is required
-    </span>
+    <input class="mask-text" *ngIf="questionset.answerType =='Hangman'" name="mask"
+           [(ngModel)]="quizresultdetails.userAnswer" autofocus
+           [textMask]="{mask: mask}"
+           #userAnswer="ngModel" type="text" />
   </div>
 
   <div class="reg-button">

@@ -44,7 +44,7 @@ export class ViewPreviousQuizComponent implements OnInit {
       this.router.navigate(['/quiz-builder/create-quiz/set-logos-group']);
     }
     if (stage.toLowerCase() == 'setquestion') {
-      this._getAllQuizDetails.GetQuizData(this.quizDetails[index].quizName, this.quizDetails[index].quizType, 'questions')
+      this._getAllQuizDetails.GetQuizData(this.quizDetails[index].quizName, this.quizDetails[index].quizType, 'withanswer')
         .subscribe((result: any) => {
           this.PopulateQuestionSet(result);
         });

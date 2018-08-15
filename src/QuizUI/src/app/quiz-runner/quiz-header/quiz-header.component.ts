@@ -28,7 +28,9 @@ export class QuizHeaderComponent implements OnInit {
       this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestionsInPool.toString())).fill(1);
     }
     else {
-      this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestions.toString())).fill(1);
+      if (this.quizDefinition.noOfQuestions) {
+        this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestions.toString())).fill(1);
+      }
     }
   }
 
