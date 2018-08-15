@@ -1,21 +1,29 @@
 <div class="animated fadeIn">
-  <div class="row"> 
-    <div class="col-md-6 mb-4">
+  <div class="col-lg-12">
+    <div class="mb-4">
       <!-- Nav tabs -->
       <tabset>
         <tab>
-          <ng-template tabHeading><i class="icon-calculator"></i> Calculator</ng-template>
-          2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <ng-template tabHeading><i class="icon-calculator" style="padding-left:2px;"> Define Quiz</i></ng-template>
+          <app-set-definequiz></app-set-definequiz>
         </tab>
         <tab>
-          <ng-template tabHeading><i class="icon-basket-loaded"></i> Shoping cart</ng-template>
-          3. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <ng-template tabHeading><i class="fa fa-tag"></i> Registration</ng-template>
+          <app-set-registration></app-set-registration>
         </tab>
         <tab>
-          <ng-template tabHeading><i class="icon-pie-chart"></i> Charts</ng-template>
-          4. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <ng-template tabHeading><i class="icon-pie-chart"></i> Set Pages</ng-template>
+          <app-set-pages></app-set-pages>
+        </tab>
+        <tab>
+          <ng-template tabHeading><i class="fa fa-file-picture-o"> Set Logo</i> </ng-template>
+          <app-set-logogroup></app-set-logogroup>
+        </tab>
+        <tab>
+          <ng-template tabHeading><i class="fa fa-question-circle"></i> Set Question</ng-template>
+          <app-set-question></app-set-question>
         </tab>
       </tabset>
-    </div><!--/.col-->   
+    </div><!--/.col-->
   </div><!--/.row-->
 </div>

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 //import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
 @Component({
+  selector: 'app-set-logogroup',
   templateUrl: 'setlogogroupquiz.component.html'
 })
 export class SetLogoGroupQuizComponent implements OnInit {
