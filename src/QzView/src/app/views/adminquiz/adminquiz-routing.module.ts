@@ -8,6 +8,8 @@ import { SetPageQuizComponent } from './setpagequiz.component';
 import { SetLogoQuizComponent } from './setlogoquiz.component';
 import { SetLogoGroupQuizComponent } from './setlogogroupquiz.component';
 import { SetQuestionComponent } from './setquestion.component';
+import { PublishQuizMainComponent } from './publish-quiz-main-content.component';
+import { PublishQuizComponent } from './publish-quiz.component';
 
 const routes: Routes = [
   {
@@ -24,9 +26,8 @@ const routes: Routes = [
         }
       },
       {
-        path: 'createquiz',
-        component: CreateQuizComponent,
-
+        path: 'createquiz', 
+        component: CreateQuizComponent, 
         data: {
           title: 'Create Quiz'
         }
