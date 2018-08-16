@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
-import { DefaultLayoutComponent } from './containers';
+import { DefaultLayoutComponent, QuizLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
@@ -42,6 +42,19 @@ export const routes: Routes = [
     data: {
       title: 'Register Page'
     }
+  },
+  {
+    path: "quiz",
+    component: QuizLayoutComponent,
+    data: {
+      title : "Quiz"
+    },
+    children: [
+      {
+        path: 'runner',
+        loadChildren: './views/quizrunner/quizrunner.module#QuizRunnerModule'
+      }
+      ]
   },
   {
     path: '',

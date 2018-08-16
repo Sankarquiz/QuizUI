@@ -1,16 +1,31 @@
 <div class="animated fadeIn">
   <div class="col-lg-12">
+    <div class="btn-dark">
+      <div class="row align-items-center">
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/definequiz"> <button type="button" class="btn btn-block btn-primary active" aria-pressed="true">Define Quiz</button> </a>
+        </div>        
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/registerquiz"><button type="button" class="btn btn-block btn-dark">Registration</button></a>
+        </div>
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/setpagequiz"> <button type="button" class="btn btn-block btn-dark">Set Pages</button></a>
+        </div>
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/setlogoquiz"><button type="button" class="btn btn-block btn-dark">Set Logo</button></a>
+        </div>
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/setquestionquiz"><button type="button" class="btn btn-block btn-dark">Set Question</button></a>
+        </div>
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/publishquiz"> <button type="button" class="btn btn-block btn-dark">Publish</button></a>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-header">
         <i class="fa fa-edit"></i>Define Quiz
-        <div class="card-header-actions">
-          <a href="#" class="btn-setting"><i class="icon-settings"></i></a>
-          <button type="button" class="btn btn-minimize"
-                  (click)="toggleCollapse()">
-            <i class={{iconCollapse}}></i>
-          </button>
-          <a href="#" class="btn-close"><i class="icon-close"></i></a>
-        </div>
       </div>
       <div class="card-body">
         <form class="form-horizontal">
@@ -86,25 +101,25 @@
             </div>
           </div>
           <!--<div class="form-group row">
-            <label class="col-md-3 col-form-label" for="hash-of-questions">Start Time for Quiz </label>
-            <div class="col-md-9">
-              <input required type="text" class="form-control" id="start-duration" [min]="currentDate"
-                     [owlDateTimeTrigger]="quizStartTime" [owlDateTime]="quizStartTime" name="quiz-start-date"
-                     [(ngModel)]="quizDefinition.quizStartTime" #quizStartTime="ngModel" (ngModelChange)="UpdateDate($event)" readonly>
-              <owl-date-time #quizStartTime></owl-date-time>
-              <span class="help-block">Please enter start date time of quiz</span>
-            </div>
+          <label class="col-md-3 col-form-label" for="hash-of-questions">Start Time for Quiz </label>
+          <div class="col-md-9">
+            <input required type="text" class="form-control" id="start-duration" [min]="currentDate"
+                   [owlDateTimeTrigger]="quizStartTime" [owlDateTime]="quizStartTime" name="quiz-start-date"
+                   [(ngModel)]="quizDefinition.quizStartTime" #quizStartTime="ngModel" (ngModelChange)="UpdateDate($event)" readonly>
+            <owl-date-time #quizStartTime></owl-date-time>
+            <span class="help-block">Please enter start date time of quiz</span>
           </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="hash-of-questions">End Time for Quiz </label>
-            <div class="col-md-9">
-              <input required type="text" class="form-control" id="end-duration" [min]="endDate"
-                     [owlDateTimeTrigger]="quizEndTime" [owlDateTime]="quizEndTime" name="quiz-end-date"
-                     [(ngModel)]="quizDefinition.quizEndTime" #quizEndTime="ngModel" readonly>
-              <owl-date-time #quizEndTime></owl-date-time>
-              <span class="help-block">Please enter end date time of quiz</span>
-            </div>
-          </div>-->
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="hash-of-questions">End Time for Quiz </label>
+          <div class="col-md-9">
+            <input required type="text" class="form-control" id="end-duration" [min]="endDate"
+                   [owlDateTimeTrigger]="quizEndTime" [owlDateTime]="quizEndTime" name="quiz-end-date"
+                   [(ngModel)]="quizDefinition.quizEndTime" #quizEndTime="ngModel" readonly>
+            <owl-date-time #quizEndTime></owl-date-time>
+            <span class="help-block">Please enter end date time of quiz</span>
+          </div>
+        </div>-->
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="shuffle-questions">Shuffle Questions </label>
             <div class="col-md-9">
