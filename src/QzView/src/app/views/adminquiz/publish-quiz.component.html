@@ -26,25 +26,25 @@
       <div class="card-header">
         <i class="fa fa-edit"></i>Publish Quiz
       </div>
+
       <div class="card-body">
         <div class="row col-lg-12">
           <pagination [totalItems]="questionsCount" [(ngModel)]="selectedQuestionNumber" [maxSize]="maxSize"
                       class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
-
-
+          </pagination>
         </div>
         <div class="row col-lg-12">
           <progressbar class="progress progress-success progress-animated" [max]="max" [value]="dynamic">
             <span style="color:white; white-space:nowrap;">{{selectedQuestionNumber}} / {{questionsCount}}</span>
           </progressbar>
         </div>
-
-        <form class="form-horizontal">
-          <app-publish-quiz-main-content [questionset]="questionset" [imageurl]="imageurl"></app-publish-quiz-main-content>
-
-        </form>
-
+        <div>
+          <form class="form-horizontal">
+            <app-publish-quiz-main-content [questionset]="questionset" [imageurl]="imageurl"></app-publish-quiz-main-content>
+          </form>
+        </div>
       </div>
+
       <div class="card-footer">
         <button type="button" class="btn btn-sm btn-warning" (click)="UpdateQuestionNo('Edit')">Edit</button>
         <button type="submit" class="btn btn-sm btn-primary" (click)="UpdateQuestionNo('Prev')">Prev</button>
