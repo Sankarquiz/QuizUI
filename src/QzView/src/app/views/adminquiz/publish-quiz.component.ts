@@ -18,15 +18,20 @@ export class PublishQuizComponent implements OnInit {
   endDate: Date;
 
   totalItems: number = 64;
-  currentPage: number = 4;
+  currentPage: number = 1;
   smallnumPages: number = 0;
 
-  maxSize: number = 5;
+  maxSize: number = 10;
   bigTotalItems: number = 675;
   bigCurrentPage: number = 1;
   numPages: number = 0;
 
-  currentPager: number = 4;
+  currentPager: number = 1;
+
+  max: number = 20;
+  showWarning: boolean;
+  dynamic: number =15;
+  type: string;
 
   constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) {
     this.currentDate = new Date();

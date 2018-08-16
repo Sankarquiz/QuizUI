@@ -14,6 +14,7 @@ import { PublishQuizComponent } from './publish-quiz.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 //import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
@@ -36,6 +37,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     FormsModule,
     ReactiveFormsModule,
     PaginationModule.forRoot(),
+    ProgressbarModule.forRoot(),
     //OwlDateTimeModule,
     //OwlNativeDateTimeModule,
   ],
