@@ -1,10 +1,12 @@
-import { Component, OnInit, Pipe } from '@angular/core';
-import { Router } from '@angular/router';
-import { QuizDefinition } from '../../models/QuizDefinition';
-import { FormDataService } from '../../models/formData.service';
+import { Component, OnInit, Output } from '@angular/core';
+import { QuizDefinition, SponsorDetail } from '../../models/QuizDefinition';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
+import { Router } from '@angular/router';
+import { FormDataService } from '../../models/formData.service';
+import { EventEmitter } from 'events';
 import { Observable } from 'rxjs';
-//import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { BrowserModule } from '@angular/platform-browser';
+import { isUndefined } from 'util';
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-set-logogroup',
@@ -12,60 +14,74 @@ import { DatePipe } from '@angular/common';
 })
 export class SetLogoGroupQuizComponent implements OnInit {
   quizDefinition: QuizDefinition;
-  form: any;
+  sponsor;
   result: Observable<any>;
-  currentDate: Date;
-  endDate: Date;
-  constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) {
-    this.currentDate = new Date();
-    this.endDate = new Date();
-    this.currentDate.setDate(this.currentDate.getDate());
-  }
+  imagename: string = '';
+  constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
 
   ngOnInit() {
-
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    if (this.quizDefinition.quizName == '') {
-      this.quizDefinition.shuffleQuestions = true;
-      this.quizDefinition.isQuizFromLargerPool = false;
-      this.quizDefinition.allowConcurrentAccess = true;
-      this.quizDefinition.isQuizAutoEvaluate = true;
-      this.quizDefinition.showScoreAfterAttempt = true;
-      this.quizDefinition.postScoreOnSocialMedia = true;
-      this.quizDefinition.quizDurationType = 'Hours';
-      this.quizDefinition.noOfParticipants = 1;
-      this.quizDefinition.participantType = 'Cross College';
-      this.quizDefinition.quizDomainHost = 'KnowledgeVyasa Domain';
-      this.quizDefinition.quizType = 'Treasure Hunt';
+    this.sponsor = this.formDataService.getSponserFields();
+  }
+
+  SaveImage(image, location) {
+    debugger;
+    const fd = new FormData();
+    var extn = image.name.split(".").pop();
+    this.imagename = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
+    if (!isUndefined(extn))
+      this.imagename = this.imagename + "." + extn;
+
+    fd.append("file", image, this.imagename);
+    this._saveQuizData.UploadImage(fd)
+      .subscribe((res) => {
+        if (res) {
+          this.sponsor = new SponsorDetail();
+          this.sponsor.position = location;
+          this.sponsor.imageName = this.imagename;
+          if (this.quizDefinition.sponsorList.filter(x => x.position == location).length > 0) {
+            let index = this.quizDefinition.sponsorList.findIndex(x => x.position == location);
+            let updatesponsor = this.quizDefinition.sponsorList.find(x => x.position == location);
+            updatesponsor.imageName = this.imagename;
+            this.quizDefinition.sponsorList[index] = updatesponsor;
+          }
+          else {
+            this.quizDefinition.sponsorList.push(this.sponsor);
+          }
+        }
+      });
+  }
+
+  SavePath(path, location) {
+    debugger;
+    this.sponsor = new SponsorDetail();
+    this.sponsor.path = path;
+    this.sponsor.position = location;
+    if (this.quizDefinition.sponsorList.filter(x => x.position == location).length > 0) {
+      let index = this.quizDefinition.sponsorList.findIndex(x => x.position == location);
+      let updatesponsor = this.quizDefinition.sponsorList.find(x => x.position == location);
+      updatesponsor.path = path;
+      this.quizDefinition.sponsorList[index] = updatesponsor;
+    }
+    else {
+      this.quizDefinition.sponsorList.push(this.sponsor);
     }
   }
 
-  saveDefinequiz(form: any) {
-    if (this.quizDefinition.noOfQuestionsInPool <= this.quizDefinition.noOfQuestions && this.quizDefinition.isQuizFromLargerPool) {
-      alert('Question pool should be less than or equal to Question number..!');
-      return;
-    }
-    this.quizDefinition.stage = 'Define';
-    this.quizDefinition.status = 'Pending';
+  SaveSponsorDetails() {
+    debugger;
+    this.quizDefinition.stage = "SetLogo";
+    this.quizDefinition.status = "Pending";
     this._saveQuizData.SaveQuizData(this.quizDefinition)
-      .subscribe((response: any) => {
-        debugger;
-        this.result = response;
-        if (response) {
+      .subscribe((result: any) => {
+        this.result = result;
+        if (result) {
+          this.formDataService.setSponserFields(this.quizDefinition.sponsorList);
           this.formDataService.setQuizDefinition(this.quizDefinition);
-          this.router.navigate(['/quiz-builder/create-quiz/Registration']);
+          this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
         } else {
           alert('Not Saved.');
         }
       });
-
-
   }
-
-  UpdateDate(value) {
-    if (value) {
-      this.endDate.setDate(value.getDate());
-    }
-  } 
-
 }

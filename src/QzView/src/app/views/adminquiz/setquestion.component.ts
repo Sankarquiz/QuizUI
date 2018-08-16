@@ -1,71 +1,119 @@
-import { Component, OnInit, Pipe } from '@angular/core';
-import { Router } from '@angular/router';
-import { QuizDefinition } from '../../models/QuizDefinition';
-import { FormDataService } from '../../models/formData.service';
+import { Component, OnInit } from '@angular/core';
+import { QuizDefinition, QuizSet, QuizQuestions } from '../../models/QuizDefinition';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
+import { FormDataService } from '../../models/formData.service';
+import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
-//import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { element } from 'protractor';
+import { isUndefined } from 'util';
+
 @Component({
   selector: 'app-set-question',
   templateUrl: 'setquestion.component.html'
 })
 export class SetQuestionComponent implements OnInit {
   quizDefinition: QuizDefinition;
-  form: any;
   result: Observable<any>;
-  currentDate: Date;
-  endDate: Date;
-  constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) {
-    this.currentDate = new Date();
-    this.endDate = new Date();
-    this.currentDate.setDate(this.currentDate.getDate());
-  }
+  currentQuestionNo: number = 0;
+  previousQuestionNo;
+  questionset = new QuizSet();
+  questions = new QuizQuestions();
+  disablePublish: boolean = true;
+  iseditquestion: boolean = false;
+  isimagesaved: boolean = true;
+  imagepath: string;
+  navs = ['Multiple Choice', 'Hangman', 'Free Text'];
+
+  constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
-
+    debugger;
+    this.iseditquestion = this.formDataService.getEditQuestion();
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    if (this.quizDefinition.quizName == '') {
-      this.quizDefinition.shuffleQuestions = true;
-      this.quizDefinition.isQuizFromLargerPool = false;
-      this.quizDefinition.allowConcurrentAccess = true;
-      this.quizDefinition.isQuizAutoEvaluate = true;
-      this.quizDefinition.showScoreAfterAttempt = true;
-      this.quizDefinition.postScoreOnSocialMedia = true;
-      this.quizDefinition.quizDurationType = 'Hours';
-      this.quizDefinition.noOfParticipants = 1;
-      this.quizDefinition.participantType = 'Cross College';
-      this.quizDefinition.quizDomainHost = 'KnowledgeVyasa Domain';
-      this.quizDefinition.quizType = 'Treasure Hunt';
+    this.questions = this.formDataService.getQuizQuestions();
+    this.imagepath = 'no';
+    if (!this.iseditquestion) {
+      this.questionset.answerType = 'Multiple Choice';
+      this.questionset.isImageneeded = false;
+      ++this.currentQuestionNo;
+    }
+    else {
+      this.questionset = this.formDataService.getQuestion();
+      this.currentQuestionNo = this.questionset.questionNo;
     }
   }
 
-  saveDefinequiz(form: any) {
-    if (this.quizDefinition.noOfQuestionsInPool <= this.quizDefinition.noOfQuestions && this.quizDefinition.isQuizFromLargerPool) {
-      alert('Question pool should be less than or equal to Question number..!');
+  SaveQuestion() {
+    debugger;
+    if (this.imagepath && this.imagepath != 'no') {
+      this.questionset.isImageneeded = true;
+    }
+    if (!this.isimagesaved) {
+      alert('Image not uploaded. Please upload again.')
+      this.isimagesaved = true;
       return;
     }
-    this.quizDefinition.stage = 'Define';
-    this.quizDefinition.status = 'Pending';
-    this._saveQuizData.SaveQuizData(this.quizDefinition)
-      .subscribe((response: any) => {
-        debugger;
-        this.result = response;
-        if (response) {
-          this.formDataService.setQuizDefinition(this.quizDefinition);
-          this.router.navigate(['/quiz-builder/create-quiz/Registration']);
-        } else {
-          alert('Not Saved.');
-        }
-      });
-
-
+    if (!this.iseditquestion) {
+      this.questionset.questionNo = this.currentQuestionNo;
+      if (this.questions.questions.filter(x => x.questionNo == this.currentQuestionNo).length > 0) {
+        let index = this.questions.questions.findIndex(x => x.questionNo == this.currentQuestionNo);
+        this.questions.questions[index] = this.questionset;
+      }
+      else {
+        this.questions.questions.push(this.questionset);
+      }
+    }
+    else {
+      if (this.questions.questions.filter(x => x.questionNo == this.questionset.questionNo).length > 0) {
+        let index = this.questions.questions.findIndex(x => x.questionNo == this.questionset.questionNo);
+        this.questions.questions[index] = this.questionset;
+        this.formDataService.setEditQuestion(false);
+        this.Publish();
+      }
+    }
+    this.questionset = new QuizSet();
+    this.ngOnInit();
+    if (this.quizDefinition.noOfQuestions < this.currentQuestionNo) {
+      this.disablePublish = false;
+      this.Publish();
+    }
   }
 
-  UpdateDate(value) {
-    if (value) {
-      this.endDate.setDate(value.getDate());
-    }
-  } 
+  Publish() {
+    this.questions.quizName = this.quizDefinition.quizName;
+    this.questions.quizType = this.quizDefinition.quizType;
+    if (this.quizDefinition.noOfQuestions < this.currentQuestionNo || this.iseditquestion) {
+      this._saveQuestion.SaveQuestion(this.questions)
+        .subscribe((result: any) => { this.result = result });
 
+      this.quizDefinition.stage = "SetQuestion";
+      this.quizDefinition.status = "Pending";
+      this._saveQuestion.SaveQuizData(this.quizDefinition)
+        .subscribe((result: any) => { this.result = result });
+
+      this.formDataService.setQuizQuestions(this.questions);
+      this.formDataService.setQuizDefinition(this.quizDefinition);
+      this.router.navigate(['/quiz-builder/create-quiz/publish-quiz']);
+    }
+    else {
+      alert('Please enter all questions. You entered' + this.currentQuestionNo + ' question so far.')
+    }
+  }
+
+  onFileSelected(event) {
+    debugger;
+    var extn = <File>event.target.files[0].name.split(".").pop();
+    const fd = new FormData();
+    let imgname = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + this.currentQuestionNo;
+    if (!isUndefined(extn)) {
+      imgname = imgname + "." + extn;
+    }
+    this.questionset.imageUrl = imgname;
+    fd.append("file", <File>event.target.files[0], imgname);
+    this._saveQuestion.UploadImage(fd)
+      .subscribe(res => {
+        this.isimagesaved = <boolean>res;
+      });
+  }
 }
