@@ -6,11 +6,16 @@
       </div>
       <div class="card-body">
         <form class="form-horizontal">
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Question Number</label>
-            <div class="col-md-9">
-              <p class="form-control-static">  <span class="badge badge-success">{{currentQuestionNo}}</span></p>
-            </div>
+          <!--<div class="form-group row">
+    <label class="col-md-3 col-form-label">Question Number</label>
+    <div class="col-md-9">
+      <p class="form-control-static">  <span class="badge badge-success">{{currentQuestionNo}}</span></p>
+    </div>
+  </div>-->
+          <div class="row col-lg-12">
+            <progressbar class="progress progress-success progress-animated" [max]="max" [value]="currentQuestionNo">
+              <span style="color:white; white-space:nowrap;">{{currentQuestionNo}} / {{max}}</span>
+            </progressbar>
           </div>
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="textarea-input">Enter Question Text</label>
@@ -34,7 +39,7 @@
             <div class="col-md-9 col-form-label">
               <div class="form-check form-check-inline mr-1" id="inline-radios">
                 <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio1"
-                       [(ngModel)]="imagepath" #imagepathtype="ngModel" value="upload" checked>
+                       [(ngModel)]="imagepath" #imagepathtype="ngModel" value="upload" checked="checked">
                 <label class="form-check-label" for="inlineRadio1">Upload Image</label>
               </div>
               <div class="form-check form-check-inline mr-1">

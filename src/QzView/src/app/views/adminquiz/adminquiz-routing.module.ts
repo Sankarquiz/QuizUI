@@ -32,7 +32,13 @@ const routes: Routes = [
           title: 'Create Quiz'
         }
       },
-
+      {
+        path: 'registration',
+        component: RegisterQuizComponent,
+        data: {
+          title: 'Create Quiz'
+        }
+      },
     ]
   }
 ];

@@ -1,96 +1,125 @@
-import { Component, OnInit, Pipe } from '@angular/core';
-import { Router } from '@angular/router';
-import { QuizDefinition } from '../../models/QuizDefinition';
+import { Component, OnInit, Output, EventEmitter, OnChanges, Input } from '@angular/core';
 import { FormDataService } from '../../models/formData.service';
-import { QuizDetailsService } from '../../services/service-getquizdetails';
-import { Observable } from 'rxjs';
-//import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { Router, ActivatedRoute } from '@angular/router';
+import { QuizDefinition, QuizQuestions, QuizSet } from '../../models/QuizDefinition';
 import { DatePipe } from '@angular/common';
+import { QuizDetailsService } from '../../services/service-getquizdetails';
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'app-publish-quiz',
   templateUrl: 'publish-quiz.component.html'
 })
 export class PublishQuizComponent implements OnInit {
+
+  selectedQuestionNumber: number = 1;
   quizDefinition: QuizDefinition;
-  form: any;
-  result: Observable<any>;
-  currentDate: Date;
-  endDate: Date;
+  questionsCount;
+  questions = new QuizQuestions();
+
+  @Input() questionNo: number;
+  totalquestions;
+  questionset = new QuizSet();
+  imageurl: any;
 
   totalItems: number = 64;
-  currentPage: number = 1;
-  smallnumPages: number = 0;
-
   maxSize: number = 10;
-  bigTotalItems: number = 675;
-  bigCurrentPage: number = 1;
-  numPages: number = 0;
-
-  currentPager: number = 1;
-
   max: number = 20;
-  showWarning: boolean;
-  dynamic: number =15;
-  type: string;
 
-  constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) {
-    this.currentDate = new Date();
-    this.endDate = new Date();
-    this.currentDate.setDate(this.currentDate.getDate());
+  //currentPage: number = 1;
+  //smallnumPages: number = 0; 
+  //bigTotalItems: number = 675;
+  //bigCurrentPage: number = 1;
+  //numPages: number = 0;
+  //currentPager: number = 1;  
+  //showWarning: boolean;
+  //dynamic: number =15;
+  //type: string;
+
+  constructor(private _getQuestion: QuizDetailsService,
+    private formDataService: FormDataService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) {
   }
-
   ngOnInit() {
-
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    if (this.quizDefinition.quizName == '') {
-      this.quizDefinition.shuffleQuestions = true;
-      this.quizDefinition.isQuizFromLargerPool = false;
-      this.quizDefinition.allowConcurrentAccess = true;
-      this.quizDefinition.isQuizAutoEvaluate = true;
-      this.quizDefinition.showScoreAfterAttempt = true;
-      this.quizDefinition.postScoreOnSocialMedia = true;
-      this.quizDefinition.quizDurationType = 'Hours';
-      this.quizDefinition.noOfParticipants = 1;
-      this.quizDefinition.participantType = 'Cross College';
-      this.quizDefinition.quizDomainHost = 'KnowledgeVyasa Domain';
-      this.quizDefinition.quizType = 'Treasure Hunt';
+    if (this.quizDefinition.noOfQuestions) {
+      this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestions.toString())).fill(1);
+    }
+    this.questions = this.formDataService.getQuizQuestions();
+
+
+    /////
+    if (this.questions) {
+
+      if (!this.questionNo) {
+        this.questionNo = 1;
+      }
+
+      this.questionset = this.questions.questions[this.questionNo - 1];
+      if (this.questionset.isImageneeded) {
+        if (this.questionset.imageUrl.startsWith('http')) {
+          this.imageurl = this.questionset.imageUrl
+        }
+        else {
+          this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
+        }
+      }
     }
   }
-  setPage(pageNo: number): void {
-    this.currentPage = pageNo;
-  }
 
-  pageChanged(event: any): void {
-    console.log('Page changed to: ' + event.page);
-    console.log('Number items per page: ' + event.itemsPerPage);
-  }
-
-  saveDefinequiz(form: any) {
-    if (this.quizDefinition.noOfQuestionsInPool <= this.quizDefinition.noOfQuestions && this.quizDefinition.isQuizFromLargerPool) {
-      alert('Question pool should be less than or equal to Question number..!');
-      return;
+  ngOnChanges() {
+    debugger;
+    if (this.questions && this.questionNo) {
+      this.questionset = this.questions.questions[this.questionNo - 1];
+      if (this.questionset.isImageneeded) {
+        if (this.questionset.imageUrl.startsWith('http')) {
+          this.imageurl = this.questionset.imageUrl
+        }
+        else {
+          this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
+        }
+      }
     }
-    this.quizDefinition.stage = 'Define';
-    this.quizDefinition.status = 'Pending';
-    this._saveQuizData.SaveQuizData(this.quizDefinition)
-      .subscribe((response: any) => {
-        debugger;
-        this.result = response;
-        if (response) {
-          this.formDataService.setQuizDefinition(this.quizDefinition);
-          this.router.navigate(['/quiz-builder/create-quiz/Registration']);
-        } else {
-          alert('Not Saved.');
+  }
+
+  Publish() {
+    this.quizDefinition.stage = 'Publish';
+    this.quizDefinition.status = 'Published';
+    debugger;
+    this._getQuestion.SaveQuizData(this.quizDefinition)
+      .subscribe((result: any) => {
+        if (result) {
+          alert('Published');
+          this.formDataService.Clear();
+          this.router.navigate(['/quiz-builder/view-previous-quiz']);
         }
       });
-
-
   }
 
-  UpdateDate(value) {
-    if (value) {
-      this.endDate.setDate(value.getDate());
+  UpdateQuestionNo(action) {
+    if (action) {
+      if (action == 'First' && this.questionNo > 1) {
+        this.questionNo = 1;
+        this.ngOnChanges();
+      }
+      if (action == 'Next' && this.questionNo < this.quizDefinition.noOfQuestions) {
+        this.questionNo++;
+        this.ngOnChanges();
+      }
+      if (action == 'Last') {
+        this.questionNo = this.quizDefinition.noOfQuestions;
+        this.ngOnChanges();
+      }
+      if (action == 'Prev' && this.questionNo > 1) {
+        this.questionNo--;
+        this.ngOnChanges();
+      }
+      if (action == 'Edit') {
+        this.formDataService.setQuestion(this.questionset);
+        this.formDataService.setEditQuestion(true);
+        this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
+      }
     }
-  } 
-
+  }
 }

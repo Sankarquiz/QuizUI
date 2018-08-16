@@ -54,13 +54,13 @@ export class DefineQuizComponent implements OnInit {
         this.result = response;
         if (response) {
           this.formDataService.setQuizDefinition(this.quizDefinition);
-          this.router.navigate(['/quiz-builder/create-quiz/Registration']);
+         // this.router.navigate(['/quiz-builder/create-quiz/Registration']);
         } else {
           alert('Not Saved.');
         }
       });
 
-
+    this.formDataService.setQuizDefinition(this.quizDefinition);
   }
 
   UpdateDate(value) {
@@ -68,5 +68,4 @@ export class DefineQuizComponent implements OnInit {
       this.endDate.setDate(value.getDate());
     }
   } 
-
 }

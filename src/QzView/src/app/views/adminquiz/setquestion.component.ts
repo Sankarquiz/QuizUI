@@ -23,6 +23,7 @@ export class SetQuestionComponent implements OnInit {
   iseditquestion: boolean = false;
   isimagesaved: boolean = true;
   imagepath: string;
+  max: number = 0;
   navs = ['Multiple Choice', 'Hangman', 'Free Text'];
 
   constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
@@ -32,6 +33,7 @@ export class SetQuestionComponent implements OnInit {
     this.iseditquestion = this.formDataService.getEditQuestion();
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
+    this.max = this.quizDefinition.noOfQuestions;
     this.imagepath = 'no';
     if (!this.iseditquestion) {
       this.questionset.answerType = 'Multiple Choice';
@@ -45,10 +47,7 @@ export class SetQuestionComponent implements OnInit {
   }
 
   SaveQuestion() {
-    debugger;
-    if (this.imagepath && this.imagepath != 'no') {
-      this.questionset.isImageneeded = true;
-    }
+
     if (!this.isimagesaved) {
       alert('Image not uploaded. Please upload again.')
       this.isimagesaved = true;
