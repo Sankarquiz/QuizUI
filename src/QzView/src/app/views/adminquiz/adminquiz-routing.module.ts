@@ -27,16 +27,51 @@ const routes: Routes = [
       },
       {
         path: 'createquiz', 
-        component: CreateQuizComponent, 
+        component: DefineQuizComponent, 
         data: {
           title: 'Create Quiz'
         }
       },
       {
-        path: 'registration',
+        path: 'definequiz',
+        component: DefineQuizComponent,
+        data: {
+          title: 'Define Quiz'
+        }
+      },
+      {
+        path: 'registerquiz',
         component: RegisterQuizComponent,
         data: {
-          title: 'Create Quiz'
+          title: 'Register Quiz'
+        }
+      },
+      {
+        path: 'setpagequiz',
+        component: SetPageQuizComponent,
+        data: {
+          title: 'Set Page Quiz'
+        }
+      },
+      {
+        path: 'setlogoquiz',
+        component: SetLogoGroupQuizComponent,
+        data: {
+          title: 'Set Logo Quiz'
+        }
+      },
+      {
+        path: 'setquestionquiz',
+        component: SetQuestionComponent,
+        data: {
+          title: 'Set Question Quiz'
+        }
+      },
+      {
+        path: 'publishquiz',
+        component: PublishQuizComponent,
+        data: {
+          title: 'Publish Quiz'
         }
       },
     ]

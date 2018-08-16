@@ -1,20 +1,34 @@
 <div class="animated fadeIn">
   <div class="col-lg-12">
+    <div class="btn-dark">
+      <div class="row align-items-center">
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/definequiz"> <button type="button" class="btn btn-block btn-dark">Define Quiz</button> </a>
+        </div>
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/registerquiz"><button type="button" class="btn btn-block btn-dark">Registration</button></a>
+        </div>
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/setpagequiz"> <button type="button" class="btn btn-block btn-primary active" aria-pressed="true">Set Pages</button></a>
+        </div>
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/setlogoquiz"><button type="button" class="btn btn-block btn-dark">Set Logo</button></a>
+        </div>
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/setquestionquiz"><button type="button" class="btn btn-block btn-dark">Set Question</button></a>
+        </div>
+        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+          <a routerLink="/adminquiz/publishquiz"> <button type="button" class="btn btn-block btn-dark">Publish</button></a>
+        </div>
+      </div>
+    </div>
     <div class="card">
       <div class="card-header">
-        <i class="fa fa-edit"></i>Set Pages Quiz
-        <div class="card-header-actions">
-          <a href="#" class="btn-setting"><i class="icon-settings"></i></a>
-          <button type="button" class="btn btn-minimize"
-                  (click)="toggleCollapse()">
-            <i class={{iconCollapse}}></i>
-          </button>
-          <a href="#" class="btn-close"><i class="icon-close"></i></a>
-        </div>
+        <i class="fa fa-edit"></i>Set Pages Quiz   
       </div>
       <div class="card-body">
         <form class="form-horizontal">
-         <div class="form-group row">
+          <div class="form-group row">
             <label class="col-md-3 col-form-label" for="textarea-input">
               Enter message to display when user logs in and tries to attempt quiz before start of Quiz Time.
             </label>
@@ -22,9 +36,10 @@
               <textarea id="message-before-quiz" name="message-before-quiz" rows="9" class="form-control" placeholder="Enter before display message..."
                         #messageBeforeQuizTime="ngModel" [(ngModel)]="quizDefinition.messageBeforeQuizTime"></textarea>
             </div>
-          </div>         
+          </div>
           <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="textarea-input">Enter message to display when user logs in and tries to attempt quiz after end of Quiz Time.
+            <label class="col-md-3 col-form-label" for="textarea-input">
+              Enter message to display when user logs in and tries to attempt quiz after end of Quiz Time.
             </label>
             <div class="col-md-9">
               <textarea id="message-after-quiz" name="message-after-quiz" rows="9" class="form-control" placeholder="Enter after display message..."
@@ -36,7 +51,7 @@
             <button type="button" class="btn btn-sm btn-danger" (click)="saveDefinequiz()">Next</button>
           </div>
         </form>
-        </div>
       </div>
+    </div>
   </div> <!--/.col-->
 </div>
