@@ -9,7 +9,12 @@ import { SetPageQuizComponent } from './setpagequiz.component';
 import { SetLogoQuizComponent } from './setlogoquiz.component';
 import { SetLogoGroupQuizComponent } from './setlogogroupquiz.component';
 import { SetQuestionComponent } from './setquestion.component';
+import { PublishQuizMainComponent } from './publish-quiz-main-content.component';
+import { PublishQuizComponent } from './publish-quiz.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+
 //import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -30,6 +35,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     TabsModule,
     FormsModule,
     ReactiveFormsModule,
+    PaginationModule.forRoot(),
     //OwlDateTimeModule,
     //OwlNativeDateTimeModule,
   ],
@@ -41,7 +47,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     SetPageQuizComponent,
     SetLogoQuizComponent,
     SetLogoGroupQuizComponent,
-    SetQuestionComponent
+    SetQuestionComponent,
+    PublishQuizMainComponent,
+    PublishQuizComponent   
   ],
   providers: [
     QuizDetailsService,
