@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-set-registration',
   templateUrl: 'registerquiz.component.html'
 })
-export class RegisterQuizComponent implements OnInit, OnChanges {
+export class RegisterQuizComponent implements OnInit {
 
   quizDefinition: QuizDefinition;
   result: Observable<any>;
@@ -20,7 +20,7 @@ export class RegisterQuizComponent implements OnInit, OnChanges {
     private router: Router) { }
  
   ngOnInit() {
-    debugger;
+ 
     this.quizDefinition = this.formDataService.getQuizDefinition();
 
     if (this.quizDefinition.stage == "Define") {
