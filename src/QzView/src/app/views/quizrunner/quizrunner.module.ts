@@ -8,7 +8,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 //import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { SHQuizRunnerComponent } from './shquizrunner.component';
-
+import { SHQuizFinisherComponent } from './shquiz-finisher.component'
 import { HttpClientModule } from '@angular/common/http';
 // AdminQuiz Routing
 import { QuizRunnerRoutingModule } from './quizrunner-routing.module';
@@ -35,6 +35,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
   ],
   declarations: [
     SHQuizRunnerComponent,
+    SHQuizFinisherComponent
   ],
   providers: [
     QuizDetailsService,

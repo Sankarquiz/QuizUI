@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SHQuizRunnerComponent } from './shquizrunner.component';
+import { SHQuizFinisherComponent } from './shquiz-finisher.component'
 
 const routes: Routes = [
   {
@@ -14,6 +15,13 @@ const routes: Routes = [
         component: SHQuizRunnerComponent,
         data: {
           title: 'View Quiz'
+        }
+      },
+      {
+        path: 'finishquiz',
+        component: SHQuizFinisherComponent,
+        data: {
+          title: 'Thank You'
         }
       }
     ]
