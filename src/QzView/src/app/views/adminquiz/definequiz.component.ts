@@ -54,7 +54,7 @@ export class DefineQuizComponent implements OnInit {
         this.result = response;
         if (response) {
           this.formDataService.setQuizDefinition(this.quizDefinition);
-         // this.router.navigate(['/quiz-builder/create-quiz/Registration']);
+          this.router.navigate(['/adminquiz/registerquiz']);
         } else {
           alert('Not Saved.');
         }

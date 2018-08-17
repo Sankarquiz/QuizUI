@@ -93,7 +93,7 @@ export class SetQuestionComponent implements OnInit {
 
       this.formDataService.setQuizQuestions(this.questions);
       this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.router.navigate(['/quiz-builder/create-quiz/publish-quiz']);
+      this.router.navigate(['/adminquiz/publishquiz']);
     }
     else {
       alert('Please enter all questions. You entered' + this.currentQuestionNo + ' question so far.')

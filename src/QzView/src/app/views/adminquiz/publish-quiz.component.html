@@ -29,13 +29,13 @@
 
       <div class="card-body">
         <div class="row col-lg-12">
-          <pagination [totalItems]="questionsCount" [(ngModel)]="selectedQuestionNumber" [maxSize]="maxSize"
+          <pagination [totalItems]="totalquestions" [(ngModel)]="selectedQuestionNumber" [maxSize]="maxSize"
                       class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
           </pagination>
         </div>
         <div class="row col-lg-12">
-          <progressbar class="progress progress-success progress-animated" [max]="max" [value]="dynamic">
-            <span style="color:white; white-space:nowrap;">{{selectedQuestionNumber}} / {{questionsCount}}</span>
+          <progressbar class="progress progress-success progress-animated" [max]="totalquestions" [value]="dynamic">
+            <span style="color:white; white-space:nowrap;">{{selectedQuestionNumber}} / {{totalquestions}}</span>
           </progressbar>
         </div>
         <div>

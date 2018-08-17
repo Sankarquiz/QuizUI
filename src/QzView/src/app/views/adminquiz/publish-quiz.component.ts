@@ -22,7 +22,7 @@ export class PublishQuizComponent implements OnInit {
   questionset = new QuizSet();
   imageurl: any;
 
-  totalItems: number = 64;
+  //totalItems: number = 64;
   maxSize: number = 10;
   max: number = 20;
 
@@ -45,6 +45,7 @@ export class PublishQuizComponent implements OnInit {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     if (this.quizDefinition.noOfQuestions) {
       this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestions.toString())).fill(1);
+      this.totalquestions = this.quizDefinition.noOfQuestions;
     }
     this.questions = this.formDataService.getQuizQuestions();
 
@@ -92,7 +93,7 @@ export class PublishQuizComponent implements OnInit {
         if (result) {
           alert('Published');
           this.formDataService.Clear();
-          this.router.navigate(['/quiz-builder/view-previous-quiz']);
+          this.router.navigate(['/adminquiz/viewquiz']);
         }
       });
   }
@@ -118,7 +119,7 @@ export class PublishQuizComponent implements OnInit {
       if (action == 'Edit') {
         this.formDataService.setQuestion(this.questionset);
         this.formDataService.setEditQuestion(true);
-        this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
+        this.router.navigate(['/adminquiz/setquestionquiz']);
       }
     }
   }

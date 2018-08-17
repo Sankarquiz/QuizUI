@@ -27,7 +27,7 @@ export class SetPageQuizComponent implements OnInit {
         this.result = result;
         if (result) {
           this.formDataService.setQuizDefinition(this.quizDefinition);
-          this.router.navigate(['/quiz-builder/create-quiz/set-logos-group']);
+          this.router.navigate(['/adminquiz/setlogoquiz']);
         } else {
           alert('Not Saved.');
         }
