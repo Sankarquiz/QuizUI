@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-set-definequiz',
-  templateUrl: 'definequiz.component.html'
+  templateUrl: 'definequiz.component.html',
+  styleUrls: ['./adminquiz.css'],
 })
 export class DefineQuizComponent implements OnInit {
   quizDefinition: QuizDefinition;
@@ -59,13 +60,11 @@ export class DefineQuizComponent implements OnInit {
           alert('Not Saved.');
         }
       });
-
-    this.formDataService.setQuizDefinition(this.quizDefinition);
   }
 
   UpdateDate(value) {
     if (value) {
       this.endDate.setDate(value.getDate());
     }
-  } 
+  }
 }

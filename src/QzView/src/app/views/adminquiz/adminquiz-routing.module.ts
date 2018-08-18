@@ -26,7 +26,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'createquiz', 
+        path: 'createquiz',
         component: DefineQuizComponent, 
         data: {
           title: 'Create Quiz'

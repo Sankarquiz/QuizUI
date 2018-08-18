@@ -1,31 +1,11 @@
 <div class="animated fadeIn">
   <div class="col-lg-12">
     <div class="btn-dark">
-      <div class="row align-items-center">
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/definequiz"> <button type="button" class="btn btn-block btn-dark">Define Quiz</button> </a>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/registerquiz"><button type="button" class="btn btn-block btn-primary active" aria-pressed="true">Registration</button></a>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/setpagequiz"> <button type="button" class="btn btn-block btn-dark">Set Pages</button></a>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/setlogoquiz"><button type="button" class="btn btn-block btn-dark">Set Logo</button></a>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/setquestionquiz"><button type="button" class="btn btn-block btn-dark">Set Question</button></a>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/publishquiz"> <button type="button" class="btn btn-block btn-dark">Publish</button></a>
-        </div>
-      </div>
+      <app-create-quiz></app-create-quiz>
     </div>
-
-    <div class="card">
+    <div class="card" *ngIf="quizDefinition.quizName">
       <div class="card-header">
-        <i class="fa fa-edit"></i>Register Quiz    
+        <i class="fa fa-edit"></i>Register Quiz
       </div>
       <div class="card-body">
         <form class="form-horizontal">
@@ -87,14 +67,13 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="textarea-input">Enter Rules and Regulations</label>
             <div class="col-md-9">
-              <textarea id="exampleFormControlTextarea1" name="rules" rows="9" class="form-control"
+              <textarea id="exampleFormControlTextarea1" name="rules" rows="8" class="form-control"
                         [(ngModel)]="quizDefinition.registrationFields.rulesAndRegulations" #rulesAndRegulations="ngModel"
                         placeholder="Enter Rules and Regulations.."></textarea>
             </div>
           </div>
           <div class="card-footer">
-            <button type="submit" class="btn btn-sm btn-primary" (click)="SaveRegistration()">Save</button>
-            <button type="button" class="btn btn-sm btn-danger" (click)="SaveRegistration()">Next</button>
+            <button type="submit" class="btn btn-sm btn-primary" (click)="SaveRegistration()">Save & Next</button> 
           </div>
         </form>
       </div>

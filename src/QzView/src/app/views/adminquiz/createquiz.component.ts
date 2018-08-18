@@ -3,6 +3,7 @@ import { RegisterQuizComponent } from './registerquiz.component';
 
 
 @Component({
+  selector: 'app-create-quiz',
   templateUrl: 'createquiz.component.html'
 })
 export class CreateQuizComponent {

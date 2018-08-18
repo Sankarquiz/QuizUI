@@ -1,54 +1,44 @@
 <div class="animated fadeIn">
-  <div class="col-lg-12">
-    <div class="mb-4">
-      <!-- Nav tabs -->
-      <div class="btn-dark">
-        <div class="row align-items-center">
-          <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-            <a routerLink="/adminquiz/definequiz">
-              <button type="button" class="btn btn-block btn-dark">Define Quiz</button>
-            </a>
-          </div>
-          <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-            <button type="button" class="btn btn-block btn-dark">Registration</button>
-          </div>
-          <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-            <button type="button" class="btn btn-block btn-dark">Set Pages</button>
-          </div>
-          <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-            <button type="button" class="btn btn-block btn-dark">Set Logo</button>
-          </div>
-          <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-            <button type="button" class="btn btn-block btn-dark">Set Question</button>
-          </div>
-          <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-            <button type="button" class="btn btn-block btn-dark">Publish</button>
-          </div>
-        </div>
-      </div>
-
-      <tabset>
-        <tab>
-          <ng-template tabHeading><i class="icon-calculator" style="padding-left:2px;"> Define Quiz</i></ng-template>
-          <app-set-definequiz></app-set-definequiz>
-        </tab>
-        <tab>
-          <ng-template tabHeading><i class="fa fa-tag"></i> Registration</ng-template>
-          <app-set-registration #myChild></app-set-registration>
-        </tab>
-        <tab>
-          <ng-template tabHeading><i class="icon-pie-chart"></i> Set Pages</ng-template>
-          <app-set-pages></app-set-pages>
-        </tab>
-        <tab>
-          <ng-template tabHeading><i class="fa fa-file-picture-o"> Set Logo</i> </ng-template>
-          <app-set-logogroup></app-set-logogroup>
-        </tab>
-        <tab>
-          <ng-template tabHeading><i class="fa fa-question-circle"></i> Set Question</ng-template>
-          <app-set-question></app-set-question>
-        </tab>
-      </tabset>
-    </div><!--/.col-->
-  </div><!--/.row-->
+  <div class="row align-items-center">
+    <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+      <a routerLink="/adminquiz/definequiz"> <button type="button" class="btn btn-block btn-primary">Define Quiz</button> </a>
+    </div>
+    <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+      <a routerLink="/adminquiz/registerquiz"><button type="button" class="btn btn-block btn-primary">Registration</button></a>
+    </div>
+    <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+      <a routerLink="/adminquiz/setpagequiz"> <button type="button" class="btn btn-block btn-primary">Set Pages</button></a>
+    </div>
+    <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+      <a routerLink="/adminquiz/setlogoquiz"><button type="button" class="btn btn-block btn-primary">Set Logo</button></a>
+    </div>
+    <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+      <a routerLink="/adminquiz/setquestionquiz"><button type="button" class="btn btn-block btn-primary">Set Question</button></a>
+    </div>
+    <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+      <a routerLink="/adminquiz/publishquiz"> <button type="button" class="btn btn-block btn-primary">Publish</button></a>
+    </div>
+  </div>
 </div>
+<!--<tabset>
+  <tab>
+    <ng-template tabHeading><i class="icon-calculator" style="padding-left:2px;"> Define Quiz</i></ng-template>
+    <app-set-definequiz></app-set-definequiz>
+  </tab>
+  <tab>
+    <ng-template tabHeading><i class="fa fa-tag"></i> Registration</ng-template>
+    <app-set-registration #myChild></app-set-registration>
+  </tab>
+  <tab>
+    <ng-template tabHeading><i class="icon-pie-chart"></i> Set Pages</ng-template>
+    <app-set-pages></app-set-pages>
+  </tab>
+  <tab>
+    <ng-template tabHeading><i class="fa fa-file-picture-o"> Set Logo</i> </ng-template>
+    <app-set-logogroup></app-set-logogroup>
+  </tab>
+  <tab>
+    <ng-template tabHeading><i class="fa fa-question-circle"></i> Set Question</ng-template>
+    <app-set-question></app-set-question>
+  </tab>
+</tabset>-->

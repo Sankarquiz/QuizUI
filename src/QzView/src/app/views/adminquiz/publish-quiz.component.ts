@@ -12,29 +12,13 @@ import { environment } from '../../../environments/environment';
 })
 export class PublishQuizComponent implements OnInit {
 
-  selectedQuestionNumber: number = 1;
   quizDefinition: QuizDefinition;
-  questionsCount;
   questions = new QuizQuestions();
 
-  @Input() questionNo: number;
+  questionNo: number = 1;
   totalquestions;
   questionset = new QuizSet();
   imageurl: any;
-
-  //totalItems: number = 64;
-  maxSize: number = 10;
-  max: number = 20;
-
-  //currentPage: number = 1;
-  //smallnumPages: number = 0; 
-  //bigTotalItems: number = 675;
-  //bigCurrentPage: number = 1;
-  //numPages: number = 0;
-  //currentPager: number = 1;  
-  //showWarning: boolean;
-  //dynamic: number =15;
-  //type: string;
 
   constructor(private _getQuestion: QuizDetailsService,
     private formDataService: FormDataService,
@@ -44,15 +28,11 @@ export class PublishQuizComponent implements OnInit {
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     if (this.quizDefinition.noOfQuestions) {
-      this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestions.toString())).fill(1);
       this.totalquestions = this.quizDefinition.noOfQuestions;
     }
     this.questions = this.formDataService.getQuizQuestions();
 
-
-    /////
     if (this.questions) {
-
       if (!this.questionNo) {
         this.questionNo = 1;
       }
@@ -122,5 +102,9 @@ export class PublishQuizComponent implements OnInit {
         this.router.navigate(['/adminquiz/setquestionquiz']);
       }
     }
+  }
+  pageChanged(event) {
+    this.questionNo = event.page;
+    this.ngOnChanges();
   }
 }

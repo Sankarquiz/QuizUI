@@ -1,30 +1,11 @@
 <div class="animated fadeIn">
   <div class="col-lg-12">
     <div class="btn-dark">
-      <div class="row align-items-center">
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/definequiz"> <button type="button" class="btn btn-block btn-dark">Define Quiz</button> </a>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/registerquiz"><button type="button" class="btn btn-block btn-dark">Registration</button></a>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/setpagequiz"> <button type="button" class="btn btn-block btn-primary active" aria-pressed="true">Set Pages</button></a>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/setlogoquiz"><button type="button" class="btn btn-block btn-dark">Set Logo</button></a>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/setquestionquiz"><button type="button" class="btn btn-block btn-dark">Set Question</button></a>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-          <a routerLink="/adminquiz/publishquiz"> <button type="button" class="btn btn-block btn-dark">Publish</button></a>
-        </div>
-      </div>
+      <app-create-quiz></app-create-quiz>
     </div>
-    <div class="card">
+    <div class="card" *ngIf="quizDefinition.quizName">
       <div class="card-header">
-        <i class="fa fa-edit"></i>Set Pages Quiz   
+        <i class="fa fa-edit"></i>Set Pages Quiz
       </div>
       <div class="card-body">
         <form class="form-horizontal">
@@ -33,7 +14,7 @@
               Enter message to display when user logs in and tries to attempt quiz before start of Quiz Time.
             </label>
             <div class="col-md-9">
-              <textarea id="message-before-quiz" name="message-before-quiz" rows="9" class="form-control" placeholder="Enter before display message..."
+              <textarea id="message-before-quiz" name="message-before-quiz" rows="4" class="form-control" placeholder="Enter before display message..."
                         #messageBeforeQuizTime="ngModel" [(ngModel)]="quizDefinition.messageBeforeQuizTime"></textarea>
             </div>
           </div>
@@ -42,13 +23,12 @@
               Enter message to display when user logs in and tries to attempt quiz after end of Quiz Time.
             </label>
             <div class="col-md-9">
-              <textarea id="message-after-quiz" name="message-after-quiz" rows="9" class="form-control" placeholder="Enter after display message..."
+              <textarea id="message-after-quiz" name="message-after-quiz" rows="4" class="form-control" placeholder="Enter after display message..."
                         #messageAfterQuizTime="ngModel" [(ngModel)]="quizDefinition.messageAfterQuizTime"></textarea>
             </div>
           </div>
           <div class="card-footer">
-            <button type="submit" class="btn btn-sm btn-primary" (click)="saveDefinequiz()">Save</button>
-            <button type="button" class="btn btn-sm btn-danger" (click)="saveDefinequiz()">Next</button>
+            <button type="submit" class="btn btn-sm btn-primary" (click)="saveDefinequiz()">Save & Next</button>
           </div>
         </form>
       </div>

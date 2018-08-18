@@ -56,6 +56,11 @@ export class QuizDetailsService {
     return this._http.get(uri, this.httpOptions);
   }
 
+  GetQuizResult(quizName: string, quizType: string, teamName: string) {
+    let uri = environment.getquizresult + "?quizName=" + quizName + "&quizType=" + quizType + "&teamName=" + teamName;
+    return this._http.get(uri, this.httpOptions);
+  }
+
   SaveQuizRunner(quizResult: any) {
     return this._http.post(environment.savequizrunner, JSON.stringify(quizResult), this.httpOptions);
   }
