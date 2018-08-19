@@ -1,25 +1,32 @@
-<div class="animated fadeIn">
-
+<div class="animated fadeIn" *ngIf="questionset && questionset.questionText">
   <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
           <i class="fa fa-quora"></i>Quiz Program name
-          <div class="card-header-actions">           
-            <i class="fa fa-hourglass-start"> 6:00:00 </i>
+          <div class="card-header-actions">
+            <!--<i class="fa fa-hourglass-start"> 6:00:00 </i>-->
+            <p>Time Left: <span style="color:red">{{timeLeftMinutes}}:{{timeLeftSeconds}}</span></p>
+
           </div>
         </div>
         <div class="card-body">
           <div class="card-body">
             <div class="row col-lg-12 align-items-center">
+              <ul class="question-links">
+                <li *ngFor="let number of questionsCount let i=index" [ngClass]="{'active': questionNo-1 == i}"
+                    [class.answered]="isanswered.includes(i)">
+                  <input type="checkbox" [disabled]="true" ng-checked="all" [checked]="isanswered.includes(i)">
+                  <button [disabled]="quizDefinition.quizType=='Treasure Hunt'"
+                          (click)="AssignQuestionNumber(i+1)">
+                    {{i+1}}
+                  </button>
+                </li>
+              </ul>
               <!--<pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm"
-                    previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
-
-        </pagination>-->
-
+                          previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
+              </pagination>-->
             </div>
-            
-
             <form class="form-horizontal">
               <div class="card-body" *ngIf="questionset.questionText">
                 <div class="form-group row">
@@ -58,6 +65,18 @@
                     </label>
                   </div>
                 </div>
+
+                <div *ngIf="questionset.answerType !='Multiple Choice'" class="form-group">
+                  <label for="name" class="form-group">Answer</label>
+                  <input  required type="text" class="form-control" name="answer" #userAnswer="ngModel"
+                         [(ngModel)]="quizresultdetails.userAnswer" id="name" value="">
+                  <!--<input *ngIf="questionset.answerType !='Hangman'" required type="text" class="form-control" name="answer" #userAnswer="ngModel"
+         [(ngModel)]="quizresultdetails.userAnswer" id="name" value="">
+  <input class="mask-text" *ngIf="questionset.answerType =='Hangman'" name="mask"
+         [(ngModel)]="quizresultdetails.userAnswer" autofocus
+         [textMask]="{mask: mask}"
+         #userAnswer="ngModel" type="text" />-->
+                </div>
               </div>
             </form>
 
@@ -65,11 +84,25 @@
         </div>
 
         <div class="card-footer">
-          <button type="button" class="btn btn-sm btn-success">First</button>
-          <button type="button" class="btn btn-sm btn-success">Preview</button>
-          <button type="button" class="btn btn-sm btn-success">Next</button>
-          <button type="button" class="btn btn-sm btn-success">Last</button>
-          <button type="button" class="btn btn-sm btn-danger">Save</button>
+          <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-sm btn-success"
+                  (click)="UpdateQuestionNo('First')">
+            First
+          </button>
+          <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && questionNo>1"
+                  class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Prev')">
+            Prev
+          </button>
+          <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && totalquestions!=questionNo"
+                  class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Next')">
+            Next
+          </button>
+          <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-sm btn-success"
+                  (click)="UpdateQuestionNo('Last')">
+            Last
+          </button>
+          <button type="button" class="btn btn-sm btn-danger" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
+            Save Answer
+          </button>
         </div>
       </div>
     </div>

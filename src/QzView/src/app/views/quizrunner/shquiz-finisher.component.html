@@ -1,36 +1,21 @@
 <div class="animated fadeIn">
-
   <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
           <i class="fa fa-quora"></i> Quiz Name - Completed Successfully.
         </div>
-        <div class="card-body">
-
+        <div class="card-body" *ngIf="quizDefinition && quizDefinition.isQuizAutoEvaluate">
           <form class="form-horizontal">
             <h5 class="bline"> Score </h5>
-
             <div class="bd-example">
               <h3> Thank you </h3>
-              <h5> Your Score</h5>
+              <h5> Your Score : {{score}}</h5>
             </div>
-            <div class="row col-lg-12 align-items-center">
-              <!--<pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm"
-    previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
-
-         </pagination>-->
-
-            </div>
-
-
           </form>
-
-
         </div>
-
-        <div class="card-footer">          
-          <button type="button" class="btn btn-sm btn-success">Close</button>         
+        <div class="card-footer">
+          <button type="button" class="btn btn-sm btn-success" (click)="Gottohome()">Close</button>
         </div>
       </div>
     </div>
