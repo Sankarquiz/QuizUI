@@ -10,7 +10,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 // Import containers
@@ -57,7 +57,8 @@ import { QuizDetailsService } from './services/service-getquizdetails';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    FormsModule
   ],
   declarations: [
     AppComponent,
