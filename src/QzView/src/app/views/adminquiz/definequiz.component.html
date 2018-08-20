@@ -10,13 +10,14 @@
       </div>
       <div class="card-body">
         <form class="form-horizontal" #definethequiz="ngForm">
-          <div class="form-group row" [class.has-error]="quizName.invalid && quizName.touched" [class.success]="quizName.valid">
+
+          <div class="form-group row">
             <label class="col-md-3 col-form-label" for="email-input">Quiz Name</label>
             <div class="col-md-9">
               <input type="text" class="form-control" name="quiz-name"
                      [(ngModel)]="quizDefinition.quizName" #quizName="ngModel"
-                     id="name" placeholder="Enter Quiz Name">
-              <span class="help-block" *ngIf="quizName.invalid && quizName.touched">Please enter your quiz name</span>
+                     id="name" placeholder="Enter Quiz Name" required>
+              <span class="help-block"></span>
             </div>
           </div>
           <div class="form-group row">
@@ -43,7 +44,7 @@
             <div class="col-md-9">
               <input required type="number" class="form-control" name="number-of-question"
                      placeholder="Enter No of Questions" [(ngModel)]="quizDefinition.noOfQuestions" #noOfQuestions="ngModel">
-              <span class="help-block">Please enter total numer of quiz questions</span>
+              <span class="help-block"></span>
             </div>
           </div>
           <div class="form-group row">
@@ -83,21 +84,21 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="hash-of-questions">Start Time for Quiz </label>
             <div class="col-md-9">
-              <input required type="text" class="form-control" id="start-duration" [min]="currentDate"
+              <input required type="text" class="form-control" id="start-duration" [min]="currentDate" placeholder="Please select quiz end time"
                      [owlDateTimeTrigger]="quizStartTime" [owlDateTime]="quizStartTime" name="quiz-start-date"
                      [(ngModel)]="quizDefinition.quizStartTime" #quizStartTime="ngModel" (ngModelChange)="UpdateDate($event)" readonly>
               <owl-date-time #quizStartTime></owl-date-time>
-              <span class="help-block">Please enter start date time of quiz</span>
+              <span class="help-block"></span>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="hash-of-questions">End Time for Quiz </label>
             <div class="col-md-9">
-              <input required type="text" class="form-control" id="end-duration" [min]="endDate"
+              <input required type="text" class="form-control" id="end-duration" [min]="endDate" placeholder="Please select quiz end time"
                      [owlDateTimeTrigger]="quizEndTime" [owlDateTime]="quizEndTime" name="quiz-end-date"
                      [(ngModel)]="quizDefinition.quizEndTime" #quizEndTime="ngModel" readonly>
               <owl-date-time #quizEndTime></owl-date-time>
-              <span class="help-block">Please enter end date time of quiz</span>
+              <span class="help-block"></span>
             </div>
           </div>
           <div class="form-group row">
