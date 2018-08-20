@@ -5,12 +5,13 @@
         <app-create-quiz></app-create-quiz>
       </div>
     </div>
-    <div class="card" *ngIf="quizDefinition.quizName">
+    <div class="card">
+      <!--*ngIf="quizDefinition.quizName">-->
       <div class="card-header">
         <i class="fa fa-edit"></i>Set Question
       </div>
       <div class="card-body">
-        <form class="form-horizontal">
+        <form class="form-horizontal" #setquestion="ngForm">
           <div class="row col-lg-12">
             <div class="card-body">
               <progressbar class="progress progress-success progress-animated" [max]="max" [value]="currentQuestionNo">
@@ -21,7 +22,7 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="textarea-input">Enter Question Text</label>
             <div class="col-md-9">
-              <textarea id="questiontext" name="questiontext" rows="4" class="form-control"
+              <textarea required id="questiontext" name="questiontext" rows="4" class="form-control"
                         [(ngModel)]="questionset.questionText" #questionText="ngModel">
                         placeholder="Enter the question.."></textarea>
             </div>
@@ -30,7 +31,7 @@
             <label class="col-md-3 col-form-label" for="textarea-input">Is Image Needed</label>
             <div class="col-md-9">
               <label class="switch switch-label switch-pill switch-success">
-                <input type="checkbox" name="phone" class="switch-input" [(ngModel)]="questionset.isImageneeded" #isImageneeded="ngModel" checked>
+                <input type="checkbox" name="phone" class="switch-input" [(ngModel)]="questionset.isImageneeded" #isImageneeded="ngModel">
                 <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
               </label>
             </div>
@@ -38,32 +39,34 @@
           <div class="form-group row" *ngIf="questionset.isImageneeded">
             <label class="col-md-3 col-form-label" for="inline-radios">Source of Image</label>
             <div class="col-md-9 col-form-label">
-              <div class="form-check form-check-inline mr-1" id="inline-radios">
-                <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio1"
-                       [(ngModel)]="imagepath" #imagepathtype="ngModel" value="upload" checked="checked">
-                <label class="form-check-label" for="inlineRadio1">Upload Image</label>
+              <div class="form-check">
+                <input required class="form-check-input" type="radio" name="radios" id="radio1"
+                       [(ngModel)]="imagepath" #imagepathtype="ngModel" value="upload" checked>
+                <label class="form-check-label" for="radio1">Upload Image</label>
               </div>
-              <div class="form-check form-check-inline mr-1">
-                <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio2"
+              <div class="form-check">
+                <input required class="form-check-input" type="radio" name="radios" id="radio2"
                        [(ngModel)]="imagepath" #imagepathtype="ngModel" value="enter">
-                <label class="form-check-label" for="inlineRadio2">URL Link</label>
+                <label class="form-check-label" for="radio2">URL Link</label>
               </div>
             </div>
           </div>
-          <div class="form-group row" *ngIf="imagepath==='enter'">
+
+          <div class="form-group row" *ngIf="questionset.isImageneeded && imagepath==='enter'">
             <label class="col-md-3 col-form-label" for="text-input">Enter Image Link</label>
             <div class="col-md-9">
-              <input type="text" id="imagepath" name="imagepath" class="form-control" placeholder="Enter the URL Link"
+              <input required type="text" id="imagepath" name="imagepath" class="form-control" placeholder="Enter the URL Link"
                      #ImageUrl="ngModel" [(ngModel)]="questionset.imageUrl">
             </div>
           </div>
-          <div class="form-group row" *ngIf="imagepath==='upload'">
+          <div class="form-group row" *ngIf="questionset.isImageneeded && imagepath==='upload'">
             <label class="col-md-3 col-form-label" for="file-input">Upload Image</label>
             <div class="col-md-9">
-              <input type="file" id="uploadimage" name="uploadimage" [(ngModel)]="questionset.imageUrl"
+              <input required type="file" id="uploadimage" name="uploadimage" [(ngModel)]="questionset.imageUrl"
                      (change)="onFileSelected($event)" #ImageUrl="ngModel">
             </div>
           </div>
+
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="answer-type">Answer Type</label>
             <div class="col-md-9">
@@ -76,14 +79,14 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Answer</label>
             <div class="col-md-9">
-              <input type="text" name="answer" id="answer" class="form-control" placeholder="Enter the answer"
+              <input required type="text" name="answer" id="answer" class="form-control" placeholder="Enter the answer"
                      [(ngModel)]="questionset.answer" #answer="ngModel">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Points for Correct Answer</label>
             <div class="col-md-9">
-              <input type="number" name="score" id="score" class="form-control" placeholder="Enter the point"
+              <input required type="number" name="score" id="score" class="form-control" placeholder="Enter the point"
                      [(ngModel)]="questionset.score" #score="ngModel">
             </div>
           </div>
@@ -91,7 +94,8 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="text-input">Option 1</label>
               <div class="col-md-9">
-                <input type="text" name="option1" id="option1" class="form-control" placeholder="Enter the answer for option 1"
+                <input type="text" name="option1" id="option1" class="form-control"
+                       placeholder="Enter the answer for option 1"
                        required [(ngModel)]="questionset.option1" #option1="ngModel">
               </div>
             </div>
@@ -106,20 +110,26 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="text-input">Option 3</label>
               <div class="col-md-9">
-                <input type="text" name="option3" id="option3" class="form-control" placeholder="Enter the answer for option 3"
-                       [(ngModel)]="questionset.option3" #option3="ngModel">
+                <input type="text" name="option3" id="option3" class="form-control"
+                       placeholder="Enter the answer for option 3"
+                       required [(ngModel)]="questionset.option3" #option3="ngModel">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="text-input">Option 4</label>
               <div class="col-md-9">
-                <input type="text" name="option4" id="option4" class="form-control" placeholder="Enter the answer for option 4"
-                       [(ngModel)]="questionset.option4" #option4="ngModel">
+                <input type="text" name="option4" id="option4" class="form-control"
+                       placeholder="Enter the answer for option 4"
+                       required [(ngModel)]="questionset.option4" #option4="ngModel">
               </div>
             </div>
           </div>
           <div class="card-footer">
-            <button type="submit" class="btn btn-sm btn-primary" *ngIf="disablePublish==true" (click)="SaveQuestion()">Save & Next </button>
+            <button type="submit" class="btn btn-sm btn-primary"
+                    [class.dont-submit]="setquestion.invalid" [disabled]="setquestion.invalid"
+                    *ngIf="disablePublish==true" (click)="SaveQuestion()">
+              Save & Next
+            </button>
           </div>
         </form>
       </div>
