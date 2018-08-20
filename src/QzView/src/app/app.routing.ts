@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
-import { DefaultLayoutComponent, QuizLayoutComponent } from './containers';
+import {
+  DefaultLayoutComponent,
+  QuizLayoutComponent,
+  SimpleLayoutComponent
+} from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
@@ -45,7 +49,7 @@ export const routes: Routes = [
   },
   {
     path: "home",
-    component: QuizLayoutComponent,
+    component: SimpleLayoutComponent,
     data: {
       title: "Home"
     },
