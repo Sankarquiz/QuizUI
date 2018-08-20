@@ -5,7 +5,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './simple-layout.component.html'
 })
 export class SimpleLayoutComponent {
- constructor() {
-     
-  }
+ 
 }
