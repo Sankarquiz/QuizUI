@@ -4,146 +4,41 @@
       <table class="table table-responsive-sm table-hover table-outline mb-0">
         <thead class="thead-light">
           <tr>
-            <th class="text-center"><i class="icon-people"></i></th>
+            <th class="text-center d-md-down-none"><i class="icon-people"></i></th>
             <th>Quiz Program</th>
             <th class="text-center">Start Date</th>
-            <th>Group</th>
+            <th class="d-md-down-none">Group</th>
             <th class="text-center">End Date</th>
-            <th>Status</th>
+            <th class="d-md-down-none">Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="text-center">
+          <tr *ngFor="let detail of quizdefinition  let i=index">
+            <td class="text-center d-md-down-none">
               <div class="">
                 <img src="assets/img/quiz/quiz.jpg" class="" alt="admin@bootstrapmaster.com">
                 <span class="avatar-status badge-success"></span>
               </div>
             </td>
             <td>
-              <div>Cricket Quiz</div>
+              <div>  {{detail.quizName}}</div>
               <div class="small text-muted">
-                <span>New</span> | Sports
+                {{detail.quizType}}
               </div>
             </td>
             <td class="text-center">
-               <i class="text-cente">Jun 11, 2015</i> 
-            </td>
-            <td>
-               <i class="text-cente">Group Quiz</i> 
-            </td>
-            <td class="text-center">
-               <i class="text-cente">Jun 11, 2015</i> 
-            </td>
-            <td>
-                <i class="text-cente">1 day to start</i> 
-            </td>
-          </tr>
-          <tr>
-            <td class="text-center">
-              <div class="">
-                <img src="assets/img/quiz/quiz.jpg" class="" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </td>
-            <td>
-              <div>Cricket Quiz</div>
-              <div class="small text-muted">
-                <span>New</span> | Sports
-              </div>
-            </td>
-            <td class="text-center">
-               <i class="text-cente">Jun 11, 2015</i>
-            </td>
-            <td>
-             <i class="text-cente">Group Quiz</i>
-            </td>
-            <td class="text-center">
-             <i class="text-cente">Jun 11, 2015</i>
-            </td>
-            <td>
-              <i class="text-cente">1 day to start</i>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-center">
-              <div class="">
-                <img src="assets/img/quiz/quiz.jpg" class="" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </td>
-            <td>
-              <div>Cricket Quiz</div>
-              <div class="small text-muted">
-                <span>New</span> | Sports
-              </div>
-            </td>
-            <td class="text-center">
-               <i class="text-cente">Jun 11, 2015</i>  
-            </td>
-            <td>
-               <i class="text-cente">Group Quiz</i> 
-            </td>
-            <td class="text-center">
-                 <i class="text-cente">Jun 11, 2015</i> 
-            </td>
-            <td>
-                <i class="text-cente">1 day to start</i> 
-            </td>
-          </tr>
-          <tr>
-            <td class="text-center">
-              <div class="">
-                <img src="assets/img/quiz/quiz.jpg" class="" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </td>
-            <td>
-              <div>Cricket Quiz</div>
-              <div class="small text-muted">
-                <span>New</span> | Sports
-              </div>
-            </td>
-            <td class="text-center">
-                <i class="text-cente">Jun 11, 2015</i> 
-            </td>
-            <td>
-                <i class="text-cente">Group Quiz</i> 
-            </td>
-            <td class="text-center">
-                 <i class="text-cente">Jun 11, 2015</i> 
-            </td>
-            <td>
-                <i class="text-cente">1 day to start</i> 
-            </td>
-          </tr>
-          <tr>
-            <td class="text-center">
-              <div class="nav-link-danger">
-                <img src="assets/img/quiz/quiz.jpg" class="" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </td>
-            <td>
-              <div>Cricket Quiz</div>
-              <div class="small text-muted">
-                <span>New</span> | Sports
-              </div>
-            </td>
-            <td class="text-center">
-                <i class="text-cente">Jun 11, 2015</i> 
-            </td>
-            <td>
-                <i class="text-cente d-md-down-none">Group Quiz</i> 
-            </td>
-            <td class="text-center">
-               <i class="text-cente">Jun 11, 2015</i> 
+              <i class="text-center">{{detail.quizStartTime}}</i>
             </td>
             <td class="d-md-down-none">
-               <i class="text-cente">1 day to start</i> 
+              <i class="text-center">Group Quiz</i>
+            </td>
+            <td class="text-center">
+              <i class="text-center">{{detail.quizEndTime}}</i>
+            </td>
+            <td class="d-md-down-none">
+              <i class="text-center">2 Days To Go</i>
             </td>
           </tr>
-
         </tbody>
       </table>
     </div>
