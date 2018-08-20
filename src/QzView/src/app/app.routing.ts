@@ -44,6 +44,19 @@ export const routes: Routes = [
     }
   },
   {
+    path: "home",
+    component: QuizLayoutComponent,
+    data: {
+      title: "Home"
+    },
+    children: [
+      {
+        path: 'dash',
+        loadChildren: './views/home/quizhome.module#QuizHomeModule'
+      }
+    ]
+  },
+  {
     path: "quiz",
     component: QuizLayoutComponent,
     data: {

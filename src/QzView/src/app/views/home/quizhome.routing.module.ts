@@ -7,10 +7,10 @@ import { HomeIndexComponent } from './index.component';
 
 const routes: Routes = [
   {
-    path: 'index',
+    path: 'default',
     component: HomeIndexComponent,
     data: {
-      title: 'Home'
+      title: 'default'
     }
   }
 ];
