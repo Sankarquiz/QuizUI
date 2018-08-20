@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
@@ -46,6 +47,7 @@ import { QuizDetailsService } from './services/service-getquizdetails';
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     AppAsideModule,
     AppBreadcrumbModule.forRoot(),
@@ -68,8 +70,8 @@ import { QuizDetailsService } from './services/service-getquizdetails';
   providers: [
     QuizDetailsService,
     {
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
     }
   ],
   bootstrap: [AppComponent]

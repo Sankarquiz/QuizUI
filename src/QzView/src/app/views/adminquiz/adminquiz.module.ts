@@ -16,7 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
-//import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { HttpClientModule } from '@angular/common/http';
 // AdminQuiz Routing
@@ -38,8 +38,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     ReactiveFormsModule,
     PaginationModule.forRoot(),
     ProgressbarModule.forRoot(),
-    //OwlDateTimeModule,
-    //OwlNativeDateTimeModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   declarations: [
     ViewQuizComponent,
