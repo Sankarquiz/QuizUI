@@ -16,7 +16,7 @@ import { RegisterComponent } from './views/register/register.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
@@ -55,14 +55,14 @@ export const routes: Routes = [
     }
   },
   {
-    path: "home",
+    path: "",
     component: SimpleLayoutComponent,
     data: {
       title: "Home"
     },
     children: [
       {
-        path: 'dash',
+        path: 'home',
         loadChildren: './views/home/quizhome.module#QuizHomeModule'
       }
     ]
@@ -81,7 +81,7 @@ export const routes: Routes = [
       ]
   },
   {
-    path: '',
+    path: 'dash',
     component: DefaultLayoutComponent,
     data: {
       title: 'Home'
