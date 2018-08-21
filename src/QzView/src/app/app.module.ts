@@ -20,7 +20,6 @@ import { SimpleLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
-import { RegisterComponent } from './views/register/register.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 const APP_CONTAINERS = [
@@ -68,7 +67,6 @@ import { QuizDetailsService } from './services/service-getquizdetails';
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
-    RegisterComponent
   ],
   providers: [
     QuizDetailsService,
