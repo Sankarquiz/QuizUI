@@ -35,10 +35,17 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    component: SimpleLayoutComponent,
     data: {
       title: 'Login Page'
-    }
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/login/login.module#LoginModule'
+      }
+    ]
+
   },
   {
     path: 'register',

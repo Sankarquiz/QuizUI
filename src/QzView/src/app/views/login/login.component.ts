@@ -14,27 +14,27 @@ export class LoginComponent {
   password: string;
   result: Observable<any>;
   userDetails = new UserRegistration();
-  constructor(private _register: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
+  //constructor(private _register: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
 
   ngOnInit() {
     this.username = '';
     this.password = '';
   }
   Login() {
-    debugger;
-    if (this.username && this.password) {
-      this._register.Login(this.username, this.password)
-        .subscribe((response: any) => {
-          this.result = response;
-          if (response) {
-            this.userDetails.teamName = this.username;
-            this.userDetails.role = response[0].role;
-            this.formDataService.setUserData(this.userDetails);
-            this.router.navigate(['/quizadds']);
-          } else {
-            alert('Not Saved.');
-          }
-        });
-    }
+  //  debugger;
+  //  if (this.username && this.password) {
+  //    this._register.Login(this.username, this.password)
+  //      .subscribe((response: any) => {
+  //        this.result = response;
+  //        if (response) {
+  //          this.userDetails.teamName = this.username;
+  //          this.userDetails.role = response[0].role;
+  //          this.formDataService.setUserData(this.userDetails);
+  //          this.router.navigate(['/quizadds']);
+  //        } else {
+  //          alert('Not Saved.');
+  //        }
+  //      });
+  //  }
   }
 }
