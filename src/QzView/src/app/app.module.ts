@@ -22,6 +22,7 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 const APP_CONTAINERS = [
   DefaultLayoutComponent,
@@ -60,7 +61,8 @@ import { QuizDetailsService } from './services/service-getquizdetails';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    FormsModule
+    FormsModule,
+    TooltipModule.forRoot()
   ],
   declarations: [
     AppComponent,
