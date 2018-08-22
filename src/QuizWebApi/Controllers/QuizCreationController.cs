@@ -97,7 +97,7 @@ namespace QuizWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetActiveQuizDetails()
         {
-            var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}"" and status=""{2}"" and quizStartTime <=CLOCK_LOCAL() and quizEndTime > CLOCK_LOCAL()", CouchbaseHelper.Bucket, "Define", "Published");
+            var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}"" and status=""{2}"" and quizEndTime > CLOCK_LOCAL()", CouchbaseHelper.Bucket, "Define", "Published");
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
             if (result?.Count > 0)

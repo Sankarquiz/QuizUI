@@ -110,6 +110,7 @@ export class QuizDefinition {
   postScoreOnSocialMedia: boolean;
   status: string;
   stage: string;
+  daysLeft: string;
   messageBeforeQuizTime: string;
   messageAfterQuizTime: string;
   registrationFields = new RegistrationFields();

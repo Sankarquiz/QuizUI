@@ -20,6 +20,12 @@ export class QuizPublishedComponent implements OnInit {
     this._getquizdetails.GetActiveQuizData()
       .subscribe((result: any) => {
         this.quizdefinition = result;
+        for (let item of this.quizdefinition) {
+          item.daysLeft = (new Date(item.quizStartTime).getDate() - new Date().getDate() == 0) ? 'Closes Today' :
+            (new Date(item.quizStartTime).getDate() - new Date().getDate() > 0) ?
+              new Date(item.quizStartTime).getDate() - new Date().getDate() + ' Days To Start' :
+              new Date(item.quizEndTime).getDate() - new Date().getDate() + ' Days To Close';
+        }
       });
     this.userdetails = this.formDataService.getUserData();
   }
