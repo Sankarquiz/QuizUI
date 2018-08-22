@@ -112,6 +112,27 @@
                       </div>
                     </div>
                   </form>
+                  <div class="card-footer">
+                    <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-sm btn-success"
+                            (click)="UpdateQuestionNo('First')">
+                      First
+                    </button>
+                    <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && questionNo>1"
+                            class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Prev')">
+                      Prev
+                    </button>
+                    <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && totalquestions!=questionNo"
+                            class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Next')">
+                      Next
+                    </button>
+                    <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-sm btn-success"
+                            (click)="UpdateQuestionNo('Last')">
+                      Last
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
+                      Save Answer
+                    </button>
+                  </div>
                 </div>
               </div>
             </div><!--/.col-->
@@ -142,28 +163,6 @@
               </div>
             </div><!--/.col-->
           </div><!--/.row-->
-        </div>
-
-        <div class="card-footer">
-          <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-sm btn-success"
-                  (click)="UpdateQuestionNo('First')">
-            First
-          </button>
-          <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && questionNo>1"
-                  class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Prev')">
-            Prev
-          </button>
-          <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && totalquestions!=questionNo"
-                  class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Next')">
-            Next
-          </button>
-          <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-sm btn-success"
-                  (click)="UpdateQuestionNo('Last')">
-            Last
-          </button>
-          <button type="button" class="btn btn-sm btn-danger" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
-            Save Answer
-          </button>
         </div>
       </div>
     </div>

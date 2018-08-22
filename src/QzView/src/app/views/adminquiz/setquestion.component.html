@@ -5,7 +5,7 @@
         <app-create-quiz></app-create-quiz>
       </div>
     </div>
-    <div class="card" *ngIf="quizDefinition.quizName">      
+    <div class="card" *ngIf="quizDefinition.quizName">
       <div class="card-header">
         <i class="fa fa-edit"></i>Set Question
       </div>
@@ -86,7 +86,7 @@
             <label class="col-md-3 col-form-label" for="text-input">Points for Correct Answer</label>
             <div class="col-md-9">
               <input required type="number" name="score" id="score" class="form-control" placeholder="Enter the point"
-                     [(ngModel)]="questionset.score" #score="ngModel">
+                     min="1" [(ngModel)]="questionset.score" #score="ngModel">
             </div>
           </div>
           <div class="card-body" *ngIf="questionset.answerType ==='Multiple Choice'">

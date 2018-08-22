@@ -3,7 +3,7 @@ import { QuizDefinition, QuizQuestions, QuizSet } from '../../models/QuizDefinit
 import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
-import { Observable } from 'rxjs'; 
+import { Observable } from 'rxjs';
 import { QuizResult, QuizResultDetails } from '../../models/QuizRunner';
 @Component({
   selector: 'app-set-registration',
@@ -17,9 +17,9 @@ export class SHQuizRunnerComponent implements OnInit {
   questions: QuizQuestions;
   result: any;
   isanswered = new Array<number>();
-    
+
   totalquestions;
-  questionset = new QuizSet(); 
+  questionset = new QuizSet();
   quizresult = new QuizResult();
   quizresultdetails = new QuizResultDetails();
   timeLeftSeconds: number = 59;
@@ -112,7 +112,7 @@ export class SHQuizRunnerComponent implements OnInit {
     if (this.questions) {
       this.quizresultdetails = new QuizResultDetails();
       this.questionset = this.questions.questions[this.questionNo - 1];
-      this.UpdateMask(); 
+      this.UpdateMask();
       if (this.quizresult.quizResultDetails[this.questionNo - 1]) {
         this.quizresultdetails = this.quizresult.quizResultDetails[this.questionNo - 1]
       }
@@ -169,9 +169,13 @@ export class SHQuizRunnerComponent implements OnInit {
         this.quizresult.quizResultDetails.push(this.quizresultdetails);
       }
 
-      this.isanswered.push(this.questionNo-1);
+      this.isanswered.push(this.questionNo - 1);
       this.questionNo++;
       if (this.questionNo > this.totalquestions) {
+        this.quizresult.timeTakenMinutes = (this.quizDefinition.quizDurationType.toLocaleLowerCase() == "hours") ?
+          ((Math.floor(this.quizDefinition.quizDurationTime * 60) - 1) - this.timeLeftMinutes) :
+          ((this.quizDefinition.quizDurationTime - 1) - this.timeLeftMinutes);
+        this.quizresult.timeTakenSeconds = (59 - this.timeLeftSeconds);
         this.SaveQuizResult(this.quizresult);
       }
       this.ngOnChanges();
@@ -198,6 +202,8 @@ export class SHQuizRunnerComponent implements OnInit {
     }, 1000)
 
     if (this.timeLeftMinutes == 0 && this.timeLeftSeconds == 0) {
+      this.quizresult.timeTakenMinutes = (this.quizDefinition.quizDurationType.toLocaleLowerCase() == "hours") ?
+        (Math.floor(this.quizDefinition.quizDurationTime * 60) - 1) : (this.quizDefinition.quizDurationTime - 1);
       //Save Quiz..
       this.SaveQuizResult(this.quizresult);
     }

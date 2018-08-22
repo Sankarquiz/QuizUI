@@ -3,6 +3,8 @@ export class QuizResult {
   quizType: string;
   teamName: string;
   totalScored: number;
+  timeTakenMinutes: number;
+  timeTakenSeconds: number;
   numberOfCorrectAnswers: number;
   numberOfWrongAnswers: number;
   quizResultDetails: Array<QuizResultDetails>;

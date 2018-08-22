@@ -12,6 +12,7 @@ import { QuizResult } from '../../models/QuizRunner';
 export class SHQuizFinisherComponent implements OnInit {
   quizDefinition: QuizDefinition;
   score: number;
+  time: string;
   constructor(private formDataService: FormDataService,
     private router: Router, private _getQuestion: QuizDetailsService) { }
 
@@ -24,6 +25,7 @@ export class SHQuizFinisherComponent implements OnInit {
         .subscribe((res: QuizResult) => {
           if (res) {
             this.score = res.totalScored;
+            this.time = res.timeTakenMinutes + ":" + res.timeTakenSeconds;
           }
         });
     }
