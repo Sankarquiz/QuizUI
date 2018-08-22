@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { navItems } from './../../_nav';
+import { pnavItems } from './../../_pnav';
+import { anavItems } from './../../_anav';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +13,7 @@ export class DefaultLayoutComponent {
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
   constructor() {
-
+    
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = document.body.classList.contains('sidebar-minimized')
     });

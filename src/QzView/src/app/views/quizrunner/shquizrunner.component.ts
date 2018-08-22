@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 import { QuizResult, QuizResultDetails } from '../../models/QuizRunner';
 @Component({
   selector: 'app-set-registration',
-  templateUrl: 'shquizrunner.component.html'
+  templateUrl: 'shquizrunner.component.html',
+  styleUrls: ['./quizrunnerstyle.css']
 })
 export class SHQuizRunnerComponent implements OnInit {
   questionNo: number;
@@ -206,7 +207,7 @@ export class SHQuizRunnerComponent implements OnInit {
     this._getQuestion.SaveQuizRunner(quizResult)
       .subscribe((response: any) => {
         if (response) {
-          this.router.navigate(['/quiz/runner/finisher']);
+          this.router.navigate(['/quiz/runner/finishquiz']);
         }
       });
   }

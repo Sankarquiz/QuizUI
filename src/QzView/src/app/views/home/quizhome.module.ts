@@ -6,9 +6,11 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { HomeIndexComponent } from './index.component';
 import { QuizHomeRoutingModule } from './quizhome.routing.module';
-import { FormDataService } from '../../models/formData.service';
+//import { FormDataService } from '../../models/formData.service';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { HttpClientModule } from '@angular/common/http';
+import { QuizPublishedComponent } from './quiz-published.component';
+
 
 @NgModule({
   imports: [
@@ -17,15 +19,16 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     QuizHomeRoutingModule,
     ChartsModule,
-    BsDropdownModule,
-    ButtonsModule.forRoot()
+    BsDropdownModule,    
+    ButtonsModule.forRoot()   
   ],
   declarations: [
-    HomeIndexComponent
+    HomeIndexComponent,
+    QuizPublishedComponent
   ],
   providers: [
     QuizDetailsService,
-    FormDataService
+   // FormDataService
   ]
 })
 export class QuizHomeModule { }

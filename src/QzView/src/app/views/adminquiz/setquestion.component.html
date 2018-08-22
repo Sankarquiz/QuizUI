@@ -5,8 +5,7 @@
         <app-create-quiz></app-create-quiz>
       </div>
     </div>
-    <div class="card">
-      <!--*ngIf="quizDefinition.quizName">-->
+    <div class="card" *ngIf="quizDefinition.quizName">      
       <div class="card-header">
         <i class="fa fa-edit"></i>Set Question
       </div>

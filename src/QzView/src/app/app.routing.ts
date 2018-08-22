@@ -52,7 +52,7 @@ export const routes: Routes = [
     data: {
       title: 'Register Page'
     },
-     children: [
+    children: [
       {
         path: '',
         loadChildren: './views/register/register.module#RegisterModule'
@@ -76,14 +76,27 @@ export const routes: Routes = [
     path: "quiz",
     component: QuizLayoutComponent,
     data: {
-      title : "Quiz"
+      title: "Quiz"
     },
     children: [
       {
         path: 'runner',
         loadChildren: './views/quizrunner/quizrunner.module#QuizRunnerModule'
       }
-      ]
+    ]
+  },
+  {
+    path: 'user',
+    component: DefaultLayoutComponent,
+    data: {
+      title: 'User'
+    },
+    children: [
+      {
+        path: 'admin',
+        loadChildren: './views/user/userquiz.module#UserQuizModule'
+      }
+    ]
   },
   {
     path: 'dash',
@@ -133,7 +146,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

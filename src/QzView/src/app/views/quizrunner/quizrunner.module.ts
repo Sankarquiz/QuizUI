@@ -13,10 +13,11 @@ import { HttpClientModule } from '@angular/common/http';
 // AdminQuiz Routing
 import { QuizRunnerRoutingModule } from './quizrunner-routing.module';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
-import { FormDataService } from '../../models/formData.service';
+//import { FormDataService } from '../../models/formData.service';
 import { RouterModule } from '@angular/router';
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { QuizRunnerStartComponent } from './quizrunner-start.component';
 
 
 
@@ -29,17 +30,16 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     FormsModule,
     ReactiveFormsModule,
     PaginationModule.forRoot(),
-    ProgressbarModule.forRoot(),
-    //OwlDateTimeModule,
-    //OwlNativeDateTimeModule,
+    ProgressbarModule.forRoot()
   ],
   declarations: [
     SHQuizRunnerComponent,
-    SHQuizFinisherComponent
+    SHQuizFinisherComponent,
+    QuizRunnerStartComponent
   ],
   providers: [
     QuizDetailsService,
-    FormDataService
+   // FormDataService
   ]
 })
 export class QuizRunnerModule { }

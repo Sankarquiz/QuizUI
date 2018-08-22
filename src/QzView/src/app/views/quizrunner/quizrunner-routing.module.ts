@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SHQuizRunnerComponent } from './shquizrunner.component';
 import { SHQuizFinisherComponent } from './shquiz-finisher.component'
+import { QuizRunnerStartComponent } from './quizrunner-start.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,13 @@ const routes: Routes = [
       title: 'Quiz                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Runner'
     },
     children: [
+      {
+        path: 'startquiz',
+        component: QuizRunnerStartComponent,
+        data: {
+          title: 'Start Quiz'
+        },
+      },
       {
         path: 'viewquiz',
         component: SHQuizRunnerComponent,

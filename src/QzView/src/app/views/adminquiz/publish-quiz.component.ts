@@ -73,7 +73,7 @@ export class PublishQuizComponent implements OnInit {
         if (result) {
           alert('Published');
           this.formDataService.Clear();
-          this.router.navigate(['/adminquiz/viewquiz']);
+          this.router.navigate(['/dash/adminquiz/viewquiz']);
         }
       });
   }
@@ -99,7 +99,7 @@ export class PublishQuizComponent implements OnInit {
       if (action == 'Edit') {
         this.formDataService.setQuestion(this.questionset);
         this.formDataService.setEditQuestion(true);
-        this.router.navigate(['/adminquiz/setquestionquiz']);
+        this.router.navigate(['/dash/adminquiz/setquestionquiz']);
       }
     }
   }

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -22,6 +23,7 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
+
 const APP_CONTAINERS = [
   DefaultLayoutComponent,
   QuizLayoutComponent,
@@ -44,9 +46,11 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { QuizDetailsService } from './services/service-getquizdetails';
+import { FormDataService } from './models/formData.service';
 
 @NgModule({
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -66,10 +70,11 @@ import { QuizDetailsService } from './services/service-getquizdetails';
     AppComponent,
     ...APP_CONTAINERS,
     P404Component,
-    P500Component,
+    P500Component
   ],
   providers: [
     QuizDetailsService,
+    FormDataService,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy

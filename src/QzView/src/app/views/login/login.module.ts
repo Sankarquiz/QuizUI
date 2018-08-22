@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { LoginRoutingModule } from './login.routing.module';
-import { FormDataService } from '../../models/formData.service';
+//import { FormDataService } from '../../models/formData.service';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login.component';
@@ -23,7 +23,7 @@ import { LoginComponent } from './login.component';
   ],
   providers: [
     QuizDetailsService,
-    FormDataService
+    //FormDataService
   ]
 })
 export class LoginModule { }

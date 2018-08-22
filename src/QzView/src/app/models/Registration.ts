@@ -12,6 +12,8 @@ export class UserRegistration {
   phone: string;
   contact: string;
   role: string;
+  quizName: string;
+  quizType: string
 }
 
 export class QuizAdv {

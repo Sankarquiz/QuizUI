@@ -34,14 +34,14 @@ export class ViewQuizComponent {
     debugger;
     this.formDataService.setQuizDefinition(this.quizDetails[index]);
     if (stage.toLowerCase() == 'define') {
-      this.router.navigate(['/adminquiz/definequiz']);
+      this.router.navigate(['/dash/adminquiz/definequiz']);
     }
     if (stage.toLowerCase() == 'registration') {
       this.formDataService.setRegistrationFields(this.quizDetails[index].registrationFields);
-      this.router.navigate(['/adminquiz/registerquiz']);
+      this.router.navigate(['/dash/adminquiz/registerquiz']);
     }
     if (stage.toLowerCase() == 'setlogo') {
-      this.router.navigate(['/adminquiz/setlogoquiz']);
+      this.router.navigate(['/dash/adminquiz/setlogoquiz']);
     }
     if (stage.toLowerCase() == 'setquestion') {
       this._getAllQuizDetails.GetQuizData(this.quizDetails[index].quizName, this.quizDetails[index].quizType, 'questions')
@@ -50,12 +50,12 @@ export class ViewQuizComponent {
         });
     }
     if (stage.toLowerCase() == 'setpage') {
-      this.router.navigate(['/adminquiz/setpagequiz']);
+      this.router.navigate(['/dash/adminquiz/setpagequiz']);
     }
   }
   PopulateQuestionSet(result) {
     debugger;
     this.formDataService.setQuizQuestions(result);
-    this.router.navigate(['/adminquiz/publishquiz']);
+    this.router.navigate(['/dash/adminquiz/publishquiz']);
   }
 }

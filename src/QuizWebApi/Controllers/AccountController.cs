@@ -14,11 +14,11 @@ namespace QuizWebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Register([FromBody]UserRegistration user)
         {
-            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<UserRegistration>(user.TeamName);
+            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<UserRegistration>(user.TeamName + user.quizName);
             if (response.Success || !string.IsNullOrEmpty(response?.Value?.TeamName))
                 return Ok("Username already Exists.Please try with different.");
 
-            var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(user.TeamName, user);
+            var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(user.TeamName + user.quizName, user);
             return Ok(result);
         }
 

@@ -78,7 +78,7 @@ export class SetLogoGroupQuizComponent implements OnInit {
         if (result) {
           this.formDataService.setSponserFields(this.quizDefinition.sponsorList);
           this.formDataService.setQuizDefinition(this.quizDefinition);
-          this.router.navigate(['/adminquiz/setquestionquiz']);
+          this.router.navigate(['/dash/adminquiz/setquestionquiz']);
         } else {
           alert('Not Saved.');
         }

@@ -1,4 +1,4 @@
-export const navItems = [
+export const anavItems = [
   {
     name: 'Dashboard',
     url: '/dashboard',
@@ -14,12 +14,12 @@ export const navItems = [
   },
   {
     name: 'View Quiz',
-    url: '/dash/adminquiz/viewquiz',
+    url: '/adminquiz/viewquiz',
     icon: 'icon-drop'
   },
   {
     name: 'Create Quiz',
-    url: '/dash/adminquiz/createquiz',
+    url: '/adminquiz/createquiz',
     icon: 'icon-pencil'
   },
   {

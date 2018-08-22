@@ -34,7 +34,7 @@ export class SetQuestionComponent implements OnInit {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
     this.max = this.quizDefinition.noOfQuestions;
-    this.imagepath = 'no';
+    this.imagepath = 'upload';
     if (!this.iseditquestion) {
       this.questionset.answerType = 'Multiple Choice';
       this.questionset.isImageneeded = false;
@@ -93,7 +93,7 @@ export class SetQuestionComponent implements OnInit {
 
       this.formDataService.setQuizQuestions(this.questions);
       this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.router.navigate(['/adminquiz/publishquiz']);
+      this.router.navigate(['/dash/adminquiz/publishquiz']);
     }
     else {
       alert('Please enter all questions. You entered' + this.currentQuestionNo + ' question so far.')

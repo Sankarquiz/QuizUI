@@ -43,7 +43,7 @@ export class RegisterQuizComponent implements OnInit {
         if (result) {
           this.formDataService.setQuizDefinition(this.quizDefinition);
           this.formDataService.setRegistrationFields(this.quizDefinition.registrationFields);
-          this.router.navigate(['/adminquiz/setpagequiz']);
+          this.router.navigate(['/dash/adminquiz/setpagequiz']);
         } else {
           alert('Not Saved.');
         }

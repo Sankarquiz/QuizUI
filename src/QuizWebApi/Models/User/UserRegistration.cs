@@ -9,5 +9,7 @@
         public string Phone { get; set; }
         public string Contact { get; set; }
         public string Role { get; set; }
+        public string quizName { get; set; }
+        public string quizType { get; set; }
     }
 }
