@@ -1,7 +1,7 @@
 export const anavItems = [
   {
     name: 'Dashboard',
-    url: '/dashboard',
+    url: '/dash/dashboard',
     icon: 'icon-speedometer',
     badge: {
       variant: 'info',
@@ -14,12 +14,12 @@ export const anavItems = [
   },
   {
     name: 'View Quiz',
-    url: '/adminquiz/viewquiz',
+    url: '/dash/adminquiz/viewquiz',
     icon: 'icon-drop'
   },
   {
     name: 'Create Quiz',
-    url: '/adminquiz/createquiz',
+    url: '/dash/adminquiz/createquiz',
     icon: 'icon-pencil'
   },
   {
@@ -28,12 +28,12 @@ export const anavItems = [
   },
   {
     name: 'Colors',
-    url: '/theme/colors',
+    url: '/dash/theme/colors',
     icon: 'icon-drop'
   },
   {
     name: 'Typography',
-    url: '/theme/typography',
+    url: '/dash/theme/typography',
     icon: 'icon-pencil'
   },
   {
@@ -104,39 +104,39 @@ export const anavItems = [
   },
   {
     name: 'Buttons',
-    url: '/buttons',
+    url: '/dash/buttons',
     icon: 'icon-cursor',
     children: [
       {
         name: 'Buttons',
-        url: '/buttons/buttons',
+        url: '/dash/buttons/buttons',
         icon: 'icon-cursor'
       },
       {
         name: 'Dropdowns',
-        url: '/buttons/dropdowns',
+        url: '/dash/buttons/dropdowns',
         icon: 'icon-cursor'
       },
       {
         name: 'Brand Buttons',
-        url: '/buttons/brand-buttons',
+        url: '/dash/buttons/brand-buttons',
         icon: 'icon-cursor'
       }
     ]
   },
   {
     name: 'Charts',
-    url: '/charts',
+    url: '/dash/charts',
     icon: 'icon-pie-chart'
   },
   {
     name: 'Icons',
-    url: '/icons',
+    url: '/dash/icons',
     icon: 'icon-star',
     children: [
       {
         name: 'CoreUI Icons',
-        url: '/icons/coreui-icons',
+        url: '/dash/icons/coreui-icons',
         icon: 'icon-star',
         badge: {
           variant: 'success',
@@ -150,7 +150,7 @@ export const anavItems = [
       },
       {
         name: 'Font Awesome',
-        url: '/icons/font-awesome',
+        url: '/dash/icons/font-awesome',
         icon: 'icon-star',
         badge: {
           variant: 'secondary',
@@ -159,36 +159,36 @@ export const anavItems = [
       },
       {
         name: 'Simple Line Icons',
-        url: '/icons/simple-line-icons',
+        url: '/dash/icons/simple-line-icons',
         icon: 'icon-star'
       }
     ]
   },
   {
     name: 'Notifications',
-    url: '/notifications',
+    url: '/dash/notifications',
     icon: 'icon-bell',
     children: [
       {
         name: 'Alerts',
-        url: '/notifications/alerts',
+        url: '/dash/notifications/alerts',
         icon: 'icon-bell'
       },
       {
         name: 'Badges',
-        url: '/notifications/badges',
+        url: '/dash/notifications/badges',
         icon: 'icon-bell'
       },
       {
         name: 'Modals',
-        url: '/notifications/modals',
+        url: '/dash/notifications/modals',
         icon: 'icon-bell'
       }
     ]
   },
   {
     name: 'Widgets',
-    url: '/widgets',
+    url: '/dash/widgets',
     icon: 'icon-calculator',
     badge: {
       variant: 'info',
@@ -204,27 +204,27 @@ export const anavItems = [
   },
   {
     name: 'Pages',
-    url: '/pages',
+    url: '/dash/pages',
     icon: 'icon-star',
     children: [
       {
         name: 'Login',
-        url: '/login',
+        url: '/dash/login',
         icon: 'icon-star'
       },
       {
         name: 'Register',
-        url: '/register',
+        url: '/dash/register',
         icon: 'icon-star'
       },
       {
         name: 'Error 404',
-        url: '/404',
+        url: '/dash/404',
         icon: 'icon-star'
       },
       {
         name: 'Error 500',
-        url: '/500',
+        url: '/dash/500',
         icon: 'icon-star'
       }
     ]

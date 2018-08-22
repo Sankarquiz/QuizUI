@@ -13,11 +13,10 @@ import { HttpClientModule } from '@angular/common/http';
 // AdminQuiz Routing
 import { UserQuizRoutingModule } from './userquiz-routing.module';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
-import { FormDataService } from '../../models/formData.service';
 
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
-//import { QuizPublishedComponent } from '../home/quiz-published.component';
+import { QuizHomeModule } from '../home/quizhome.module';
 
 
 
@@ -30,14 +29,13 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     ReactiveFormsModule,
     PaginationModule.forRoot(),
     ProgressbarModule.forRoot(),
+    QuizHomeModule
   ],
   declarations: [
-    UserDashboardComponent,
-  //  QuizPublishedComponent,
+    UserDashboardComponent
   ],
   providers: [
-    QuizDetailsService,
-    FormDataService
+    QuizDetailsService
   ]
 })
 export class UserQuizModule { }

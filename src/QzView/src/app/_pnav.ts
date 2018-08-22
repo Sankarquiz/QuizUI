@@ -1,7 +1,7 @@
 export const pnavItems = [
   {
     name: 'Dashboard',
-    url: '/dashboard',
+    url: '/dash/dashboard',
     icon: 'icon-speedometer',
     badge: {
       variant: 'info',
@@ -14,18 +14,7 @@ export const pnavItems = [
   },
   {
     name: 'View Quiz',
-    url: '/adminquiz/viewquiz',
+    url: '/dash/adminquiz/viewquiz',
     icon: 'icon-drop'
-  },
-  {
-    name: 'Create Quiz',
-    url: '/adminquiz/createquiz',
-    icon: 'icon-pencil'
-  },
-  {
-    title: true,
-    name: 'Theme'
-  },
-   
-  
+  }
 ];

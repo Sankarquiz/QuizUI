@@ -30,6 +30,7 @@ export class FormDataService {
       isQuizAutoEvaluate: this.formData.isQuizAutoEvaluate,
       showScoreAfterAttempt: this.formData.showScoreAfterAttempt,
       postScoreOnSocialMedia: this.formData.postScoreOnSocialMedia,
+      daysLeft: this.formData.daysLeft,
       status: this.formData.status,
       stage: this.formData.stage,
       messageBeforeQuizTime: this.formData.messageBeforeQuizTime,

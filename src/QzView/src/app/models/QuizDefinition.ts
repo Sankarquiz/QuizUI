@@ -42,7 +42,7 @@ export class FormDataModel {
   sponsorList = new Array<SponsorDetail>();
   questions = new Array<QuizSet>();
   isEditQuestion: boolean;
-
+  daysLeft: string = '';
   clear() {
     this.quizName = '';
     this.quizDomainHost = '';
@@ -87,6 +87,7 @@ export class FormDataModel {
     this.sponsorList = new Array<SponsorDetail>();
     this.questions = new Array<QuizSet>();
     this.isEditQuestion = false;
+    this.daysLeft = '';
   }
 }
 

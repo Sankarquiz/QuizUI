@@ -30,13 +30,12 @@ export class LoginComponent {
             this.userDetails.teamName = this.username;
             this.userDetails.role = response[0].role;
             this.formDataService.setUserData(this.userDetails);
-            if (this.userDetails.role == 'admin') {
-
-              this.router.navigate(['/user/admin/userdashboard']);
-            }
-            else {
-              this.router.navigate(['quiz/runner/startquiz']);
-            }
+            //if (this.userDetails.role == 'admin') {
+            this.router.navigate(['/user/admin/userdashboard']);
+            //}
+            //else {
+            //  this.router.navigate(['quiz/runner/startquiz']);
+            //}
           } else {
             alert('Not Saved.');
           }

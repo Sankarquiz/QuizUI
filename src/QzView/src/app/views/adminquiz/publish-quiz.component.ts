@@ -38,7 +38,7 @@ export class PublishQuizComponent implements OnInit {
       }
 
       this.questionset = this.questions.questions[this.questionNo - 1];
-      if (this.questionset.isImageneeded) {
+      if (this.questionset && this.questionset.isImageneeded) {
         if (this.questionset.imageUrl.startsWith('http')) {
           this.imageurl = this.questionset.imageUrl
         }

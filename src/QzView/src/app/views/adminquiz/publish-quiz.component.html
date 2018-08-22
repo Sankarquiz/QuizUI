@@ -3,7 +3,7 @@
     <div class="btn-dark">
       <app-create-quiz></app-create-quiz>
     </div>
-    <div class="card">
+    <div class="card" *ngIf="quizDefinition.quizName">
       <div class="card-header">
         <i class="fa fa-edit"></i>Publish Quiz
       </div>

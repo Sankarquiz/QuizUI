@@ -36,13 +36,7 @@ export class QuizPublishedComponent implements OnInit {
     this.quizAdv.quizType = this.quizdefinition[index].quizType;
     this.formDataService.setquizadv(this.quizAdv);
     if (this.userdetails.teamName && this.userdetails.role) {
-      if (this.userdetails.role == 'admin') {
-
-        this.router.navigate(['/user/admin/userdashboard']);
-      }
-      else {
-        this.router.navigate(['quiz/runner/startquiz']);
-      }
+      this.router.navigate(['quiz/runner/startquiz']);
     }
     else {
       this.router.navigate(['/login']);

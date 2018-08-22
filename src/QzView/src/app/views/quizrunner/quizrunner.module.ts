@@ -6,14 +6,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
-//import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { SHQuizRunnerComponent } from './shquizrunner.component';
 import { SHQuizFinisherComponent } from './shquiz-finisher.component'
 import { HttpClientModule } from '@angular/common/http';
 // AdminQuiz Routing
 import { QuizRunnerRoutingModule } from './quizrunner-routing.module';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
-//import { FormDataService } from '../../models/formData.service';
 import { RouterModule } from '@angular/router';
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -38,8 +36,7 @@ import { QuizRunnerStartComponent } from './quizrunner-start.component';
     QuizRunnerStartComponent
   ],
   providers: [
-    QuizDetailsService,
-   // FormDataService
+    QuizDetailsService
   ]
 })
 export class QuizRunnerModule { }
