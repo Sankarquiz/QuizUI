@@ -1,23 +1,27 @@
 <div class="animated fadeIn">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <i class="fa fa-quora"></i> Quiz Name - Completed Successfully.
-        </div>
-        <div class="card-body" *ngIf="quizDefinition && quizDefinition.isQuizAutoEvaluate">
-          <form class="form-horizontal">
-            <h5 class="bline"> Score </h5>
-            <div class="bd-example">
-              <h3> Thank you </h3>
-              <h5> Your Score is : {{score}} and finished test in : {{time}}</h5>
+  
+    <div class="card-body pb-0">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-quora"></i> Quiz Name - Completed Successfully.
             </div>
-          </form>
-        </div>
-        <div class="card-footer">
-          <button type="button" class="btn btn-sm btn-success" (click)="Gottohome()">Close</button>
+            <div class="card-body" *ngIf="quizDefinition && quizDefinition.isQuizAutoEvaluate">
+              <form class="form-horizontal">
+                <h5 class="bline"> Score </h5>
+                <div class="bd-example">
+                  <h3> Thank you </h3>
+                  <h5> Your Score is : {{score}} and finished test in : {{time}}</h5>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer">
+              <button type="button" class="btn btn-sm btn-success" (click)="Gottohome()">Close</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  
   </div>
-</div>
