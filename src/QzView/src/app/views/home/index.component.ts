@@ -7,7 +7,7 @@ import { QuizDefinition } from '../../models/QuizDefinition';
 
 import { DatePipe } from '@angular/common';
 @Component({
-  selector: 'app-home-index',
+  selector: 'app-dashboard',
   templateUrl: 'index.component.html'
 })
 export class HomeIndexComponent {
