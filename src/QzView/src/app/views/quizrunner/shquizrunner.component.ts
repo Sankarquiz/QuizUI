@@ -6,7 +6,7 @@ import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { Observable } from 'rxjs';
 import { QuizResult, QuizResultDetails } from '../../models/QuizRunner';
 @Component({
-  selector: 'app-set-registration',
+  selector: 'app-quiz-runner',
   templateUrl: 'shquizrunner.component.html',
   styleUrls: ['./quizrunnerstyle.css']
 })
