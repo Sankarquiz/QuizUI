@@ -10,7 +10,7 @@ export const anavItems = [
   },
   {
     title: true,
-    name: 'Quiz'
+    name: 'Quiz Admin'
   },
   {
     name: 'View Quiz',

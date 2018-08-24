@@ -6,7 +6,7 @@ import { QuizDefinition, QuizQuestions, RegistrationFields } from '../../models/
 import { QuizAdv } from '../../models/Registration';
 
 @Component({
-  selector: 'app-quizrunner-start',
+  selector: 'app-dashboard',
   templateUrl: 'quizrunner-start.component.html'
 })
 export class QuizRunnerStartComponent implements OnInit {
