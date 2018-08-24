@@ -6,19 +6,19 @@
           <i class="fa fa-quora"></i>{{quizDefinition.quizName}}
           <div class="card-header-actions">
             <!--<i class="fa fa-hourglass-start"> 6:00:00 </i>-->
-            <p>Time Left: <span style="color:red">{{timeLeftMinutes}}:{{timeLeftSeconds}}</span></p>
+            <i class="fa fa-hourglass-start"> {{timeLeftMinutes}}:{{timeLeftSeconds}}</i>
 
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6 col-md-4" *ngIf="topleft">
+        <div class="card">
+          <div class="card-body">
+            <img src="{{topleft}}" alt="Top Left" style="display: block; width: 100%;">
           </div>
         </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-6 col-md-4" *ngIf="topleft">
-              <div class="card">
-                <div class="card-body">
-                  <img src="{{topleft}}" alt="Top Left" style="display: block; width: 100%;">
-                </div>
-              </div>
-            </div><!--/.col-->
+      </div><!--/.col-->
             <div class="col-sm-6 col-md-4" *ngIf="topright">
               <div class="card">
                 <div class="card-body">
@@ -104,11 +104,11 @@
                         <input required type="text" class="form-control" name="answer" #userAnswer="ngModel"
                                [(ngModel)]="quizresultdetails.userAnswer" id="name" value="">
                         <!--<input *ngIf="questionset.answerType !='Hangman'" required type="text" class="form-control" name="answer" #userAnswer="ngModel"
-                               [(ngModel)]="quizresultdetails.userAnswer" id="name" value="">
-                        <input class="mask-text" *ngIf="questionset.answerType =='Hangman'" name="mask"
-                               [(ngModel)]="quizresultdetails.userAnswer" autofocus
-                               [textMask]="{mask: mask}"
-                               #userAnswer="ngModel" type="text" />-->
+                     [(ngModel)]="quizresultdetails.userAnswer" id="name" value="">
+              <input class="mask-text" *ngIf="questionset.answerType =='Hangman'" name="mask"
+                     [(ngModel)]="quizresultdetails.userAnswer" autofocus
+                     [textMask]="{mask: mask}"
+                     #userAnswer="ngModel" type="text" />-->
                       </div>
                     </div>
                   </form>
