@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { RegisterQuizComponent } from './registerquiz.component';
 
 
@@ -8,6 +8,9 @@ import { RegisterQuizComponent } from './registerquiz.component';
 })
 export class CreateQuizComponent {
   @ViewChild('myChild') private myChild: RegisterQuizComponent;
-  constructor() { }
+   @Input() htab: number;
+  constructor() {
+   // this.tab = 1;
+  }
 
 }

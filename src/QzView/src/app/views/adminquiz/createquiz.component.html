@@ -1,22 +1,53 @@
 <div class="animated fadeIn">
   <div class="row align-items-center">
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/definequiz"> <button type="button" class="btn btn-block btn-primary">Define Quiz</button> </a>
+      <a routerLink="/dash/adminquiz/definequiz">
+      <button *ngIf="htab==1; else defblk1" type="button" class="btn btn-block btn-primary">Define Quiz</button>
+      <ng-template #defblk1>
+        <button type="button" class="btn btn-block btn-dark">Define Quiz</button>
+      </ng-template>
+      </a>
     </div>
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/registerquiz"><button type="button" class="btn btn-block btn-primary">Registration</button></a>
+      <a routerLink="/dash/adminquiz/registerquiz">        
+        <button *ngIf="htab==2; else defblk2" type="button" class="btn btn-block btn-primary">Registration</button>
+        <ng-template #defblk2>
+          <button type="button" class="btn btn-block btn-dark">Registration</button>
+        </ng-template>
+
+      </a>
     </div>
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/setpagequiz"> <button type="button" class="btn btn-block btn-primary">Set Pages</button></a>
+      <a routerLink="/dash/adminquiz/setpagequiz">
+        <button *ngIf="htab==3; else defblk3" type="button" class="btn btn-block btn-primary">Set Pages</button>
+        <ng-template #defblk3>
+          <button type="button" class="btn btn-block btn-dark">Set Pages</button>
+        </ng-template>
+      </a>
     </div>
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/setlogoquiz"><button type="button" class="btn btn-block btn-primary">Set Logo</button></a>
+      <a routerLink="/dash/adminquiz/setlogoquiz">
+        <button *ngIf="htab==4; else defblk4" type="button" class="btn btn-block btn-primary">Set Logo</button>
+        <ng-template #defblk4>
+          <button type="button" class="btn btn-block btn-dark">Set Logo</button>
+        </ng-template>        
+      </a>
     </div>
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/setquestionquiz"><button type="button" class="btn btn-block btn-primary">Set Question</button></a>
+      <a routerLink="/dash/adminquiz/setquestionquiz">
+        <button *ngIf="htab==5; else defblk5" type="button" class="btn btn-block btn-primary">Set Question</button>
+        <ng-template #defblk5>
+          <button type="button" class="btn btn-block btn-dark">Set Question</button>
+        </ng-template>        
+      </a>
     </div>
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/publishquiz"> <button type="button" class="btn btn-block btn-primary">Publish</button></a>
+      <a routerLink="/dash/adminquiz/publishquiz">
+        <button *ngIf="htab==6; else defblk6" type="button" class="btn btn-block btn-primary">Publish</button>
+        <ng-template #defblk6>
+          <button type="button" class="btn btn-block btn-dark">Publish</button>
+        </ng-template>        
+      </a>
     </div>
   </div>
 </div> 
