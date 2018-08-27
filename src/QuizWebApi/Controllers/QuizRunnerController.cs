@@ -45,31 +45,31 @@ namespace QuizWebApi.Controllers
                 }
             }
 
-            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(request.QuizName + "_" + request.QuizType + "_" + request.Email, request);
+            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(request.QuizName + "_" + request.QuizType + "_" + request.TeamName, request);
             return Ok(response);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetQuizResult(string quizName, string quizType, string email)
+        public async Task<IActionResult> GetQuizResult(string quizName, string quizType, string teamName)
         {
-            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(teamName))
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
 
-            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + email);
+            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
             return Ok(response.Value);
         }
 
         [HttpGet]
-        public async Task<IActionResult> CheckQuizTaken(string quizName, string quizType, string email)
+        public async Task<IActionResult> CheckQuizTaken(string quizName, string quizType, string teamName)
         {
-            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(teamName))
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
 
-            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + email);
+            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
             if (string.IsNullOrEmpty(response?.Value?.TeamName))
             {
                 return Ok(true);

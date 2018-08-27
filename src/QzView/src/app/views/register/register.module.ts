@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { RegisterRoutingModule } from './register.routing.module';
-import { FormDataService } from '../../models/formData.service';
+import { RegisterRoutingModule } from './register.routing.module'; 
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register.component';
@@ -24,8 +23,7 @@ import { SignUpComponent } from './signup.component';
     SignUpComponent
   ],
   providers: [
-    QuizDetailsService,
-    FormDataService
+    QuizDetailsService 
   ]
 })
 export class RegisterModule { }

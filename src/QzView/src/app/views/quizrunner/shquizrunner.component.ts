@@ -87,7 +87,7 @@ export class SHQuizRunnerComponent implements OnInit {
     this.quizresult.numberOfWrongAnswers = 0;
     this.quizresult.quizName = this.quizDefinition.quizName;
     this.quizresult.quizType = this.quizDefinition.quizType;
-   // this.quizresult.teamName = this.formDataService.getUserData().teamName;
+    this.quizresult.teamName = this.formDataService.getquizadv().teamName;
     this.quizresult.quizResultDetails = new Array<QuizResultDetails>();
     this.quizresultdetails = new QuizResultDetails();
 

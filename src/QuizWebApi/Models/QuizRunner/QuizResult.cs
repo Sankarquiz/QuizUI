@@ -2,7 +2,7 @@
 
 namespace QuizWebApi.Models.QuizRunner
 {
-    public class QuizResult
+    public class QuizResult : Status
     {
         public QuizResult()
         {

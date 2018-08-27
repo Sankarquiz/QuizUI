@@ -6,7 +6,7 @@ namespace QuizWebApi.Models.Admin
     /// <summary>
     /// 
     /// </summary>
-    public class QuizDefinition
+    public class QuizDefinition : Status
     {
         public QuizDefinition()
         {

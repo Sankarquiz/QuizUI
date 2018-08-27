@@ -31,6 +31,6 @@ export class SHQuizFinisherComponent implements OnInit {
     }
   }
   Gottohome() {
-    this.router.navigate(['']);
+    this.router.navigate(['/user/admin/userdashboard']);
   }
 }

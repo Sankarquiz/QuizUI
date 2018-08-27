@@ -1,6 +1,6 @@
 ﻿namespace QuizWebApi.Models.Admin
 {
-    public class QuizSet
+    public class QuizSet 
     {
         public int QuestionNo { get; set; }
         public string QuestionText { get; set; }
