@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Net.Mail;
 using System;
 using System.Text;
+using QuizWebApi.Models.Common;
+using Microsoft.Extensions.Options;
 
 namespace QuizWebApi.Controllers
 {
@@ -14,6 +16,12 @@ namespace QuizWebApi.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        public SMTPConfig SmtpConfig { get; }
+        public AccountController(IOptions<SMTPConfig> smtpConfig)
+        {
+            SmtpConfig = smtpConfig.Value;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Register([FromBody]UserRegistration user)
         {

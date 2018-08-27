@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
+using QuizWebApi.Models.Common;
 using Swashbuckle.AspNetCore.Swagger;
 using SwashbuckleAspNetVersioningShim;
 using System.IO;
@@ -65,7 +66,7 @@ namespace QuizWebApi
                 var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
                 c.ConfigureSwaggerVersions(provider, "Quiz Service");
             });
-
+            services.Configure<SMTPConfig>(Configuration.GetSection("Smtp"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCouchbase(Configuration.GetSection("Couchbase"));
             services.AddCouchbaseBucket<IQuizBucketProvider>("Quiz", "quiz@123");
