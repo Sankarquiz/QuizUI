@@ -66,7 +66,7 @@ export class QuizDetailsService {
   }
 
   GetQuizResult(quizName: string, quizType: string, teamName: string) {
-    let uri = environment.getquizresult + "?quizName=" + quizName + "&quizType=" + quizType + "&email=" + teamName;
+    let uri = environment.getquizresult + "?quizName=" + quizName + "&quizType=" + quizType + "&teamName=" + teamName;
     return this._http.get(uri, this.httpOptions);
   }
 

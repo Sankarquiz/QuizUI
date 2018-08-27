@@ -21,7 +21,7 @@ export class SHQuizFinisherComponent implements OnInit {
     this.quizDefinition = this.formDataService.getQuizDefinition();
 
     if (this.quizDefinition && this.quizDefinition.isQuizAutoEvaluate) {
-      this._getQuestion.GetQuizResult(this.quizDefinition.quizName, this.quizDefinition.quizType, this.formDataService.getUserData().email)
+      this._getQuestion.GetQuizResult(this.quizDefinition.quizName, this.quizDefinition.quizType, this.formDataService.getquizadv().teamName)
         .subscribe((res: QuizResult) => {
           if (res) {
             this.score = res.totalScored;
