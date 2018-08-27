@@ -1,14 +1,5 @@
 export const pnavItems = [
-  {
-    name: 'Dashboard',
-    url: '/dash/dashboard',
-    icon: 'icon-speedometer',
-    badge: {
-      variant: 'info',
-      text: 'NEW'
-    }
-  },
-  {
+   {
     title: true,
     name: 'Quiz'
   },
