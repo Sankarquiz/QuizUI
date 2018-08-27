@@ -17,7 +17,8 @@ export class QuizDetailsService {
   constructor(private _http: HttpClient) {
   }
 
-  GetAllQuizData() {
+  GetAllQuizData(email: string) {
+    let uri = environment.getallquizdetails + "?email=" + email;
     return this._http.get(environment.getallquizdetails, this.httpOptions);
   }
 

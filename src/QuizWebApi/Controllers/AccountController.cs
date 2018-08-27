@@ -4,6 +4,9 @@ using QuizWebApi.Models.User;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Mail;
+using System;
+using System.Text;
 
 namespace QuizWebApi.Controllers
 {
@@ -47,6 +50,7 @@ namespace QuizWebApi.Controllers
             }
 
             var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(signup.Email, signup);
+            SendMail(signup);
             return Ok(result);
         }
 
@@ -95,5 +99,26 @@ namespace QuizWebApi.Controllers
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<UserRegistration>(req);
             return Ok(result);
         }
+
+        #region Private Methods
+        private void SendMail(SignUp signup)
+        {
+            var host = Request.Scheme + "://" + Request.Host + "/api/quiz/ActivateSignUp?email=" + signup.Email;
+            
+            MailMessage mail = new MailMessage();
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress("quiz@knowledgevysya.com");
+            mail.To.Add(signup.Email);
+            mail.Subject = "Activation email from KnowledgeVysya.";
+            mail.Body = "Please click on the below link to activate your account, "+ host;
+            client.Port = 25;
+            client.Credentials = new System.Net.NetworkCredential("me", "password");
+            client.UseDefaultCredentials = false; 
+            client.EnableSsl = true;
+            client.Host = "smtp.gmail.com";
+ 
+            client.Send(mail);
+        }
+        #endregion
     }
 }

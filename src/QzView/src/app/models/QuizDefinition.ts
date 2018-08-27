@@ -44,6 +44,9 @@ export class FormDataModel {
   isEditQuestion: boolean;
   daysLeft: string = '';
   isRegistered: boolean;
+  createdBy: string = '';
+  createdOn: any;
+  modifiedOn: any;
   clear() {
     this.quizName = '';
     this.quizDomainHost = '';
@@ -90,6 +93,9 @@ export class FormDataModel {
     this.isEditQuestion = false;
     this.daysLeft = '';
     this.isRegistered = false;
+    this.createdBy = '';
+    this.createdOn = '';
+    this.modifiedOn = '';
   }
 }
 
@@ -119,6 +125,9 @@ export class QuizDefinition {
   messageAfterQuizTime: string;
   registrationFields = new RegistrationFields();
   sponsorList = new Array<SponsorDetail>();
+  createdBy: string;
+  createdOn: any;
+  modifiedOn: any;
 }
 
 export class RegistrationFields {

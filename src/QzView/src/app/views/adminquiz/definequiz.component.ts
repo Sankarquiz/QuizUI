@@ -49,6 +49,9 @@ export class DefineQuizComponent implements OnInit {
     }
     this.quizDefinition.stage = 'Define';
     this.quizDefinition.status = 'Pending';
+    this.quizDefinition.createdBy = this.formDataService.getUserData().email;
+    this.quizDefinition.createdOn = new Date();
+    this.quizDefinition.modifiedOn = new Date();
     this._saveQuizData.SaveQuizData(this.quizDefinition)
       .subscribe((response: any) => {
         debugger;

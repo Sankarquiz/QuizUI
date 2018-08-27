@@ -39,7 +39,10 @@ export class FormDataService {
       messageBeforeQuizTime: this.formData.messageBeforeQuizTime,
       messageAfterQuizTime: this.formData.messageAfterQuizTime,
       registrationFields: this.getRegistrationFields(),
-      sponsorList: this.getSponserFields()
+      sponsorList: this.getSponserFields(),
+      createdBy: this.formData.createdBy,
+      createdOn: this.formData.createdOn,
+      modifiedOn: this.formData.modifiedOn
     };
     return quizDefinition;
   }
@@ -68,6 +71,9 @@ export class FormDataService {
     this.formData.messageAfterQuizTime = data.messageAfterQuizTime;
     this.formData.registrationFields = data.registrationFields;
     this.formData.sponsorList = data.sponsorList;
+    this.formData.createdBy = data.createdBy;
+    this.formData.createdOn = data.createdOn;
+    this.formData.modifiedOn = data.modifiedOn;
   }
 
   getRegistrationFields(): RegistrationFields {

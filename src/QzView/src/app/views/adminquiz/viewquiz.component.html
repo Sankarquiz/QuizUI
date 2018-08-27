@@ -1,4 +1,4 @@
-<div class="animated fadeIn"> 
+<div class="animated fadeIn">
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
@@ -20,54 +20,15 @@
             <tbody>
               <tr *ngFor="let detail of quizDetails let i=index">
                 <td>{{detail.quizName}}</td>
-                <td >{{detail.quizType}}</td>
+                <td>{{detail.quizType}}</td>
                 <td class="d-md-down-none">{{detail.quizStartTime}}</td>
                 <td class="d-md-down-none">{{detail.quizEndTime}}</td>
                 <td *ngIf="detail.status=='Pending'" class="d-md-down-none"><span class="badge badge-warning"> {{detail.status}} </span></td>
                 <td *ngIf="detail.status!='Pending'" class="d-md-down-none"><span class="badge badge-success"> {{detail.status}} </span></td>
-                <td *ngIf="detail.status=='Published'">  <span class="badge badge-secondary">{{detail.stage}}</span></td>
-                <td *ngIf="detail.status!='Published'" class="page-link"> <a (click)="quizScreen(i,detail.stage)"><span class="badge badge-danger">{{detail.stage}}</span> </a></td>
+                <!--<td *ngIf="detail.status=='Published'">  <span class="badge badge-secondary">{{detail.stage}}</span></td>
+                <td *ngIf="detail.status!='Published'" class="page-link"> <a (click)="quizScreen(i,detail.stage)"><span class="badge badge-danger">{{detail.stage}}</span> </a></td>-->
+                <td class="page-link"> <a (click)="quizScreen(i,detail.stage)"><span class="badge badge-danger">{{detail.stage}}</span> </a></td>
               </tr>
-              <!--<tr>
-                <td>Vishnu Serghei</td>
-                <td>2012/01/01</td>
-                <td>Member</td>
-                <td>
-                  <span class="badge badge-success">Active</span>
-                </td>
-              </tr>
-              <tr>
-                <td>Zbyněk Phoibos</td>
-                <td>2012/02/01</td>
-                <td>Staff</td>
-                <td>
-                  <span class="badge badge-danger">Banned</span>
-                </td>
-              </tr>
-              <tr>
-                <td>Einar Randall</td>
-                <td>2012/02/01</td>
-                <td>Admin</td>
-                <td>
-                  <span class="badge badge-secondary">Inactive</span>
-                </td>
-              </tr>
-              <tr>
-                <td>Félix Troels</td>
-                <td>2012/03/01</td>
-                <td>Member</td>
-                <td>
-                  <span class="badge badge-warning">Pending</span>
-                </td>
-              </tr>
-              <tr>
-                <td>Aulus Agmundr</td>
-                <td>2012/01/21</td>
-                <td>Staff</td>
-                <td>
-                  <span class="badge badge-success">Active</span>
-                </td>
-              </tr>-->
             </tbody>
           </table>
           <nav>

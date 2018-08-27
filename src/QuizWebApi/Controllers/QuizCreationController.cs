@@ -71,9 +71,10 @@ namespace QuizWebApi.Controllers
         /// <returns></returns>
         //[Route("/getallquiz")]
         [HttpGet]
-        public async Task<IActionResult> GetAllQuiz()
+        public async Task<IActionResult> GetAllQuiz(string email)
         {
-            var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}""", CouchbaseHelper.Bucket, "Define");
+            var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}"" and createdBy=""{2}"" ",
+                CouchbaseHelper.Bucket, "Define", email);
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
             if (result?.Count > 0)

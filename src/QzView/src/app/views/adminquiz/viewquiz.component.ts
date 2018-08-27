@@ -15,12 +15,8 @@ export class ViewQuizComponent {
     private _getAllQuizDetails: QuizDetailsService,
     private formDataService: FormDataService) { }
 
-  ngOnInit() {
-    //this.formDataService.Clear();
-    //if (!this.formDataService.getUserData().teamName || this.formDataService.getUserData().role != 'admin') {
-    //  this.router.navigate(['/user-registration'])
-    //}
-    this._getAllQuizDetails.GetAllQuizData()
+  ngOnInit() {    
+    this._getAllQuizDetails.GetAllQuizData(this.formDataService.getUserData().email)
       .subscribe((result: any) => {
         this.PopulateResults(result);
       });
