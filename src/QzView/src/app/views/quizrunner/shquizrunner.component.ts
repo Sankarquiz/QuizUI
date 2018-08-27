@@ -36,10 +36,36 @@ export class SHQuizRunnerComponent implements OnInit {
   public mask: Array<any>;
 
   constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
+  TestInit() {
+    debugger;
+    let quizName: string = "test";
+    let quizType: string = "Free Flow";
 
+    this._getQuestion.GetQuizData(quizName, quizType, "Define")
+      .subscribe((res: any) => {
+        this.quizDefinition = res;
+
+        this._getQuestion.GetQuizData(quizName, quizType, "questions")
+          .subscribe((res: any) => {
+            this.questions = res;
+         
+
+        this.formDataService.setQuizDefinition(this.quizDefinition);
+        this.formDataService.setQuizQuestions(this.questions);
+            this.LoadInitialData();
+          });
+      });
+
+  }
   ngOnInit() {
+    //this.TestInit();
+    this.LoadInitialData();
+  }
+  LoadInitialData()
+  {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
+
     if (this.quizDefinition.noOfQuestionsInPool && this.quizDefinition.isQuizFromLargerPool) {
       this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestionsInPool.toString())).fill(1);
     }
