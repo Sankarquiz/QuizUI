@@ -48,6 +48,8 @@ export class ViewQuizComponent {
     if (stage.toLowerCase() == 'setpage') {
       this.router.navigate(['/dash/adminquiz/setpagequiz']);
     }
+
+    this.router.navigate(['/dash/adminquiz/definequiz']);
   }
   PopulateQuestionSet(result) {
     debugger;

@@ -3,77 +3,73 @@
     <div class="row">
       <div class="col-md-6 mx-auto">
         <div class="card mx-4">
-          <div class="card-body p-4">
-            <h1>Register for Quiz {{registrationDetails.quizName}}</h1> 
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-user"></i></span>
+          <form #registerquiz="ngForm">
+            <div class="card-body p-4">
+              <h1>Register for Quiz {{registrationDetails.quizName}}</h1>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-user"></i></span>
+                </div>
+                <input type="text" class="form-control" name="teamname" required #teamName="ngModel"
+                       placeholder="Enter Team Name" [(ngModel)]="registrationDetails.teamName">
               </div>
-              <input type="text" class="form-control" required #teamName="ngModel"
-                     placeholder="Enter Team Name" [(ngModel)]="registrationDetails.teamName">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+                </div>
+                <input readonly type="email" name="email" class="form-control" placeholder="Email"
+                       required #email="ngModel" [(ngModel)]="registrationDetails.email">
+              </div>
+              <div class="input-group mb-3" *ngIf="teamsize>1">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+                </div>
+                <input type="email" name="email2" class="form-control" placeholder="Enter Participant 2 Email"
+                       required #email2="ngModel" [(ngModel)]="registrationDetails.email2">
+              </div>
+              <div class="input-group mb-3" *ngIf="teamsize>2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+                </div>
+                <input type="email" name="email3" class="form-control" placeholder="Enter Participant 3 Email"
+                       required #email3="ngModel" [(ngModel)]="registrationDetails.email3">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-mobile fa-lg"></i></span>
+                </div>
+                <input type="text" name="phone" class="form-control" placeholder="Enter Mobile No."
+                       required
+                       #phone="ngModel" [(ngModel)]="registrationDetails.phone">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-user"></i></span>
+                </div>
+                <input type="text" name="name" class="form-control" placeholder="Enter Contestant Name"
+                       required #contestantName="ngModel" [(ngModel)]="registrationDetails.contestantName">
+              </div>
+              <div class="input-group mb-3" *ngIf="teamsize>1">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-user"></i></span>
+                </div>
+                <input type="text" name="name2" class="form-control" placeholder="Enter Contestant 2 Name"
+                       required #contestantName2="ngModel" [(ngModel)]="registrationDetails.contestantName2">
+              </div>
+              <div class="input-group mb-3" *ngIf="teamsize>2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-user"></i></span>
+                </div>
+                <input type="text" name="name3" class="form-control" placeholder="Enter Contestant 3 Name"
+                       required #contestantName3="ngModel" [(ngModel)]="registrationDetails.contestantName3">
+              </div>
+              <button type="submit" class="btn btn-block btn-success"
+                      [class.dont-submit]="registerquiz.invalid" [disabled]="registerquiz.invalid"
+                      (click)="Register()">
+                Create Account
+              </button>
             </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">@</span>
-              </div>
-              <input readonly type="email" class="form-control" placeholder="Email"
-                     required #email="ngModel" [(ngModel)]="registrationDetails.email">
-            </div>
-            <div class="input-group mb-3" *ngIf="teamsize>1">
-              <div class="input-group-prepend">
-                <span class="input-group-text">@</span>
-              </div>
-              <input readonly type="email" class="form-control" placeholder="Participant 2 Email"
-                     required #email2="ngModel" [(ngModel)]="registrationDetails.email2">
-            </div>
-            <div class="input-group mb-3" *ngIf="teamsize>2">
-              <div class="input-group-prepend">
-                <span class="input-group-text">@</span>
-              </div>
-              <input readonly type="email" class="form-control" placeholder="Participant 3 Email"
-                     required #email3="ngModel" [(ngModel)]="registrationDetails.email3">
-            </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" ><i class="fa fa-mobile fa-lg"></i></span>
-              </div>
-              <input type="text" class="form-control" placeholder="Mobile"
-                     required
-                     #phone="ngModel" [(ngModel)]="registrationDetails.phone">
-            </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-user"></i></span>
-              </div>
-              <input type="text" class="form-control" placeholder="Contestant Name"
-                     required #contestantName="ngModel" [(ngModel)]="registrationDetails.contestantName">
-            </div>
-            <div class="input-group mb-3" *ngIf="teamsize>1">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-user"></i></span>
-              </div>
-              <input type="text" class="form-control" placeholder="Contestant 2 Name"
-                     required #contestantName2="ngModel" [(ngModel)]="registrationDetails.contestantName2">
-            </div>
-            <div class="input-group mb-3" *ngIf="teamsize>2">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-user"></i></span>
-              </div>
-              <input type="text" class="form-control" placeholder="Contestant 3 Name"
-                     required #contestantName3="ngModel" [(ngModel)]="registrationDetails.contestantName3">
-            </div>
-            <button type="button" class="btn btn-block btn-success" (click)="Register()">Create Account</button>
-          </div>
-          <div class="card-footer p-4">
-            <div class="row">
-              <div class="col-6">
-                <button class="btn btn-block btn-facebook" type="button"><span>facebook</span></button>
-              </div>
-              <div class="col-6">
-                <button class="btn btn-block btn-twitter" type="button"><span>twitter</span></button>
-              </div>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
