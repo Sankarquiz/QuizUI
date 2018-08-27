@@ -13,9 +13,6 @@ using System.Threading.Tasks;
 
 namespace QuizWebApi.Controllers
 {
-    /// 
-    /// </summary>
-    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/quiz/[action]")]
     [ApiController]
     [AllowAnonymous]
@@ -108,8 +105,8 @@ namespace QuizWebApi.Controllers
             {
                 return NotFound("No Quizes is defined so far.");
             }
-        }
-
+        }         
+        
         /// <summary>
         /// Sets the quiz.
         /// </summary>

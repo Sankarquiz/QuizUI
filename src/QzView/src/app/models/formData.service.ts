@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormDataModel, QuizDefinition, QuizSet, RegistrationFields, SponsorDetail, QuizQuestions } from './QuizDefinition';
-import { UserDataModel, UserRegistration, QuizAdv } from './Registration';
+import { UserDataModel, UserRegistration, QuizAdv, SignUp } from './Registration';
+import { SignUpComponent } from '../views/register/signup.component';
 
 @Injectable()
 export class FormDataService {
@@ -173,20 +174,17 @@ export class FormDataService {
 
   getUserData(): UserDataModel {
     var userdata: UserDataModel = {
-      teamName: this.userData.teamName,
       email: this.userData.email,
       role: this.userData.role
     }
     return this.userData;
   }
 
-  setUserData(data: UserRegistration) {
-    this.userData.teamName = data.teamName;
+  setUserData(data: SignUp) {
     this.userData.email = data.email;
     this.userData.role = data.role;
   }
   clearUserData() {
-    this.userData.teamName = '';
     this.userData.email = '';
     this.userData.role = '';
   }

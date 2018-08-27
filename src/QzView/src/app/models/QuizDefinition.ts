@@ -43,6 +43,7 @@ export class FormDataModel {
   questions = new Array<QuizSet>();
   isEditQuestion: boolean;
   daysLeft: string = '';
+  isRegistered: boolean;
   clear() {
     this.quizName = '';
     this.quizDomainHost = '';
@@ -88,6 +89,7 @@ export class FormDataModel {
     this.questions = new Array<QuizSet>();
     this.isEditQuestion = false;
     this.daysLeft = '';
+    this.isRegistered = false;
   }
 }
 
@@ -112,6 +114,7 @@ export class QuizDefinition {
   status: string;
   stage: string;
   daysLeft: string;
+  isRegistered: boolean;
   messageBeforeQuizTime: string;
   messageAfterQuizTime: string;
   registrationFields = new RegistrationFields();

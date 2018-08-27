@@ -35,8 +35,8 @@ export class RegisterComponent {
       .subscribe((response: any) => {
         this.result = response;
         if (response) {
-          this.formDataService.setUserData(this.registrationDetails);
-          this.router.navigate(['quiz/runner/startquiz']);
+          //this.formDataService.setUserData(this.registrationDetails);
+          this.router.navigate(['/user/admin/userdashboard']);
         } else {
           alert('Not Saved.');
         }

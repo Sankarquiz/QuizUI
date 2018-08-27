@@ -20,7 +20,7 @@ export class QuizRunnerStartComponent implements OnInit {
     debugger;
     this.quizadv = this.formDataService.getquizadv();
     this.quizDefinition.registrationFields = new RegistrationFields();
-    this._getQuestion.CheckQuiztaken(this.quizadv.quizName, this.quizadv.quizType, this.formDataService.getUserData().teamName)
+    this._getQuestion.CheckQuiztaken(this.quizadv.quizName, this.quizadv.quizType, this.formDataService.getUserData().email)
       .subscribe((res) => {
         if (!res) {
           alert('You have already taken this quiz. Please try with some other quiz.');

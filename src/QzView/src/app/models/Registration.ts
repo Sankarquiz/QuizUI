@@ -1,10 +1,11 @@
 export class UserDataModel {
-  teamName: string = '';
+  //teamName: string = '';
   email: string = '';
   role: string = '';
 }
 
 export class UserRegistration {
+  documentType: string;
   teamName: string;
   email: string;
   password: string;
@@ -16,6 +17,12 @@ export class UserRegistration {
   quizType: string
 }
 
+export class SignUp {
+  email: string;
+  password: string;
+  role: string;
+  status: string;
+}
 export class QuizAdv {
   quizName: string;
   quizType: string

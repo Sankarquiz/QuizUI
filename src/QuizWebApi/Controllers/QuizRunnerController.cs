@@ -22,7 +22,7 @@ namespace QuizWebApi.Controllers
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
-             
+
 
             var admindata = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(request.QuizName + "_" + request.QuizType + "_" + "questions");
             if (admindata?.Value != null)
@@ -31,7 +31,7 @@ namespace QuizWebApi.Controllers
                 {
                     var adminconfig = admindata.Value.Questions.Where(x => x.QuestionNo == item.questionNo).FirstOrDefault();
                     item.adminAnswer = adminconfig.Answer;
-                    item.adminScore = adminconfig.Score; 
+                    item.adminScore = adminconfig.Score;
                     if (item.userAnswer.ToLower() == adminconfig.Answer.ToLower())
                     {
                         request.TotalScored += adminconfig.Score; ;
@@ -45,31 +45,31 @@ namespace QuizWebApi.Controllers
                 }
             }
 
-            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(request.QuizName + "_" + request.QuizType + "_" + request.TeamName, request);
+            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(request.QuizName + "_" + request.QuizType + "_" + request.Email, request);
             return Ok(response);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetQuizResult(string quizName, string quizType, string teamName)
+        public async Task<IActionResult> GetQuizResult(string quizName, string quizType, string email)
         {
-            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(teamName))
+            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(email))
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
 
-            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
+            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + email);
             return Ok(response.Value);
         }
 
         [HttpGet]
-        public async Task<IActionResult> CheckQuizTaken(string quizName, string quizType, string teamName)
+        public async Task<IActionResult> CheckQuizTaken(string quizName, string quizType, string email)
         {
-            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(teamName))
+            if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(email))
             {
                 return BadRequest("Mandatory Fields Missing.");
             }
 
-            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
+            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + email);
             if (string.IsNullOrEmpty(response?.Value?.TeamName))
             {
                 return Ok(true);

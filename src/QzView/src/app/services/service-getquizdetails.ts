@@ -21,6 +21,11 @@ export class QuizDetailsService {
     return this._http.get(environment.getallquizdetails, this.httpOptions);
   }
 
+  GetRegisteredQuizData(email: string) {
+    let uri = environment.getregisteredquizdetails + "?email=" + email;
+    return this._http.get(uri, this.httpOptions);
+  }
+
   GetActiveQuizData() {
     return this._http.get(environment.getactivequizdetails, this.httpOptions);
   }
@@ -46,18 +51,22 @@ export class QuizDetailsService {
     return this._http.post(environment.register, JSON.stringify(userdetails), this.httpOptions);
   }
 
+  SignUp(userdetails: any) {
+    return this._http.post(environment.signup, JSON.stringify(userdetails), this.httpOptions);
+  }
+
   Login(username: string, password: string) {
-    let uri = environment.login + "?username=" + username + "&password=" + password;
+    let uri = environment.login + "?email=" + username + "&password=" + password;
     return this._http.get(uri, this.httpOptions);
   }
 
   CheckQuiztaken(quizName: string, quizType: string, teamName: string) {
-    let uri = environment.checkquiztaken + "?quizName=" + quizName + "&quizType=" + quizType + "&teamName=" + teamName;
+    let uri = environment.checkquiztaken + "?quizName=" + quizName + "&quizType=" + quizType + "&email=" + teamName;
     return this._http.get(uri, this.httpOptions);
   }
 
   GetQuizResult(quizName: string, quizType: string, teamName: string) {
-    let uri = environment.getquizresult + "?quizName=" + quizName + "&quizType=" + quizType + "&teamName=" + teamName;
+    let uri = environment.getquizresult + "?quizName=" + quizName + "&quizType=" + quizType + "&email=" + teamName;
     return this._http.get(uri, this.httpOptions);
   }
 

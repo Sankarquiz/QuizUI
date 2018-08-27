@@ -8,6 +8,7 @@ import { FormDataService } from '../../models/formData.service';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register.component';
+import { SignUpComponent } from './signup.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { RegisterComponent } from './register.component';
   ],
   declarations: [
     RegisterComponent,
+    SignUpComponent
   ],
   providers: [
     QuizDetailsService,
