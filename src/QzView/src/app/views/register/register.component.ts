@@ -7,7 +7,8 @@ import { UserRegistration } from '../../models/Registration';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: 'register.component.html'
+  templateUrl: 'register.component.html',
+  styleUrls: ['./register.css'],
 })
 export class RegisterComponent {
 

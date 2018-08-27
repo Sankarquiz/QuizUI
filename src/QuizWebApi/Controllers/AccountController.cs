@@ -31,7 +31,7 @@ namespace QuizWebApi.Controllers
             var res = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<UserRegistration>(req);
             if (res.Count > 0)
             {
-                return Ok("You have already registered for this quiz with team" + res.First().TeamName);
+                return Ok("You have already registered for this quiz with team " + res.First().TeamName);
             }
 
             query = string.Format(@"SELECT {0}.* FROM {0} WHERE documentType=""{1}"" and quizName=""{2}"" and quizType=""{3}"" and teamName=""{4}"" ",
