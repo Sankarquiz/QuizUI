@@ -13,29 +13,32 @@ export class RegisterComponent {
 
   registrationDetails = new UserRegistration();
   result: Observable<any>;
+  teamsize: number;
   constructor(private _register: QuizDetailsService, private router: Router, private formDataService: FormDataService) {
     this.registrationDetails.teamName = '';
-    this.registrationDetails.email = '';
-    this.registrationDetails.password = '';
+    this.registrationDetails.email = this.formDataService.getUserData().email;
     this.registrationDetails.contestantName = '';
     this.registrationDetails.phone = '';
     this.registrationDetails.contact = '';
-    this.registrationDetails.quizName = '';
-    this.registrationDetails.quizType = '';
+    this.registrationDetails.quizName = this.formDataService.getquizadv().quizName;
+    this.registrationDetails.quizType = this.formDataService.getquizadv().quizType;
+    this.teamsize = this.formDataService.getquizadv().teamSize;
   }
 
   ngOnInit() {
-    this.registrationDetails.quizName = this.formDataService.getquizadv().quizName;
-    this.registrationDetails.quizType = this.formDataService.getquizadv().quizType;
+    debugger;
+    if (!this.registrationDetails.quizName ||
+      !this.registrationDetails.quizType ||
+      !this.registrationDetails.email) {
+      this.router.navigate(['/login']);
+    }
   }
 
   Register() {
-    this.registrationDetails.role = 'user';
     this._register.Register(this.registrationDetails)
       .subscribe((response: any) => {
         this.result = response;
         if (response) {
-          //this.formDataService.setUserData(this.registrationDetails);
           this.router.navigate(['/user/admin/userdashboard']);
         } else {
           alert('Not Saved.');

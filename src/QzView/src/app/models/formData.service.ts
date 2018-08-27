@@ -8,6 +8,7 @@ export class FormDataService {
 
   private formData = new FormDataModel();
   private userData = new UserDataModel();
+  private userRegisteredData = new UserRegistration();
   private quizadv = new QuizAdv();
   constructor() {
   }
@@ -185,6 +186,7 @@ export class FormDataService {
     this.userData.email = data.email;
     this.userData.role = data.role;
   }
+
   clearUserData() {
     this.userData.email = '';
     this.userData.role = '';
@@ -193,13 +195,48 @@ export class FormDataService {
   setquizadv(data: QuizAdv) {
     this.quizadv.quizName = data.quizName;
     this.quizadv.quizType = data.quizType;
+    this.quizadv.teamSize = data.teamSize;
+    this.quizadv.teamName = data.teamName;
   }
 
   getquizadv(): QuizAdv {
     var advertiseData: QuizAdv = {
       quizName: this.quizadv.quizName,
-      quizType: this.quizadv.quizType
+      quizType: this.quizadv.quizType,
+      teamSize: this.quizadv.teamSize,
+      teamName: this.quizadv.teamName
     }
     return advertiseData;
+  }
+
+  getUserRegistrationData(): UserRegistration {
+    var userData: UserRegistration = {
+      teamName: this.userRegisteredData.teamName,
+      email: this.userRegisteredData.email,
+      email2: this.userRegisteredData.email2,
+      email3: this.userRegisteredData.email3,
+      contestantName: this.userRegisteredData.contestantName,
+      contestantName2: this.userRegisteredData.contestantName2,
+      contestantName3: this.userRegisteredData.contestantName3,
+      phone: this.userRegisteredData.phone,
+      contact: this.userRegisteredData.contact,
+      quizName: this.userRegisteredData.quizName,
+      quizType: this.userRegisteredData.quizType
+    }
+    return userData;
+  }
+
+  setUserRegistrationData(data: UserRegistration) {
+    this.userRegisteredData.teamName = data.teamName;
+    this.userRegisteredData.email = data.email;
+    this.userRegisteredData.email2 = data.email2;
+    this.userRegisteredData.email3 = data.email3;
+    this.userRegisteredData.contestantName = data.contestantName;
+    this.userRegisteredData.contestantName2 = data.contestantName2;
+    this.userRegisteredData.contestantName3 = data.contestantName3
+    this.userRegisteredData.phone = data.phone
+    this.userRegisteredData.contact = data.contact
+    this.userRegisteredData.quizName = data.quizName
+    this.userRegisteredData.quizType = data.quizType
   }
 }

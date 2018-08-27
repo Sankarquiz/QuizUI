@@ -23,6 +23,16 @@ namespace QuizWebApi.Controllers
                 return Ok("You have already registered for this quiz with team" + res.First().TeamName);
             }
 
+            query = string.Format(@"SELECT {0}.* FROM {0} WHERE documentType=""{1}"" and quizName=""{2}"" and quizType=""{3}"" and teamName=""{4}"" ",
+                         CouchbaseHelper.Bucket, "Register", user.QuizName, user.QuizType, user.TeamName);
+            req = new QueryRequest(query);
+            res = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<UserRegistration>(req);
+            if (res.Count > 0)
+            {
+                return Ok(user.TeamName + " is already registered for this quiz.Please try with different name.");
+            }
+
+            user.DocumentType = "Register";
             var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(user.Email + user.QuizName, user);
             return Ok(result);
         }
@@ -83,14 +93,7 @@ namespace QuizWebApi.Controllers
                 CouchbaseHelper.Bucket, "Register", email);
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<UserRegistration>(req);
-            if (result?.Count > 0)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return NotFound("No Quizes is defined so far.");
-            }
+            return Ok(result);
         }
     }
 }

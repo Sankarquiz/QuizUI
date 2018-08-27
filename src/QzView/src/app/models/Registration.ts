@@ -1,18 +1,18 @@
-export class UserDataModel {
-  //teamName: string = '';
+export class UserDataModel { 
   email: string = '';
-  role: string = '';
+  role: string = ''; 
 }
 
-export class UserRegistration {
-  documentType: string;
+export class UserRegistration {  
   teamName: string;
   email: string;
-  password: string;
+  email2: string;
+  email3: string; 
   contestantName: string;
+  contestantName2: string;
+  contestantName3: string;
   phone: string;
   contact: string;
-  role: string;
   quizName: string;
   quizType: string
 }
@@ -25,5 +25,7 @@ export class SignUp {
 }
 export class QuizAdv {
   quizName: string;
-  quizType: string
+  quizType: string;
+  teamSize: number;
+  teamName: string;
 }
