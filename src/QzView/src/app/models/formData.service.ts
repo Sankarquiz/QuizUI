@@ -32,6 +32,7 @@ export class FormDataService {
       showScoreAfterAttempt: this.formData.showScoreAfterAttempt,
       postScoreOnSocialMedia: this.formData.postScoreOnSocialMedia,
       daysLeft: this.formData.daysLeft,
+      isRegistered: this.formData.isRegistered,
       status: this.formData.status,
       stage: this.formData.stage,
       messageBeforeQuizTime: this.formData.messageBeforeQuizTime,

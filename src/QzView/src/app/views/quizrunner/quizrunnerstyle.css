@@ -1,12 +1,16 @@
-.question-links { list-style: none; padding: 0; text-align: center; margin-top: 30px; }
+.quiz,ul { clear:both; list-style-type: none; padding: 0; text-align: center; }
 
-.question-links li { width: 40px; height: 24px; text-align: center; background: #68cefe; border-right: 1px solid #ffff; display: inline-block; }
+.quiz li { list-style:none; list-style-type: none; background-color: #20a8d8; border-color: #20a8d8; text-align: center; background: #68cefe; display: inline; padding: 4px; margin: 0px 2px; list-style-type: none; }
 
-.question-links li a { color: #ffffff; text-decoration: none; display: block; }
+.quiz li a { color: #ffffff; text-decoration: none; display: block; }
 
-.question-links li button { background: none; border: none; }
+.quiz li button { background: none; border: none; }
 
-.question-links li.active { background: #808080; }
+.quiz li.active {
+  background-color: #1985ac;
+  border-color: #187da0;
 
-.question-links li.active button { color: white; }
-.question-links li.answered { background: greenyellow; }
+}
+
+.quiz li.active button { color: white; }
+.quiz li.answered { background: greenyellow; }
