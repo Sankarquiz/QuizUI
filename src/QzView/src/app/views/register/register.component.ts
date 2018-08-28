@@ -16,6 +16,7 @@ export class RegisterComponent {
   result: Observable<any>;
   teamsize: number;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  mobnumPattern = "^((\\+91-?)|0)?[0-9]{10}$"; 
   constructor(private _register: QuizDetailsService, private router: Router, private formDataService: FormDataService) {
     this.registrationDetails.teamName = '';
     this.registrationDetails.email = this.formDataService.getUserData().email;
