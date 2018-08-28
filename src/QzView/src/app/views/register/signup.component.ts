@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FormDataService } from '../../models/formData.service';
 import { UserRegistration, SignUp } from '../../models/Registration';
-import { matchesElement } from '@angular/animations/browser';
 
 @Component({
   selector: 'app-signup',

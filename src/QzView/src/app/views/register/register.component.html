@@ -25,20 +25,36 @@
                   <span class="input-group-text">@</span>
                 </div>
                 <input type="email" name="email2" class="form-control" placeholder="Enter Participant 2 Email"
-                       required #email2="ngModel" [(ngModel)]="registrationDetails.email2">
+                       required #email2="ngModel" [pattern]="emailPattern" [(ngModel)]="registrationDetails.email2">
+              </div>
+              <div *ngIf="registrationDetails.email2 && registrationDetails.email2.errors">
+                <div *ngIf="registrationDetails.email2.errors.required">
+                  Email2 required.
+                </div>
+                <div *ngIf="registrationDetails.email2.errors.pattern">
+                  Email2 not valid.
+                </div>
               </div>
               <div class="input-group mb-3" *ngIf="teamsize>2">
                 <div class="input-group-prepend">
                   <span class="input-group-text">@</span>
                 </div>
                 <input type="email" name="email3" class="form-control" placeholder="Enter Participant 3 Email"
-                       required #email3="ngModel" [(ngModel)]="registrationDetails.email3">
+                       required #email3="ngModel" [pattern]="emailPattern" [(ngModel)]="registrationDetails.email3">
+              </div>
+              <div *ngIf="registrationDetails.email3 && registrationDetails.email3.errors">
+                <div *ngIf="registrationDetails.email3.errors.required">
+                  Email3 required.
+                </div>
+                <div *ngIf="registrationDetails.email3.errors.pattern">
+                  Email3 not valid.
+                </div>
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-mobile fa-lg"></i></span>
                 </div>
-                <input type="text" name="phone" class="form-control" placeholder="Enter Mobile No."
+                <input type="number" name="phone" class="form-control" placeholder="Enter Mobile No."
                        required
                        #phone="ngModel" [(ngModel)]="registrationDetails.phone">
               </div>
@@ -66,7 +82,7 @@
               <button type="submit" class="btn btn-block btn-success"
                       [class.dont-submit]="registerquiz.invalid" [disabled]="registerquiz.invalid"
                       (click)="Register()">
-                Create Account
+                Register
               </button>
             </div>
           </form>

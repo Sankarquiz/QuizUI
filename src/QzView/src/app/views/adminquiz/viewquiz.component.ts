@@ -15,7 +15,7 @@ export class ViewQuizComponent {
     private _getAllQuizDetails: QuizDetailsService,
     private formDataService: FormDataService) { }
 
-  ngOnInit() {    
+  ngOnInit() {
     this._getAllQuizDetails.GetAllQuizData(this.formDataService.getUserData().email)
       .subscribe((result: any) => {
         this.PopulateResults(result);
@@ -29,11 +29,12 @@ export class ViewQuizComponent {
   quizScreen(index, stage) {
     debugger;
     this.formDataService.setQuizDefinition(this.quizDetails[index]);
+    this.formDataService.setRegistrationFields(this.quizDetails[index].registrationFields);
+
     if (stage.toLowerCase() == 'define') {
       this.router.navigate(['/dash/adminquiz/definequiz']);
     }
     if (stage.toLowerCase() == 'registration') {
-      this.formDataService.setRegistrationFields(this.quizDetails[index].registrationFields);
       this.router.navigate(['/dash/adminquiz/registerquiz']);
     }
     if (stage.toLowerCase() == 'setlogo') {
@@ -49,7 +50,12 @@ export class ViewQuizComponent {
       this.router.navigate(['/dash/adminquiz/setpagequiz']);
     }
 
-    this.router.navigate(['/dash/adminquiz/definequiz']);
+    this._getAllQuizDetails.GetQuizData(this.quizDetails[index].quizName, this.quizDetails[index].quizType, 'questions')
+      .subscribe((result: any) => {
+        this.formDataService.setQuizQuestions(result);
+        this.router.navigate(['/dash/adminquiz/definequiz']);
+      });
+
   }
   PopulateQuestionSet(result) {
     debugger;
