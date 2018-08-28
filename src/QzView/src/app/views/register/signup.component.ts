@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FormDataService } from '../../models/formData.service';
 import { UserRegistration, SignUp } from '../../models/Registration';
-import { matchesElement } from '@angular/animations/browser';
 
 @Component({
   selector: 'app-signup',
@@ -16,6 +15,7 @@ export class SignUpComponent {
   loginDetails = new SignUp();
   result: Observable<any>;
   repeatPassword: string;
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   constructor(private _register: QuizDetailsService,
     private router: Router,
     private formDataService: FormDataService) {

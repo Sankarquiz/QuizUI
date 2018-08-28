@@ -225,6 +225,8 @@ export class FormDataService {
       contestantName2: this.userRegisteredData.contestantName2,
       contestantName3: this.userRegisteredData.contestantName3,
       phone: this.userRegisteredData.phone,
+      phone2: this.userRegisteredData.phone2,
+      phone3: this.userRegisteredData.phone3,
       contact: this.userRegisteredData.contact,
       quizName: this.userRegisteredData.quizName,
       quizType: this.userRegisteredData.quizType
@@ -239,10 +241,12 @@ export class FormDataService {
     this.userRegisteredData.email3 = data.email3;
     this.userRegisteredData.contestantName = data.contestantName;
     this.userRegisteredData.contestantName2 = data.contestantName2;
-    this.userRegisteredData.contestantName3 = data.contestantName3
-    this.userRegisteredData.phone = data.phone
-    this.userRegisteredData.contact = data.contact
-    this.userRegisteredData.quizName = data.quizName
-    this.userRegisteredData.quizType = data.quizType
+    this.userRegisteredData.contestantName3 = data.contestantName3;
+    this.userRegisteredData.phone = data.phone;
+    this.userRegisteredData.phone2 = data.phone2;
+    this.userRegisteredData.phone3 = data.phone3;
+    this.userRegisteredData.contact = data.contact;
+    this.userRegisteredData.quizName = data.quizName;
+    this.userRegisteredData.quizType = data.quizType;
   }
 }
