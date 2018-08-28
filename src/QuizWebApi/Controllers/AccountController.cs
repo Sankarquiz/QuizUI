@@ -9,6 +9,7 @@ using System;
 using System.Text;
 using QuizWebApi.Models.Common;
 using Microsoft.Extensions.Options;
+using QuizWebApi.Utilities;
 
 namespace QuizWebApi.Controllers
 {
@@ -16,10 +17,10 @@ namespace QuizWebApi.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        public SMTPConfig SmtpConfig { get; }
-        public AccountController(IOptions<SMTPConfig> smtpConfig)
+        public EmailManager Email { get; }
+        public AccountController(EmailManager email)
         {
-            SmtpConfig = smtpConfig.Value;
+            Email = email;
         }
 
         [HttpPost]
@@ -62,7 +63,7 @@ namespace QuizWebApi.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("{email}")]
         public async Task<IActionResult> ActivateSignUp(string email)
         {
             var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<SignUp>(email);
