@@ -14,16 +14,18 @@ namespace QuizWebApi.Utilities
         {
             try
             {
-                SmtpClient client = new SmtpClient(msg.Config.Server.Trim());
+                SmtpClient client = new SmtpClient(msg.Config.Server.Trim(),msg.Config.Port);
                 client.UseDefaultCredentials = false;
                 client.Credentials = new NetworkCredential(msg.Config.User.Trim(), msg.Config.Pass.Trim());
                 client.EnableSsl = true;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 MailMessage mailMessage = new MailMessage();
-                mailMessage.From = new MailAddress(msg.ToEmail.Trim());
+                mailMessage.From = new MailAddress(msg.Config.From.Trim());
                 mailMessage.To.Add(msg.ToEmail.Trim());
                 mailMessage.Body = msg.Message;
                 mailMessage.Subject = subject;
-                mailMessage.IsBodyHtml = false;
+                mailMessage.IsBodyHtml = true;
+                
                 client.Send(mailMessage);
                 return true;
             }
