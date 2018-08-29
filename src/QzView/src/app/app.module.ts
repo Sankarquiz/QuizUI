@@ -7,7 +7,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-
+import { StorageServiceModule } from 'angular-webstorage-service';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -35,7 +35,7 @@ import {
   AppBreadcrumbModule,
   AppHeaderModule,
   AppFooterModule,
-  AppSidebarModule,
+  AppSidebarModule,  
 } from '@coreui/angular'
 
 // Import routing module
@@ -48,7 +48,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { QuizDetailsService } from './services/service-getquizdetails';
 import { FormDataService } from './models/formData.service';
-
+import { SessionDataService } from './services/SessionDataService';
 @NgModule({
   imports: [
     CommonModule,
@@ -60,6 +60,7 @@ import { FormDataService } from './models/formData.service';
     AppFooterModule,
     AppHeaderModule,
     AppSidebarModule,
+    StorageServiceModule,
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
@@ -75,6 +76,7 @@ import { FormDataService } from './models/formData.service';
   ],
   providers: [
     QuizDetailsService,
+    SessionDataService,
     FormDataService,
     {
       provide: LocationStrategy,

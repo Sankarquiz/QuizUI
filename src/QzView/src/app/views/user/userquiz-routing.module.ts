@@ -4,7 +4,7 @@ import { UserDashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
   {
-    path: 'userdashboard',
+    path: 'dashboard',
     component: UserDashboardComponent,
     data: {
       title: 'Dashboard'

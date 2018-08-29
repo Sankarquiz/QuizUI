@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
+import { SessionDataService } from '../../services/SessionDataService';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FormDataService } from '../../models/formData.service';
@@ -11,10 +12,13 @@ import { SignUp } from '../../models/Registration';
 })
 export class LoginComponent {
   password: string;
-  email: string;
-  result: Observable<any>;
+  email: string;  
+  result:  SignUp ;
   userDetails = new SignUp();
-  constructor(private _register: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
+  constructor(private _register: QuizDetailsService,
+    private router: Router,
+    private formDataService: FormDataService,
+    private datastore: SessionDataService ) { }
 
   ngOnInit() {
     this.password = '';
@@ -25,16 +29,24 @@ export class LoginComponent {
     if (this.email && this.password) {
       this._register.Login(this.email, this.password)
         .subscribe((response: any) => {
-          this.result = response;
+          debugger;
+          this.result = response as SignUp;
           if (response) {
             if (response.message) {
               alert(response.message);
               return;
             }
-            this.userDetails.email = this.email;
-            this.userDetails.role = response[0].role;
-            this.formDataService.setUserData(this.userDetails);
-            this.router.navigate(['/user/admin/userdashboard']);
+            //this.userDetails.email = this.result.email;
+            //this.userDetails.role = this.result.role;
+            this.datastore.SetUserData(this.result);
+            //this.formDataService.setUserData(this.userDetails);
+            //let test = this.formDataService.getUserData();
+            if (this.result.role.toLowerCase() == "admin") {
+              this.router.navigate(['/admin/quiz/viewquiz']);
+            }
+            else {
+              this.router.navigate(['/user/quiz/dashboard']);
+            }
           } else {
             alert('Something went wrong. Please try again.');
           }

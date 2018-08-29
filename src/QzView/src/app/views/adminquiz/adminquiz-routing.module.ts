@@ -14,6 +14,7 @@ import { PublishQuizComponent } from './publish-quiz.component';
 const routes: Routes = [
   {
     path: '',
+    component: ViewQuizComponent,
     data: {
       title: 'Quiz'
     },

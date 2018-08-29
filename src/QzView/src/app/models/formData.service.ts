@@ -3,6 +3,8 @@ import { FormDataModel, QuizDefinition, QuizSet, RegistrationFields, SponsorDeta
 import { UserDataModel, UserRegistration, QuizAdv, SignUp } from './Registration';
 import { SignUpComponent } from '../views/register/signup.component';
 import { QuizResult } from './QuizRunner';
+import { SessionDataService } from '../services/SessionDataService';
+
 
 @Injectable()
 export class FormDataService {
@@ -12,7 +14,8 @@ export class FormDataService {
   private userRegisteredData = new UserRegistration();
   private quizadv = new QuizAdv();
   private quizrunner = new QuizResult();
-  constructor() {
+
+  constructor(private datastore: SessionDataService) {
   }
   getQuizDefinition(): QuizDefinition {
     // Return the Quiz data
@@ -182,12 +185,13 @@ export class FormDataService {
     this.formData.clear();
   }
 
-  getUserData(): UserDataModel {
-    var userdata: UserDataModel = {
-      email: this.userData.email,
-      role: this.userData.role
-    }
-    return this.userData;
+  getUserData(): SignUp {
+    return this.datastore.GetUserData();
+    //var userdata: UserDataModel = {
+    //  email: this.userData.email,
+    //  role: this.userData.role
+    //}
+    //return this.userData;
   }
 
   setUserData(data: SignUp) {
