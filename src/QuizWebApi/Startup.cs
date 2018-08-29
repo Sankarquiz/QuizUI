@@ -1,10 +1,12 @@
 ﻿using Couchbase.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.PlatformAbstractions;
 using QuizWebApi.Models.Common;
 using QuizWebApi.Utilities;
@@ -69,6 +71,7 @@ namespace QuizWebApi
                 var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
                 c.ConfigureSwaggerVersions(provider, "Quiz Service");
             });
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.Configure<SMTPConfig>(Configuration.GetSection("Smtp"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCouchbase(Configuration.GetSection("Couchbase"));

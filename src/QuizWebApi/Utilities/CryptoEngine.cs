@@ -9,7 +9,7 @@ namespace QuizWebApi.Utilities
 {
     public class CryptoEngine
     {
-        private static string ENCRYPTKEY = "knowledgevyasa";
+        private static string ENCRYPTKEY = "knowledgevyasa18";
         public static string Encrypt(string input)
         {
             return Encrypt(input, ENCRYPTKEY);
