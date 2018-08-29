@@ -11,6 +11,8 @@
         public string ContestantName2 { get; set; }
         public string ContestantName3 { get; set; }
         public string Phone { get; set; }
+        public string Phone2 { get; set; }
+        public string Phone3 { get; set; }
         public string Contact { get; set; }
         public string QuizName { get; set; }
         public string QuizType { get; set; }

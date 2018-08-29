@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using QuizWebApi.Models.Admin;
 using QuizWebApi.Models.QuizRunner;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,46 +13,83 @@ namespace QuizWebApi.Controllers
     [AllowAnonymous]
     public class QuizRunnerController : Controller
     {
-        [HttpPost]
-        public async Task<IActionResult> SaveQuizRunner([FromBody]QuizResult request)
+        // RunnerBC _runnerBC;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuizRunnerController"/> class.
+        /// </summary>
+        public QuizRunnerController()
         {
-            if (request == null ||
-                string.IsNullOrEmpty(request.QuizName) ||
-                string.IsNullOrEmpty(request.QuizType) ||
-              request.QuizResultDetails?.Count == 0)
+            //_runnerBC = new RunnerBC();
+        }
+        /// <summary>
+        /// Saves the quiz runner.
+        /// </summary>
+        /// <param name="quizName">Name of the quiz.</param>
+        /// <param name="quizType">Type of the quiz.</param>
+        /// <param name="teamName">Name of the team.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="questionNo">The question no.</param>
+        /// <param name="answer">The answer.</param>
+        /// <returns></returns>
+        [HttpPost]
+        //public async Task<IActionResult> SaveQuizRunner([FromBody]QuizResultDetails request)
+        public async Task<IActionResult> SaveQuizRunner(string quizName, string quizType, string teamName, string email, string status, int questionNo, string answer)
+        {
+            if (
+             string.IsNullOrEmpty(quizName) ||
+             string.IsNullOrEmpty(quizType) ||
+             string.IsNullOrEmpty(teamName))
             {
                 var message = "{\"message\":\"QuizName or QuizType is missing.\"}";
                 return BadRequest(message);
             }
 
+            var answered = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
+            answered.Value.QuizResultDetails[questionNo].UserAnswer = answer;
 
-            var admindata = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(request.QuizName + "_" + request.QuizType + "_" + "questions");
-            if (admindata?.Value != null)
+            if (status.ToLower() == "completed" || status.ToLower() == "timeout")
             {
-                foreach (var item in request.QuizResultDetails)
+                TimeSpan diff = DateTime.UtcNow - answered.Value.QuizStartTime;
+                if (status == "timeout")
                 {
-                    var adminconfig = admindata.Value.Questions.Where(x => x.QuestionNo == item.questionNo).FirstOrDefault();
-                    item.adminAnswer = adminconfig.Answer;
-                    item.adminScore = adminconfig.Score;
-                    if (item.userAnswer.ToLower() == adminconfig.Answer.ToLower())
+                    answered.Value.TimeTakenMinutes = answered.Value.DurationInMinutes;
+                }
+                else
+                {
+                    answered.Value.TimeTakenMinutes = diff.Minutes;
+                    answered.Value.TimeTakenSeconds = diff.Seconds;
+                }
+                answered.Value.Email = email;
+                var admindata = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
+                if (admindata?.Value != null)
+                {
+                    foreach (var item in answered.Value.QuizResultDetails)
                     {
-                        request.TotalScored += adminconfig.Score; ;
-                        request.NumberOfCorrectAnswers++;
-                        item.userScored = adminconfig.Score;
-                    }
-                    else
-                    {
-                        request.NumberOfWrongAnswers++;
+                        var adminconfig = admindata.Value.Questions.FirstOrDefault(x => x.QuestionNo == item.QuestionSet.QuestionNo);
+
+                        item.AdminScore = adminconfig.Score;
+                        if (item.UserAnswer.ToLower() == adminconfig.Answer.ToLower())
+                        {
+                            answered.Value.TotalScored += adminconfig.Score; ;
+                            answered.Value.NumberOfCorrectAnswers++;
+                            item.UserScored = adminconfig.Score;
+                        }
+                        else
+                        {
+                            answered.Value.NumberOfWrongAnswers++;
+                        }
                     }
                 }
             }
 
-            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(request.QuizName + "_" + request.QuizType + "_" + request.TeamName, request);
+            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(quizName + "_" + quizType + "_" + teamName, answered);
             return Ok(response);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetQuizResult(string quizName, string quizType, string teamName)
+        public async Task<IActionResult> GetQuizResult(string quizName, string quizType, string teamName, int questionNo = 0)
         {
             if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(teamName))
             {
@@ -59,8 +97,16 @@ namespace QuizWebApi.Controllers
                 return BadRequest(message);
             }
 
+            if (questionNo > 0)
+            {
+                var question = (await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName))
+                    .Value.QuizResultDetails[questionNo - 1];
+                return Ok(question);
+            }
+
             var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
             return Ok(response.Value);
+
         }
 
         [HttpGet]
@@ -77,6 +123,17 @@ namespace QuizWebApi.Controllers
             {
                 return Ok(true);
             }
+
+            if (response?.Value?.Status.ToLower() == "started" ||
+              response?.Value?.Status.ToLower() == "incomplete")
+            {
+                if (response.Value.QuizStartTime.AddMinutes(response.Value.DurationInMinutes) > DateTime.UtcNow)
+                {
+                    return Ok(true);
+                }
+
+            }
+
             return Ok(false);
         }
     }

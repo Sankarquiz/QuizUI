@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using QuizWebApi.Models.Admin;
+using QuizWebApi.Models.QuizRunner;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -121,10 +122,10 @@ namespace QuizWebApi.Controllers
         /// <param name="quizName">Name of the quiz.</param>
         /// <param name="quizType">Type of the quiz.</param>
         /// <param name="documentType">Type of the document.</param>
+        /// <param name="teamName">Name of the team.</param>
         /// <returns></returns>
-        /// //[Route("/getquiz")]
         [HttpGet]
-        public async Task<IActionResult> GetQuiz(string quizName, string quizType, string documentType)
+        public async Task<IActionResult> GetQuiz(string quizName, string quizType, string documentType, string teamName = "")
         {
             if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(documentType))
             {
@@ -156,7 +157,31 @@ namespace QuizWebApi.Controllers
             }
             else
             {
+                var quizbankexists = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
+                if (string.IsNullOrEmpty(quizbankexists?.Value?.TeamName))
+                {
+                    return Ok(quizbankexists);
+                }
+
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
+                var res = new QuizResult();
+                res.QuizName = quizName;
+                res.QuizType = quizType;
+                res.TeamName = teamName;
+                var definition = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
+
+                res.DurationInMinutes = (definition.Value.QuizDurationType.ToLower() == "hours") ?
+                                         (definition.Value.QuizDurationTime * 60) :
+                                         (definition.Value.QuizDurationTime);
+                res.Status = QuizStatus.Started.ToString();
+                if (definition.Value.ShuffleQuestions)
+                {
+                    response.Value.Questions = response.Value.Questions.OrderBy(item => new Random().Next()).ToList();
+                }
+                if (definition.Value.IsQuizFromLargerPool)
+                {
+                    response.Value.Questions = response.Value.Questions.Take(definition.Value.NoOfQuestionsInPool).ToList();
+                }
                 foreach (var item in response.Value.Questions)
                 {
                     item.Score = 0;
@@ -165,9 +190,13 @@ namespace QuizWebApi.Controllers
                     {
                         item.ImageUrl = host + item.ImageUrl;
                     }
+                    QuizResultDetails quizResultDetails = new QuizResultDetails();
+                    quizResultDetails.QuestionSet = item;
+                    res.QuizResultDetails.Add(quizResultDetails);
                 }
 
-                return Ok(response.Value);
+                await CouchbaseHelper.CouchbaseClient.UpsertAsync(quizName + "_" + quizType + "_" + teamName, res);
+                return Ok(res);
             }
         }
 

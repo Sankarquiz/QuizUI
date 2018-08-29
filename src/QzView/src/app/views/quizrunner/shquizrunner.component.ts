@@ -14,7 +14,7 @@ export class SHQuizRunnerComponent implements OnInit {
   questionNo: number;
   quizDefinition: QuizDefinition;
   questionsCount;
-  questions: QuizQuestions;
+  //questions: QuizQuestions;
   result: any;
   isanswered = new Array<number>();
 
@@ -47,11 +47,10 @@ export class SHQuizRunnerComponent implements OnInit {
 
         this._getQuestion.GetQuizData(quizName, quizType, "questions")
           .subscribe((res: any) => {
-            this.questions = res;
-
+            this.quizresult = res;
 
             this.formDataService.setQuizDefinition(this.quizDefinition);
-            this.formDataService.setQuizQuestions(this.questions);
+            this.formDataService.setQuizRunner(this.quizresult);
             this.LoadInitialData();
           });
       });
@@ -61,18 +60,11 @@ export class SHQuizRunnerComponent implements OnInit {
     //this.TestInit();
     this.LoadInitialData();
   }
+
   LoadInitialData() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    this.questions = this.formDataService.getQuizQuestions();
-
-    if (this.quizDefinition.noOfQuestionsInPool && this.quizDefinition.isQuizFromLargerPool) {
-      this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestionsInPool.toString())).fill(1);
-    }
-    else {
-      if (this.quizDefinition.noOfQuestions) {
-        this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestions.toString())).fill(1);
-      }
-    }
+    this.quizresult = this.formDataService.getQuizRunner();
+    this.questionsCount = Array(this.quizresult.quizResultDetails.length).fill(1);
 
     if (this.quizDefinition.sponsorList) {
       if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'topleft').length > 0) {
@@ -102,46 +94,29 @@ export class SHQuizRunnerComponent implements OnInit {
     }
     this.questionset.isImageneeded == false;
     this.questionset.questionText == '';
-    this.totalquestions = (this.quizDefinition.noOfQuestionsInPool &&
-      this.quizDefinition.isQuizFromLargerPool) ?
-      this.quizDefinition.noOfQuestionsInPool :
-      this.quizDefinition.noOfQuestions;
-
-    this.quizresult.totalScored = 0;
-    this.quizresult.numberOfCorrectAnswers = 0;
-    this.quizresult.numberOfWrongAnswers = 0;
-    this.quizresult.quizName = this.quizDefinition.quizName;
-    this.quizresult.quizType = this.quizDefinition.quizType;
+    this.totalquestions = this.quizresult.quizResultDetails.length;
     this.quizresult.teamName = this.formDataService.getquizadv().teamName;
-    this.quizresult.quizResultDetails = new Array<QuizResultDetails>();
-    this.quizresultdetails = new QuizResultDetails();
-
-    if (this.quizDefinition.quizDurationType && this.quizDefinition.quizDurationType.toLocaleLowerCase() == "hours") {
-      this.timeLeftMinutes = Math.floor(this.quizDefinition.quizDurationTime * 60) - 1;
-    }
-    else {
-      this.timeLeftMinutes = this.quizDefinition.quizDurationTime - 1;
-    }
+    this.timeLeftMinutes = this.quizresult.durationInMinutes - 1;
 
     this.StartTimer();
     if (!this.questionNo) {
       this.questionNo = 1;
     }
-    this.questionset = this.questions.questions[this.questionNo - 1];
 
-    this.UpdateMask();
+    this.GetQuestion(1);
+  }
+
+  GetQuestion(questionNumber) {
+    this._getQuestion.GetQuizQuestion(this.quizDefinition.quizName, this.quizDefinition.quizType, this.quizresult.teamName, questionNumber)
+      .subscribe((res: any) => {
+        this.quizresultdetails = res;
+        this.questionset = this.quizresultdetails.questionSet;
+        this.UpdateMask();
+      });
   }
 
   ngOnChanges() {
-    debugger;
-    if (this.questions) {
-      this.quizresultdetails = new QuizResultDetails();
-      this.questionset = this.questions.questions[this.questionNo - 1];
-      this.UpdateMask();
-      if (this.quizresult.quizResultDetails[this.questionNo - 1]) {
-        this.quizresultdetails = this.quizresult.quizResultDetails[this.questionNo - 1]
-      }
-    }
+    this.GetQuestion(this.questionNo);
   }
 
   UpdateMask() {
@@ -183,26 +158,18 @@ export class SHQuizRunnerComponent implements OnInit {
   SaveAnswer() {
     debugger;
     if (this.quizresultdetails.userAnswer) {
-      this.quizresultdetails.questionNo = this.questionset.questionNo;
-      this.quizresultdetails.questionText = this.questionset.questionText;
-      this.quizresultdetails.answerType = this.questionset.answerType;
-      if (this.quizresult.quizResultDetails.filter(x => x.questionNo == this.quizresultdetails.questionNo).length > 0) {
-        let index = this.quizresult.quizResultDetails.findIndex(x => x.questionNo == this.quizresultdetails.questionNo);
-        this.quizresult.quizResultDetails[index] = this.quizresultdetails;
-      }
-      else {
-        this.quizresult.quizResultDetails.push(this.quizresultdetails);
-      }
+
+      let index = this.quizresult.quizResultDetails.findIndex(x => x.questionSet.questionNo == this.quizresultdetails.questionSet.questionNo);
+      this.quizresult.quizResultDetails[index].userAnswer = this.quizresultdetails.userAnswer;
 
       this.isanswered.push(this.questionNo - 1);
       this.questionNo++;
       if (this.questionNo > this.totalquestions) {
-        this.quizresult.timeTakenMinutes = (this.quizDefinition.quizDurationType.toLocaleLowerCase() == "hours") ?
-          ((Math.floor(this.quizDefinition.quizDurationTime * 60) - 1) - this.timeLeftMinutes) :
-          ((this.quizDefinition.quizDurationTime - 1) - this.timeLeftMinutes);
+        this.quizresult.timeTakenMinutes = this.quizresult.durationInMinutes - this.timeLeftMinutes;
         this.quizresult.timeTakenSeconds = (59 - this.timeLeftSeconds);
-        this.SaveQuizResult(this.quizresult);
+        this.SaveQuizResult('completed');
       }
+      this.SaveQuizResult('incomplete');
       this.ngOnChanges();
     }
   }
@@ -227,18 +194,22 @@ export class SHQuizRunnerComponent implements OnInit {
     }, 1000)
 
     if (this.timeLeftMinutes == 0 && this.timeLeftSeconds == 0) {
-      this.quizresult.timeTakenMinutes = (this.quizDefinition.quizDurationType.toLocaleLowerCase() == "hours") ?
-        (Math.floor(this.quizDefinition.quizDurationTime * 60) - 1) : (this.quizDefinition.quizDurationTime - 1);
+      this.quizresult.timeTakenMinutes = this.quizresult.durationInMinutes;
       //Save Quiz..
-      this.SaveQuizResult(this.quizresult);
+      this.quizresult.status = 'timeout';
+      this.SaveQuizResult('timeout');
     }
   }
 
-  SaveQuizResult(quizResult) {
-    this._getQuestion.SaveQuizRunner(quizResult)
+  SaveQuizResult(status: string) {
+    this._getQuestion.SaveQuizRunner(this.quizDefinition.quizName, this.quizDefinition.quizType,
+      this.quizresult.teamName, this.formDataService.getUserData().email, status,
+      this.questionNo.toString(), this.quizresultdetails.userAnswer)
       .subscribe((response: any) => {
         if (response) {
-          this.router.navigate(['/quiz/runner/finishquiz']);
+          if (status == 'completed' || status == 'timeout') {
+            this.router.navigate(['/quiz/runner/finishquiz']);
+          }
         }
         else {
           alert('Something went wrong. Please try again.')
@@ -246,6 +217,7 @@ export class SHQuizRunnerComponent implements OnInit {
         }
       });
   }
+
   AssignQuestionNumber(questionNumber) {
     this.questionNo = questionNumber;
     this.ngOnChanges();
