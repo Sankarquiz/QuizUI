@@ -1,14 +1,21 @@
 // Here you can add other styles
 //@import "~ng-pick-datetime/assets/style/picker.min.css";
-.imgcol, img
+.imgcol, img, .imgads
 {
   text-align:center;
   padding:2px;
-  max-height:80%;
-  max-width:80%;
+ 
 }
-.rp5p{
-  padding-right : 5px;
+.imgcol {
+  max-height: 300px;
+  min-height:100px;
+}
+.imgads {
+  max-height: 100px;
+  min-height: 50px;
+}
+.rp5p {
+  padding-right: 5px;
 }
 .rp4p {
   padding-right: 4px;
