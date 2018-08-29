@@ -27,12 +27,16 @@ export class LoginComponent {
         .subscribe((response: any) => {
           this.result = response;
           if (response) {
+            if (response.message) {
+              alert(response.message);
+              return;
+            }
             this.userDetails.email = this.email;
             this.userDetails.role = response[0].role;
             this.formDataService.setUserData(this.userDetails);
             this.router.navigate(['/user/admin/userdashboard']);
           } else {
-            alert('Not Saved.');
+            alert('Something went wrong. Please try again.');
           }
         });
     }

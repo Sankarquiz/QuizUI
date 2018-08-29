@@ -44,9 +44,9 @@ namespace QuizWebApi.Controllers
             if (request == null ||
                 string.IsNullOrEmpty(request.QuizName) ||
                 string.IsNullOrEmpty(request.QuizType))
-            // || request.QuestionSet?.Count == 0)
             {
-                return BadRequest("Mandatory Fields Missing.");
+                var message = "{\"message\":\"Mandatory fields missing.\"}";
+                return BadRequest(message);
             }
             request.DocumentType = "Define";
             var parameters = new Dictionary<string, object>();
@@ -58,7 +58,8 @@ namespace QuizWebApi.Controllers
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
             if (result.Count > 0)
             {
-                return BadRequest("This Quiz is already Published.");
+                var message = "{\"message\":\"This Quiz is already Published.\"}";
+                return BadRequest(message);
             }
 
             var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(request.QuizName + "_" + request.QuizType, request);
@@ -77,14 +78,7 @@ namespace QuizWebApi.Controllers
                 CouchbaseHelper.Bucket, "Define", email);
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
-            if (result?.Count > 0)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return NotFound("No Quizes is defined so far.");
-            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -98,16 +92,9 @@ namespace QuizWebApi.Controllers
             var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}"" and status=""{2}"" and quizEndTime > CLOCK_LOCAL()", CouchbaseHelper.Bucket, "Define", "Published");
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
-            if (result?.Count > 0)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return NotFound("No Quizes is defined so far.");
-            }
-        }         
-        
+            return Ok(result);
+        }
+
         /// <summary>
         /// Sets the quiz.
         /// </summary>
@@ -119,7 +106,8 @@ namespace QuizWebApi.Controllers
         {
             if (questionSet == null || string.IsNullOrEmpty(questionSet.QuizName) || string.IsNullOrEmpty(questionSet.QuizType) || questionSet.Questions?.Count == 0)
             {
-                return BadRequest("Mandatory Fields Missing.");
+                var message = "{\"message\":\"Mandatory fields missing.\"}";
+                return BadRequest(message);
             }
             questionSet.DocumentType = "QuestionSet";
             var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(questionSet.QuizName + "_" + questionSet.QuizType + "_" + "questions", questionSet);
@@ -140,7 +128,8 @@ namespace QuizWebApi.Controllers
         {
             if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(documentType))
             {
-                return BadRequest("Mandatory Fields Missing.");
+                var message = "{\"message\":\"Mandatory fields missing.\"}";
+                return BadRequest(message);
             }
 
             var host = Request.Scheme + "://" + Request.Host + "/images/";

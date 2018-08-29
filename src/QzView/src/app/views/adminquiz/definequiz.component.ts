@@ -60,7 +60,7 @@ export class DefineQuizComponent implements OnInit {
           this.formDataService.setQuizDefinition(this.quizDefinition);
           this.router.navigate(['/dash/adminquiz/registerquiz']);
         } else {
-          alert('Not Saved.');
+          alert('Something went wrong. Please Try again.');
         }
       });
   }

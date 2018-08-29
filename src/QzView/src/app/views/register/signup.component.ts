@@ -39,11 +39,15 @@ export class SignUpComponent {
       .subscribe((response: any) => {
         this.result = response;
         if (response) {
+          if (response.message) {
+            alert(response.message);
+            return;
+          }
           this.formDataService.setUserData(this.loginDetails);
           alert('An Email verification link is sent to your mail.Please click the link to activate account.');
           this.router.navigate(['/login']);
         } else {
-          alert('Not Saved.');
+          alert('Something went wrong. Please try again.');
         }
       });
   }

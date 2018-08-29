@@ -48,10 +48,10 @@ export class SHQuizRunnerComponent implements OnInit {
         this._getQuestion.GetQuizData(quizName, quizType, "questions")
           .subscribe((res: any) => {
             this.questions = res;
-         
 
-        this.formDataService.setQuizDefinition(this.quizDefinition);
-        this.formDataService.setQuizQuestions(this.questions);
+
+            this.formDataService.setQuizDefinition(this.quizDefinition);
+            this.formDataService.setQuizQuestions(this.questions);
             this.LoadInitialData();
           });
       });
@@ -61,8 +61,7 @@ export class SHQuizRunnerComponent implements OnInit {
     //this.TestInit();
     this.LoadInitialData();
   }
-  LoadInitialData()
-  {
+  LoadInitialData() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
 
@@ -240,6 +239,10 @@ export class SHQuizRunnerComponent implements OnInit {
       .subscribe((response: any) => {
         if (response) {
           this.router.navigate(['/quiz/runner/finishquiz']);
+        }
+        else {
+          alert('Something went wrong. Please try again.')
+          this.router.navigate(['/user/admin/userdashboard']);
         }
       });
   }

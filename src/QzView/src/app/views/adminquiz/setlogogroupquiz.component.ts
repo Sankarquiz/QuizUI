@@ -76,11 +76,15 @@ export class SetLogoGroupQuizComponent implements OnInit {
       .subscribe((result: any) => {
         this.result = result;
         if (result) {
+          if (result.message) {
+            alert(result.message);
+            return;
+          }
           this.formDataService.setSponserFields(this.quizDefinition.sponsorList);
           this.formDataService.setQuizDefinition(this.quizDefinition);
           this.router.navigate(['/dash/adminquiz/setquestionquiz']);
         } else {
-          alert('Not Saved.');
+          alert('Something went wrong. Please Try again.');
         }
       });
   }

@@ -26,10 +26,14 @@ export class SetPageQuizComponent implements OnInit {
       .subscribe((result: any) => {
         this.result = result;
         if (result) {
+          if (result.message) {
+            alert(result.message);
+            return;
+          }
           this.formDataService.setQuizDefinition(this.quizDefinition);
           this.router.navigate(['/dash/adminquiz/setlogoquiz']);
         } else {
-          alert('Not Saved.');
+          alert('Something went wrong. Please Try again.');
         }
       });
   }
