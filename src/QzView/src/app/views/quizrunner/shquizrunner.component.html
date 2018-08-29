@@ -4,14 +4,14 @@
       <div class="col-sm-6 col-md-4" *ngIf="topleft">
         <div class="card">
           <div>
-            <img class="imgads" src="{{topleft}}" alt="Top Left" style="display: block; width: 100%;">
+            <img class="imgads" src="{{topleft}}" onError="this.src='assets/img/noimage.png'" alt="Top Left" style="display: block; width: 100%;">
           </div>
         </div>
       </div><!--/.col-->
       <div class="col-sm-6 col-md-4" *ngIf="topright">
         <div class="card">
           <div>
-            <img class="imgads" src="{{topright}}" alt="Top Right" style="display: block; width: 100%;">
+            <img class="imgads" src="{{topright}}" onError="this.src='assets/img/noimage.png'" alt="Top Right" style="display: block; width: 100%;">
           </div>
         </div>
       </div><!--/.col-->
@@ -19,7 +19,7 @@
       <div class="col-sm-6 col-md-4" *ngIf="topmiddle">
         <div class="card">
           <div>
-            <img class="imgads" src="{{topmiddle}}" alt="Top middle" style="display: block; width: 100%;">
+            <img class="imgads" src="{{topmiddle}}" onError="this.src='assets/img/noimage.png'" alt="Top middle" style="display: block; width: 100%;">
           </div>
         </div>
       </div><!--/.col-->
@@ -59,7 +59,7 @@
                   <div class="form-group" *ngIf="questionset.isImageneeded==true">
                     <div style="text-align:center">
                       <div class="card-body">
-                        <img class="imgcol" src={{questionset.imageUrl}}>
+                        <img class="imgcol" onError="this.src='assets/img/noimage.png'" src={{questionset.imageUrl}}>
                       </div>
                     </div>
                   </div>
@@ -138,21 +138,21 @@
       <div class="col-sm-6 col-md-4" *ngIf="bottomleft">
         <div class="card">
           <div>
-            <img class="imgads" src="{{bottomleft}}" alt="bottomleft" style="display: block; width: 100%;">
+            <img class="imgads" src="{{bottomleft}}" onError="this.src='assets/img/noimage.png'" alt="bottomleft" style="display: block; width: 100%;">
           </div>
         </div>
       </div><!--/.col-->
       <div class="col-sm-6 col-md-4" *ngIf="bottommiddle">
         <div class="card">
           <div>
-            <img class="imgads" src="{{bottommiddle}}" alt="bottommiddle" style="display: block; width: 100%;">
+            <img class="imgads" src="{{bottommiddle}}" onError="this.src='assets/img/noimage.png'" alt="bottommiddle" style="display: block; width: 100%;">
           </div>
          </div>
         </div><!--/.col-->
         <div class="col-sm-6 col-md-4" *ngIf="bottomright">
           <div class="card">
             <div>
-              <img class="imgads" src="{{bottomright}}" alt="bottomright" style="display: block; width: 100%;">
+              <img class="imgads" src="{{bottomright}}" onError="this.src='assets/img/noimage.png'" alt="bottomright" style="display: block; width: 100%;">
             </div>
           </div>
         </div><!--/.col-->
