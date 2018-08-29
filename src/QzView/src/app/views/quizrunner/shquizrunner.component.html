@@ -1,0 +1,162 @@
+<div class="animated fadeIn" *ngIf="questionset && questionset.questionText">
+  <div class="card-body pb-0">
+    <div class="row">
+      <div class="col-sm-6 col-md-4" *ngIf="topleft">
+        <div class="card">
+          <div>
+            <img class="imgads" src="{{topleft}}" onError="this.src='assets/img/noimage.png'" alt="Top Left" style="display: block; width: 100%;">
+          </div>
+        </div>
+      </div><!--/.col-->
+      <div class="col-sm-6 col-md-4" *ngIf="topright">
+        <div class="card">
+          <div>
+            <img class="imgads" src="{{topright}}" onError="this.src='assets/img/noimage.png'" alt="Top Right" style="display: block; width: 100%;">
+          </div>
+        </div>
+      </div><!--/.col-->
+
+      <div class="col-sm-6 col-md-4" *ngIf="topmiddle">
+        <div class="card">
+          <div>
+            <img class="imgads" src="{{topmiddle}}" onError="this.src='assets/img/noimage.png'" alt="Top middle" style="display: block; width: 100%;">
+          </div>
+        </div>
+      </div><!--/.col-->
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-quora"></i>{{quizDefinition.quizName}}
+            <div class="card-header-actions">
+              <!--<i class="fa fa-hourglass-start"> 6:00:00 </i>-->
+              <i class="fa fa-hourglass-start"> {{timeLeftMinutes}}:{{timeLeftSeconds}}</i>
+
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="quiz">
+              <ul>
+                <li *ngFor="let number of questionsCount let i=index" [ngClass]="{'active': questionNo-1 == i}"
+                    [class.answered]="isanswered.includes(i)">
+                  <input type="checkbox" [disabled]="true" ng-checked="all" [checked]="isanswered.includes(i)">
+                  <button [disabled]="quizDefinition.quizType=='Treasure Hunt'"
+                          (click)="AssignQuestionNumber(i+1)">
+                    {{i+1}}
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="card">
+              <form class="form-horizontal">
+                <div class="card-body" *ngIf="questionset.questionText">
+                  <div class="form-group row">
+                    <div class="col-md-9">
+                      <h5>{{questionNo}}. {{questionset.questionText}}</h5>
+                    </div>
+                  </div>
+                  <div class="form-group" *ngIf="questionset.isImageneeded==true">
+                    <div style="text-align:center">
+                      <div class="card-body">
+                        <img class="imgcol" onError="this.src='assets/img/noimage.png'" src={{questionset.imageUrl}}>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group" *ngIf="questionset.answerType ==='Multiple Choice'">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radios" id="radio1"
+                             value={{questionset.option1}} [(ngModel)]="quizresultdetails.userAnswer">
+                      <label class="form-check-label" for="radio1">
+                        {{questionset.option1}}
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radios" id="radio2"
+                             value={{questionset.option2}} [(ngModel)]="quizresultdetails.userAnswer">
+                      <label class="form-check-label" for="radio2">
+                        {{questionset.option2}}
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radios" id="radio3"
+                             value={{questionset.option3}} [(ngModel)]="quizresultdetails.userAnswer">
+                      <label class="form-check-label" for="radio3">
+                        {{questionset.option3}}
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="radios" id="radio4"
+                             value={{questionset.option4}} [(ngModel)]="quizresultdetails.userAnswer">
+                      <label class="form-check-label" for="radio4">
+                        {{questionset.option4}}
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <!--<div *ngIf="questionset.answerType !='Multiple Choice'" class="form-group">
+                      <label for="name" class="form-group">Answer</label>
+                      <input required type="text" class="form-control" name="answer" #userAnswer="ngModel"
+                             [(ngModel)]="quizresultdetails.userAnswer" id="name" value="">
+                    </div>-->
+                    <input *ngIf="questionset.answerType !='Hangman'" required type="text" class="form-group" name="answer" #userAnswer="ngModel"
+                           [(ngModel)]="quizresultdetails.userAnswer" id="name" value="">
+                    <input class="mask-text" *ngIf="questionset.answerType =='Hangman'" name="mask"
+                           [(ngModel)]="quizresultdetails.userAnswer"
+                           [textMask]="{mask: mask}"
+                           #userAnswer="ngModel" type="text" />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-sm btn-success"
+                    (click)="UpdateQuestionNo('First')">
+              First
+            </button>
+            <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && questionNo>1"
+                    class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Prev')">
+              Prev
+            </button>
+            <button type="button" *ngIf="quizDefinition.quizType=='Free Flow' && totalquestions!=questionNo"
+                    class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Next')">
+              Next
+            </button>
+            <button type="button" *ngIf="quizDefinition.quizType=='Free Flow'" class="btn btn-sm btn-success"
+                    (click)="UpdateQuestionNo('Last')">
+              Last
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
+              Save Answer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-md-4" *ngIf="bottomleft">
+        <div class="card">
+          <div>
+            <img class="imgads" src="{{bottomleft}}" onError="this.src='assets/img/noimage.png'" alt="bottomleft" style="display: block; width: 100%;">
+          </div>
+        </div>
+      </div><!--/.col-->
+      <div class="col-sm-6 col-md-4" *ngIf="bottommiddle">
+        <div class="card">
+          <div>
+            <img class="imgads" src="{{bottommiddle}}" onError="this.src='assets/img/noimage.png'" alt="bottommiddle" style="display: block; width: 100%;">
+          </div>
+         </div>
+        </div><!--/.col-->
+        <div class="col-sm-6 col-md-4" *ngIf="bottomright">
+          <div class="card">
+            <div>
+              <img class="imgads" src="{{bottomright}}" onError="this.src='assets/img/noimage.png'" alt="bottomright" style="display: block; width: 100%;">
+            </div>
+          </div>
+        </div><!--/.col-->
+
+      </div>
+  </div>
+</div>

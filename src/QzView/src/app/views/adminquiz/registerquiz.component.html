@@ -1,0 +1,82 @@
+<div class="animated fadeIn">
+  <div class="col-lg-12">
+    <div class="btn-dark">
+      <app-create-quiz htab="2" isFromHeader="true"></app-create-quiz>
+    </div>
+    <div class="card" *ngIf="quizDefinition.quizName">
+      <div class="card-header">
+        <i class="fa fa-edit"></i>Register Quiz
+      </div>
+      <div class="card-body">
+        <form class="form-horizontal">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="team-name">Team Name </label>
+            <div class="col-md-9">
+              <label class="switch switch-label switch-pill switch-success">
+                <input type="checkbox" name="team-name" class="switch-input"
+                       [(ngModel)]="quizDefinition.registrationFields.isTeamName" #isTeamName="ngModel" checked>
+                <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="email"> Email Id </label>
+            <div class="col-md-9">
+              <label class="switch switch-label switch-pill switch-success">
+                <input type="checkbox" name="emailid" class="switch-input" [(ngModel)]="quizDefinition.registrationFields.isEmail" #isEmail="ngModel" checked>
+                <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="validateemail">Validate Email Id for Corporate </label>
+            <div class="col-md-9">
+              <label class="switch switch-label switch-pill switch-success">
+                <input type="checkbox" name="validateemail" class="switch-input" [(ngModel)]="quizDefinition.registrationFields.isValidateEmail" #isValidateEmail="ngModel" checked>
+                <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="contestantname">Contestant Name </label>
+            <div class="col-md-9">
+              <label class="switch switch-label switch-pill switch-success">
+                <input type="checkbox" name="contestant" class="switch-input" [(ngModel)]="quizDefinition.registrationFields.isContestantName" #isContestantName="ngModel" checked>
+                <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="phonenumber">Phone Number </label>
+            <div class="col-md-9">
+              <label class="switch switch-label switch-pill switch-success">
+                <input type="checkbox" name="phone" class="switch-input" [(ngModel)]="quizDefinition.registrationFields.isPhone" #isPhone="ngModel" checked>
+                <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="contactaddress">Contact Address</label>
+            <div class="col-md-9">
+              <label class="switch switch-label switch-pill switch-success">
+                <input type="checkbox" name="contactaddress" class="switch-input" [(ngModel)]="quizDefinition.registrationFields.isContact" #isContact="ngModel" checked>
+                <span class="switch-slider" data-checked="Yes" data-unchecked="No"></span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="textarea-input">Enter Rules and Regulations</label>
+            <div class="col-md-9">
+              <textarea id="exampleFormControlTextarea1" name="rules" rows="8" class="form-control"
+                        [(ngModel)]="quizDefinition.registrationFields.rulesAndRegulations" #rulesAndRegulations="ngModel"
+                        placeholder="Enter Rules and Regulations.."></textarea>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-primary" (click)="SaveRegistration()">Save & Next</button> 
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> <!--/.col-->
+</div>

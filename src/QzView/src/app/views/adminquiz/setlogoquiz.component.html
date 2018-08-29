@@ -1,0 +1,18 @@
+      <div class="form-group row">        
+        <div class="col-md-9">
+          <label class="col-form-label" for="file-input">Select Logo File </label>
+          <input type="file" id="file"  (change)="onFileSelected($event)" name="logoselected">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-12">
+          <div class="input-group">
+            <input type="text" id="logopath" name="logopath" class="form-control" (focusout)="onTextChanged($event)" placeholder="URL Link">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="icon-globe icons font-2xl d-block mt-4"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+ 

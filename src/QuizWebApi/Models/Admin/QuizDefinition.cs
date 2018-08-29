@@ -6,7 +6,7 @@ namespace QuizWebApi.Models.Admin
     /// <summary>
     /// 
     /// </summary>
-    public class QuizDefinition
+    public class QuizDefinition : Status
     {
         public QuizDefinition()
         {
@@ -36,5 +36,8 @@ namespace QuizWebApi.Models.Admin
         public string MessageAfterQuizTime { get; set; }
         public RegistrationFields RegistrationFields { get; set; }
         public List<SponsorDetail> SponsorList { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
     }
 }

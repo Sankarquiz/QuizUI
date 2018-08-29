@@ -2,7 +2,7 @@
 
 namespace QuizWebApi.Models.Admin
 {
-    public class QuizQuestions
+    public class QuizQuestions: Status
     {
         public QuizQuestions()
         {

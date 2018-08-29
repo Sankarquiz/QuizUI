@@ -20,9 +20,10 @@ namespace QuizWebApi.Controllers
                 string.IsNullOrEmpty(request.QuizType) ||
               request.QuizResultDetails?.Count == 0)
             {
-                return BadRequest("Mandatory Fields Missing.");
+                var message = "{\"message\":\"QuizName or QuizType is missing.\"}";
+                return BadRequest(message);
             }
-             
+
 
             var admindata = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(request.QuizName + "_" + request.QuizType + "_" + "questions");
             if (admindata?.Value != null)
@@ -31,7 +32,7 @@ namespace QuizWebApi.Controllers
                 {
                     var adminconfig = admindata.Value.Questions.Where(x => x.QuestionNo == item.questionNo).FirstOrDefault();
                     item.adminAnswer = adminconfig.Answer;
-                    item.adminScore = adminconfig.Score; 
+                    item.adminScore = adminconfig.Score;
                     if (item.userAnswer.ToLower() == adminconfig.Answer.ToLower())
                     {
                         request.TotalScored += adminconfig.Score; ;
@@ -54,7 +55,8 @@ namespace QuizWebApi.Controllers
         {
             if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(teamName))
             {
-                return BadRequest("Mandatory Fields Missing.");
+                var message = "{\"message\":\"QuizName or QuizType or TeamName is missing.\"}";
+                return BadRequest(message);
             }
 
             var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
@@ -66,7 +68,8 @@ namespace QuizWebApi.Controllers
         {
             if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(teamName))
             {
-                return BadRequest("Mandatory Fields Missing.");
+                var message = "{\"message\":\"Mandatory fields missing.\"}";
+                return BadRequest(message);
             }
 
             var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
