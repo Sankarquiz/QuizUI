@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormDataModel, QuizDefinition, QuizSet, RegistrationFields, SponsorDetail, QuizQuestions } from './QuizDefinition';
 import { UserDataModel, UserRegistration, QuizAdv, SignUp } from './Registration';
 import { SignUpComponent } from '../views/register/signup.component';
+import { SessionDataService } from '../services/SessionDataService';
 
 @Injectable()
 export class FormDataService {
@@ -10,7 +11,7 @@ export class FormDataService {
   private userData = new UserDataModel();
   private userRegisteredData = new UserRegistration();
   private quizadv = new QuizAdv();
-  constructor() {
+  constructor(private datastore: SessionDataService) {
   }
   getQuizDefinition(): QuizDefinition {
     // Return the Quiz data
@@ -180,12 +181,13 @@ export class FormDataService {
     this.formData.clear();
   }
 
-  getUserData(): UserDataModel {
-    var userdata: UserDataModel = {
-      email: this.userData.email,
-      role: this.userData.role
-    }
-    return this.userData;
+  getUserData(): SignUp {
+    return this.datastore.GetUserData();
+    //var userdata: UserDataModel = {
+    //  email: this.userData.email,
+    //  role: this.userData.role
+    //}
+    //return this.userData;
   }
 
   setUserData(data: SignUp) {

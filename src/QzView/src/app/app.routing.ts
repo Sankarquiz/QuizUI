@@ -89,12 +89,25 @@ export const routes: Routes = [
     path: 'user',
     component: DefaultLayoutComponent,
     data: {
-      title: 'User'
+      title: 'User Dashboard'
     },
     children: [
       {
-        path: 'admin',
+        path: 'quiz',
         loadChildren: './views/user/userquiz.module#UserQuizModule'
+      }
+    ]
+  },
+  {
+    path: 'admin',
+    component: DefaultLayoutComponent,
+    data: {
+      title: 'Admin Dashboard'
+    },
+    children: [
+      {
+        path: 'quiz',
+        loadChildren: './views/adminquiz/adminquiz.module#AdminQuizModule'
       }
     ]
   },

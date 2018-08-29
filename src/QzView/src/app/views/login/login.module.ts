@@ -6,6 +6,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { LoginRoutingModule } from './login.routing.module';
 //import { FormDataService } from '../../models/formData.service';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
+import { SessionDataService } from '../../services/SessionDataService';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login.component';
 
@@ -23,6 +24,7 @@ import { LoginComponent } from './login.component';
   ],
   providers: [
     QuizDetailsService,
+    SessionDataService
     //FormDataService
   ]
 })

@@ -58,8 +58,8 @@ export class SHQuizRunnerComponent implements OnInit {
 
   }
   ngOnInit() {
-    //this.TestInit();
-    this.LoadInitialData();
+    this.TestInit();
+    //this.LoadInitialData();
   }
   LoadInitialData() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
