@@ -66,8 +66,6 @@ namespace QuizWebApi.Controllers
         [HttpGet("{email}")]
         public async Task<IActionResult> ActivateSignUp(string email)
         {
-            var host = Request.Scheme + "://" + Request.Host;
-            Email.SignUpEmail("testc", "test");
             var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<SignUp>(email);
             if (!response.Success)
             {
