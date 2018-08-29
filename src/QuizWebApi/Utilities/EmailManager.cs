@@ -38,11 +38,9 @@ namespace QuizWebApi.Utilities
             bool retval = true;
             try
             {
-                BaseURL();
                 string ecrEmail = CryptoEngine.Encrypt(email);
-                string aurl =Context.Request.Scheme + Path.PathSeparator + Context.Request.Host + Path.PathSeparator + Context.Request.PathBase;
-                aurl = Environment.ApplicationName + Path.PathSeparator + ecrEmail;
-                string msg = Templates.SingUpTemplate(username, aurl);
+                string activateurl =   BaseURL() + "/ActivateSignUp/"+ ecrEmail;                                                
+                string msg = Templates.SingUpTemplate(username, activateurl);
                 SMTPMessage stmpMsg = new SMTPMessage(smtpconfig, email, msg);
                 retval = QuizEmail.SendMail(stmpMsg, "Knowledge vyasa Registration");
             }
