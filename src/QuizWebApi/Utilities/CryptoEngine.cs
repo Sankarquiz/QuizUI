@@ -12,11 +12,14 @@ namespace QuizWebApi.Utilities
         private static string ENCRYPTKEY = "knowledgevyasa18";
         public static string Encrypt(string input)
         {
-            return Encrypt(input, ENCRYPTKEY);
+            string estr = Encrypt(input, ENCRYPTKEY);
+            return Base64Encode(estr);
         }
         public static string Decrypt(string input)
         {
-            return Decrypt(input, ENCRYPTKEY);
+            string estr = Base64Decode(input);
+            return Decrypt(estr, ENCRYPTKEY);
+
         }
         public static string Encrypt(string input, string key)
         {
@@ -41,6 +44,16 @@ namespace QuizWebApi.Utilities
             byte[] resultArray = cTransform.TransformFinalBlock(inputArray, 0, inputArray.Length);
             tripleDES.Clear();
             return UTF8Encoding.UTF8.GetString(resultArray);
+        }
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public static string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
     }
 }
