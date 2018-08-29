@@ -20,7 +20,8 @@ namespace QuizWebApi.Controllers
                 string.IsNullOrEmpty(request.QuizType) ||
               request.QuizResultDetails?.Count == 0)
             {
-                return BadRequest("Mandatory Fields Missing.");
+                var message = "{\"message\":\"QuizName or QuizType is missing.\"}";
+                return BadRequest(message);
             }
 
 
@@ -54,7 +55,8 @@ namespace QuizWebApi.Controllers
         {
             if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(teamName))
             {
-                return BadRequest("Mandatory Fields Missing.");
+                var message = "{\"message\":\"QuizName or QuizType or TeamName is missing.\"}";
+                return BadRequest(message);
             }
 
             var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
@@ -66,7 +68,8 @@ namespace QuizWebApi.Controllers
         {
             if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(teamName))
             {
-                return BadRequest("Mandatory Fields Missing.");
+                var message = "{\"message\":\"Mandatory fields missing.\"}";
+                return BadRequest(message);
             }
 
             var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);

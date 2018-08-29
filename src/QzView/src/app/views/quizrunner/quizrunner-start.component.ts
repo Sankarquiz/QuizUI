@@ -47,7 +47,8 @@ export class QuizRunnerStartComponent implements OnInit {
       this.formDataService.setQuizQuestions(this.questions);
       this.router.navigate(['quiz/runner/viewquiz']);
     } else {
-      alert('Not Found.');
+      alert('Something went wrong. Please Try again.');
+      this.router.navigate(['/user/admin/userdashboard']);
     }
   }
 }

@@ -45,7 +45,7 @@ export class RegisterQuizComponent implements OnInit {
           this.formDataService.setRegistrationFields(this.quizDefinition.registrationFields);
           this.router.navigate(['/dash/adminquiz/setpagequiz']);
         } else {
-          alert('Not Saved.');
+          alert('Something went wrong. Please Try again.');
         }
       });
   }

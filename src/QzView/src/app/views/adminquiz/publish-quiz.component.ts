@@ -71,7 +71,7 @@ export class PublishQuizComponent implements OnInit {
     this._getQuestion.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => {
         if (result) {
-          alert('Published');
+          alert('Quiz ' + this.quizDefinition.quizName + ' is Published');
           this.formDataService.Clear();
           this.router.navigate(['/dash/adminquiz/viewquiz']);
         }
