@@ -94,15 +94,19 @@ namespace QuizWebApi.Controllers
             var req = new QueryRequest(query);
             req.AddNamedParameter(parameters.ToArray());
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
+            SignUp signup = null;
             if (result.Count > 0)
             {
-                if (result.First().Status != "active")
+                signup = result.First();
+                if (signup != null)
                 {
-                    var message = "{\"message\":\"Email verification is pending.\"}";
-                    return Ok(message);
+                    if (signup.Status != "active")
+                    {
+                        var message = "{\"message\":\"Email verification is pending.\"}";
+                        return Ok(message);
+                    }
+                    return Ok(signup);
                 }
-
-                return Ok(result);
             }
 
             return Unauthorized();
