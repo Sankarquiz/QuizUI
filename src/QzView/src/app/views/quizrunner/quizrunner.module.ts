@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { QuizRunnerStartComponent } from './quizrunner-start.component';
-
+import { TextMaskModule } from 'angular2-text-mask';
 
 
 @NgModule({
@@ -26,6 +26,7 @@ import { QuizRunnerStartComponent } from './quizrunner-start.component';
     QuizRunnerRoutingModule,
     TabsModule,
     FormsModule,
+    TextMaskModule,
     ReactiveFormsModule,
     PaginationModule.forRoot(),
     ProgressbarModule.forRoot()

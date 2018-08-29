@@ -44,7 +44,7 @@ export class DefineQuizComponent implements OnInit {
   saveDefinequiz() {
     debugger;
     if (this.quizDefinition.isQuizFromLargerPool && this.quizDefinition.noOfQuestions <= this.quizDefinition.noOfQuestionsInPool) {
-      alert('Question pool should be less than or equal to Question number..!');
+      alert('Question pool should be less than or equal to Total no of Questions..!');
       return;
     }
     this.quizDefinition.stage = 'Define';
