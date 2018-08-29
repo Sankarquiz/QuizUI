@@ -33,6 +33,24 @@ namespace QuizWebApi.Utilities
             return url;
         }
 
+        public bool RegisterQuiz(string fromuser, string touser, string teamname,string quizname, string toemail)
+        {
+            bool retval = true;
+            try
+            {
+             //   string ecrEmail = CryptoEngine.Encrypt(email);
+                string url = BaseURL() + "/ActivateSignUp/" ;  // TO DO
+                string msg = Templates.RegisterTemplate(touser,fromuser,teamname,quizname, url);
+                SMTPMessage stmpMsg = new SMTPMessage(smtpconfig, toemail, msg);
+                retval = QuizEmail.SendMail(stmpMsg, "Knowledge vyasa Registration");
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return retval;
+        }
+
         public bool SignUpEmail(string username,string email)
         {
             bool retval = true;

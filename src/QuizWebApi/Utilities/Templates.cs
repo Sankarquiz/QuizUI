@@ -15,6 +15,18 @@ namespace QuizWebApi.Utilities
             msg = msg.Replace("{{name}}", name).Replace("{{url}}", activateurl);
             return msg;
         }
+
+        public static string RegisterTemplate(string toname, string fromname,string teamname,string quizname,string url)
+        {
+            string msg = string.Empty;
+            msg = ReadTemplate(2);
+            msg = msg.Replace("{{name}}", toname).
+                       Replace("{{cname}}", fromname).
+                       Replace("{{tname}}", teamname).
+                       Replace("{{quiz}}", quizname).
+                       Replace("{{url}}", url);
+            return msg;
+        }
         public static string ReadTemplate(int index)
         {
             return ReadTemplate(TempFile(index));
@@ -43,6 +55,9 @@ namespace QuizWebApi.Utilities
             {
                 case 1:
                     tstr = "newregistration.html";
+                    break;
+                case 2:
+                    tstr = "quizregistration.html";
                     break;
             }
             return tstr;
