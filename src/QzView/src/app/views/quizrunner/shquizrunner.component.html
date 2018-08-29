@@ -58,7 +58,9 @@
                   </div>
                   <div class="form-group" *ngIf="questionset.isImageneeded==true">
                     <div style="text-align:center">
+                      <div class="card-body">
                         <img class="imgcol" src={{questionset.imageUrl}}>
+                      </div>
                     </div>
                   </div>
                   <div class="form-group" *ngIf="questionset.answerType ==='Multiple Choice'">
