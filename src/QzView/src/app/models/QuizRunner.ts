@@ -1,3 +1,5 @@
+import { QuizSet } from "./QuizDefinition";
+
 export class QuizResult {
   quizName: string;
   quizType: string;
@@ -7,14 +9,14 @@ export class QuizResult {
   timeTakenSeconds: number;
   numberOfCorrectAnswers: number;
   numberOfWrongAnswers: number;
+  quizStartTime: Date;
+  durationInMinutes: number;
+  status: string;
   quizResultDetails: Array<QuizResultDetails>;
 }
 
 export class QuizResultDetails {
-  questionNo: number;
-  questionText: string;
-  answerType: string;
-  adminAnswer: string;
+  questionSet: QuizSet;
   userAnswer: string;
   adminScore: number;
   userScored: number;

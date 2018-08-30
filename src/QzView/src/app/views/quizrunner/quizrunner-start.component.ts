@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
-import { QuizDefinition, QuizQuestions, RegistrationFields } from '../../models/QuizDefinition';
+import { QuizDefinition, RegistrationFields } from '../../models/QuizDefinition';
 import { QuizAdv } from '../../models/Registration';
+import { QuizResult } from '../../models/QuizRunner';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +15,7 @@ export class QuizRunnerStartComponent implements OnInit {
   constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
   result: any;
   quizDefinition = new QuizDefinition();
-  questions: QuizQuestions;
+  questions: QuizResult;
   quizadv: QuizAdv;
   ngOnInit() {
     debugger;
@@ -32,7 +33,7 @@ export class QuizRunnerStartComponent implements OnInit {
       .subscribe((res: any) => {
         this.quizDefinition = res;
 
-        this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions")
+        this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions", this.quizadv.teamName)
           .subscribe((res: any) => {
             this.questions = res;
           });
@@ -44,7 +45,7 @@ export class QuizRunnerStartComponent implements OnInit {
     debugger;
     if (this.quizDefinition && this.questions) {
       this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.formDataService.setQuizQuestions(this.questions);
+      this.formDataService.setQuizRunner(this.questions);
       this.router.navigate(['quiz/viewquiz']);
     } else {
       alert('Something went wrong. Please Try again.');

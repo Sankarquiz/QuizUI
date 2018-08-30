@@ -31,8 +31,11 @@ export class QuizDetailsService {
     return this._http.get(environment.getactivequizdetails, this.httpOptions);
   }
 
-  GetQuizData(quizName: string, quizType: string, documenttype: string) {
+  GetQuizData(quizName: string, quizType: string, documenttype: string, teamName: string = '') {
     let uri = environment.getquizdetail + "?quizName=" + quizName + "&quizType=" + quizType + "&documentType=" + documenttype;
+    if (documenttype == 'questions') {
+      uri += "&teamName=" + teamName;
+    }
     return this._http.get(uri, this.httpOptions);
   }
 
@@ -71,7 +74,21 @@ export class QuizDetailsService {
     return this._http.get(uri, this.httpOptions);
   }
 
-  SaveQuizRunner(quizResult: any) {
-    return this._http.post(environment.savequizrunner, JSON.stringify(quizResult), this.httpOptions);
+  GetQuizQuestion(quizName: string, quizType: string, teamName: string, questionNo: string) {
+    let uri = environment.getquizresult
+      + "?quizName=" + quizName + "&quizType=" + quizType + "&teamName="
+      + teamName + "&questionNo=" + questionNo;
+    return this._http.get(uri, this.httpOptions);
   }
+
+  SaveQuizRunner(quizName: string, quizType: string, teamName: string, email: string, status: string, questionNo: string, answer: string) {
+    let uri = environment.savequizrunner
+      + "?quizName=" + quizName + "&quizType=" + quizType + "&teamName=" + teamName
+      + "&email=" + email + "&status=" + status + "&questionNo=" + questionNo + "&answer=" + answer;
+    return this._http.get(uri, this.httpOptions);
+  }
+
+  //SaveQuizRunner(quizResult: any) {
+  //  return this._http.post(environment.savequizrunner, JSON.stringify(quizResult), this.httpOptions);
+  //}
 }

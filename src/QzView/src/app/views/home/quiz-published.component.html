@@ -9,6 +9,7 @@
             <th class="text-center">Start Date</th>
             <th class="d-md-down-none">Register</th>
             <th class="text-center">End Date</th>
+            <th class="text-center">Duration</th>
             <th class="d-md-down-none">Status</th>
           </tr>
         </thead>
@@ -37,6 +38,9 @@
             </td>
             <td class="text-center">
               <i class="text-center">{{detail.quizEndTime}}</i>
+            </td>
+            <td class="text-center">
+              <i class="text-center">{{detail.quizDurationTime}} {{detail.quizDurationType}}</i>
             </td>
             <td class="d-md-down-none">
               <i class="text-center">{{detail.daysLeft}}</i>

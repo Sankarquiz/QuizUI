@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { FormDataModel, QuizDefinition, QuizSet, RegistrationFields, SponsorDetail, QuizQuestions } from './QuizDefinition';
 import { UserDataModel, UserRegistration, QuizAdv, SignUp } from './Registration';
 import { SignUpComponent } from '../views/register/signup.component';
+import { QuizResult } from './QuizRunner';
 import { SessionDataService } from '../services/SessionDataService';
+
 
 @Injectable()
 export class FormDataService {
@@ -11,6 +13,8 @@ export class FormDataService {
   private userData = new UserDataModel();
   private userRegisteredData = new UserRegistration();
   private quizadv = new QuizAdv();
+  private quizrunner = new QuizResult();
+
   constructor(private datastore: SessionDataService) {
   }
   getQuizDefinition(): QuizDefinition {
@@ -249,5 +253,38 @@ export class FormDataService {
     this.userRegisteredData.contact = data.contact;
     this.userRegisteredData.quizName = data.quizName;
     this.userRegisteredData.quizType = data.quizType;
+  }
+
+  setQuizRunner(data: QuizResult) {
+
+    this.quizrunner.quizName = data.quizName;
+    this.quizrunner.quizType = data.quizType;
+    this.quizrunner.teamName = data.teamName;
+    this.quizrunner.totalScored = data.totalScored;
+    this.quizrunner.timeTakenMinutes = data.timeTakenMinutes;
+    this.quizrunner.timeTakenSeconds = data.timeTakenSeconds;
+    this.quizrunner.numberOfCorrectAnswers = data.numberOfCorrectAnswers;
+    this.quizrunner.numberOfWrongAnswers = data.numberOfWrongAnswers;
+    this.quizrunner.quizStartTime = data.quizStartTime;
+    this.quizrunner.durationInMinutes = data.durationInMinutes;
+    this.quizrunner.quizResultDetails = data.quizResultDetails;
+    this.quizrunner.status = data.status;
+  }
+  getQuizRunner(): QuizResult {
+    var runner: QuizResult = {
+      quizName: this.quizrunner.quizName,
+      quizType: this.quizrunner.quizType,
+      teamName: this.quizrunner.teamName,
+      totalScored: this.quizrunner.totalScored,
+      timeTakenMinutes: this.quizrunner.timeTakenMinutes,
+      timeTakenSeconds: this.quizrunner.timeTakenSeconds,
+      numberOfCorrectAnswers: this.quizrunner.numberOfCorrectAnswers,
+      numberOfWrongAnswers: this.quizrunner.numberOfWrongAnswers,
+      quizStartTime: this.quizrunner.quizStartTime,
+      durationInMinutes: this.quizrunner.durationInMinutes,
+      quizResultDetails: this.quizrunner.quizResultDetails,
+      status: this.quizrunner.status
+    }
+    return runner;
   }
 }
