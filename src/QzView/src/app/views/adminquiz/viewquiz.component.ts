@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { QuizDefinition } from '../../models/QuizDefinition';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
+import { AuthService } from '../../services/AuthService';
 import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
 
@@ -13,10 +14,15 @@ export class ViewQuizComponent {
   constructor(
     private router: Router,
     private _getAllQuizDetails: QuizDetailsService,
-    private formDataService: FormDataService) { }
+    private formDataService: FormDataService,
+    private Auth: AuthService) { }
 
   ngOnInit() {
-    this._getAllQuizDetails.GetAllQuizData(this.formDataService.getUserData().email)
+    debugger;
+    if (!this.Auth.IsUserValid("admin"))
+      return;
+
+    this._getAllQuizDetails.GetAllQuizData(this.Auth.GetUserData().email)
       .subscribe((result: any) => {
         this.PopulateResults(result);
       });

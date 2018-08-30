@@ -49,6 +49,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { QuizDetailsService } from './services/service-getquizdetails';
 import { FormDataService } from './models/formData.service';
 import { SessionDataService } from './services/SessionDataService';
+import { AuthService } from './services/AuthService';
 @NgModule({
   imports: [
     CommonModule,
@@ -77,6 +78,7 @@ import { SessionDataService } from './services/SessionDataService';
   providers: [
     QuizDetailsService,
     SessionDataService,
+    AuthService,
     FormDataService,
     {
       provide: LocationStrategy,

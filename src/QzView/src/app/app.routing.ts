@@ -35,15 +35,16 @@ export const routes: Routes = [
   {
     path: 'login',
     component: SimpleLayoutComponent,
+    loadChildren: './views/login/login.module#LoginModule',
     data: {
       title: 'Login Page'
     },
-    children: [
-      {
-        path: '',
-        loadChildren: './views/login/login.module#LoginModule'
-      }
-    ]
+    //children: [
+    //  {
+    //    path: '',
+    //    loadChildren: './views/login/login.module#LoginModule'
+    //  }
+    //]
 
   },
   {
@@ -88,28 +89,30 @@ export const routes: Routes = [
   {
     path: 'user',
     component: DefaultLayoutComponent,
+    loadChildren: './views/user/userquiz.module#UserQuizModule',
     data: {
       title: 'User Dashboard'
     },
-    children: [
-      {
-        path: 'quiz',
-        loadChildren: './views/user/userquiz.module#UserQuizModule'
-      }
-    ]
+    //children: [
+    //  {
+    //    path: 'quiz',
+    //    loadChildren: './views/user/userquiz.module#UserQuizModule'
+    //  }
+    //]
   },
   {
     path: 'admin',
     component: DefaultLayoutComponent,
+    loadChildren: './views/adminquiz/adminquiz.module#AdminQuizModule',
     data: {
       title: 'Admin Dashboard'
     },
-    children: [
-      {
-        path: 'quiz',
-        loadChildren: './views/adminquiz/adminquiz.module#AdminQuizModule'
-      }
-    ]
+    //children: [
+    //  {
+    //    path: 'quiz',
+    //    loadChildren: './views/adminquiz/adminquiz.module#AdminQuizModule'
+    //  }
+    //]
   },
   {
     path: 'dash',

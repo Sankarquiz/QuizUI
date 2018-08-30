@@ -20,4 +20,9 @@ export class SessionDataService {
     this.storage.remove(this.USERKEY);
   }
 
+  public ClearLocalStore(): void {
+    this.DeleteUserData();
+  }
+
+  
 }
