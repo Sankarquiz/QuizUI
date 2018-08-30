@@ -27,26 +27,30 @@ export class AuthService {
     }
     return false;
   }
+  public IsUserValidLogin(page: string): boolean {
 
+    let retval: boolean = this.IsUserValid(page);
+    if (!retval) {
+      this.router.navigate(['/login']);
+    }
+    return retval;
+  }
   public IsUserValid(page: string): boolean {
-    return true;
-    //debugger;
-    //let user = this.datastore.GetUserData();
-    //let retval: boolean = false;
-    //if (user === null || user === undefined) {
-    //  retval= false;
-    //}
-    //else if (user.role.toLowerCase() == "admin") {
-    //  retval= this.IsValidAdmin(user);
-    //}
-    //else {
-    //  retval = this.IsAuthorized(page, user);
-    //}
-
-    //if (!retval) {
-    //  this.router.navigate(['/login']);
-    //}
-    //return retval;
+   // return true;
+    debugger;
+    let user = this.datastore.GetUserData();
+    let retval: boolean = false;
+    if (user === null || user === undefined) {
+      retval= false;
+    }
+    else if (user.role.toLowerCase() == "admin") {
+      retval= this.IsValidAdmin(user);
+    }
+    else {
+      retval = this.IsAuthorized(page, user);
+    }
+     
+    return retval;
   }
   public IsAuthorized(page: string,user: SignUp): boolean {
 
