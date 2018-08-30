@@ -82,7 +82,7 @@ export class SetLogoGroupQuizComponent implements OnInit {
           }
           this.formDataService.setSponserFields(this.quizDefinition.sponsorList);
           this.formDataService.setQuizDefinition(this.quizDefinition);
-          this.router.navigate(['/dash/adminquiz/setquestionquiz']);
+          this.router.navigate(['/admin/setquestionquiz']);
         } else {
           alert('Something went wrong. Please Try again.');
         }

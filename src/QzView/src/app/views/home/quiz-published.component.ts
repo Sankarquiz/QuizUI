@@ -66,7 +66,7 @@ export class QuizPublishedComponent implements OnInit {
       this.quizAdv.teamName = this.registeredDetail.find(x => x.quizName == this.quizAdv.quizName &&
         x.quizType == this.quizAdv.quizType).teamName;
       this.formDataService.setquizadv(this.quizAdv);
-      this.router.navigate(['quiz/runner/startquiz']);
+      this.router.navigate(['quiz/startquiz']);
     }
     else if (this.userdetails.email && this.userdetails.role && !this.quizdefinition[index].isRegistered) {
       this.router.navigate(['/register/registration']);

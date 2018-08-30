@@ -31,7 +31,7 @@ export class SetPageQuizComponent implements OnInit {
             return;
           }
           this.formDataService.setQuizDefinition(this.quizDefinition);
-          this.router.navigate(['/dash/adminquiz/setlogoquiz']);
+          this.router.navigate(['/admin/setlogoquiz']);
         } else {
           alert('Something went wrong. Please Try again.');
         }
