@@ -24,7 +24,7 @@ export class QuizRunnerStartComponent implements OnInit {
       .subscribe((res) => {
         if (!res) {
           alert('You have already taken this quiz. Please try with some other quiz.');
-          this.router.navigate(['/user/admin/userdashboard']);
+          this.router.navigate(['/user/userdashboard']);
         }
       });
 
@@ -45,10 +45,10 @@ export class QuizRunnerStartComponent implements OnInit {
     if (this.quizDefinition && this.questions) {
       this.formDataService.setQuizDefinition(this.quizDefinition);
       this.formDataService.setQuizQuestions(this.questions);
-      this.router.navigate(['quiz/runner/viewquiz']);
+      this.router.navigate(['quiz/viewquiz']);
     } else {
       alert('Something went wrong. Please Try again.');
-      this.router.navigate(['/user/admin/userdashboard']);
+      this.router.navigate(['/user/userdashboard']);
     }
   }
 }

@@ -76,15 +76,16 @@ export const routes: Routes = [
   {
     path: "quiz",
     component: QuizLayoutComponent,
+    loadChildren: './views/quizrunner/quizrunner.module#QuizRunnerModule',
     data: {
       title: "Quiz"
     },
-    children: [
-      {
-        path: 'runner',
-        loadChildren: './views/quizrunner/quizrunner.module#QuizRunnerModule'
-      }
-    ]
+    //children: [
+    //  {
+    //    path: 'runner',
+    //    loadChildren: './views/quizrunner/quizrunner.module#QuizRunnerModule'
+    //  }
+    //]
   },
   {
     path: 'user',
