@@ -15,6 +15,18 @@ export class AuthService {
   public GetUserData(): SignUp {
     return this.datastore.GetUserData();
   }
+  public IsAdminUser(): boolean {
+    debugger;
+
+    let user = this.datastore.GetUserData();
+    if (user === null || user === undefined) {
+      return false;
+    }
+    if (user.role.toLowerCase() == "admin") {
+      return true;
+    }
+    return false;
+  }
 
   public IsUserValid(page:string): boolean {
     let user = this.datastore.GetUserData();
