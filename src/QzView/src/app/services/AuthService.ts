@@ -28,13 +28,14 @@ export class AuthService {
     return false;
   }
 
-  public IsUserValid(page:string): boolean {
+  public IsUserValid(page: string): boolean {
+    debugger;
     let user = this.datastore.GetUserData();
     let retval: boolean = false;
     if (user === null || user === undefined) {
       retval= false;
     }
-    if (user.role.toLowerCase() == "admin") {
+    else if (user.role.toLowerCase() == "admin") {
       retval= this.IsValidAdmin(user);
     }
     else {
