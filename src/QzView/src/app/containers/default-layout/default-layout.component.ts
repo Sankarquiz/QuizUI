@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { navItems } from './../../_nav';
 import { pnavItems } from './../../_pnav';
 import { anavItems } from './../../_anav';
@@ -9,11 +9,12 @@ import { AuthService } from '../../services/AuthService';
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html'
 })
-export class DefaultLayoutComponent {
+export class DefaultLayoutComponent implements OnInit {
   public navItems = navItems;
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
+
   constructor(private formDataService: FormDataService,
     private authData: AuthService) {
 
@@ -31,4 +32,10 @@ export class DefaultLayoutComponent {
       this.navItems = pnavItems;
     }
   }
+
+  ngOnInit() {
+    
+    
+  }
+ 
 }
