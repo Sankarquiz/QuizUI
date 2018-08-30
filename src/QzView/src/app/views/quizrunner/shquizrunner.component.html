@@ -112,27 +112,30 @@
             </div>
           </div>
           <div class="card-footer">
-            <div *ngIf="quizDefinition.quizType=='Free Flow'">
-              <button type="button" class="btn btn-sm btn-success"
-                      (click)="UpdateQuestionNo('First')">
-                First
-              </button>
-              <button type="button" [disabled]="questionNo==1"
-                      class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Prev')">
-                Prev
-              </button>
-              <button type="button" [disabled]="totalquestions==questionNo"
-                      class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Next')">
-                Next
-              </button>
-              <button type="button" class="btn btn-sm btn-success"
-                      (click)="UpdateQuestionNo('Last')">
-                Last
-              </button>
-            </div>
-            <div>
-              <button type="button" class="btn btn-sm btn-danger" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
+            <div class="form-group">
+              <span *ngIf="quizDefinition.quizType=='Free Flow'">
+                <button type="button" class="btn btn-sm btn-success"
+                        (click)="UpdateQuestionNo('First')">
+                  First
+                </button>
+                <button type="button" [disabled]="questionNo==1"
+                        class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Prev')">
+                  Prev
+                </button>
+                <button type="button" [disabled]="totalquestions==questionNo"
+                        class="btn btn-sm btn-success" (click)="UpdateQuestionNo('Next')">
+                  Next
+                </button>
+                <button type="button" class="btn btn-sm btn-success"
+                        (click)="UpdateQuestionNo('Last')">
+                  Last
+                </button>
+              </span>
+              <button type="button" *ngIf="totalquestions!=questionNo" class="btn btn-sm btn-danger" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
                 Save Answer
+              </button>
+              <button type="button" *ngIf="totalquestions==questionNo" class="btn btn-sm btn-danger" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
+                Submit
               </button>
             </div>
           </div>

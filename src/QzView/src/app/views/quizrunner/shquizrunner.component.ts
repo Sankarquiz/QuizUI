@@ -162,8 +162,6 @@ export class SHQuizRunnerComponent implements OnInit {
     debugger;
     this.isanswered.push(this.questionNo - 1);
     if (this.questionNo >= this.totalquestions) {
-      this.quizresult.timeTakenMinutes = this.quizresult.durationInMinutes - this.timeLeftMinutes;
-      this.quizresult.timeTakenSeconds = (59 - this.timeLeftSeconds);
       this.SaveQuizResult('completed');
     }
     else {
@@ -192,7 +190,6 @@ export class SHQuizRunnerComponent implements OnInit {
       }
 
       if (this.timeLeftMinutes == 0 && this.timeLeftSeconds == 0) {
-        this.quizresult.timeTakenMinutes = this.quizresult.durationInMinutes;
         //Save Quiz..
         clearInterval(this.interval);
         this.quizresult.status = 'timeout';
