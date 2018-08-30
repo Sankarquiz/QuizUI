@@ -25,7 +25,7 @@ export class QuizRunnerStartComponent implements OnInit {
       .subscribe((res) => {
         if (!res) {
           alert('You have already taken this quiz. Please try with some other quiz.');
-          this.router.navigate(['/user/userdashboard']);
+          this.router.navigate(['/user/dashboard']);
         }
       });
 

@@ -19,7 +19,7 @@ export class QuizDetailsService {
 
   GetAllQuizData(email: string) {
     let uri = environment.getallquizdetails + "?email=" + email;
-    return this._http.get(environment.getallquizdetails, this.httpOptions);
+    return this._http.get(uri, this.httpOptions);
   }
 
   GetRegisteredQuizData(email: string) {

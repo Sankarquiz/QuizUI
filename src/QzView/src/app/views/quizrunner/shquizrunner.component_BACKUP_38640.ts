@@ -207,9 +207,13 @@ export class SHQuizRunnerComponent implements OnInit {
       this.questionNo.toString(), this.quizresultdetails.userAnswer)
       .subscribe((response: any) => {
         if (response) {
+<<<<<<< HEAD
           if (status == 'completed' || status == 'timeout') {
-            this.router.navigate(['/quiz/finishquiz']);
+            this.router.navigate(['/quiz/runner/finishquiz']);
           }
+=======
+          this.router.navigate(['/quiz/finishquiz']);
+>>>>>>> origin/Newui
         }
         else {
           alert('Something went wrong. Please try again.')

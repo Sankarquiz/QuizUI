@@ -57,8 +57,8 @@ export class SHQuizRunnerComponent implements OnInit {
 
   }
   ngOnInit() {
-    //this.TestInit();
-    this.LoadInitialData();
+    this.TestInit();
+    //this.LoadInitialData();
   }
 
   LoadInitialData() {
@@ -208,12 +208,12 @@ export class SHQuizRunnerComponent implements OnInit {
       .subscribe((response: any) => {
         if (response) {
           if (status == 'completed' || status == 'timeout') {
-            this.router.navigate(['/quiz/finishquiz']);
+            this.router.navigate(['/quiz/runner/finishquiz']);
           }
         }
         else {
           alert('Something went wrong. Please try again.')
-          this.router.navigate(['/user/dashboard']);
+          this.router.navigate(['/user/admin/userdashboard']);
         }
       });
   }

@@ -46,7 +46,7 @@ export class RegisterComponent {
             alert(response.message);
             return;
           }
-          this.router.navigate(['/user/admin/userdashboard']);
+          this.router.navigate(['/user/dashboard']);
         } else {
           alert('Something went wrong. Please try again.');
         }
