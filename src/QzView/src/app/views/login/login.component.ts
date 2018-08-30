@@ -42,10 +42,10 @@ export class LoginComponent {
             //this.formDataService.setUserData(this.userDetails);
             //let test = this.formDataService.getUserData();
             if (this.result.role.toLowerCase() == "admin") {
-              this.router.navigate(['/admin/quiz/viewquiz']);
+              this.router.navigate(['/admin/viewquiz']);
             }
             else {
-              this.router.navigate(['/user/quiz/dashboard']);
+              this.router.navigate(['/user/dashboard']);
             }
           } else {
             alert('Something went wrong. Please try again.');

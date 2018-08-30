@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminQuizRoutingModule } from './adminquiz-routing.module';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { FormDataService } from '../../models/formData.service';
+import { AuthService } from '../../services/AuthService';
 import { RouterModule } from '@angular/router';
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -55,7 +56,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
   ],
   providers: [
     QuizDetailsService,
-    FormDataService
+    FormDataService,
+    AuthService
   ]
 })
 export class AdminQuizModule { }

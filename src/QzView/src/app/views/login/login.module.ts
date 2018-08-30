@@ -9,6 +9,7 @@ import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { SessionDataService } from '../../services/SessionDataService';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login.component';
+import { LogoutComponent } from './logout.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { LoginComponent } from './login.component';
   ],
   declarations: [
     LoginComponent,
+    LogoutComponent
   ],
   providers: [
     QuizDetailsService,
