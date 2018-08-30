@@ -76,15 +76,16 @@ export const routes: Routes = [
   {
     path: "quiz",
     component: QuizLayoutComponent,
+    loadChildren: './views/quizrunner/quizrunner.module#QuizRunnerModule',
     data: {
       title: "Quiz"
     },
-    children: [
-      {
-        path: 'runner',
-        loadChildren: './views/quizrunner/quizrunner.module#QuizRunnerModule'
-      }
-    ]
+    //children: [
+    //  {
+    //    path: 'runner',
+    //    loadChildren: './views/quizrunner/quizrunner.module#QuizRunnerModule'
+    //  }
+    //]
   },
   {
     path: 'user',
@@ -105,11 +106,11 @@ export const routes: Routes = [
     component: DefaultLayoutComponent,
     loadChildren: './views/adminquiz/adminquiz.module#AdminQuizModule',
     data: {
-      title: 'Admin Dashboard'
+      title: 'Admin'
     },
     //children: [
     //  {
-    //    path: 'quiz',
+    //    path: '',
     //    loadChildren: './views/adminquiz/adminquiz.module#AdminQuizModule'
     //  }
     //]
@@ -145,10 +146,10 @@ export const routes: Routes = [
         path: 'notifications',
         loadChildren: './views/notifications/notifications.module#NotificationsModule'
       },
-      {
-        path: 'adminquiz',
-        loadChildren: './views/adminquiz/adminquiz.module#AdminQuizModule'
-      },
+      //{
+      //  path: 'adminquiz',
+      //  loadChildren: './views/adminquiz/adminquiz.module#AdminQuizModule'
+      //},
       {
         path: 'theme',
         loadChildren: './views/theme/theme.module#ThemeModule'

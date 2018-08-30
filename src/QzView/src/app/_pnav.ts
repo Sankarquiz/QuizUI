@@ -5,12 +5,12 @@ export const pnavItems = [
   },
   {
     name: 'Registered Quiz',
-    url: '/dash/adminquiz/viewquiz',
+    url: '/user/viewquiz',
     icon: 'icon-drop'
   },
 {
     name: 'published Quiz',
-    url: '/dash/adminquiz/viewquiz',
+    url: '/user/viewquiz',
     icon: 'icon-drop'
   }
 ];

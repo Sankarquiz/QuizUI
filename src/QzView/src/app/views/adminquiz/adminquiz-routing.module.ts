@@ -13,10 +13,59 @@ import { PublishQuizComponent } from './publish-quiz.component';
 
 const routes: Routes = [
   {
+    path: 'createquiz',
+    component: CreateQuizComponent,
+    data: {
+      title: 'Create Quiz'
+    }
+  },
+  {
+    path: 'definequiz',
+    component: DefineQuizComponent,
+    data: {
+      title: 'Define Quiz'
+    }
+  },
+  {
+    path: 'registerquiz',
+    component: RegisterQuizComponent,
+    data: {
+      title: 'Register Quiz'
+    }
+  },
+  {
+    path: 'setpagequiz',
+    component: SetPageQuizComponent,
+    data: {
+      title: 'Set Page Quiz'
+    }
+  },
+  {
+    path: 'setlogoquiz',
+    component: SetLogoGroupQuizComponent,
+    data: {
+      title: 'Set Logo Quiz'
+    }
+  },
+  {
+    path: 'setquestionquiz',
+    component: SetQuestionComponent,
+    data: {
+      title: 'Set Question Quiz'
+    }
+  },
+  {
+    path: 'publishquiz',
+    component: PublishQuizComponent,
+    data: {
+      title: 'Publish Quiz'
+    }
+  },
+  {
     path: '',
     component: ViewQuizComponent,
     data: {
-      title: 'Quiz'
+      title: 'Admin'
     },
     children: [
       {
@@ -26,55 +75,9 @@ const routes: Routes = [
           title: 'View Quiz'
         }
       },
-      {
-        path: 'createquiz',
-        component: CreateQuizComponent, 
-        data: {
-          title: 'Create Quiz'
-        }
-      },
-      {
-        path: 'definequiz',
-        component: DefineQuizComponent,
-        data: {
-          title: 'Define Quiz'
-        }
-      },
-      {
-        path: 'registerquiz',
-        component: RegisterQuizComponent,
-        data: {
-          title: 'Register Quiz'
-        }
-      },
-      {
-        path: 'setpagequiz',
-        component: SetPageQuizComponent,
-        data: {
-          title: 'Set Page Quiz'
-        }
-      },
-      {
-        path: 'setlogoquiz',
-        component: SetLogoGroupQuizComponent,
-        data: {
-          title: 'Set Logo Quiz'
-        }
-      },
-      {
-        path: 'setquestionquiz',
-        component: SetQuestionComponent,
-        data: {
-          title: 'Set Question Quiz'
-        }
-      },
-      {
-        path: 'publishquiz',
-        component: PublishQuizComponent,
-        data: {
-          title: 'Publish Quiz'
-        }
-      },
+     
+      
+      
     ]
   }
 ];

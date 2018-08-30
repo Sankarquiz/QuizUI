@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
-import { QuizAdv, UserDataModel, UserRegistration } from '../../models/Registration';
+import { QuizAdv, UserDataModel, UserRegistration, SignUp } from '../../models/Registration';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { QuizDefinition } from '../../models/QuizDefinition';
 import { AuthService } from '../../services/AuthService';
@@ -22,7 +22,7 @@ export class QuizPublishedComponent implements OnInit {
   quizAdv: QuizAdv;
   quizdefinition = new Array<QuizDefinition>();
   registeredDetail = new Array<UserRegistration>();
-  userdetails: UserDataModel;
+  userdetails: SignUp;
   ngOnInit() {
     debugger;
     this.userdetails = this.formDataService.getUserData();
