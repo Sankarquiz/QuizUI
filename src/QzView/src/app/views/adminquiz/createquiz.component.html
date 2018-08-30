@@ -1,7 +1,7 @@
 <div class="animated fadeIn">
   <div class="row align-items-center">
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/definequiz">
+      <a routerLink="/admin/definequiz">
       <button *ngIf="htab==1; else defblk1" type="button" class="btn btn-block btn-primary">Define Quiz</button>
       <ng-template #defblk1>
         <button type="button" class="btn btn-block btn-dark">Define Quiz</button>
@@ -9,7 +9,7 @@
       </a>
     </div>
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/registerquiz">        
+      <a routerLink="/admin/registerquiz">        
         <button *ngIf="htab==2; else defblk2" type="button" class="btn btn-block btn-primary">Registration</button>
         <ng-template #defblk2>
           <button type="button" class="btn btn-block btn-dark">Registration</button>
@@ -18,7 +18,7 @@
       </a>
     </div>
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/setpagequiz">
+      <a routerLink="/admin/setpagequiz">
         <button *ngIf="htab==3; else defblk3" type="button" class="btn btn-block btn-primary">Set Pages</button>
         <ng-template #defblk3>
           <button type="button" class="btn btn-block btn-dark">Set Pages</button>
@@ -26,7 +26,7 @@
       </a>
     </div>
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/setlogoquiz">
+      <a routerLink="/admin/setlogoquiz">
         <button *ngIf="htab==4; else defblk4" type="button" class="btn btn-block btn-primary">Set Logo</button>
         <ng-template #defblk4>
           <button type="button" class="btn btn-block btn-dark">Set Logo</button>
@@ -34,7 +34,7 @@
       </a>
     </div>
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/setquestionquiz">
+      <a routerLink="/admin/setquestionquiz">
         <button *ngIf="htab==5; else defblk5" type="button" class="btn btn-block btn-primary">Set Question</button>
         <ng-template #defblk5>
           <button type="button" class="btn btn-block btn-dark">Set Question</button>
@@ -42,7 +42,7 @@
       </a>
     </div>
     <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <a routerLink="/dash/adminquiz/publishquiz">
+      <a routerLink="/admin/publishquiz">
         <button *ngIf="htab==6; else defblk6" type="button" class="btn btn-block btn-primary">Publish</button>
         <ng-template #defblk6>
           <button type="button" class="btn btn-block btn-dark">Publish</button>

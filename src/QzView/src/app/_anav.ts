@@ -14,12 +14,12 @@ export const anavItems = [
   },
   {
     name: 'View Quiz',
-    url: '/dash/adminquiz/viewquiz',
+    url: '/admin/viewquiz',
     icon: 'icon-drop'
   },
   {
     name: 'Create Quiz',
-    url: '/dash/adminquiz/createquiz',
+    url: '/admin/createquiz',
     icon: 'icon-pencil'
   },
   {

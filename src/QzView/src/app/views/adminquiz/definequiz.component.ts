@@ -58,7 +58,7 @@ export class DefineQuizComponent implements OnInit {
         this.result = response;
         if (response) {
           this.formDataService.setQuizDefinition(this.quizDefinition);
-          this.router.navigate(['/dash/adminquiz/registerquiz']);
+          this.router.navigate(['/admin/registerquiz']);
         } else {
           alert('Something went wrong. Please Try again.');
         }

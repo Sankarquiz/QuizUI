@@ -14,7 +14,7 @@ export class CreateQuizComponent implements OnInit {
   ngOnInit() {
     if (!this.isFromHeader) {
       this.formDataService.Clear();
-      this.router.navigate(['/dash/adminquiz/definequiz']);
+      this.router.navigate(['/admin/definequiz']);
     }
   }
 }
