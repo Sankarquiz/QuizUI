@@ -9,7 +9,7 @@ export class QuizResult {
   timeTakenSeconds: number;
   numberOfCorrectAnswers: number;
   numberOfWrongAnswers: number;
-  quizStartTime: any;
+  quizStartTime: Date;
   durationInMinutes: number;
   status: string;
   quizResultDetails: Array<QuizResultDetails>;

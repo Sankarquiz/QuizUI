@@ -33,7 +33,7 @@ namespace QuizWebApi.Controllers
         /// <param name="questionNo">The question no.</param>
         /// <param name="answer">The answer.</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         //public async Task<IActionResult> SaveQuizRunner([FromBody]QuizResultDetails request)
         public async Task<IActionResult> SaveQuizRunner(string quizName, string quizType, string teamName, string email, string status, int questionNo, string answer)
         {
@@ -47,8 +47,8 @@ namespace QuizWebApi.Controllers
             }
 
             var answered = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
-            answered.Value.QuizResultDetails[questionNo].UserAnswer = answer;
-
+            answered.Value.QuizResultDetails[questionNo - 1].UserAnswer = answer;
+            answered.Value.Status = status;
             if (status.ToLower() == "completed" || status.ToLower() == "timeout")
             {
                 TimeSpan diff = DateTime.UtcNow - answered.Value.QuizStartTime;
@@ -65,11 +65,15 @@ namespace QuizWebApi.Controllers
                 var admindata = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
                 if (admindata?.Value != null)
                 {
+                    answered.Value.TotalScored = 0;
+                    answered.Value.NumberOfCorrectAnswers = 0;
+                    answered.Value.NumberOfWrongAnswers = 0;
                     foreach (var item in answered.Value.QuizResultDetails)
                     {
                         var adminconfig = admindata.Value.Questions.FirstOrDefault(x => x.QuestionNo == item.QuestionSet.QuestionNo);
 
                         item.AdminScore = adminconfig.Score;
+                        item.QuestionSet.Answer = adminconfig.Answer;
                         if (item.UserAnswer.ToLower() == adminconfig.Answer.ToLower())
                         {
                             answered.Value.TotalScored += adminconfig.Score; ;
@@ -84,10 +88,18 @@ namespace QuizWebApi.Controllers
                 }
             }
 
-            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(quizName + "_" + quizType + "_" + teamName, answered);
+            var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(quizName + "_" + quizType + "_" + teamName, answered.Value);
             return Ok(response);
         }
 
+        /// <summary>
+        /// Gets the quiz result.
+        /// </summary>
+        /// <param name="quizName">Name of the quiz.</param>
+        /// <param name="quizType">Type of the quiz.</param>
+        /// <param name="teamName">Name of the team.</param>
+        /// <param name="questionNo">The question no.</param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetQuizResult(string quizName, string quizType, string teamName, int questionNo = 0)
         {
@@ -131,7 +143,6 @@ namespace QuizWebApi.Controllers
                 {
                     return Ok(true);
                 }
-
             }
 
             return Ok(false);

@@ -62,9 +62,13 @@ export class SHQuizRunnerComponent implements OnInit {
   }
 
   LoadInitialData() {
+    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.quizresult = this.formDataService.getQuizRunner();
-    this.questionsCount = Array(this.quizresult.quizResultDetails.length).fill(1);
+    if (this.quizresult && this.quizresult.quizResultDetails) {
+      this.questionsCount = Array(this.quizresult.quizResultDetails.length).fill(1);
+      this.totalquestions = this.quizresult.quizResultDetails.length;
+    }
 
     if (this.quizDefinition.sponsorList) {
       if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'topleft').length > 0) {
@@ -94,10 +98,8 @@ export class SHQuizRunnerComponent implements OnInit {
     }
     this.questionset.isImageneeded == false;
     this.questionset.questionText == '';
-    this.totalquestions = this.quizresult.quizResultDetails.length;
     this.quizresult.teamName = this.formDataService.getquizadv().teamName;
     this.timeLeftMinutes = this.quizresult.durationInMinutes - 1;
-
     this.StartTimer();
     if (!this.questionNo) {
       this.questionNo = 1;
@@ -116,6 +118,7 @@ export class SHQuizRunnerComponent implements OnInit {
   }
 
   ngOnChanges() {
+    debugger;
     this.GetQuestion(this.questionNo);
   }
 
@@ -157,19 +160,15 @@ export class SHQuizRunnerComponent implements OnInit {
   }
   SaveAnswer() {
     debugger;
-    if (this.quizresultdetails.userAnswer) {
-
-      let index = this.quizresult.quizResultDetails.findIndex(x => x.questionSet.questionNo == this.quizresultdetails.questionSet.questionNo);
-      this.quizresult.quizResultDetails[index].userAnswer = this.quizresultdetails.userAnswer;
-
-      this.isanswered.push(this.questionNo - 1);
-      this.questionNo++;
-      if (this.questionNo > this.totalquestions) {
-        this.quizresult.timeTakenMinutes = this.quizresult.durationInMinutes - this.timeLeftMinutes;
-        this.quizresult.timeTakenSeconds = (59 - this.timeLeftSeconds);
-        this.SaveQuizResult('completed');
-      }
+    this.isanswered.push(this.questionNo - 1);
+    if (this.questionNo >= this.totalquestions) {
+      this.quizresult.timeTakenMinutes = this.quizresult.durationInMinutes - this.timeLeftMinutes;
+      this.quizresult.timeTakenSeconds = (59 - this.timeLeftSeconds);
+      this.SaveQuizResult('completed');
+    }
+    else {
       this.SaveQuizResult('incomplete');
+      this.questionNo++;
       this.ngOnChanges();
     }
   }
@@ -191,14 +190,15 @@ export class SHQuizRunnerComponent implements OnInit {
           this.timeLeftMinutes--;
         }
       }
-    }, 1000)
 
-    if (this.timeLeftMinutes == 0 && this.timeLeftSeconds == 0) {
-      this.quizresult.timeTakenMinutes = this.quizresult.durationInMinutes;
-      //Save Quiz..
-      this.quizresult.status = 'timeout';
-      this.SaveQuizResult('timeout');
-    }
+      if (this.timeLeftMinutes == 0 && this.timeLeftSeconds == 0) {
+        this.quizresult.timeTakenMinutes = this.quizresult.durationInMinutes;
+        //Save Quiz..
+        clearInterval(this.interval);
+        this.quizresult.status = 'timeout';
+        this.SaveQuizResult('timeout');
+      }
+    }, 1000)
   }
 
   SaveQuizResult(status: string) {

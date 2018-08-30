@@ -157,10 +157,13 @@ namespace QuizWebApi.Controllers
             }
             else
             {
-                var quizbankexists = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
-                if (string.IsNullOrEmpty(quizbankexists?.Value?.TeamName))
+                var questionbank = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
+                if (!string.IsNullOrEmpty(questionbank?.Value?.TeamName))
                 {
-                    return Ok(quizbankexists);
+                    questionbank.Value.DurationInMinutes = (questionbank.Value.QuizStartTime.AddMinutes(
+                        questionbank.Value.DurationInMinutes).Subtract(DateTime.UtcNow).Minutes > 0) ? questionbank.Value.QuizStartTime.AddMinutes(
+                        questionbank.Value.DurationInMinutes).Subtract(DateTime.UtcNow).Minutes : 1;
+                    return Ok(questionbank.Value);
                 }
 
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
@@ -168,6 +171,7 @@ namespace QuizWebApi.Controllers
                 res.QuizName = quizName;
                 res.QuizType = quizType;
                 res.TeamName = teamName;
+                res.QuizStartTime = DateTime.UtcNow;
                 var definition = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
 
                 res.DurationInMinutes = (definition.Value.QuizDurationType.ToLower() == "hours") ?
