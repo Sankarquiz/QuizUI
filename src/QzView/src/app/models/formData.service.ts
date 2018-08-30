@@ -182,12 +182,11 @@ export class FormDataService {
   }
 
   getUserData(): SignUp {
-    return this.datastore.GetUserData();
-    //var userdata: UserDataModel = {
-    //  email: this.userData.email,
-    //  role: this.userData.role
-    //}
-    //return this.userData;
+    let user: SignUp = this.datastore.GetUserData();
+    if (user === null || user === undefined) {
+                user = new SignUp();
+      }
+    return user;
   }
 
   setUserData(data: SignUp) {

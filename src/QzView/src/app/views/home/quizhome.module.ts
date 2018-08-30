@@ -9,7 +9,7 @@ import { QuizHomeRoutingModule } from './quizhome.routing.module';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { HttpClientModule } from '@angular/common/http';
 import { QuizPublishedComponent } from './quiz-published.component';
-
+import { AuthService } from '../../services/AuthService';
 
 @NgModule({
   imports: [
@@ -27,7 +27,8 @@ import { QuizPublishedComponent } from './quiz-published.component';
     QuizPublishedComponent
   ],
   providers: [
-    QuizDetailsService
+    QuizDetailsService,
+    AuthService
   ]
 })
 export class QuizHomeModule { }

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
 import { QuizAdv, UserDataModel, UserRegistration } from '../../models/Registration';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { QuizDefinition } from '../../models/QuizDefinition';
+import { AuthService } from '../../services/AuthService';
 
 import { DatePipe } from '@angular/common';
 import { zip } from 'rxjs';
@@ -12,7 +13,11 @@ import { zip } from 'rxjs';
   templateUrl: 'quiz-published.component.html'
 })
 export class QuizPublishedComponent implements OnInit {
-  constructor(private router: Router, private formDataService: FormDataService, private _getquizdetails: QuizDetailsService) { }
+  @Input() IsPublished: boolean = false;
+  constructor(private router: Router,
+    private formDataService: FormDataService,
+    private _getquizdetails: QuizDetailsService,
+    private Auth: AuthService) { }
 
   quizAdv: QuizAdv;
   quizdefinition = new Array<QuizDefinition>();
@@ -25,7 +30,7 @@ export class QuizPublishedComponent implements OnInit {
       this._getquizdetails.GetRegisteredQuizData(this.userdetails.email)
         .subscribe((res: any) => {
           this.registeredDetail = res;
-          this.BindData();
+          this.BindData(); 
         });
     }
     else {
