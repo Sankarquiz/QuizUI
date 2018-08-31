@@ -24,6 +24,7 @@ export class SignUp {
   password: string;
   role: string;
   status: string;
+  source: string;
 }
 export class QuizAdv {
   quizName: string;

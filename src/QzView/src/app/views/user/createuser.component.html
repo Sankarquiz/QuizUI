@@ -19,15 +19,21 @@
                   <input type="email" name="email" class="form-control" placeholder="Enter Email"
                          required #email="ngModel" [pattern]="emailPattern" [(ngModel)]="createUser.email">
                 </div>
-
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend ">
+                    <span class="input-group-text"><i class="icon-graduation icons "></i></span>
+                  </div>
+                  <input type="text" name="Source" class="form-control" placeholder="Source optional : Company/College/Organization "
+                          #company="ngModel" [(ngModel)]="createUser.source">
+                </div>
 
                 <div class="input-group mb-3" [class.has-error]="email.invalid && email.touched">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-user"></i></span>
                   </div>
-                  <select class="form-control" id="createuserrole" name="create-user-role">
-                    <option value="1">Admin</option>
-                    <option value="2">User</option>
+                  <select class="form-control" id="userrole" name="userrole" #userrole="ngModel" [(ngModel)]="createUser.role" >
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
                   </select>
                 </div>
                 <span class="help-block" [hidden]="password.valid || (password.pristine && !createuser.submitted)">
@@ -38,7 +44,7 @@
                     <span class="input-group-text"><i class="icon-lock"></i></span>
                   </div>
                   <input type="password" name="password" class="form-control" placeholder="Enter Password" required #password="ngModel"
-                       validateEqual="repeatpassword"  reverse="true" [(ngModel)]="createUser.password">
+                         validateEqual="repeatpassword" reverse="true" [(ngModel)]="createUser.password">
                 </div>
                 <span class="help-block" [hidden]="repeatpassword.valid || (repeatpassword.pristine && !createuser.submitted)">
                   Password mismatch.
@@ -51,15 +57,15 @@
                          required validateEqual="password" #repeatpassword="ngModel" [(ngModel)]="repeatPassword">
                 </div>
                 <div class="input-group mb-4">
-                  <button type="submit" class="btn btn-block btn-success"
+                  <button type="submit" class="btn btn-success"
                           [class.dont-submit]="createuser.invalid" [disabled]="createuser.invalid"
                           (click)="CreateUser()">
                     Create User
                   </button>
-                  <button type="button" class="btn btn-block btn-success"
+                  <button type="button" class="btn btn-success"
                           [class.dont-submit]="createuser.invalid" [disabled]="createuser.invalid"
                           (click)="CreateUser()">
-                    Cancle
+                    Cancel
                   </button>
                 </div>
               </div>

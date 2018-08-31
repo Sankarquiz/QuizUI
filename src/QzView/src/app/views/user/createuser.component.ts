@@ -14,17 +14,16 @@ import { DatePipe } from '@angular/common';
 export class CreateUserComponent implements OnInit {
 
   createUser = new SignUp();
-  repeatPassword: string;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   quizDefinition: QuizDefinition;
   result: Observable<any>;
   
-  constructor(private _saveRegistration: QuizDetailsService,
+  constructor(private _saveuser: QuizDetailsService,
     private formDataService: FormDataService,
     private router: Router) {
     this.createUser.email = '';
     this.createUser.password = '';
-    this.repeatPassword = '';
+    
   }
  
   ngOnInit() {
@@ -33,8 +32,24 @@ export class CreateUserComponent implements OnInit {
 
   }
 
-  CreateUser() {
-    alert("click");
+  CreateUser() {    
+    debugger;  
     
+    // this.loginDetails.status = 'active';
+    this._saveuser.SignUp(this.createUser)
+      .subscribe((response: any) => {
+        this.result = response;
+        if (response) {
+          if (response.message) {
+            alert(response.message);
+            return;
+          }        
+          alert('An Email verification link is sent to your mail.Please click the link to activate account.');
+          this.router.navigate(['/login']);
+        } else {
+          alert('Something went wrong. Please try again.');
+        }
+      });
+  }
   }
 }
