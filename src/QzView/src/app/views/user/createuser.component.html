@@ -24,14 +24,14 @@
                     <span class="input-group-text"><i class="icon-graduation icons "></i></span>
                   </div>
                   <input type="text" name="Source" class="form-control" placeholder="Source optional : Company/College/Organization "
-                          #company="ngModel" [(ngModel)]="createUser.source">
+                         #company="ngModel" [(ngModel)]="createUser.source">
                 </div>
 
                 <div class="input-group mb-3" [class.has-error]="email.invalid && email.touched">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-user"></i></span>
                   </div>
-                  <select class="form-control" id="userrole" name="userrole" #userrole="ngModel" [(ngModel)]="createUser.role" >
+                  <select class="form-control" id="userrole" name="userrole" #userrole="ngModel" [(ngModel)]="createUser.role">
                     <option value="admin">Admin</option>
                     <option value="user">User</option>
                   </select>
@@ -62,9 +62,7 @@
                           (click)="CreateUser()">
                     Create User
                   </button>
-                  <button type="button" class="btn btn-success"
-                          [class.dont-submit]="createuser.invalid" [disabled]="createuser.invalid"
-                          (click)="CreateUser()">
+                  <button type="button" class="btn btn-success" (click)="CreateUser()">
                     Cancel
                   </button>
                 </div>
@@ -76,3 +74,19 @@
     </div>
   </div>
 </div>
+<!--Model Dialogue-->
+<div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-info" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>        
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer" style="text-align:center">        
+        <button type="button" class="btn btn-info">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

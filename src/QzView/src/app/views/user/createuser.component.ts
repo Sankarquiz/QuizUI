@@ -1,10 +1,11 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild } from '@angular/core';
 import { QuizDefinition, RegistrationFields } from '../../models/QuizDefinition';
 import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { Observable } from 'rxjs';
 import { UserRegistration, SignUp } from '../../models/Registration';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { DatePipe } from '@angular/common';
 @Component({
@@ -12,7 +13,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: 'createuser.component.html'
 })
 export class CreateUserComponent implements OnInit {
-
+  @ViewChild('infoModal') modal;  
   createUser = new SignUp();
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   quizDefinition: QuizDefinition;
@@ -34,14 +35,14 @@ export class CreateUserComponent implements OnInit {
 
   CreateUser() {    
     debugger;  
-    
+    this.modal.show();
     // this.loginDetails.status = 'active';
     this._saveuser.SignUp(this.createUser)
       .subscribe((response: any) => {
         this.result = response;
         if (response) {
           if (response.message) {
-            alert(response.message);
+            alert(response.message);            
             return;
           }        
           alert('An Email verification link is sent to your mail.Please click the link to activate account.');
@@ -51,5 +52,5 @@ export class CreateUserComponent implements OnInit {
         }
       });
   }
-  }
+  
 }

@@ -17,6 +17,9 @@ import { EqualValidator } from '../../models/equal-validator.directive';
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { QuizHomeModule } from '../home/quizhome.module';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AlertModule } from 'ngx-bootstrap/alert';
+
 import { CreateUserComponent } from './createuser.component';
 
 
@@ -27,6 +30,8 @@ import { CreateUserComponent } from './createuser.component';
     TabsModule,
     FormsModule,
     ReactiveFormsModule,
+    AlertModule.forRoot(),
+    ModalModule.forRoot(),
     PaginationModule.forRoot(),
     ProgressbarModule.forRoot(),
     QuizHomeModule

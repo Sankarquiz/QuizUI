@@ -33,7 +33,7 @@ export const anavItems = [
   },
   {
     name: 'Create User',
-    url: '/dash/theme/colors',
+    url: '/user/createuser',
     icon: 'cui-user-follow'
   },
   
