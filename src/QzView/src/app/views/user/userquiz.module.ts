@@ -13,11 +13,11 @@ import { HttpClientModule } from '@angular/common/http';
 // AdminQuiz Routing
 import { UserQuizRoutingModule } from './userquiz-routing.module';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
-
+import { EqualValidator } from '../../models/equal-validator.directive';
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { QuizHomeModule } from '../home/quizhome.module';
-
+import { CreateUserComponent } from './createuser.component';
 
 
 @NgModule({
@@ -32,7 +32,9 @@ import { QuizHomeModule } from '../home/quizhome.module';
     QuizHomeModule
   ],
   declarations: [
-    UserDashboardComponent
+    UserDashboardComponent,
+    CreateUserComponent,
+    EqualValidator
   ],
   providers: [
     QuizDetailsService
