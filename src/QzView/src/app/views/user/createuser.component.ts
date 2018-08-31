@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, HostListener } from '@angular/core';
 import { QuizDefinition, RegistrationFields } from '../../models/QuizDefinition';
 import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
@@ -32,9 +32,10 @@ export class CreateUserComponent implements OnInit {
     this.quizDefinition = this.formDataService.getQuizDefinition();
 
   }
-
+  
   CreateUser() {    
-    debugger;  
+    debugger;
+    
     this.modal.show();
     // this.loginDetails.status = 'active';
     this._saveuser.SignUp(this.createUser)
