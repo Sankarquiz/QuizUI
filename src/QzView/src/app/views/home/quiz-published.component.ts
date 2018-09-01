@@ -55,6 +55,7 @@ export class QuizPublishedComponent implements OnInit {
       });
   }
 
+
   SelectQuiz(index) {
     debugger;
     this.quizAdv = new QuizAdv();

@@ -20,8 +20,10 @@ namespace QuizWebApi.Models.QuizRunner
         public int NumberOfWrongAnswers { get; set; }
         public DateTime QuizStartTime { get; set; }
         public int DurationInMinutes { get; set; }
+        public int LastAnsweredQuestion { get; set; }
         public string Status { get; set; }
         public List<QuizResultDetails> QuizResultDetails { get; set; }
+
     }
     public enum QuizStatus
     {

@@ -49,12 +49,13 @@ namespace QuizWebApi.Controllers
             var answered = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
             answered.Value.QuizResultDetails[questionNo - 1].UserAnswer = answer;
             answered.Value.Status = status;
+            answered.Value.LastAnsweredQuestion = questionNo;
             if (status.ToLower() == "completed" || status.ToLower() == "timeout")
             {
                 TimeSpan diff = DateTime.UtcNow - answered.Value.QuizStartTime;
                 if (status == "timeout")
                 {
-                    answered.Value.TimeTakenMinutes = answered.Value.DurationInMinutes;
+                    answered.Value.TimeTakenMinutes = (int)answered.Value.DurationInMinutes;
                 }
                 else
                 {
@@ -74,7 +75,7 @@ namespace QuizWebApi.Controllers
 
                         item.AdminScore = adminconfig.Score;
                         item.QuestionSet.Answer = adminconfig.Answer;
-                        if (item.UserAnswer.ToLower() == adminconfig.Answer.ToLower())
+                        if (item.UserAnswer != null && (item.UserAnswer.ToLower() == adminconfig.Answer.ToLower()))
                         {
                             answered.Value.TotalScored += adminconfig.Score; ;
                             answered.Value.NumberOfCorrectAnswers++;

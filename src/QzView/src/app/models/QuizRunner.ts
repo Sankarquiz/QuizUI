@@ -9,6 +9,7 @@ export class QuizResult {
   timeTakenSeconds: number;
   numberOfCorrectAnswers: number;
   numberOfWrongAnswers: number;
+  lastAnsweredQuestion: number;
   quizStartTime: Date;
   durationInMinutes: number;
   status: string;

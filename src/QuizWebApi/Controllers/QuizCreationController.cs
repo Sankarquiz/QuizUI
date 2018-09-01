@@ -161,8 +161,8 @@ namespace QuizWebApi.Controllers
                 if (!string.IsNullOrEmpty(questionbank?.Value?.TeamName))
                 {
                     questionbank.Value.DurationInMinutes = (questionbank.Value.QuizStartTime.AddMinutes(
-                        questionbank.Value.DurationInMinutes).Subtract(DateTime.UtcNow).Minutes > 0) ? questionbank.Value.QuizStartTime.AddMinutes(
-                        questionbank.Value.DurationInMinutes).Subtract(DateTime.UtcNow).Minutes : 1;
+                        questionbank.Value.DurationInMinutes).Subtract(DateTime.UtcNow).TotalMinutes > 0) ? (int)questionbank.Value.QuizStartTime.AddMinutes(
+                        questionbank.Value.DurationInMinutes).Subtract(DateTime.UtcNow).TotalMinutes : 1;
                     return Ok(questionbank.Value);
                 }
 

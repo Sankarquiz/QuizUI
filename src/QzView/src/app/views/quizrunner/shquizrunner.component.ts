@@ -14,7 +14,6 @@ export class SHQuizRunnerComponent implements OnInit {
   questionNo: number;
   quizDefinition: QuizDefinition;
   questionsCount;
-  //questions: QuizQuestions;
   result: any;
   isanswered = new Array<number>();
 
@@ -100,12 +99,21 @@ export class SHQuizRunnerComponent implements OnInit {
     this.questionset.questionText == '';
     this.quizresult.teamName = this.formDataService.getquizadv().teamName;
     this.timeLeftMinutes = this.quizresult.durationInMinutes - 1;
-    this.StartTimer();
-    if (!this.questionNo) {
+
+    if (this.quizresult.lastAnsweredQuestion) {
+      this.questionNo = this.quizresult.lastAnsweredQuestion + 1;
+    }
+    else {
       this.questionNo = 1;
     }
 
-    this.GetQuestion(1);
+    for (var answered = 0; answered < this.quizresult.quizResultDetails.length; answered++) {
+      if (this.quizresult.quizResultDetails[answered].userAnswer) {
+        this.isanswered.push(answered);
+      }
+    }
+    this.GetQuestion(this.questionNo);
+    this.StartTimer();
   }
 
   GetQuestion(questionNumber) {

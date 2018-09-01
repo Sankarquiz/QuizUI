@@ -6,11 +6,6 @@
 
 .quiz li button { background: none; border: none; }
 
-.quiz li.active {
-  background-color: #1985ac;
-  border-color: #187da0;
-
-}
-
 .quiz li.active button { color: white; }
 .quiz li.answered { background: greenyellow; }
+.quiz li.active { background-color: #1985ac; border-color: #187da0; }

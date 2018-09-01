@@ -256,7 +256,6 @@ export class FormDataService {
   }
 
   setQuizRunner(data: QuizResult) {
-
     this.quizrunner.quizName = data.quizName;
     this.quizrunner.quizType = data.quizType;
     this.quizrunner.teamName = data.teamName;
@@ -269,6 +268,7 @@ export class FormDataService {
     this.quizrunner.durationInMinutes = data.durationInMinutes;
     this.quizrunner.quizResultDetails = data.quizResultDetails;
     this.quizrunner.status = data.status;
+    this.quizrunner.lastAnsweredQuestion = data.lastAnsweredQuestion;
   }
   getQuizRunner(): QuizResult {
     var runner: QuizResult = {
@@ -283,7 +283,8 @@ export class FormDataService {
       quizStartTime: this.quizrunner.quizStartTime,
       durationInMinutes: this.quizrunner.durationInMinutes,
       quizResultDetails: this.quizrunner.quizResultDetails,
-      status: this.quizrunner.status
+      status: this.quizrunner.status,
+      lastAnsweredQuestion: this.quizrunner.lastAnsweredQuestion
     }
     return runner;
   }
