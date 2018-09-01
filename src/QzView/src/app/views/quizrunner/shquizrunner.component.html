@@ -41,7 +41,7 @@
                 <li *ngFor="let number of questionsCount let i=index" 
                     [class.answered]="isanswered.includes(i)" [ngClass]="{'active': questionNo-1 == i}">
                   <!--<input type="checkbox" [disabled]="true" ng-checked="all" [checked]="isanswered.includes(i)">-->
-                  <button [disabled]="quizDefinition.quizType=='Treasure Hunt'"
+                  <button [disabled]="quizDefinition.quizType=='TreasureHunt'"
                           (click)="AssignQuestionNumber(i+1)">
                     {{i+1}}
                   </button>
@@ -113,7 +113,7 @@
           </div>
           <div class="card-footer">
             <div class="form-group">
-              <span *ngIf="quizDefinition.quizType=='Free Flow'">
+              <span *ngIf="quizDefinition.quizType=='FreeFlow'">
                 <button type="button" class="btn btn-sm btn-success"
                         (click)="UpdateQuestionNo('First')">
                   First

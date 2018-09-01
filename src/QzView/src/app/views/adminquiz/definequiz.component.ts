@@ -35,9 +35,9 @@ export class DefineQuizComponent implements OnInit {
       this.quizDefinition.postScoreOnSocialMedia = true;
       this.quizDefinition.quizDurationType = 'Hours';
       this.quizDefinition.noOfParticipants = 1;
-      this.quizDefinition.participantType = 'Cross College';
-      this.quizDefinition.quizDomainHost = 'KnowledgeVyasa Domain';
-      this.quizDefinition.quizType = 'Treasure Hunt';
+      this.quizDefinition.participantType = 'CrossCollege';
+      this.quizDefinition.quizDomainHost = 'KnowledgeVyasaDomain';
+      this.quizDefinition.quizType = 'TreasureHunt';
     }
   }
 
