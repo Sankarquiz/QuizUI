@@ -132,5 +132,15 @@ namespace QuizWebApi.Controllers
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
             return Ok(result);
         }
+
+        [HttpGet("{email}/{passwd}")]
+        public async Task<IActionResult> ChangePasswd(string email,string passwd)
+        {
+            var query = string.Format(@"update Quiz set `password`='{1}' where email='{0}'",
+                                     email,passwd);
+            var req = new QueryRequest(query);
+            var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
+            return Ok(result);
+        }
     }
 }
