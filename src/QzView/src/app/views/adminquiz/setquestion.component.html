@@ -85,7 +85,7 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Points for Correct Answer</label>
             <div class="col-md-9">
-              <input required type="number" name="score" id="score" class="form-control" placeholder="Enter the point"
+              <input required type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="score" id="score" class="form-control" placeholder="Enter the point"
                      min="1" [(ngModel)]="questionset.score" #score="ngModel">
             </div>
           </div>
