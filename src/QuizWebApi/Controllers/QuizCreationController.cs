@@ -182,10 +182,9 @@ namespace QuizWebApi.Controllers
                 {
                     response.Value.Questions = response.Value.Questions.OrderBy(item => new Random().Next()).ToList();
                 }
-                if (definition.Value.IsQuizFromLargerPool)
-                {
-                    response.Value.Questions = response.Value.Questions.Take(definition.Value.NoOfQuestionsInPool).ToList();
-                }
+
+                response.Value.Questions = response.Value.Questions.Take(definition.Value.NoOfQuestions).ToList();
+
                 foreach (var item in response.Value.Questions)
                 {
                     item.Score = 0;

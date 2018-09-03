@@ -33,7 +33,9 @@ export class SetQuestionComponent implements OnInit {
     this.iseditquestion = this.formDataService.getEditQuestion();
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
-    this.max = this.quizDefinition.noOfQuestions;
+    this.max = (this.quizDefinition.isQuizFromLargerPool) ?
+      this.quizDefinition.noOfQuestionsInPool :
+      this.quizDefinition.noOfQuestions;
     this.imagepath = 'upload';
     if (!this.iseditquestion) {
       this.questionset.answerType = 'Multiple Choice';
@@ -73,7 +75,7 @@ export class SetQuestionComponent implements OnInit {
     }
     this.questionset = new QuizSet();
     this.ngOnInit();
-    if (this.quizDefinition.noOfQuestions < this.currentQuestionNo) {
+    if (this.max < this.currentQuestionNo) {
       this.disablePublish = false;
       this.Publish();
     }
@@ -82,7 +84,7 @@ export class SetQuestionComponent implements OnInit {
   Publish() {
     this.questions.quizName = this.quizDefinition.quizName;
     this.questions.quizType = this.quizDefinition.quizType;
-    if (this.quizDefinition.noOfQuestions < this.currentQuestionNo || this.iseditquestion) {
+    if (this.max < this.currentQuestionNo || this.iseditquestion) {
       this._saveQuestion.SaveQuestion(this.questions)
         .subscribe((result: any) => { this.result = result });
 
