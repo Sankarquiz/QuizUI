@@ -41,7 +41,7 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="hash-of-questions">No. of Questions</label>
             <div class="col-md-9">
-              <input required type="number" class="form-control" name="number-of-question" min="1"
+              <input required type="number" class="form-control" name="number-of-question" min="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                      placeholder="Enter No of Questions" [(ngModel)]="quizDefinition.noOfQuestions" #noOfQuestions="ngModel">
               <span class="help-block"></span>
             </div>
@@ -75,7 +75,7 @@
                     <option value="Hours" selected>Hours</option>
                   </select>
                 </div>
-                <input required type="number" id="duration" name="duration" class="form-control" min="1"
+                <input required type="number" id="duration" name="duration" class="form-control" min="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                        placeholder="Duration of the quiz" [(ngModel)]="quizDefinition.quizDurationTime" #quizDurationTime="ngModel">
               </div>
             </div>
@@ -123,7 +123,7 @@
           <div class="form-group row" *ngIf="quizDefinition.isQuizFromLargerPool==true">
             <label class="col-md-3 col-form-label" for="name">No. of Questions in Pool</label>
             <div class="col-md-9">
-              <input required type="number" class="form-control" id="name" name="Pool-Of-Questions" min="1"
+              <input required type="number" class="form-control" id="name" name="Pool-Of-Questions" min="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                      placeholder="Enter No of Questions for a pool" [(ngModel)]="quizDefinition.noOfQuestionsInPool" #noOfQuestionsInPool="ngModel">
             </div>
           </div>

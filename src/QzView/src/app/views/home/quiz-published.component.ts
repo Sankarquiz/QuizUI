@@ -23,6 +23,7 @@ export class QuizPublishedComponent implements OnInit {
   quizdefinition = new Array<QuizDefinition>();
   registeredDetail = new Array<UserRegistration>();
   userdetails: SignUp;
+  dateFormat: string = 'dd/MM/yyyy HH:mm';
   ngOnInit() {
     debugger;
     this.userdetails = this.formDataService.getUserData();
@@ -45,7 +46,7 @@ export class QuizPublishedComponent implements OnInit {
           item.daysLeft = (new Date(item.quizEndTime).getDate() - new Date().getDate() == 0) ? 'Closes Today' :
             (new Date(item.quizStartTime).getDate() - new Date().getDate() > 0) ?
               new Date(item.quizStartTime).getDate() - new Date().getDate() + ' Days To Start' :
-              new Date(item.quizEndTime).getDate() - new Date().getDate() + ' Days To Close';
+              new Date(item.quizEndTime).getDate() - new Date().getDate() + ' Days To Close';          
           if (this.registeredDetail && this.registeredDetail.length > 0 &&
             this.registeredDetail.filter(x => x.quizName == item.quizName &&
               x.quizType == item.quizType).length > 0) {

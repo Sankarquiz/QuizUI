@@ -47,7 +47,7 @@ export class ViewQuizComponent {
       this.router.navigate(['/admin/setlogoquiz']);
     }
     if (stage.toLowerCase() == 'setquestion') {
-      this._getAllQuizDetails.GetQuizData(this.quizDetails[index].quizName, this.quizDetails[index].quizType, 'questions')
+      this._getAllQuizDetails.GetQuizData(this.quizDetails[index].quizName, this.quizDetails[index].quizType, 'withanswer')
         .subscribe((result: any) => {
           this.PopulateQuestionSet(result);
         });
@@ -56,7 +56,7 @@ export class ViewQuizComponent {
       this.router.navigate(['/admin/setpagequiz']);
     }
 
-    this._getAllQuizDetails.GetQuizData(this.quizDetails[index].quizName, this.quizDetails[index].quizType, 'questions')
+    this._getAllQuizDetails.GetQuizData(this.quizDetails[index].quizName, this.quizDetails[index].quizType, 'withanswer')
       .subscribe((result: any) => {
         this.formDataService.setQuizQuestions(result);
         this.router.navigate(['/admin/definequiz']);
