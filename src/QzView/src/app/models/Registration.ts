@@ -23,8 +23,9 @@ export class SignUp {
   email: string;
   password: string;
   role: string;
-  status: string;
+  status: string="Activation Pending";
   source: string;
+  statusCode: number;
 }
 export class QuizAdv {
   quizName: string;

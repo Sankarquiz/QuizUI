@@ -28,7 +28,7 @@ export const anavItems = [
   },
   {
     name: 'View Users',
-    url: '/dash/theme/colors',
+    url: '/user/viewuser',
     icon: 'cui-people'
   },
   {

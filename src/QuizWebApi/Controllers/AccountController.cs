@@ -121,5 +121,16 @@ namespace QuizWebApi.Controllers
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<UserRegistration>(req);
             return Ok(result);
         }
+
+        
+        [HttpGet("{mode}")]
+        public async Task<IActionResult>ViewUsers(int mode)
+        {
+            var query = string.Format(@"SELECT Quiz.* FROM Quiz where documentType='user' ",
+                CouchbaseHelper.Bucket);
+            var req = new QueryRequest(query);
+            var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
+            return Ok(result);
+        }
     }
 }

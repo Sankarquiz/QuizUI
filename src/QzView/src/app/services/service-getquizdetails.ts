@@ -16,7 +16,11 @@ export class QuizDetailsService {
 
   constructor(private _http: HttpClient) {
   }
-
+  GetAllUsers(mode: number) {
+    let uri = environment.viewusers + mode;
+    return this._http.get(uri, this.httpOptions);
+  }
+  
   GetAllQuizData(email: string) {
     let uri = environment.getallquizdetails + "?email=" + email;
     return this._http.get(uri, this.httpOptions);

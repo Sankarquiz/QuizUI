@@ -18,6 +18,7 @@ export class CreateUserComponent implements OnInit {
   alertTitle: string;
   alertMessage: string;
   createUser = new SignUp();
+  alertflag: boolean = false;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   quizDefinition: QuizDefinition;
   result: Observable<any>;
@@ -35,27 +36,32 @@ export class CreateUserComponent implements OnInit {
     this.quizDefinition = this.formDataService.getQuizDefinition();
 
   }
+  alertMsg(msg: string) {
+    this.alertTitle = "User Creation";
+    this.alertMessage = msg;
+    this.alertmsg.ShowMessage();
+  }
   alertClose() {
-    alert("triggered");
+    if (this.alertflag) {
+      this.router.navigate(['/user/viewuser']);
+    }
   }
   CreateUser() {    
     debugger;
-    this.alertTitle = "test";
-    this.alertMessage = "testing...";
-    this.alertmsg.ShowMessage();
     // this.loginDetails.status = 'active';
     this._saveuser.SignUp(this.createUser)
       .subscribe((response: any) => {
         this.result = response;
         if (response) {
-          if (response.message) {
-            alert(response.message);            
+          if (response.message) {           
+            this.alertMsg(response.message);            
             return;
-          }        
-          alert('An Email verification link is sent to your mail.Please click the link to activate account.');
-          this.router.navigate(['/login']);
+          }
+          this.alertflag = true;
+          this.alertMsg('User Account ' + this.createUser.email + ' is successfully created. An Email verification link is sent to your mail. Please click the link to activate account.');
+         
         } else {
-          alert('Something went wrong. Please try again.');
+          this.alertMsg('Something went wrong. Please try again.');
         }
       });
   }
