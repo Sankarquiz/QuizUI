@@ -21,6 +21,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { CreateUserComponent } from './createuser.component';
+import { AlertMessageComponent } from '../message/alertmessage.component'
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { CreateUserComponent } from './createuser.component';
   declarations: [
     UserDashboardComponent,
     CreateUserComponent,
-    EqualValidator
+    EqualValidator,
+    AlertMessageComponent
   ],
   providers: [
     QuizDetailsService

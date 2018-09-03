@@ -6,14 +6,17 @@ import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { Observable } from 'rxjs';
 import { UserRegistration, SignUp } from '../../models/Registration';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-
+import { AlertMessageComponent } from '../message/alertmessage.component'
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-create-user',
   templateUrl: 'createuser.component.html'
 })
 export class CreateUserComponent implements OnInit {
-  @ViewChild('infoModal') modal;  
+  @ViewChild(AlertMessageComponent)
+  private alertmsg: AlertMessageComponent;
+  alertTitle: string;
+  alertMessage: string;
   createUser = new SignUp();
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   quizDefinition: QuizDefinition;
@@ -32,11 +35,14 @@ export class CreateUserComponent implements OnInit {
     this.quizDefinition = this.formDataService.getQuizDefinition();
 
   }
-  
+  alertClose() {
+    alert("triggered");
+  }
   CreateUser() {    
     debugger;
-    
-    this.modal.show();
+    this.alertTitle = "test";
+    this.alertMessage = "testing...";
+    this.alertmsg.ShowMessage();
     // this.loginDetails.status = 'active';
     this._saveuser.SignUp(this.createUser)
       .subscribe((response: any) => {
