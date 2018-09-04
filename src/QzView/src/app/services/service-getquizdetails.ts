@@ -17,7 +17,7 @@ export class QuizDetailsService {
   constructor(private _http: HttpClient) {
   }
 
-  Changepasswd(old: string, newpwd:string) {
+  Changepasswd(old: string, newpwd: string) {
     let uri = environment.changepasswd + old + "/" + newpwd;
     return this._http.get(uri, this.httpOptions);
   }
@@ -26,9 +26,14 @@ export class QuizDetailsService {
     let uri = environment.viewusers + mode;
     return this._http.get(uri, this.httpOptions);
   }
-  
-  GetAllQuizData(email: string) {
-    let uri = environment.getallquizdetails + "?email=" + email;
+
+  GetQuizCount(email: string) {
+    let uri = environment.getquizcount + "?email=" + email;
+    return this._http.get(uri, this.httpOptions);
+  }
+
+  GetAllQuizData(email: string, pagenumber: number, pagesize) {
+    let uri = environment.getallquizdetails + "?email=" + email + "&pageNumber=" + pagenumber + "&pageSize=" + pagesize;
     return this._http.get(uri, this.httpOptions);
   }
 

@@ -8,6 +8,7 @@ export const environment = {
   changepasswd: 'http://localhost:52671/api/quiz/changepasswd/',
   viewusers: 'http://localhost:52671/api/quiz/viewusers/',
   quizDefinitionUri: 'http://localhost:52671/api/quiz/DefineQuiz/',
+  getquizcount: 'http://localhost:52671/api/quiz/GetQuizCount/',
   getallquizdetails: 'http://localhost:52671/api/quiz/GetAllQuiz/',
   getquizdetail: 'http://localhost:52671/api/quiz/GetQuiz/',
   setquestion: 'http://localhost:52671/api/quiz/SetQuiz/',

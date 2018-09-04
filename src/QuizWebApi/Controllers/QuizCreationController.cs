@@ -68,15 +68,34 @@ namespace QuizWebApi.Controllers
         }
 
         /// <summary>
+        /// Gets the quiz count.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetQuizCount(string email)
+        {
+            var query = string.Format(@"SELECT count(1) as cnt FROM {0} where documentType=""{1}"" and createdBy=""{2}"" ",
+                CouchbaseHelper.Bucket, "Define", email);
+            var req = new QueryRequest(query);
+            var result = (await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<dynamic>(req)).FirstOrDefault();
+            return Ok(result.cnt.Value);
+        }
+        /// <summary>
         /// Gets all quiz.
         /// </summary>
         /// <returns></returns>
         //[Route("/getallquiz")]
         [HttpGet]
-        public async Task<IActionResult> GetAllQuiz(string email)
+        public async Task<IActionResult> GetAllQuiz(string email, int pageNumber, int pageSize)
         {
-            var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}"" and createdBy=""{2}"" ",
-                CouchbaseHelper.Bucket, "Define", email);
+            if (pageNumber == 0)
+            {
+                pageNumber = 1;
+            }
+
+            var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}"" and createdBy=""{2}"" offset {3} limit {4} ",
+                CouchbaseHelper.Bucket, "Define", email, pageNumber - 1, pageSize);
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
             return Ok(result);

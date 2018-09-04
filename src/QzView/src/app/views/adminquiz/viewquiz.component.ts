@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 export class ViewQuizComponent {
 
   quizDetails = new Array<QuizDefinition>();
+  pagenumber = 1;
+  pagesize = 5;
+  totalquiz;
   constructor(
     private router: Router,
     private _getAllQuizDetails: QuizDetailsService,
@@ -21,8 +24,17 @@ export class ViewQuizComponent {
     debugger;
     if (!this.Auth.IsUserValid("admin"))
       return;
+    this._getAllQuizDetails.GetQuizCount(this.Auth.GetUserData().email)
+      .subscribe((result: number) => {
+        if (result) {
+          this.totalquiz = result;
+          this.GetQuizData();
+        }
+      });   
+  }
 
-    this._getAllQuizDetails.GetAllQuizData(this.Auth.GetUserData().email)
+  private GetQuizData() {
+    this._getAllQuizDetails.GetAllQuizData(this.Auth.GetUserData().email, this.pagenumber, this.pagesize)
       .subscribe((result: any) => {
         this.PopulateResults(result);
       });
@@ -70,5 +82,10 @@ export class ViewQuizComponent {
     debugger;
     this.formDataService.setQuizQuestions(result);
     this.router.navigate(['/admin/publishquiz']);
+  }
+
+  pageChanged(event) {
+    this.pagenumber = event.page;
+    this.GetQuizData();
   }
 }
