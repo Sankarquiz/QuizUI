@@ -13,6 +13,7 @@ export class DefaultLayoutComponent implements OnInit {
   public navItems = navItems;
   public sidebarMinimized = true;
   private changes: MutationObserver;
+  private userimage: string = "assets/img/avatars/avatar.png";
   public element: HTMLElement = document.body;
 
   constructor(private formDataService: FormDataService,
@@ -34,7 +35,12 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    let user = this.authData.GetUserData();
+    if (user != undefined) {
+      if (user.url != undefined) {
+        this.userimage = user.url;
+      }
+    }
     
   }
  

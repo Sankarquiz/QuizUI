@@ -8,8 +8,7 @@
 }
 .imgcol {
   max-height: 300px;
-  min-height:100px;
-  width:100%;
+  min-height:100px; 
 }
 .imgads {
   max-height: 100px;
@@ -18,7 +17,7 @@
 .rp5p {
   padding-right: 5px;
 }
-.rp4p {
+.rp4p, .answer {
   padding-right: 4px;
 }
 .rp3p {
@@ -71,4 +70,8 @@
 .dont-submit a {
   pointer-events: none;
   cursor: not-allowed;
+}
+
+.answer {
+  font-weight: 500;
 }

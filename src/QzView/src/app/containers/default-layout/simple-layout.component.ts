@@ -13,12 +13,20 @@ export class SimpleLayoutComponent implements OnInit {
   @Input() mobileSidebarToggler: boolean = true;  
   @Input() mobileAsideMenuToggler: boolean = true;
   @Input() IsValidUser: boolean = false;
+  private userimage: string = "assets/img/avatars/avatar.png";
   constructor(
     private router: Router,    
     private Auth: AuthService) { }
   ngOnInit() {    
     this.IsValidUser = this.Auth.IsUserValid("user-header");
     this.HeaderBar(this.IsValidUser);
+
+    let user = this.Auth.GetUserData();
+    if (user != undefined) {
+      if (user.url != undefined) {
+        this.userimage = user.url;
+      }
+    }
   }
 
   private HeaderBar(header: boolean): void {
