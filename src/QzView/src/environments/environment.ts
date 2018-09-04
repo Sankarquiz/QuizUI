@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  changepasswd: 'http://localhost:52671/api/quiz/changepasswd/',
   viewusers: 'http://localhost:52671/api/quiz/viewusers/',
   quizDefinitionUri: 'http://localhost:52671/api/quiz/DefineQuiz/',
   getallquizdetails: 'http://localhost:52671/api/quiz/GetAllQuiz/',

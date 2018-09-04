@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserDashboardComponent } from './dashboard.component';
 import { CreateUserComponent } from './createuser.component';
 import { ViewUsersComponent } from './viewusers.component';
+import { ChangePasswdComponent } from './changepasswd.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,13 @@ const routes: Routes = [
     component: ViewUsersComponent,
     data: {
       title: 'View Users'
+    }
+  },
+  {
+    path: 'changepwd',
+    component: ChangePasswdComponent,
+    data: {
+      title: 'Change Password'
     }
   }
 ];
