@@ -26,6 +26,7 @@ export class SignUp {
   status: string="Activation Pending";
   source: string;
   statusCode: number;
+  url: string="";  
 }
 export class QuizAdv {
   quizName: string;

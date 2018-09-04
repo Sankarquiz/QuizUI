@@ -4,6 +4,7 @@ import { UserDashboardComponent } from './dashboard.component';
 import { CreateUserComponent } from './createuser.component';
 import { ViewUsersComponent } from './viewusers.component';
 import { ChangePasswdComponent } from './changepasswd.component';
+import { UserProfileComponent } from './userprofile.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,13 @@ const routes: Routes = [
     component: ChangePasswdComponent,
     data: {
       title: 'Change Password'
+    }
+  },
+  {
+    path: 'profile',
+    component: UserProfileComponent,
+    data: {
+      title: 'User Profile'
     }
   }
 ];

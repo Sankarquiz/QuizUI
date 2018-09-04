@@ -23,8 +23,10 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { CreateUserComponent } from './createuser.component';
 import { ViewUsersComponent } from './viewusers.component';
 import { ChangePasswdComponent } from './changepasswd.component';
+import { UserProfileComponent } from './userprofile.component';
 import { AlertMessageComponent } from '../message/alertmessage.component'
 import { AuthService } from '../../services/AuthService';
+
 
 @NgModule({
   imports: [
@@ -45,7 +47,8 @@ import { AuthService } from '../../services/AuthService';
     EqualValidator,
     AlertMessageComponent,
     ViewUsersComponent,
-    ChangePasswdComponent
+    ChangePasswdComponent,
+    UserProfileComponent
   ],
   providers: [
     QuizDetailsService,

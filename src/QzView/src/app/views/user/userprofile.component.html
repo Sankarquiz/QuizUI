@@ -1,0 +1,59 @@
+<div class="animated fadeIn">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-user-o"></i> User Profile
+      </div>
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card mx-4 p-3" style="margin-top:15px;">
+            <form #createuser="ngForm">
+              <div class="card-body p-1">
+                <div style="width:100%;text-align:center;margin-bottom:10px;">
+                  <img style="width:100px;height:100px;" src="{{createUser.url}}" />
+                  <div style="text-align:center;margin:2px;">                    
+                    <label style="cursor:pointer;">
+                      <input style="display:none" type="file" id="file" (change)="onFileSelected($event)" name="logoselected"> upload file
+                      <label *ngIf="spinner" style="padding-left:10px;"><i class="fa fa-circle-o-notch fa-lg mt-4 fa-spin"></i> Uploading ...</label>
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend ">
+                    <span class="input-group-text">@</span>
+                  </div>
+                  <input type="text" disabled="disabled" name="email" class="form-control" placeholder="Enter Email"
+                         required #email="ngModel" [pattern]="emailPattern" [(ngModel)]="createUser.email">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend ">
+                    <span class="input-group-text"><i class="icon-graduation icons "></i></span>
+                  </div>
+                  <input type="text" name="Source" class="form-control" placeholder="Source optional : Company/College/Organization "
+                         #company="ngModel" [(ngModel)]="createUser.source">
+                </div>
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-user"></i></span>
+                  </div>
+                  <input type="text" disabled="disabled" name="role" class="form-control" placeholder="Role"
+                         #company="ngModel" [(ngModel)]="createUser.role">
+                </div>
+                <div class="input-group mb-4">
+                  <button type="submit" class="btn btn-success"
+                          [class.dont-submit]="createuser.invalid" [disabled]="createuser.invalid"
+                          (click)="UpdateProfile()">
+                    Update
+                  </button>                  
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Model Dialogue-->
+<app-alert-message [alertTitle]="alertTitle" [alertMessage]="alertMessage" (alertClose)="alertClose()"></app-alert-message>

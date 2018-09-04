@@ -1,8 +1,13 @@
 ﻿using Couchbase.N1QL;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using QuizWebApi.Models.User;
 using QuizWebApi.Utilities;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,10 +17,13 @@ namespace QuizWebApi.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        const string _imagePath = @"images/user";
         public EmailManager _email { get; }
-        public AccountController(EmailManager email)
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public AccountController(EmailManager email, IHostingEnvironment hostingEnvironment)
         {
             _email = email;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [HttpPost]
@@ -105,6 +113,10 @@ namespace QuizWebApi.Controllers
                         var message = "{\"message\":\"Email verification is pending.\"}";
                         return Ok(message);
                     }
+                    if(signup.Url !=null || signup.Url.Length>0)
+                    {
+                        signup.Url = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/" + signup.Url.Trim();
+                    }
                     return Ok(signup);
                 }
             }
@@ -141,6 +153,60 @@ namespace QuizWebApi.Controllers
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
             return Ok(result);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfile(SignUp signup)
+        {
+            try
+            {
+                var query = string.Format(@"update `Quiz` set url='{0}', source='{1}' where email='{2}'",
+                                         signup.Url, signup.Source, signup.Email);
+                var req = new QueryRequest(query);
+                var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                return Ok(new SignUp("Profile could  not update. Please try again."));
+            }
+
+        }
+
+
+        [HttpPost, DisableRequestSizeLimit]
+        public async Task<IActionResult> UploadUserImage(IFormFile file)
+        {
+            try
+            {
+                
+                string webRootPath = _hostingEnvironment.WebRootPath;
+                string contentRootPath = _hostingEnvironment.ContentRootPath;
+
+                var parsedContentDisposition = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
+                var filename = Path.Combine(webRootPath, _imagePath.Trim(), parsedContentDisposition.FileName.Trim().ToString());
+
+                var hosturl = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/";
+
+                string newprofileimage = DateTime.Now.Ticks.ToString() + "-" + parsedContentDisposition.FileName.Trim();
+                hosturl = hosturl + newprofileimage;
+                
+                var filePath = filename.Replace(parsedContentDisposition.FileName.ToString(), newprofileimage.Trim());
+                if (file.Length > 0)
+                {
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                }
+
+                return Ok(new UserProfile(newprofileimage, hosturl));
+            }
+            catch (Exception e)
+            {
+                return Ok(new UserProfile("File could not be uploaded, Please try again."));
+            }
         }
     }
 }
