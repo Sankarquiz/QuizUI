@@ -27,7 +27,7 @@ import { AuthService } from '../../services/AuthService';
 import { RouterModule } from '@angular/router';
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
-
+import { TextMaskModule } from 'angular2-text-mask';
 
 
 @NgModule({
@@ -40,7 +40,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     PaginationModule.forRoot(),
     ProgressbarModule.forRoot(),
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    TextMaskModule
   ],
   declarations: [
     ViewQuizComponent,

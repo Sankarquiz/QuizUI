@@ -40,29 +40,29 @@
             <div class="col-md-9 col-form-label">
               <div class="form-check">
                 <input required class="form-check-input" type="radio" name="radios" id="radio1"
-                       [(ngModel)]="imagepath" #imagepathtype="ngModel" value="upload" checked>
+                       [(ngModel)]="questionset.imagePathType" #imagePath="ngModel" value="upload" checked>
                 <label class="form-check-label" for="radio1">Upload Image</label>
               </div>
               <div class="form-check">
                 <input required class="form-check-input" type="radio" name="radios" id="radio2"
-                       [(ngModel)]="imagepath" #imagepathtype="ngModel" value="enter">
+                       [(ngModel)]="questionset.imagePathType" #imagePath="ngModel" value="enter">
                 <label class="form-check-label" for="radio2">URL Link</label>
               </div>
             </div>
           </div>
 
-          <div class="form-group row" *ngIf="questionset.isImageneeded && imagepath==='enter'">
+          <div class="form-group row" *ngIf="questionset.isImageneeded && questionset.imagePathType==='enter'">
             <label class="col-md-3 col-form-label" for="text-input">Enter Image Link</label>
             <div class="col-md-9">
               <input required type="text" id="imagepath" name="imagepath" class="form-control" placeholder="Enter the URL Link"
-                     #ImageUrl="ngModel" [(ngModel)]="questionset.imageUrl">
+                     #imageUrl="ngModel" [(ngModel)]="questionset.imageUrl">
             </div>
           </div>
-          <div class="form-group row" *ngIf="questionset.isImageneeded && imagepath==='upload'">
+          <div class="form-group row" *ngIf="questionset.isImageneeded && questionset.imagePathType==='upload'">
             <label class="col-md-3 col-form-label" for="file-input">Upload Image</label>
             <div class="col-md-9">
               <input required type="file" id="uploadimage" name="uploadimage" [(ngModel)]="questionset.imageUrl"
-                     (change)="onFileSelected($event)" #ImageUrl="ngModel">
+                     (change)="onFileSelected($event)" #imageUrl="ngModel"  value="imageUrl">
             </div>
           </div>
 
@@ -124,6 +124,10 @@
             </div>
           </div>
           <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-primary"
+                    [disabled]="currentQuestionNo==1" (click)="PreviousQuestion()">
+              Prev
+            </button>
             <button type="submit" class="btn btn-sm btn-primary"
                     [class.dont-submit]="setquestion.invalid" [disabled]="setquestion.invalid"
                     *ngIf="disablePublish==true" (click)="SaveQuestion()">

@@ -30,6 +30,9 @@ export class ViewQuizComponent {
 
   PopulateResults(result: any): any {
     this.quizDetails = result;
+    for (let item of this.quizDetails) {
+      item.isEditable = (new Date(item.quizStartTime).getTime() > new Date().getTime()) ? true : false;
+    }
   }
 
   quizScreen(index, stage) {

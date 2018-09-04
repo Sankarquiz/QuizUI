@@ -31,6 +31,7 @@ export class FormDataModel {
   option2: string = '';
   option3: string = '';
   option4: string = '';
+  imagePathType: string = '';
   isTeamName: boolean;
   isEmail: boolean;
   isValidateEmail: boolean;
@@ -44,6 +45,7 @@ export class FormDataModel {
   isEditQuestion: boolean;
   daysLeft: string = '';
   isRegistered: boolean;
+  isEditable: boolean;
   createdBy: string = '';
   createdOn: any;
   modifiedOn: any;
@@ -80,6 +82,7 @@ export class FormDataModel {
     this.option2 = '';
     this.option3 = '';
     this.option4 = '';
+    this.imagePathType = '';
     this.isTeamName = true;
     this.isEmail = true;
     this.isValidateEmail = true;
@@ -93,6 +96,7 @@ export class FormDataModel {
     this.isEditQuestion = false;
     this.daysLeft = '';
     this.isRegistered = false;
+    this.isEditable = false;
     this.createdBy = '';
     this.createdOn = '';
     this.modifiedOn = '';
@@ -121,6 +125,7 @@ export class QuizDefinition {
   stage: string;
   daysLeft: string;
   isRegistered: boolean;
+  isEditable: boolean;
   messageBeforeQuizTime: string;
   messageAfterQuizTime: string;
   registrationFields = new RegistrationFields();
@@ -164,4 +169,6 @@ export class QuizSet {
   option2: string;
   option3: string;
   option4: string;
+  //optional fields
+  imagePathType: string;
 }
