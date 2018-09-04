@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { navItems } from './../../_nav';
 import { FormDataService } from '../../models/formData.service';
+import { AuthService } from '../../services/AuthService';
 
 @Component({
   selector: 'app-quizlayout',
@@ -12,7 +13,8 @@ export class QuizLayoutComponent {
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
   private userimage: string = "assets/img/avatars/avatar.png";
-  constructor(private formDataService: FormDataService) {
+  constructor(private formDataService: FormDataService,
+    private Auth: AuthService) {
 
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = document.body.classList.contains('sidebar-minimized')
