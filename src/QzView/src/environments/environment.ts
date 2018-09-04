@@ -4,12 +4,15 @@
 
 export const environment = {
   production: false,
+  updateprofile: 'http://localhost:52671/api/quiz/UpdateProfile/',
+  changepasswd: 'http://localhost:52671/api/quiz/changepasswd/',
   viewusers: 'http://localhost:52671/api/quiz/viewusers/',
   quizDefinitionUri: 'http://localhost:52671/api/quiz/DefineQuiz/',
   getallquizdetails: 'http://localhost:52671/api/quiz/GetAllQuiz/',
   getquizdetail: 'http://localhost:52671/api/quiz/GetQuiz/',
   setquestion: 'http://localhost:52671/api/quiz/SetQuiz/',
   uploadimage: 'http://localhost:52671/api/quiz/UploadImage/',
+  uploaduserimage: 'http://localhost:52671/api/quiz/UploadUserImage/',
   register: 'http://localhost:52671/api/quiz/Register/',
   signup: 'http://localhost:52671/api/quiz/SignUp/',
   login: 'http://localhost:52671/api/quiz/Login/',

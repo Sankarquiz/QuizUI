@@ -36,5 +36,10 @@ export const anavItems = [
     url: '/user/createuser',
     icon: 'cui-user-follow'
   },
+  {
+    name: 'Change Password',
+    url: '/user/changepwd',
+    icon: 'cui-user-follow'
+  },
   
 ];

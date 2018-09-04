@@ -16,6 +16,12 @@ export class QuizDetailsService {
 
   constructor(private _http: HttpClient) {
   }
+
+  Changepasswd(old: string, newpwd:string) {
+    let uri = environment.changepasswd + old + "/" + newpwd;
+    return this._http.get(uri, this.httpOptions);
+  }
+
   GetAllUsers(mode: number) {
     let uri = environment.viewusers + mode;
     return this._http.get(uri, this.httpOptions);
@@ -50,6 +56,10 @@ export class QuizDetailsService {
   SaveQuestion(question: any) {
     return this._http.post(environment.setquestion, JSON.stringify(question), this.httpOptions);
   }
+  UploadUserImage(image: any) {
+    return this._http.post(environment.uploaduserimage, image);
+  }
+
 
   UploadImage(image: any) {
     return this._http.post(environment.uploadimage, image);
@@ -57,6 +67,10 @@ export class QuizDetailsService {
 
   Register(userdetails: any) {
     return this._http.post(environment.register, JSON.stringify(userdetails), this.httpOptions);
+  }
+
+  UpdateProfile(userdetails: any) {
+    return this._http.post(environment.updateprofile, JSON.stringify(userdetails), this.httpOptions);
   }
 
   SignUp(userdetails: any) {
