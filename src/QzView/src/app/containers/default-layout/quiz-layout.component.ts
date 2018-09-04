@@ -11,6 +11,7 @@ export class QuizLayoutComponent {
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
+  private userimage: string = "assets/img/avatars/avatar.png";
   constructor(private formDataService: FormDataService) {
 
     this.changes = new MutationObserver((mutations) => {
@@ -20,6 +21,14 @@ export class QuizLayoutComponent {
     this.changes.observe(<Element>this.element, {
       attributes: true
     });
+
+
+    let user = this.Auth.GetUserData();
+    if (user != undefined) {
+      if (user.url != undefined) {
+        this.userimage = user.url;
+      }
+    }
   }
 
   Logout() {

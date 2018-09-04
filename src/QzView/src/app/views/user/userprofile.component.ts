@@ -24,6 +24,7 @@ export class UserProfileComponent implements OnInit {
   result: Observable<any>;
   spinner: boolean = false;
   imageurl: string = "assets/img/avatars/avatar.png";
+  tempimageurl: string = "";
   constructor(private _service: QuizDetailsService,
     private formDataService: FormDataService,
     private router: Router,
@@ -35,6 +36,7 @@ export class UserProfileComponent implements OnInit {
     debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.createUser = this.Auth.GetUserData();
+    this.tempimageurl = this.imageurl;
     if (this.createUser.url == undefined || this.createUser.url.length <= 0)
       this.createUser.url = this.imageurl;
   }
@@ -79,12 +81,14 @@ export class UserProfileComponent implements OnInit {
   }
 
   UpdateProfile() {    
-    debugger;
-    // this.loginDetails.status = 'active';
+    debugger;    
     let user = new SignUp();
     user.email = this.createUser.email;
-    user.source = (this.createUser.source) ? this.createUser.source:"";
-    user.url = this.imageurl;
+    user.source = (this.createUser.source) ? this.createUser.source : "";
+    if (this.tempimageurl == this.imageurl)
+      user.url = "";
+    else
+      user.url = this.imageurl;
     
     this._service.UpdateProfile(user)
       .subscribe((response: any) => {
