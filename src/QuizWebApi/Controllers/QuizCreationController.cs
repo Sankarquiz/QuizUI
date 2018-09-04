@@ -51,7 +51,7 @@ namespace QuizWebApi.Controllers
             }
             request.DocumentType = "Define";
             var parameters = new Dictionary<string, object>();
-            var query = string.Format(@"SELECT quizName FROM {0} WHERE status=""{1}"" and quizName = $quizName and quizType = $quizType and documentType=""{2}""", CouchbaseHelper.Bucket, "Published", "Define");
+            var query = string.Format(@"SELECT quizName FROM {0} WHERE and quizStartTime > CLOCK_LOCAL() and quizName = $quizName and quizType = $quizType and documentType=""{1}""", CouchbaseHelper.Bucket, "Define");
             parameters.Add("$quizName", request.QuizName);
             parameters.Add("$quizType", request.QuizType);
             var req = new QueryRequest(query);
@@ -59,7 +59,7 @@ namespace QuizWebApi.Controllers
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
             if (result.Count > 0)
             {
-                var message = "{\"message\":\"This Quiz is already Published.\"}";
+                var message = "{\"message\":\"This Quiz is already Started or Published.\"}";
                 return Ok(message);
             }
 

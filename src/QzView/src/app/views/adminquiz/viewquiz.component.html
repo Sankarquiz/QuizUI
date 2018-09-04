@@ -25,9 +25,10 @@
                 <td class="d-md-down-none">{{detail.quizEndTime}}</td>
                 <td *ngIf="detail.status=='Pending'" class="d-md-down-none"><span class="badge badge-warning"> {{detail.status}} </span></td>
                 <td *ngIf="detail.status!='Pending'" class="d-md-down-none"><span class="badge badge-success"> {{detail.status}} </span></td>
-                <!--<td *ngIf="detail.status=='Published'">  <span class="badge badge-secondary">{{detail.stage}}</span></td>
-                <td *ngIf="detail.status!='Published'" class="page-link"> <a (click)="quizScreen(i,detail.stage)"><span class="badge badge-danger">{{detail.stage}}</span> </a></td>-->
-                <td class="page-link"> <a (click)="quizScreen(i,detail.stage)"><span class="badge badge-danger">{{detail.stage}}</span> </a></td>
+                <td *ngIf="!detail.isEditable">  <span class="badge badge-secondary">{{detail.stage}}</span></td>
+                <td *ngIf="detail.isEditable" class="page-link"> <a (click)="quizScreen(i,detail.stage)"><span class="badge badge-danger">{{detail.stage}}</span> </a></td>
+
+                <!--<td class="page-link"> <a (click)="quizScreen(i,detail.stage)"><span class="badge badge-danger">{{detail.stage}}</span> </a></td>-->
               </tr>
             </tbody>
           </table>

@@ -45,6 +45,7 @@ export class FormDataModel {
   isEditQuestion: boolean;
   daysLeft: string = '';
   isRegistered: boolean;
+  isEditable: boolean;
   createdBy: string = '';
   createdOn: any;
   modifiedOn: any;
@@ -95,6 +96,7 @@ export class FormDataModel {
     this.isEditQuestion = false;
     this.daysLeft = '';
     this.isRegistered = false;
+    this.isEditable = false;
     this.createdBy = '';
     this.createdOn = '';
     this.modifiedOn = '';
@@ -123,6 +125,7 @@ export class QuizDefinition {
   stage: string;
   daysLeft: string;
   isRegistered: boolean;
+  isEditable: boolean;
   messageBeforeQuizTime: string;
   messageAfterQuizTime: string;
   registrationFields = new RegistrationFields();
