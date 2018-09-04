@@ -27,9 +27,9 @@ export class PublishQuizComponent implements OnInit {
   }
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
-    if (this.quizDefinition.noOfQuestions) {
-      this.totalquestions = this.quizDefinition.noOfQuestions;
-    }
+    this.totalquestions = (this.quizDefinition.isQuizFromLargerPool) ?
+      this.quizDefinition.noOfQuestionsInPool :
+      this.quizDefinition.noOfQuestions;
     this.questions = this.formDataService.getQuizQuestions();
 
     if (this.questions) {
@@ -84,12 +84,12 @@ export class PublishQuizComponent implements OnInit {
         this.questionNo = 1;
         this.ngOnChanges();
       }
-      if (action == 'Next' && this.questionNo < this.quizDefinition.noOfQuestions) {
+      if (action == 'Next' && this.questionNo < this.totalquestions) {
         this.questionNo++;
         this.ngOnChanges();
       }
       if (action == 'Last') {
-        this.questionNo = this.quizDefinition.noOfQuestions;
+        this.questionNo = this.totalquestions;
         this.ngOnChanges();
       }
       if (action == 'Prev' && this.questionNo > 1) {

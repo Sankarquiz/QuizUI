@@ -5,9 +5,9 @@ import { QuizAdv, UserDataModel, UserRegistration, SignUp } from '../../models/R
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { QuizDefinition } from '../../models/QuizDefinition';
 import { AuthService } from '../../services/AuthService';
-
 import { DatePipe } from '@angular/common';
 import { zip } from 'rxjs';
+
 @Component({
   selector: 'app-quiz-published',
   templateUrl: 'quiz-published.component.html'
@@ -23,6 +23,9 @@ export class QuizPublishedComponent implements OnInit {
   quizdefinition = new Array<QuizDefinition>();
   registeredDetail = new Array<UserRegistration>();
   userdetails: SignUp;
+  dateFormat: string = 'dd-MM-yyyy HH:mm';
+  one_day = 1000 * 60 * 60 * 24;
+
   ngOnInit() {
     debugger;
     this.userdetails = this.formDataService.getUserData();
@@ -30,7 +33,7 @@ export class QuizPublishedComponent implements OnInit {
       this._getquizdetails.GetRegisteredQuizData(this.userdetails.email)
         .subscribe((res: any) => {
           this.registeredDetail = res;
-          this.BindData(); 
+          this.BindData();
         });
     }
     else {
@@ -42,10 +45,12 @@ export class QuizPublishedComponent implements OnInit {
       .subscribe((result: any) => {
         this.quizdefinition = result;
         for (let item of this.quizdefinition) {
-          item.daysLeft = (new Date(item.quizEndTime).getDate() - new Date().getDate() == 0) ? 'Closes Today' :
-            (new Date(item.quizStartTime).getDate() - new Date().getDate() > 0) ?
-              new Date(item.quizStartTime).getDate() - new Date().getDate() + ' Days To Start' :
-              new Date(item.quizEndTime).getDate() - new Date().getDate() + ' Days To Close';
+          let enddatediff = Math.ceil((new Date(item.quizEndTime).getTime() - new Date().getTime()) / (this.one_day)) - 2;
+          let startdatediff = Math.ceil((new Date(item.quizStartTime).getTime() - new Date().getTime()) / (this.one_day)) - 2;
+          item.daysLeft = (enddatediff == 0) ? 'Closes Today' :
+            (startdatediff > 0) ?
+              startdatediff + ' Day(s) To Start' :
+              enddatediff + ' Day(s) To Close';
           if (this.registeredDetail && this.registeredDetail.length > 0 &&
             this.registeredDetail.filter(x => x.quizName == item.quizName &&
               x.quizType == item.quizType).length > 0) {
