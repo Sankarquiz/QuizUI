@@ -154,7 +154,8 @@ export class FormDataService {
       option1: this.formData.option1,
       option2: this.formData.option2,
       option3: this.formData.option3,
-      option4: this.formData.option4
+      option4: this.formData.option4,
+      imagePathType: this.formData.imagePathType
     };
     return question;
   }
@@ -171,6 +172,7 @@ export class FormDataService {
     this.formData.option2 = data.option2;
     this.formData.option3 = data.option3;
     this.formData.option4 = data.option4;
+    this.formData.imagePathType = data.imagePathType;
   }
 
   setEditQuestion(value: boolean) {

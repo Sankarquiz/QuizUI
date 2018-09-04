@@ -60,7 +60,7 @@ namespace QuizWebApi.Controllers
             if (result.Count > 0)
             {
                 var message = "{\"message\":\"This Quiz is already Published.\"}";
-                return BadRequest(message);
+                return Ok(message);
             }
 
             var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(request.QuizName + "_" + request.QuizType, request);

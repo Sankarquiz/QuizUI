@@ -31,6 +31,7 @@ export class FormDataModel {
   option2: string = '';
   option3: string = '';
   option4: string = '';
+  imagePathType: string = '';
   isTeamName: boolean;
   isEmail: boolean;
   isValidateEmail: boolean;
@@ -80,6 +81,7 @@ export class FormDataModel {
     this.option2 = '';
     this.option3 = '';
     this.option4 = '';
+    this.imagePathType = '';
     this.isTeamName = true;
     this.isEmail = true;
     this.isValidateEmail = true;
@@ -164,4 +166,6 @@ export class QuizSet {
   option2: string;
   option3: string;
   option4: string;
+  //optional fields
+  imagePathType: string;
 }

@@ -22,7 +22,6 @@ export class SetQuestionComponent implements OnInit {
   disablePublish: boolean = true;
   iseditquestion: boolean = false;
   isimagesaved: boolean = true;
-  imagepath: string;
   max: number = 0;
   navs = ['Multiple Choice', 'Hangman', 'Free Text'];
 
@@ -30,17 +29,27 @@ export class SetQuestionComponent implements OnInit {
 
   ngOnInit() {
     debugger;
+    this.AssignDefaultValues();
+  }
+
+  AssignDefaultValues() {
     this.iseditquestion = this.formDataService.getEditQuestion();
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.questions = this.formDataService.getQuizQuestions();
     this.max = (this.quizDefinition.isQuizFromLargerPool) ?
       this.quizDefinition.noOfQuestionsInPool :
       this.quizDefinition.noOfQuestions;
-    this.imagepath = 'upload';
+
     if (!this.iseditquestion) {
       this.questionset.answerType = 'Multiple Choice';
       this.questionset.isImageneeded = false;
+      this.questionset.imagePathType = 'upload';
       ++this.currentQuestionNo;
+
+      if (this.questions && this.questions.questions.filter(x => x.questionNo == this.currentQuestionNo).length > 0) {
+        let index = this.questions.questions.findIndex(x => x.questionNo == this.currentQuestionNo);
+        this.questionset = this.questions.questions[index];
+      }
     }
     else {
       this.questionset = this.formDataService.getQuestion();
@@ -49,7 +58,6 @@ export class SetQuestionComponent implements OnInit {
   }
 
   SaveQuestion() {
-
     if (!this.isimagesaved) {
       alert('Image not uploaded. Please upload again.')
       this.isimagesaved = true;
@@ -74,17 +82,18 @@ export class SetQuestionComponent implements OnInit {
       }
     }
     this.questionset = new QuizSet();
-    this.ngOnInit();
-    if (this.max < this.currentQuestionNo) {
+    if (this.max <= this.currentQuestionNo) {
       this.disablePublish = false;
       this.Publish();
     }
+
+    this.AssignDefaultValues();
   }
 
   Publish() {
     this.questions.quizName = this.quizDefinition.quizName;
     this.questions.quizType = this.quizDefinition.quizType;
-    if (this.max < this.currentQuestionNo || this.iseditquestion) {
+    if (this.max <= this.currentQuestionNo || this.iseditquestion) {
       this._saveQuestion.SaveQuestion(this.questions)
         .subscribe((result: any) => { this.result = result });
 
@@ -101,7 +110,11 @@ export class SetQuestionComponent implements OnInit {
       alert('Please enter all questions. You entered' + this.currentQuestionNo + ' question so far.')
     }
   }
-
+  PreviousQuestion() {
+    this.currentQuestionNo--;
+    let index = this.questions.questions.findIndex(x => x.questionNo == this.currentQuestionNo);
+    this.questionset = this.questions.questions[index];
+  }
   onFileSelected(event) {
     debugger;
     var extn = <File>event.target.files[0].name.split(".").pop();
