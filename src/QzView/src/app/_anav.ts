@@ -1,5 +1,13 @@
 export const anavItems = [
-  
+  {
+    name: 'Dashboard',
+    url: '/user/dashboard',
+    icon: 'icon-speedometer',
+    badge: {
+      variant: 'info',
+      text: 'NEW'
+    }
+  },
   {
     title: true,
     name: 'Quiz Admin'
