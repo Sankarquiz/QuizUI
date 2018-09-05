@@ -6,6 +6,7 @@ import {
 import { LoginComponent } from './login.component';
 import { LogoutComponent } from './logout.component';
 
+
 const routes: Routes = [
   {
     path: '',

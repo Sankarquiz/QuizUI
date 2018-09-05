@@ -79,11 +79,15 @@ export class UserProfileComponent implements OnInit {
         }
       });
   }
-
+  CancelProfile() {
+    this.router.navigate(['/user/dashboard']);
+  }
   UpdateProfile() {    
     debugger;    
     let user = new SignUp();
     user.email = this.createUser.email;
+    user.firstname = this.createUser.firstname;
+    user.lastname = this.createUser.lastname;
     user.source = (this.createUser.source) ? this.createUser.source : "";
     if (this.tempimageurl == this.imageurl)
       user.url = "";

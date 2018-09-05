@@ -24,7 +24,7 @@
     </li>
     <li *ngIf="IsValidUser; else logouttemplate" class="nav-item dropdown" dropdown placement="auto">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
-        <img src="{{userimage}}" class="img-avatar" alt="admin@bootstrapmaster.com" />
+        <img src="{{userimage}}" class="img-avatar" onError="this.src='assets/img/avatars/avatar.png'" alt="User" />
       </a>
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
         <div class="dropdown-header text-center"><strong>Account</strong></div>

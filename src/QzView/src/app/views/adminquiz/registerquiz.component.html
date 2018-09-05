@@ -67,15 +67,16 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="textarea-input">Enter Rules and Regulations</label>
             <div class="col-md-9">
-              <textarea id="exampleFormControlTextarea1" name="rules" rows="8" class="form-control"
-                        [(ngModel)]="quizDefinition.registrationFields.rulesAndRegulations" #rulesAndRegulations="ngModel"
-                        placeholder="Enter Rules and Regulations.."></textarea>
+              <!--<textarea id="exampleFormControlTextarea1" name="rules" rows="8" class="form-control"
+          [(ngModel)]="quizDefinition.registrationFields.rulesAndRegulations" #rulesAndRegulations="ngModel"
+          placeholder="Enter Rules and Regulations.."></textarea>-->
             </div>
           </div>
-          <div class="card-footer">
-            <button type="submit" class="btn btn-sm btn-primary" (click)="SaveRegistration()">Save & Next</button> 
-          </div>
         </form>
+        <app-ngx-editor [config]="editorConfig" [spellcheck]="true" [(ngModel)]="quizDefinition.registrationFields.rulesAndRegulations"></app-ngx-editor>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="SaveRegistration()">Save & Next</button>
+        </div>
       </div>
     </div>
   </div> <!--/.col-->

@@ -4,7 +4,6 @@ import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { Observable } from 'rxjs';
-
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-set-registration',
@@ -14,13 +13,22 @@ export class RegisterQuizComponent implements OnInit {
 
   quizDefinition: QuizDefinition;
   result: Observable<any>;
-  form: any;
+  form: any;  
+  editorConfig = {
+    editable: true,
+    spellcheck: false,
+    height: '10rem',
+    minHeight: '5rem',
+    placeholder: 'Type something. Test the Editor... ヽ(^。^)丿',
+    translate: 'no'
+  };
+
   constructor(private _saveRegistration: QuizDetailsService,
     private formDataService: FormDataService,
     private router: Router) { }
  
   ngOnInit() {
- 
+    
     this.quizDefinition = this.formDataService.getQuizDefinition();
 
     if (this.quizDefinition.stage == "Define") {

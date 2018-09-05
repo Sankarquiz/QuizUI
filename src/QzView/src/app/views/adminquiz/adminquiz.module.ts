@@ -28,7 +28,7 @@ import { RouterModule } from '@angular/router';
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TextMaskModule } from 'angular2-text-mask';
-
+import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
   imports: [
@@ -41,7 +41,8 @@ import { TextMaskModule } from 'angular2-text-mask';
     ProgressbarModule.forRoot(),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    TextMaskModule
+    TextMaskModule,
+    NgxEditorModule, 
   ],
   declarations: [
     ViewQuizComponent,

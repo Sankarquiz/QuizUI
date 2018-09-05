@@ -22,7 +22,7 @@ export class ViewQuizComponent {
 
   ngOnInit() {
     debugger;
-    if (!this.Auth.IsUserValid("admin"))
+    if (!this.Auth.IsValidLogin("viewquiz"))
       return;
     this._getAllQuizDetails.GetQuizCount(this.Auth.GetUserData().email)
       .subscribe((result: number) => {
@@ -54,12 +54,15 @@ export class ViewQuizComponent {
 
     if (stage.toLowerCase() == 'define') {
       this.router.navigate(['/admin/definequiz']);
+      return;
     }
     if (stage.toLowerCase() == 'registration') {
       this.router.navigate(['/admin/registerquiz']);
+      return;
     }
     if (stage.toLowerCase() == 'setlogo') {
       this.router.navigate(['/admin/setlogoquiz']);
+      return;
     }
     if (stage.toLowerCase() == 'setquestion') {
       this._getAllQuizDetails.GetQuizData(this.quizDetails[index].quizName, this.quizDetails[index].quizType, 'withanswer')
@@ -69,6 +72,7 @@ export class ViewQuizComponent {
     }
     if (stage.toLowerCase() == 'setpage') {
       this.router.navigate(['/admin/setpagequiz']);
+      return;
     }
 
     this._getAllQuizDetails.GetQuizData(this.quizDetails[index].quizName, this.quizDetails[index].quizType, 'withanswer')
@@ -81,7 +85,7 @@ export class ViewQuizComponent {
   PopulateQuestionSet(result) {
     debugger;
     this.formDataService.setQuizQuestions(result);
-    this.router.navigate(['/admin/publishquiz']);
+    this.router.navigate(['/admin/publishquiz']);    
   }
 
   pageChanged(event) {
