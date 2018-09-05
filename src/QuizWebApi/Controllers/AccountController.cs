@@ -95,33 +95,40 @@ namespace QuizWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Login(string email, string password)
         {
-            var parameters = new Dictionary<string, object>();
-            var query = string.Format(@"SELECT {0}.* FROM {0} WHERE  email = $email and `password` = $password", CouchbaseHelper.Bucket);
-            parameters.Add("$email", email);
-            parameters.Add("$password", password);
-            var req = new QueryRequest(query);
-            req.AddNamedParameter(parameters.ToArray());
-            var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
-            SignUp signup = null;
-            if (result.Count > 0)
+            try
             {
-                signup = result.First();
-                if (signup != null)
+                var parameters = new Dictionary<string, object>();
+                var query = string.Format(@"SELECT {0}.* FROM {0} WHERE  email = $email and `password` = $password", CouchbaseHelper.Bucket);
+                parameters.Add("$email", email);
+                parameters.Add("$password", password);
+                var req = new QueryRequest(query);
+                req.AddNamedParameter(parameters.ToArray());
+                var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
+                SignUp signup = null;
+                if (result.Count > 0)
                 {
-                    if (signup.Status != "active")
+                    signup = result.First();
+                    if (signup != null)
                     {
-                        var message = "{\"message\":\"Email verification is pending.\"}";
-                        return Ok(message);
+                        if (signup.Status != "active")
+                        {
+                            var message = "{\"message\":\"Email verification is pending.\"}";
+                            return Ok(message);
+                        }
+                        if (signup.Url != null || signup.Url.Length > 0)
+                        {
+                            signup.Url = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/" + signup.Url.Trim();
+                        }
+                        return Ok(signup);
                     }
-                    if(signup.Url !=null || signup.Url.Length>0)
-                    {
-                        signup.Url = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/" + signup.Url.Trim();
-                    }
-                    return Ok(signup);
                 }
-            }
 
-            return Unauthorized();
+                return Unauthorized();
+            }
+            catch(Exception e)
+            {
+               return Unauthorized();
+            }
         }
 
         [HttpGet]

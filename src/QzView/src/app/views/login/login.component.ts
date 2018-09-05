@@ -1,20 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { SessionDataService } from '../../services/SessionDataService';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FormDataService } from '../../models/formData.service';
 import { SignUp } from '../../models/Registration';
+import { AlertMessageComponent } from '../message/alertmessage.component'
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'login.component.html'
 })
 export class LoginComponent {
+  @ViewChild(AlertMessageComponent)
+  private alertmsg: AlertMessageComponent;
   password: string;
   email: string;  
   result:  SignUp ;
   userDetails = new SignUp();
+  alertTitle: string;
+  alertMessage: string;  
+  alertflag: boolean = false;  
+
   constructor(private _register: QuizDetailsService,
     private router: Router,
     private formDataService: FormDataService,
@@ -24,6 +31,14 @@ export class LoginComponent {
     this.password = '';
     this.email = '';
   }
+  alertMsg(msg: string) {
+    this.alertTitle = "Login";
+    this.alertMessage = msg;
+    this.alertmsg.ShowMessage();
+  }
+  alertClose() {    
+  }
+
   Login() {
     debugger;
     if (this.email && this.password) {
@@ -33,7 +48,7 @@ export class LoginComponent {
           this.result = response as SignUp;
           if (response) {
             if (response.message) {
-              alert(response.message);
+              this.alertMsg(response.message);
               return;
             }
             //this.userDetails.email = this.result.email;
@@ -48,8 +63,12 @@ export class LoginComponent {
               this.router.navigate(['/user/dashboard']);
             }
           } else {
-            alert('Something went wrong. Please try again.');
+            this.alertMsg('Something went wrong. Please try again.');
           }
+        },
+        (err: any)  => {
+          debugger;
+          this.alertMsg("Invalid Login. " + err.statusText);
         });
     }
   }
