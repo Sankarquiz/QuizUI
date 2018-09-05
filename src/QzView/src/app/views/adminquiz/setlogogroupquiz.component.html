@@ -16,7 +16,7 @@
                   <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Top Left</span> Logo</i>
                 </div>
                 <div class="card-body">
-                  <app-set-logos (image)='SaveImage($event,"TopLeft")' (imagePath)='SavePath($event,"TopLeft")'></app-set-logos>
+                  <app-set-logos [inputimagepath]="topleft" (image)='SaveImage($event,"TopLeft")' (imagePath)='SavePath($event,"TopLeft")'></app-set-logos>
                 </div>
               </div>
             </div><!--/.col-->
@@ -26,7 +26,7 @@
                   <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Top Middle</span> Logo</i>
                 </div>
                 <div class="card-body">
-                  <app-set-logos (image)='SaveImage($event,"TopMiddle")' (imagePath)='SavePath($event,"TopMiddle")'></app-set-logos>
+                  <app-set-logos [inputimagepath]="topmiddle" (image)='SaveImage($event,"TopMiddle")' (imagePath)='SavePath($event,"TopMiddle")'></app-set-logos>
                 </div>
               </div>
             </div><!--/.col-->
@@ -37,7 +37,7 @@
                   <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Top Right </span> Logo</i>
                 </div>
                 <div class="card-body">
-                  <app-set-logos (image)='SaveImage($event,"TopRight")' (imagePath)='SavePath($event,"TopRight")'></app-set-logos>
+                  <app-set-logos [inputimagepath]="topright" (image)='SaveImage($event,"TopRight")' (imagePath)='SavePath($event,"TopRight")'></app-set-logos>
                 </div>
               </div>
             </div><!--/.col-->
@@ -47,7 +47,7 @@
                   <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Left Middle</span> Logo</i>
                 </div>
                 <div class="card-body">
-                  <app-set-logos (image)='SaveImage($event,"LeftMiddle")' (imagePath)='SavePath($event,"LeftMiddle")'></app-set-logos>
+                  <app-set-logos [inputimagepath]="leftmiddle" (image)='SaveImage($event,"LeftMiddle")' (imagePath)='SavePath($event,"LeftMiddle")'></app-set-logos>
                 </div>
               </div>
             </div><!--/.col-->
@@ -62,7 +62,7 @@
                   <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Right Middle</span> Logo</i>
                 </div>
                 <div class="card-body">
-                  <app-set-logos (image)='SaveImage($event,"RightMiddle")' (imagePath)='SavePath($event,"RightMiddle")'></app-set-logos>
+                  <app-set-logos [inputimagepath]="rightmiddle" (image)='SaveImage($event,"RightMiddle")' (imagePath)='SavePath($event,"RightMiddle")'></app-set-logos>
                 </div>
               </div>
             </div><!--/.col-->
@@ -72,7 +72,7 @@
                   <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Bottom Left</span> Logo</i>
                 </div>
                 <div class="card-body">
-                  <app-set-logos (image)='SaveImage($event,"BottomLeft")' (imagePath)='SavePath($event,"BottomLeft")'></app-set-logos>
+                  <app-set-logos [inputimagepath]="bottomleft" (image)='SaveImage($event,"BottomLeft")' (imagePath)='SavePath($event,"BottomLeft")'></app-set-logos>
                 </div>
               </div>
             </div><!--/.col-->
@@ -82,7 +82,7 @@
                   <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Bottom Middle</span> Logo</i>
                 </div>
                 <div class="card-body">
-                  <app-set-logos (image)='SaveImage($event,"BottomMiddle")' (imagePath)='SavePath($event,"BottomMiddle")'></app-set-logos>
+                  <app-set-logos [inputimagepath]="bottommiddle" (image)='SaveImage($event,"BottomMiddle")' (imagePath)='SavePath($event,"BottomMiddle")'></app-set-logos>
                 </div>
               </div>
             </div><!--/.col-->
@@ -92,7 +92,7 @@
                   <i class="fa fa-file-image-o"> Select  <span class="badge badge-warning">Bottom Right</span> Logo</i>
                 </div>
                 <div class="card-body">
-                  <app-set-logos (image)='SaveImage($event,"BottomRight")' (imagePath)='SavePath($event,"BottomRight")'></app-set-logos>
+                  <app-set-logos [inputimagepath]="bottomright" (image)='SaveImage($event,"BottomRight")' (imagePath)='SavePath($event,"BottomRight")'></app-set-logos>
                 </div>
               </div>
             </div><!--/.col-->

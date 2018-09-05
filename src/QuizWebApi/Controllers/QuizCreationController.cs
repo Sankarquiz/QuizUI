@@ -26,7 +26,6 @@ namespace QuizWebApi.Controllers
         const string _imagePath = @"images";
         private readonly IHostingEnvironment _hostingEnvironment;
 
-
         /// <summary>
         /// <summary>
         /// QuizCreationController
@@ -102,6 +101,15 @@ namespace QuizWebApi.Controllers
                 CouchbaseHelper.Bucket, "Define", email, pageNumber - 1, pageSize);
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
+
+            var host = Request.Scheme + "://" + Request.Host + "/images/";
+            foreach (var quiz in result.Select(x => x))
+            {
+                foreach (var item in quiz.SponsorList.Select(x => x))
+                {
+                    item.Path = Path.Combine(host, item.ImageName);
+                }
+            }
             return Ok(result);
         }
 
@@ -164,7 +172,7 @@ namespace QuizWebApi.Controllers
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
                 foreach (var item in response.Value.SponsorList.Select(x => x))
                 {
-                    item.ImageName = host + item.ImageName;
+                    item.Path = host + item.ImageName;
                 }
                 return Ok(response.Value);
             }
@@ -252,8 +260,11 @@ namespace QuizWebApi.Controllers
                         await file.CopyToAsync(stream);
                     }
                 }
+                var host = Request.Scheme + "://" + Request.Host + "/images/";
+                //var fullpath = Path.Combine(host, file.FileName);
 
-                return Ok(true);
+                var fullpath = "{\"fullpath\":\"" + Path.Combine(host, file.FileName) + "\"}";     
+                return Ok(fullpath);
             }
             catch (Exception e)
             {
