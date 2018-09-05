@@ -115,7 +115,7 @@ namespace QuizWebApi.Controllers
                             var message = "{\"message\":\"Email verification is pending.\"}";
                             return Ok(message);
                         }
-                        if (signup.Url != null || signup.Url.Length > 0)
+                        if (signup.Url != null && signup.Url.Length > 0)
                         {
                             signup.Url = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/" + signup.Url.Trim();
                         }
