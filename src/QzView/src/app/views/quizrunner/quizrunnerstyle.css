@@ -9,3 +9,4 @@
 .quiz li.active button { color: white; }
 .quiz li.answered { background: greenyellow; }
 .quiz li.active { background-color: #1985ac; border-color: #187da0; }
+.mask-text { letter-spacing: 4px !important; font-size: 20px !important; }
