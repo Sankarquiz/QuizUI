@@ -22,7 +22,7 @@ export class ViewQuizComponent {
 
   ngOnInit() {
     debugger;
-    if (!this.Auth.IsUserValid("admin"))
+    if (!this.Auth.IsValidLogin("viewquiz"))
       return;
     this._getAllQuizDetails.GetQuizCount(this.Auth.GetUserData().email)
       .subscribe((result: number) => {

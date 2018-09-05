@@ -27,7 +27,7 @@ export class AuthService {
     }
     return false;
   }
-  public IsUserValidLogin(page: string): boolean {
+  public IsValidLogin(page: string): boolean {
 
     let retval: boolean = this.IsUserValid(page);
     if (!retval) {
@@ -68,12 +68,10 @@ export class AuthService {
     if (user === null || user === undefined) {
       return false;
     }
-    if (user.status != 'active') {
+    if (user.status.toLowerCase() != 'active' ||
+        user.role.toLowerCase() != 'admin') {
       return false;
-    }
-    if (user.role != 'admin') {
-      return false;
-    }
+    }    
     return true;
   }
   public IsValidUser(user: SignUp): boolean {
@@ -81,12 +79,11 @@ export class AuthService {
     if (user === null || user === undefined) {
       return false;
     }
-    if (user.status != 'active') {
+    if (user.status.toLowerCase() != 'active' ||
+      user.role.toLowerCase() != 'user') {
       return false;
     }
-    if (user.role != 'user') {
-      return false;
-    }
+    
     return true;
   }
 
