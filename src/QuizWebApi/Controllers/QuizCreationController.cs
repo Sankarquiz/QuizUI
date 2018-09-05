@@ -14,6 +14,10 @@ using System.Threading.Tasks;
 
 namespace QuizWebApi.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/quiz/[action]")]
     [ApiController]
     [AllowAnonymous]
@@ -142,9 +146,10 @@ namespace QuizWebApi.Controllers
         /// <param name="quizType">Type of the quiz.</param>
         /// <param name="documentType">Type of the document.</param>
         /// <param name="teamName">Name of the team.</param>
+        /// <param name="email">The email.</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetQuiz(string quizName, string quizType, string documentType, string teamName = "")
+        public async Task<IActionResult> GetQuiz(string quizName, string quizType, string documentType, string teamName = "", string email = "")
         {
             if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(documentType))
             {
@@ -190,6 +195,7 @@ namespace QuizWebApi.Controllers
                 res.QuizName = quizName;
                 res.QuizType = quizType;
                 res.TeamName = teamName;
+                res.Email = email;
                 res.QuizStartTime = DateTime.UtcNow;
                 var definition = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
 
