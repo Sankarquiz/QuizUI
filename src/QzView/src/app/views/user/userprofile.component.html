@@ -10,13 +10,27 @@
             <form #createuser="ngForm">
               <div class="card-body p-1">
                 <div style="width:100%;text-align:center;margin-bottom:10px;">
-                  <img style="width:100px;height:100px;" src="{{createUser.url}}" />
-                  <div style="text-align:center;margin:2px;">                    
+                  <img style="width:100px;height:100px;" src="{{createUser.url}}"   onError="this.src='assets/img/avatars/avatar.png'"/>
+                  <div style="text-align:center;margin:2px;">
                     <label style="cursor:pointer;">
                       <input style="display:none" type="file" id="file" (change)="onFileSelected($event)" name="logoselected"> upload file
                       <label *ngIf="spinner" style="padding-left:10px;"><i class="fa fa-circle-o-notch fa-lg mt-4 fa-spin"></i> Uploading ...</label>
                     </label>
                   </div>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend ">
+                    <span class="input-group-text"><i class="icon-user-following icons"></i></span>
+                  </div>
+                  <input type="text" name="firstname" class="form-control" placeholder="First Name "
+                         #company="ngModel" [(ngModel)]="createUser.firstname">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend ">
+                    <span class="input-group-text"><i class="icon-user-unfollow icons "></i></span>
+                  </div>
+                  <input type="text" name="lastname" class="form-control" placeholder="Last Name "
+                         #company="ngModel" [(ngModel)]="createUser.lastname">
                 </div>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend ">
@@ -45,7 +59,11 @@
                           [class.dont-submit]="createuser.invalid" [disabled]="createuser.invalid"
                           (click)="UpdateProfile()">
                     Update
-                  </button>                  
+                  </button>
+                  <button type="button" class="btn btn-success"                          
+                          (click)="CancelProfile()">
+                    Cancel
+                  </button>
                 </div>
               </div>
             </form>

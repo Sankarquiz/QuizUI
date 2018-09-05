@@ -14,6 +14,8 @@ namespace QuizWebApi.Models.User
         public int StatusCode { get; set; }
         public string Url { get; set; }
         public string Message { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
 
         public SignUp()
         {
@@ -27,6 +29,8 @@ namespace QuizWebApi.Models.User
             StatusCode = 0;
             Source = string.Empty;
             Message = string.Empty;
+            Firstname = string.Empty;
+            Lastname = string.Empty;
         }
 
         public SignUp(string error)

@@ -13,8 +13,7 @@ export class RegisterQuizComponent implements OnInit {
 
   quizDefinition: QuizDefinition;
   result: Observable<any>;
-  form: any;
-  htmlContenttext: "please type here";
+  form: any;  
   editorConfig = {
     editable: true,
     spellcheck: false,
@@ -29,7 +28,7 @@ export class RegisterQuizComponent implements OnInit {
     private router: Router) { }
  
   ngOnInit() {
-    this.htmlContenttext = "hi";
+    
     this.quizDefinition = this.formDataService.getQuizDefinition();
 
     if (this.quizDefinition.stage == "Define") {

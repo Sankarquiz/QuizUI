@@ -164,13 +164,13 @@ namespace QuizWebApi.Controllers
                 string query = string.Empty;
                 if (signup.Url != null && signup.Url.Length > 0)
                 {
-                    query = string.Format(@"update `Quiz` set url='{0}', source='{1}' where email='{2}'",
-                                             signup.Url, signup.Source, signup.Email);
+                    query = string.Format(@"update `Quiz` set url='{0}', source='{1}', firstname='{3}', lastname='{4}' where email='{2}'",
+                                             signup.Url, signup.Source, signup.Email,signup.Firstname,signup.Lastname);
                 }
                 else
                 {
-                    query = string.Format(@"update `Quiz` set source='{0}' where email='{1}'",
-                                             signup.Source, signup.Email);
+                    query = string.Format(@"update `Quiz` set source='{0}', firstname='{2}', lastname='{3}' where email='{1}'",
+                                             signup.Source, signup.Email, signup.Firstname, signup.Lastname);
                 }
                 var req = new QueryRequest(query);
                 var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
