@@ -22,7 +22,7 @@ import { SimpleLayoutComponent } from './containers';
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-
+ 
 
 const APP_CONTAINERS = [
   DefaultLayoutComponent,
@@ -50,6 +50,8 @@ import { QuizDetailsService } from './services/service-getquizdetails';
 import { FormDataService } from './models/formData.service';
 import { SessionDataService } from './services/SessionDataService';
 import { AuthService } from './services/AuthService';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -67,14 +69,17 @@ import { AuthService } from './services/AuthService';
     TabsModule.forRoot(),
     ChartsModule,
     FormsModule,
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    
   ],
   declarations: [
     AppComponent,
     ...APP_CONTAINERS,
     P404Component,
-    P500Component   
+    P500Component,
+    
   ],
+  
   providers: [
     QuizDetailsService,
     SessionDataService,
@@ -84,7 +89,7 @@ import { AuthService } from './services/AuthService';
       provide: LocationStrategy,
       useClass: HashLocationStrategy
     }
-  ],
+  ], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

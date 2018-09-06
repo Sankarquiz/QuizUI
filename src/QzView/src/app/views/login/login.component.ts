@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { FormDataService } from '../../models/formData.service';
 import { SignUp } from '../../models/Registration';
 import { AlertMessageComponent } from '../message/alertmessage.component'
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'login.component.html'
@@ -66,9 +65,9 @@ export class LoginComponent {
             this.alertMsg('Something went wrong. Please try again.');
           }
         },
-        (err: any)  => {
+        (err: any) => {
           debugger;
-          this.alertMsg("Invalid Login. " + err.statusText);
+          this.alertMsg("Invalid Login : " + err.statusText);
         });
     }
   }
