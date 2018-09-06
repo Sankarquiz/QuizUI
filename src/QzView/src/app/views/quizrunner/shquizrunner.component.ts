@@ -34,6 +34,8 @@ export class SHQuizRunnerComponent implements OnInit {
   bottommiddle: string = '';
   public mask: Array<any>;
 
+  userAnswerVal: string = '';
+
   constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
   TestInit() {
     debugger;
@@ -56,9 +58,10 @@ export class SHQuizRunnerComponent implements OnInit {
 
   }
   ngOnInit() {
-    //this.TestInit();
+    //this.TestInit(); 
     this.LoadInitialData();
   }
+
 
   LoadInitialData() {
     debugger;
@@ -69,7 +72,7 @@ export class SHQuizRunnerComponent implements OnInit {
       this.totalquestions = this.quizresult.quizResultDetails.length;
     }
 
-    if (this.quizDefinition.sponsorList) {
+    if (this.quizDefinition.sponsorList && this.quizDefinition.sponsorList.length > 0) {
       if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'topleft').length > 0) {
         this.topleft = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'topleft').path;
       }
@@ -106,10 +109,11 @@ export class SHQuizRunnerComponent implements OnInit {
     else {
       this.questionNo = 1;
     }
-
-    for (var answered = 0; answered < this.quizresult.quizResultDetails.length; answered++) {
-      if (this.quizresult.quizResultDetails[answered].userAnswer) {
-        this.isanswered.push(answered);
+    if (this.quizresult.quizResultDetails) {
+      for (var answered = 0; answered < this.quizresult.quizResultDetails.length; answered++) {
+        if (this.quizresult.quizResultDetails[answered].userAnswer) {
+          this.isanswered.push(answered);
+        }
       }
     }
     this.GetQuestion(this.questionNo);
@@ -132,14 +136,17 @@ export class SHQuizRunnerComponent implements OnInit {
 
   UpdateMask() {
     this.mask = [];
+    this.userAnswerVal = '';
     if (this.questionset && this.questionset.answerType) {
       if (this.questionset.answerType.toLocaleLowerCase() == 'hangman') {
         for (var char in this.questionset.answer.split('')) {
           if (this.questionset.answer[char] == ' ') {
             this.mask.push(' ');
+            this.userAnswerVal += ' ';
           }
           else {
             this.mask.push(/[0-9a-zA-Z]/);
+            this.userAnswerVal += '_';
           }
         }
       }
