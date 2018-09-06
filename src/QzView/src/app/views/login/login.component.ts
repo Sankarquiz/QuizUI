@@ -6,10 +6,12 @@ import { Observable } from 'rxjs';
 import { FormDataService } from '../../models/formData.service';
 import { SignUp } from '../../models/Registration';
 import { AlertMessageComponent } from '../message/alertmessage.component'
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'login.component.html'
 })
+
 export class LoginComponent {
   @ViewChild(AlertMessageComponent)
   private alertmsg: AlertMessageComponent;

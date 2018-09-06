@@ -9,14 +9,14 @@ export class AuthService {
   private USERKEY: string = "QUIZ_USER_KEY"
 
   constructor(private datastore: SessionDataService,
-              private router: Router) {
+    private router: Router) {
   }
 
   public GetUserData(): SignUp {
     return this.datastore.GetUserData();
   }
+
   public IsAdminUser(): boolean {
-    debugger;
 
     let user = this.datastore.GetUserData();
     if (user === null || user === undefined) {
@@ -27,6 +27,7 @@ export class AuthService {
     }
     return false;
   }
+
   public IsValidLogin(page: string): boolean {
 
     let retval: boolean = this.IsUserValid(page);
@@ -35,56 +36,60 @@ export class AuthService {
     }
     return retval;
   }
+
   public IsUserValid(page: string): boolean {
-   // return true;
-    debugger;
     let user = this.datastore.GetUserData();
     let retval: boolean = false;
+
     if (user === null || user === undefined) {
-      retval= false;
+      retval = false;
     }
     else if (user.role.toLowerCase() == "admin") {
-      retval= this.IsValidAdmin(user);
+      retval = this.IsValidAdmin(user);
     }
     else {
       retval = this.IsAuthorized(page, user);
     }
-     
+
     return retval;
   }
-  public IsAuthorized(page: string,user: SignUp): boolean {
+
+  public IsAuthorized(page: string, user: SignUp): boolean {
 
     if (!this.IsValidUser(user)) {
       return false;
     }
 
     let pstr = page.toLowerCase();
-    if (pstr.includes("user"))
+    if (pstr.includes("user")) {
       return true;
+    }
+
     return false;
   }
-  public IsValidAdmin(user :SignUp): boolean {
-    
+
+  public IsValidAdmin(user: SignUp): boolean {
+
     if (user === null || user === undefined) {
       return false;
     }
     if (user.status.toLowerCase() != 'active' ||
-        user.role.toLowerCase() != 'admin') {
+      user.role.toLowerCase() != 'admin') {
       return false;
-    }    
+    }
     return true;
   }
+
   public IsValidUser(user: SignUp): boolean {
-    
+
     if (user === null || user === undefined) {
       return false;
     }
+
     if (user.status.toLowerCase() != 'active' ||
       user.role.toLowerCase() != 'user') {
       return false;
     }
-    
     return true;
   }
-
 }
