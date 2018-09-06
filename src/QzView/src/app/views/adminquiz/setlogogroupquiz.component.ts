@@ -17,15 +17,57 @@ export class SetLogoGroupQuizComponent implements OnInit {
   sponsor;
   result: Observable<any>;
   imagename: string = '';
+  spinner: boolean = false;
+  topleft: string = '';
+  topright: string = '';
+  topmiddle: string = '';
+  leftmiddle: string = '';
+  rightmiddle: string = '';
+  bottomleft: string = '';
+  bottomright: string = '';
+  bottommiddle: string = '';
+
   constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
 
   ngOnInit() {
+    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.sponsor = this.formDataService.getSponserFields();
+    if (this.quizDefinition.sponsorList) {
+      this.BindSponsorImage();
+    }
+  }
+
+  BindSponsorImage() {
+    if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'topleft').length > 0) {
+      this.topleft = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'topleft').path;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'topright').length > 0) {
+      this.topright = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'topright').path;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'topmiddle').length > 0) {
+      this.topmiddle = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'topmiddle').path;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'leftmiddle').length > 0) {
+      this.leftmiddle = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'leftmiddle').path;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'rightmiddle').length > 0) {
+      this.rightmiddle = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'rightmiddle').path;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'bottomleft').length > 0) {
+      this.bottomleft = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'bottomleft').path;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'bottomright').length > 0) {
+      this.bottomright = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'bottomright').path;
+    }
+    if (this.quizDefinition.sponsorList.filter(x => x.position.toLocaleLowerCase() == 'bottommiddle').length > 0) {
+      this.bottommiddle = this.quizDefinition.sponsorList.find(x => x.position.toLocaleLowerCase() == 'bottommiddle').path;
+    }
   }
 
   SaveImage(image, location) {
     debugger;
+    this.spinner = true;
     const fd = new FormData();
     var extn = image.name.split(".").pop();
     this.imagename = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + location;
@@ -34,39 +76,43 @@ export class SetLogoGroupQuizComponent implements OnInit {
 
     fd.append("file", image, this.imagename);
     this._saveQuizData.UploadImage(fd)
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         if (res) {
           this.sponsor = new SponsorDetail();
           this.sponsor.position = location;
           this.sponsor.imageName = this.imagename;
+          this.sponsor.path = res.fullpath;
           if (this.quizDefinition.sponsorList.filter(x => x.position == location).length > 0) {
             let index = this.quizDefinition.sponsorList.findIndex(x => x.position == location);
             let updatesponsor = this.quizDefinition.sponsorList.find(x => x.position == location);
             updatesponsor.imageName = this.imagename;
+            updatesponsor.path = res.fullpath;
             this.quizDefinition.sponsorList[index] = updatesponsor;
           }
           else {
             this.quizDefinition.sponsorList.push(this.sponsor);
           }
+          this.BindSponsorImage();
+          this.spinner = false;
         }
       });
   }
 
-  SavePath(path, location) {
-    debugger;
-    this.sponsor = new SponsorDetail();
-    this.sponsor.path = path;
-    this.sponsor.position = location;
-    if (this.quizDefinition.sponsorList.filter(x => x.position == location).length > 0) {
-      let index = this.quizDefinition.sponsorList.findIndex(x => x.position == location);
-      let updatesponsor = this.quizDefinition.sponsorList.find(x => x.position == location);
-      updatesponsor.path = path;
-      this.quizDefinition.sponsorList[index] = updatesponsor;
-    }
-    else {
-      this.quizDefinition.sponsorList.push(this.sponsor);
-    }
-  }
+  //SavePath(path, location) {
+  //  debugger;
+  //  this.sponsor = new SponsorDetail();
+  //  this.sponsor.path = path;
+  //  this.sponsor.position = location;
+  //  if (this.quizDefinition.sponsorList.filter(x => x.position == location).length > 0) {
+  //    let index = this.quizDefinition.sponsorList.findIndex(x => x.position == location);
+  //    let updatesponsor = this.quizDefinition.sponsorList.find(x => x.position == location);
+  //    updatesponsor.path = path;
+  //    this.quizDefinition.sponsorList[index] = updatesponsor;
+  //  }
+  //  else {
+  //    this.quizDefinition.sponsorList.push(this.sponsor);
+  //  }
+  //}
 
   SaveSponsorDetails() {
     debugger;

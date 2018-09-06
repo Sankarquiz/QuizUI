@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace QuizWebApi.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Route("api/quiz/[action]")]
     [ApiController]
     [AllowAnonymous]
@@ -34,7 +38,6 @@ namespace QuizWebApi.Controllers
         /// <param name="answer">The answer.</param>
         /// <returns></returns>
         [HttpGet]
-        //public async Task<IActionResult> SaveQuizRunner([FromBody]QuizResultDetails request)
         public async Task<IActionResult> SaveQuizRunner(string quizName, string quizType, string teamName, string email, string status, int questionNo, string answer)
         {
             if (
@@ -122,12 +125,20 @@ namespace QuizWebApi.Controllers
 
         }
 
+        /// <summary>
+        /// Checks the quiz taken.
+        /// </summary>
+        /// <param name="quizName">Name of the quiz.</param>
+        /// <param name="quizType">Type of the quiz.</param>
+        /// <param name="teamName">Name of the team.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> CheckQuizTaken(string quizName, string quizType, string teamName)
+        public async Task<IActionResult> CheckQuizTaken(string quizName, string quizType, string teamName, string email)
         {
             if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(teamName))
             {
-                var message = "{\"message\":\"Mandatory fields missing.\"}";
+                string message = "{\"message\":\"Mandatory fields missing.\"}";
                 return BadRequest(message);
             }
 
@@ -142,6 +153,13 @@ namespace QuizWebApi.Controllers
             {
                 if (response.Value.QuizStartTime.AddMinutes(response.Value.DurationInMinutes) > DateTime.UtcNow)
                 {
+                    var definition = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
+                    if (!definition.Value.AllowConcurrentAccess && email.ToLower() != response?.Value.Email.ToLower())
+                    {
+                        string message = "{\"message\":\"Quiz is already taken by other member of team. Any one member of team is only allowed for this Quiz.\"}";
+                        return Ok(message);
+                    }
+
                     return Ok(true);
                 }
             }

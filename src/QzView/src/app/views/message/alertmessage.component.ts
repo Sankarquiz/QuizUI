@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, ViewChild, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, HostListener, Input, Output, EventEmitter, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -21,7 +21,6 @@ export class AlertMessageComponent  {
   }
 
   AlertClose() {
-    debugger;
     this.HideMessage();
     this.alertClose.emit();
   }

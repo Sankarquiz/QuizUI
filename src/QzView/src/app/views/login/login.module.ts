@@ -10,9 +10,8 @@ import { SessionDataService } from '../../services/SessionDataService';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login.component';
 import { LogoutComponent } from './logout.component';
-import { AlertMessageComponent } from '../message/alertmessage.component'
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { AlertModule } from 'ngx-bootstrap/alert';
+import { AlertMessageModule } from '../message/alert.module';
 
 @NgModule({
   imports: [
@@ -22,18 +21,18 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     LoginRoutingModule,
     BsDropdownModule,
     ButtonsModule.forRoot(),
-    AlertModule.forRoot(),
-    ModalModule.forRoot(),
+    ModalModule,
+    AlertMessageModule
   ],
   declarations: [
     LoginComponent,
-    LogoutComponent,
-    AlertMessageComponent
+    LogoutComponent,       
   ],
   providers: [
     QuizDetailsService,
     SessionDataService
     //FormDataService
-  ]
+  ],
+  
 })
 export class LoginModule { }

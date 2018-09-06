@@ -13,19 +13,41 @@ using System.Threading.Tasks;
 
 namespace QuizWebApi.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/quiz/[action]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
         const string _imagePath = @"images/user";
+
+        /// <summary>
+        /// Gets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
         public EmailManager _email { get; }
         private readonly IHostingEnvironment _hostingEnvironment;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="hostingEnvironment">The hosting environment.</param>
         public AccountController(EmailManager email, IHostingEnvironment hostingEnvironment)
         {
             _email = email;
             _hostingEnvironment = hostingEnvironment;
         }
 
+        /// <summary>
+        /// Registers the specified user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Register([FromBody]UserRegistration user)
         {
@@ -63,6 +85,11 @@ namespace QuizWebApi.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Signs up.
+        /// </summary>
+        /// <param name="signup">The signup.</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> SignUp(SignUp signup)
         {
@@ -78,6 +105,11 @@ namespace QuizWebApi.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Activates the sign up.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
         [HttpGet("{email}")]
         public async Task<IActionResult> ActivateSignUp(string email)
         {
@@ -92,6 +124,12 @@ namespace QuizWebApi.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Logins the specified email.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Login(string email, string password)
         {
@@ -125,12 +163,17 @@ namespace QuizWebApi.Controllers
 
                 return Unauthorized();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-               return Unauthorized();
+                return Unauthorized();
             }
         }
 
+        /// <summary>
+        /// Gets the registered quiz details.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetRegisteredQuizDetails(string email)
         {
@@ -141,9 +184,14 @@ namespace QuizWebApi.Controllers
             return Ok(result);
         }
 
-        
+
+        /// <summary>
+        /// Views the users.
+        /// </summary>
+        /// <param name="mode">The mode.</param>
+        /// <returns></returns>
         [HttpGet("{mode}")]
-        public async Task<IActionResult>ViewUsers(int mode)
+        public async Task<IActionResult> ViewUsers(int mode)
         {
             var query = string.Format(@"SELECT Quiz.* FROM Quiz where documentType='user' ",
                 CouchbaseHelper.Bucket);
@@ -152,17 +200,28 @@ namespace QuizWebApi.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Changes the passwd.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="passwd">The passwd.</param>
+        /// <returns></returns>
         [HttpGet("{email}/{passwd}")]
-        public async Task<IActionResult> ChangePasswd(string email,string passwd)
+        public async Task<IActionResult> ChangePasswd(string email, string passwd)
         {
             var query = string.Format(@"update Quiz set `password`='{1}' where email='{0}'",
-                                     email,passwd);
+                                     email, passwd);
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
             return Ok(result);
         }
 
 
+        /// <summary>
+        /// Updates the profile.
+        /// </summary>
+        /// <param name="signup">The signup.</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> UpdateProfile(SignUp signup)
         {
@@ -172,7 +231,7 @@ namespace QuizWebApi.Controllers
                 if (signup.Url != null && signup.Url.Length > 0)
                 {
                     query = string.Format(@"update `Quiz` set url='{0}', source='{1}', firstname='{3}', lastname='{4}' where email='{2}'",
-                                             signup.Url, signup.Source, signup.Email,signup.Firstname,signup.Lastname);
+                                             signup.Url, signup.Source, signup.Email, signup.Firstname, signup.Lastname);
                 }
                 else
                 {
@@ -183,7 +242,7 @@ namespace QuizWebApi.Controllers
                 var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
                 return Ok(result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Ok(new SignUp("Profile could  not update. Please try again."));
             }
@@ -191,12 +250,17 @@ namespace QuizWebApi.Controllers
         }
 
 
+        /// <summary>
+        /// Uploads the user image.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns></returns>
         [HttpPost, DisableRequestSizeLimit]
         public async Task<IActionResult> UploadUserImage(IFormFile file)
         {
             try
             {
-                
+
                 string webRootPath = _hostingEnvironment.WebRootPath;
                 string contentRootPath = _hostingEnvironment.ContentRootPath;
 
@@ -207,7 +271,7 @@ namespace QuizWebApi.Controllers
 
                 string newprofileimage = DateTime.Now.Ticks.ToString() + "-" + parsedContentDisposition.FileName.Trim();
                 hosturl = hosturl + newprofileimage;
-                
+
                 var filePath = filename.Replace(parsedContentDisposition.FileName.ToString(), newprofileimage.Trim());
                 if (file.Length > 0)
                 {

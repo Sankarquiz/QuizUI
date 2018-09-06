@@ -46,10 +46,13 @@ export class QuizDetailsService {
     return this._http.get(environment.getactivequizdetails, this.httpOptions);
   }
 
-  GetQuizData(quizName: string, quizType: string, documenttype: string, teamName: string = '') {
+  GetQuizData(quizName: string, quizType: string, documenttype: string, teamName: string = '', email: string = '') {
     let uri = environment.getquizdetail + "?quizName=" + quizName + "&quizType=" + quizType + "&documentType=" + documenttype;
-    if (documenttype == 'questions') {
+    if (teamName) {
       uri += "&teamName=" + teamName;
+    }
+    if (email) {
+      uri += "&email=" + email;
     }
     return this._http.get(uri, this.httpOptions);
   }
@@ -87,8 +90,8 @@ export class QuizDetailsService {
     return this._http.get(uri, this.httpOptions);
   }
 
-  CheckQuiztaken(quizName: string, quizType: string, teamName: string) {
-    let uri = environment.checkquiztaken + "?quizName=" + quizName + "&quizType=" + quizType + "&teamName=" + teamName;
+  CheckQuiztaken(quizName: string, quizType: string, teamName: string, email: string) {
+    let uri = environment.checkquiztaken + "?quizName=" + quizName + "&quizType=" + quizType + "&teamName=" + teamName + "&email=" + email;
     return this._http.get(uri, this.httpOptions);
   }
 

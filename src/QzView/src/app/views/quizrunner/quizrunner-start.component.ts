@@ -21,8 +21,12 @@ export class QuizRunnerStartComponent implements OnInit {
     debugger;
     this.quizadv = this.formDataService.getquizadv();
     this.quizDefinition.registrationFields = new RegistrationFields();
-    this._getQuestion.CheckQuiztaken(this.quizadv.quizName, this.quizadv.quizType, this.formDataService.getquizadv().teamName)
-      .subscribe((res) => {
+    this._getQuestion.CheckQuiztaken(this.quizadv.quizName, this.quizadv.quizType, this.quizadv.teamName, this.formDataService.getUserData().email)
+      .subscribe((res: any) => {
+        if (res.message) {
+          alert(res.message);
+          this.router.navigate(['/user/dashboard']);
+        }
         if (!res) {
           alert('You have already taken this quiz. Please try with some other quiz.');
           this.router.navigate(['/user/dashboard']);
@@ -33,7 +37,7 @@ export class QuizRunnerStartComponent implements OnInit {
       .subscribe((res: any) => {
         this.quizDefinition = res;
 
-        this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions", this.quizadv.teamName)
+        this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions", this.quizadv.teamName, this.formDataService.getUserData().email)
           .subscribe((res: any) => {
             this.questions = res;
           });
