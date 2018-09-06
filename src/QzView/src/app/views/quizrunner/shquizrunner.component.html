@@ -103,7 +103,7 @@
                     <input class="mask-text" *ngIf="questionset.answerType =='Hangman'" name="mask"
                            [(ngModel)]="quizresultdetails.userAnswer"
                            [textMask]="{mask: mask}"
-                           #userAnswer="ngModel" type="text" />
+                           #userAnswer="ngModel" type="text" [placeholder]="userAnswerVal"  />
                   </div>
                 </div>
               </form>
