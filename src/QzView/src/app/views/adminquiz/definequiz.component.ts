@@ -41,8 +41,7 @@ export class DefineQuizComponent implements OnInit {
     }
   }
 
-  saveDefinequiz() {
-    debugger;
+  saveDefinequiz() {   
     if (this.quizDefinition.isQuizFromLargerPool && this.quizDefinition.noOfQuestionsInPool <= this.quizDefinition.noOfQuestions) {
       alert('Question pool should be greater than no of questions of quiz..!');
       return;
@@ -54,7 +53,6 @@ export class DefineQuizComponent implements OnInit {
     this.quizDefinition.modifiedOn = new Date();
     this._saveQuizData.SaveQuizData(this.quizDefinition)
       .subscribe((response: any) => {
-        debugger;
         this.result = response;
         if (response) {
           this.formDataService.setQuizDefinition(this.quizDefinition);

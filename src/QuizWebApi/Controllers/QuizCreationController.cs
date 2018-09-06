@@ -180,9 +180,19 @@ namespace QuizWebApi.Controllers
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
 
-                foreach (var item in response.Value.Questions.Where(x => x.IsImageneeded == true && !x.ImageUrl.ToLower().StartsWith("http")))
+                foreach (var item in response.Value.Questions.Where(x => x.IsImageneeded == true))
                 {
-                    item.ImageUrl = host + item.ImageUrl;
+                    if (!string.IsNullOrWhiteSpace(item.ImageName))
+                    {
+                        if (item.ImageName.ToLower().StartsWith("http"))
+                        {
+                            item.ImagePath = item.ImageName;
+                        }
+                        else
+                        {
+                            item.ImagePath = host + item.ImageName;
+                        }
+                    }
                 }
 
                 return Ok(response.Value);
@@ -222,9 +232,19 @@ namespace QuizWebApi.Controllers
                 {
                     item.Score = 0;
                     item.Answer = new string(item.Answer.ToCharArray().Select(x => (x == ' ') ? ' ' : '*').ToArray());
-                    if (item.IsImageneeded && !item.ImageUrl.ToLower().StartsWith("http"))
+                    if (item.IsImageneeded)
                     {
-                        item.ImageUrl = host + item.ImageUrl;
+                        if (!string.IsNullOrWhiteSpace(item.ImageName))
+                        {
+                            if (!item.ImageName.ToLower().StartsWith("http"))
+                            {
+                                item.ImagePath = host + item.ImageName;
+                            }
+                            else
+                            {
+                                item.ImagePath = item.ImageName;
+                            }
+                        }
                     }
                     QuizResultDetails quizResultDetails = new QuizResultDetails();
                     quizResultDetails.QuestionSet = item;
@@ -263,7 +283,7 @@ namespace QuizWebApi.Controllers
                 var host = Request.Scheme + "://" + Request.Host + "/images/";
                 //var fullpath = Path.Combine(host, file.FileName);
 
-                var fullpath = "{\"fullpath\":\"" + Path.Combine(host, file.FileName) + "\"}";     
+                var fullpath = "{\"fullpath\":\"" + Path.Combine(host, file.FileName) + "\"}";
                 return Ok(fullpath);
             }
             catch (Exception e)

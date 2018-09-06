@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { Component, OnChanges, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { QuizDefinition, RegistrationFields } from '../../models/QuizDefinition';
 import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { AuthService } from '../../services/AuthService';
   selector: 'app-change-passwd',
   templateUrl: 'changepasswd.component.html'
 })
-export class ChangePasswdComponent implements OnInit {  
+export class ChangePasswdComponent {
   @ViewChild(AlertMessageComponent)
   private alertmsg: AlertMessageComponent;
   alertTitle: string;
@@ -23,22 +23,19 @@ export class ChangePasswdComponent implements OnInit {
   newpassword: string = "";
   repeatpassword: string = "";
   oldpassword: string = "";
-  alertflag: boolean = false;    
+  alertflag: boolean = false;
   result: Observable<any>;
-  
+
   constructor(private _userservice: QuizDetailsService,
     private formDataService: FormDataService,
     private router: Router,
     private Auth: AuthService) {
-    
+
     this.oldpassword = "";
     this.newpassword = "";
     this.repeatpassword = "";
   }
- 
-  ngOnInit() {
 
-  }
 
   alertMsg(msg: string) {
     this.alertTitle = "Change Password";
@@ -56,8 +53,8 @@ export class ChangePasswdComponent implements OnInit {
       this.alertflag = false;
 
   }
+
   onBlurOldpasswd() {
-    debugger; 
     if (this.newpassword.length > 0) {
       if (this.oldpassword.length > 0) {
         if (this.oldpassword == this.newpassword) {
@@ -69,26 +66,22 @@ export class ChangePasswdComponent implements OnInit {
     }
   }
 
-
-  ChangePasswd() {    
-    debugger;
-    // this.loginDetails.status = 'active';
+  ChangePasswd() {
     this.alertflag = false;
     this._userservice.Changepasswd(this.oldpassword, this.newpassword)
       .subscribe((response: any) => {
         this.result = response;
         if (response) {
-          if (response.message) {           
-            this.alertMsg(response.message);            
+          if (response.message) {
+            this.alertMsg(response.message);
             return;
           }
           this.alertflag = true;
           this.alertMsg('User ' + this.createUser.email + ' password is successfully updated.');
-         
+
         } else {
           this.alertMsg('Something went wrong. Please try again.');
         }
       });
   }
-  
 }

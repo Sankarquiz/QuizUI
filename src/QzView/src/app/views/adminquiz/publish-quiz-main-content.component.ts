@@ -7,7 +7,6 @@ import { QuizSet } from '../../models/QuizDefinition';
 })
 export class PublishQuizMainComponent implements OnInit {
   @Input() questionset= new QuizSet();
-  @Input() imageurl: string;
   constructor() { }
 
   ngOnInit() { }

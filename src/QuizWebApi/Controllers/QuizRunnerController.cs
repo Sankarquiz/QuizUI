@@ -142,6 +142,14 @@ namespace QuizWebApi.Controllers
                 return BadRequest(message);
             }
 
+            var definition = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
+            if (definition.Value.QuizStartTime > DateTime.UtcNow)
+            {
+                var alert = (!string.IsNullOrWhiteSpace(definition.Value.MessageBeforeQuizTime)) ?
+                    definition.Value.MessageBeforeQuizTime : "Quiz Starts on " + definition.Value.QuizStartTime;
+                string message = "{\"message\":\"" + alert + "\"}";
+                return Ok(message);
+            }
             var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
             if (string.IsNullOrEmpty(response?.Value?.TeamName))
             {
@@ -153,7 +161,6 @@ namespace QuizWebApi.Controllers
             {
                 if (response.Value.QuizStartTime.AddMinutes(response.Value.DurationInMinutes) > DateTime.UtcNow)
                 {
-                    var definition = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
                     if (!definition.Value.AllowConcurrentAccess && email.ToLower() != response?.Value.Email.ToLower())
                     {
                         string message = "{\"message\":\"Quiz is already taken by other member of team. Any one member of team is only allowed for this Quiz.\"}";

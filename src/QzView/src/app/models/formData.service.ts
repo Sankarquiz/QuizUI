@@ -150,14 +150,14 @@ export class FormDataService {
       answer: this.formData.answer,
       answerType: this.formData.answerType,
       isImageneeded: this.formData.isImageneeded,
-      imageUrl: this.formData.imageUrl,
+      imageName: this.formData.imageName,
+      imagePath: this.formData.imagePath,
       score: this.formData.score,
       option1: this.formData.option1,
       option2: this.formData.option2,
       option3: this.formData.option3,
       option4: this.formData.option4,
-      imagePathType: this.formData.imagePathType,
-      path: this.formData.path
+      imagePathType: this.formData.imagePathType       
     };
     return question;
   }
@@ -168,14 +168,14 @@ export class FormDataService {
     this.formData.answer = data.answer;
     this.formData.answerType = data.answerType;
     this.formData.isImageneeded = data.isImageneeded;
-    this.formData.imageUrl = data.imageUrl;
+    this.formData.imageName  = data.imageName;
     this.formData.score = data.score;
     this.formData.option1 = data.option1;
     this.formData.option2 = data.option2;
     this.formData.option3 = data.option3;
     this.formData.option4 = data.option4;
     this.formData.imagePathType = data.imagePathType;
-    this.formData.path = data.path;
+    this.formData.imagePath = data.imagePath;
   }
 
   setEditQuestion(value: boolean) {

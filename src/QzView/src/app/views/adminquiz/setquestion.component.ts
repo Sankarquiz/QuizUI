@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { element } from 'protractor';
 import { isUndefined } from 'util';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-set-question',
@@ -29,7 +28,6 @@ export class SetQuestionComponent implements OnInit {
   constructor(private _saveQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
 
   ngOnInit() {
-    debugger;
     this.AssignDefaultValues();
   }
 
@@ -43,7 +41,7 @@ export class SetQuestionComponent implements OnInit {
 
     if (!this.iseditquestion) {
       this.questionset.answerType = 'Multiple Choice';
-      this.questionset.isImageneeded = false;      
+      this.questionset.isImageneeded = false;
       ++this.currentQuestionNo;
 
       if (this.questions && this.questions.questions.filter(x => x.questionNo == this.currentQuestionNo).length > 0) {
@@ -54,12 +52,6 @@ export class SetQuestionComponent implements OnInit {
     else {
       this.questionset = this.formDataService.getQuestion();
       this.currentQuestionNo = this.questionset.questionNo;
-    }
-    if (this.questionset.imageUrl.startsWith('http')) {
-      this.questionset.path = this.questionset.imageUrl
-    }
-    else {
-      this.questionset.path = environment.imageprefixpath + this.questionset.imageUrl;
     }
 
     this.questionset.imagePathType = 'upload';
@@ -123,28 +115,21 @@ export class SetQuestionComponent implements OnInit {
     this.currentQuestionNo--;
     let index = this.questions.questions.findIndex(x => x.questionNo == this.currentQuestionNo);
     this.questionset = this.questions.questions[index];
-    if (this.questionset.imageUrl.startsWith('http')) {
-      this.questionset.path = this.questionset.imageUrl
-    }
-    else {
-      this.questionset.path = environment.imageprefixpath + this.questionset.imageUrl;
-    }
   }
 
   onFileSelected(event) {
-    debugger;
     var extn = <File>event.target.files[0].name.split(".").pop();
     const fd = new FormData();
     let imgname = this.quizDefinition.quizName + "_" + this.quizDefinition.quizType + "_" + this.currentQuestionNo;
     if (!isUndefined(extn)) {
       imgname = imgname + "." + extn;
     }
-    this.questionset.imageUrl = imgname;
+    this.questionset.imageName = imgname;
     fd.append("file", <File>event.target.files[0], imgname);
     this._saveQuestion.UploadImage(fd)
       .subscribe((res: any) => {
         if (res) {
-          this.questionset.path = res.fullpath;
+          this.questionset.imagePath = res.fullpath;
           this.isimagesaved = true;
         }
       });

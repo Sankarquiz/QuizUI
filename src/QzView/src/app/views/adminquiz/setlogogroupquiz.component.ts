@@ -30,7 +30,6 @@ export class SetLogoGroupQuizComponent implements OnInit {
   constructor(private _saveQuizData: QuizDetailsService, private router: Router, private formDataService: FormDataService) { }
 
   ngOnInit() {
-    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.sponsor = this.formDataService.getSponserFields();
     if (this.quizDefinition.sponsorList) {
@@ -66,7 +65,6 @@ export class SetLogoGroupQuizComponent implements OnInit {
   }
 
   SaveImage(image, location) {
-    debugger;
     this.spinner = true;
     const fd = new FormData();
     var extn = image.name.split(".").pop();
@@ -115,7 +113,6 @@ export class SetLogoGroupQuizComponent implements OnInit {
   //}
 
   SaveSponsorDetails() {
-    debugger;
     this.quizDefinition.stage = "SetLogo";
     this.quizDefinition.status = "Pending";
     this._saveQuizData.SaveQuizData(this.quizDefinition)

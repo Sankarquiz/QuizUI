@@ -115,7 +115,7 @@ export const routes: Routes = [
     //  }
     //]
   },
-  {    
+  {
     path: 'dash',
     component: DefaultLayoutComponent,
     data: {

@@ -23,7 +23,8 @@ export class FormDataModel {
   questionNo: number;
   questionText: string = '';
   isImageneeded: boolean;
-  imageUrl: string = '';
+  imageName: string = '';
+  imagePath: string = '';
   answerType: string = '';
   answer: string = '';
   score: number;
@@ -32,7 +33,6 @@ export class FormDataModel {
   option3: string = '';
   option4: string = '';
   imagePathType: string = '';
-  path: string = '';
   isTeamName: boolean;
   isEmail: boolean;
   isValidateEmail: boolean;
@@ -75,7 +75,8 @@ export class FormDataModel {
     this.questionNo = 0;
     this.questionText = '';
     this.isImageneeded = false;
-    this.imageUrl = '';
+    this.imageName = '';
+    this.imagePath = '';
     this.answerType = '';
     this.answer = '';
     this.score = 0;
@@ -162,7 +163,7 @@ export class QuizSet {
   questionNo: number;
   questionText: string;
   isImageneeded: boolean;
-  imageUrl: string;
+  imageName: string;
   answerType: string;
   answer: string;
   score: number;
@@ -172,5 +173,5 @@ export class QuizSet {
   option4: string;
   //optional fields
   imagePathType: string;
-  path: string
+  imagePath: string
 }

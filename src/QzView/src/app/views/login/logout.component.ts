@@ -10,16 +10,14 @@ import { SignUp } from '../../models/Registration';
   selector: 'app-dashboard',
   templateUrl: 'login.component.html'
 })
-export class LogoutComponent {   
+export class LogoutComponent {
   constructor(private _register: QuizDetailsService,
     private router: Router,
     private formDataService: FormDataService,
-    private datastore: SessionDataService ) { }
+    private datastore: SessionDataService) { }
 
   ngOnInit() {
-    debugger;
     this.datastore.ClearLocalStore();
     this.router.navigate(['/home']);
   }
-  
 }

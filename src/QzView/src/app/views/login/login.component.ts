@@ -14,17 +14,17 @@ export class LoginComponent {
   @ViewChild(AlertMessageComponent)
   private alertmsg: AlertMessageComponent;
   password: string;
-  email: string;  
-  result:  SignUp ;
+  email: string;
+  result: SignUp;
   userDetails = new SignUp();
   alertTitle: string;
-  alertMessage: string;  
-  alertflag: boolean = false;  
+  alertMessage: string;
+  alertflag: boolean = false;
 
   constructor(private _register: QuizDetailsService,
     private router: Router,
     private formDataService: FormDataService,
-    private datastore: SessionDataService ) { }
+    private datastore: SessionDataService) { }
 
   ngOnInit() {
     this.password = '';
@@ -35,7 +35,7 @@ export class LoginComponent {
     this.alertMessage = msg;
     this.alertmsg.ShowMessage();
   }
-  alertClose() {    
+  alertClose() {
   }
 
   Login() {
@@ -43,7 +43,6 @@ export class LoginComponent {
     if (this.email && this.password) {
       this._register.Login(this.email, this.password)
         .subscribe((response: any) => {
-          debugger;
           this.result = response as SignUp;
           if (response) {
             if (response.message) {
@@ -65,10 +64,9 @@ export class LoginComponent {
             this.alertMsg('Something went wrong. Please try again.');
           }
         },
-        (err: any) => {
-          debugger;
-          this.alertMsg("Invalid Login : " + err.statusText);
-        });
+          (err: any) => {
+            this.alertMsg("Invalid Login : " + err.statusText);
+          });
     }
   }
 }

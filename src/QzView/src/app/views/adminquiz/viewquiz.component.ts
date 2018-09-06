@@ -21,7 +21,6 @@ export class ViewQuizComponent {
     private Auth: AuthService) { }
 
   ngOnInit() {
-    debugger;
     if (!this.Auth.IsValidLogin("viewquiz"))
       return;
     this._getAllQuizDetails.GetQuizCount(this.Auth.GetUserData().email)
@@ -30,7 +29,7 @@ export class ViewQuizComponent {
           this.totalquiz = result;
           this.GetQuizData();
         }
-      });   
+      });
   }
 
   private GetQuizData() {
@@ -48,7 +47,6 @@ export class ViewQuizComponent {
   }
 
   quizScreen(index, stage) {
-    debugger;
     this.formDataService.setQuizDefinition(this.quizDetails[index]);
     this.formDataService.setRegistrationFields(this.quizDetails[index].registrationFields);
 
@@ -83,9 +81,8 @@ export class ViewQuizComponent {
 
   }
   PopulateQuestionSet(result) {
-    debugger;
     this.formDataService.setQuizQuestions(result);
-    this.router.navigate(['/admin/publishquiz']);    
+    this.router.navigate(['/admin/publishquiz']);
   }
 
   pageChanged(event) {

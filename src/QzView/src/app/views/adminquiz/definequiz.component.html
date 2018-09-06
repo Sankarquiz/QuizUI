@@ -76,7 +76,7 @@
                   </select>
                 </div>
                 <input required type="number" id="duration" name="duration" class="form-control" min="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                       placeholder="Duration of the quiz" [(ngModel)]="quizDefinition.quizDurationTime" #quizDurationTime="ngModel">
+                       placeholder="Duration of the quiz" [(ngModel)]="quizDefinition.quizDurationTime" #quizDurationTime="ngModel" value="">
               </div>
             </div>
           </div>

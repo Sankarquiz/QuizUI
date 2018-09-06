@@ -72,6 +72,7 @@ namespace QuizWebApi.Controllers
             }
 
             user.DocumentType = "Register";
+            user.RegisteredOn = DateTime.UtcNow;
             var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(user.Email + user.QuizName, user);
             _email.RegisterQuiz(user.ContestantName, user.ContestantName, user.TeamName, user.QuizName, user.Email);
             if (!string.IsNullOrWhiteSpace(user.Email2))

@@ -27,7 +27,6 @@ export class QuizPublishedComponent implements OnInit {
   one_day = 1000 * 60 * 60 * 24;
 
   ngOnInit() {
-    debugger;
     this.userdetails = this.formDataService.getUserData();
     if (this.userdetails.email && this.userdetails.role) {
       this._getquizdetails.GetRegisteredQuizData(this.userdetails.email)
@@ -62,7 +61,6 @@ export class QuizPublishedComponent implements OnInit {
 
 
   SelectQuiz(index) {
-    debugger;
     this.quizAdv = new QuizAdv();
     this.quizAdv.quizName = this.quizdefinition[index].quizName;
     this.quizAdv.quizType = this.quizdefinition[index].quizType;

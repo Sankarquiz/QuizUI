@@ -9,10 +9,12 @@ import { UserRegistration, SignUp } from '../../models/Registration';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AlertMessageComponent } from '../message/alertmessage.component'
 import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: 'userprofile.component.html'
 })
+
 export class UserProfileComponent implements OnInit {
   @ViewChild(AlertMessageComponent)
   private alertmsg: AlertMessageComponent;
@@ -25,31 +27,34 @@ export class UserProfileComponent implements OnInit {
   spinner: boolean = false;
   imageurl: string = "assets/img/avatars/avatar.png";
   tempimageurl: string = "";
+
   constructor(private _service: QuizDetailsService,
     private formDataService: FormDataService,
     private router: Router,
     private Auth: AuthService) {
-      
+
   }
- 
+
   ngOnInit() {
-    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.createUser = this.Auth.GetUserData();
     this.tempimageurl = this.imageurl;
     if (this.createUser.url == undefined || this.createUser.url.length <= 0)
       this.createUser.url = this.imageurl;
   }
+
   alertMsg(msg: string) {
     this.alertTitle = "User Profile";
     this.alertMessage = msg;
     this.alertmsg.ShowMessage();
   }
+
   alertClose() {
     if (this.alertflag) {
       this.router.navigate(['/user/viewuser']);
     }
   }
+
   onFileSelected(event) {
     debugger;
     this.spinner = true;
@@ -72,43 +77,44 @@ export class UserProfileComponent implements OnInit {
           this.createUser.url = response.url;
           this.imageurl = response.image;
           this.alertMsg('User ' + this.createUser.email + ' profile image successfully updated.');
-          
+
         } else {
           this.spinner = false;
           this.alertMsg('Profile image could not upload. Please try again.');
         }
       });
   }
+
   CancelProfile() {
     this.router.navigate(['/user/dashboard']);
   }
-  UpdateProfile() {    
-    debugger;    
+
+  UpdateProfile() {
     let user = new SignUp();
     user.email = this.createUser.email;
     user.firstname = this.createUser.firstname;
     user.lastname = this.createUser.lastname;
     user.source = (this.createUser.source) ? this.createUser.source : "";
-    if (this.tempimageurl == this.imageurl)
+    if (this.tempimageurl == this.imageurl) {
       user.url = "";
-    else
+    }
+    else {
       user.url = this.imageurl;
-    
+    }
     this._service.UpdateProfile(user)
       .subscribe((response: any) => {
         this.result = response;
         if (response) {
-          if (response.message) {           
-            this.alertMsg(response.message);            
+          if (response.message) {
+            this.alertMsg(response.message);
             return;
           }
           this.alertflag = false;
           this.alertMsg('User profile ' + this.createUser.email + ' is successfully updated. ');
-         
+
         } else {
           this.alertMsg('Something went wrong. Please try again.');
         }
       });
   }
-  
 }

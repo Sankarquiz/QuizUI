@@ -17,8 +17,7 @@ export class QuizRunnerStartComponent implements OnInit {
   quizDefinition = new QuizDefinition();
   questions: QuizResult;
   quizadv: QuizAdv;
-  ngOnInit() {
-    debugger;
+  ngOnInit() {   
     this.quizadv = this.formDataService.getquizadv();
     this.quizDefinition.registrationFields = new RegistrationFields();
     this._getQuestion.CheckQuiztaken(this.quizadv.quizName, this.quizadv.quizType, this.quizadv.teamName, this.formDataService.getUserData().email)
@@ -27,26 +26,26 @@ export class QuizRunnerStartComponent implements OnInit {
           alert(res.message);
           this.router.navigate(['/user/dashboard']);
         }
-        if (!res) {
+        else if (!res) {
           alert('You have already taken this quiz. Please try with some other quiz.');
           this.router.navigate(['/user/dashboard']);
         }
-      });
+        else {
+          this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "Define")
+            .subscribe((res: any) => {
+              this.quizDefinition = res;
 
-    this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "Define")
-      .subscribe((res: any) => {
-        this.quizDefinition = res;
-
-        this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions", this.quizadv.teamName, this.formDataService.getUserData().email)
-          .subscribe((res: any) => {
-            this.questions = res;
-          });
+              this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions", this.quizadv.teamName, this.formDataService.getUserData().email)
+                .subscribe((res: any) => {
+                  this.questions = res;
+                });
+            });
+        }
       });
 
   }
 
   Start() {
-    debugger;
     if (this.quizDefinition && this.questions) {
       this.formDataService.setQuizDefinition(this.quizDefinition);
       this.formDataService.setQuizRunner(this.questions);

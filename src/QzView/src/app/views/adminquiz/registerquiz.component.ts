@@ -42,7 +42,6 @@ export class RegisterQuizComponent implements OnInit {
   }
 
   SaveRegistration() {
-    debugger;
     this.quizDefinition.stage = "Registration";
     this.quizDefinition.status = "Pending";
     this._saveRegistration.SaveQuizData(this.quizDefinition)

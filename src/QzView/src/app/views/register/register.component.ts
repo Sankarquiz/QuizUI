@@ -29,7 +29,6 @@ export class RegisterComponent {
   }
 
   ngOnInit() {
-    debugger;
     if (!this.registrationDetails.quizName ||
       !this.registrationDetails.quizType ||
       !this.registrationDetails.email) {

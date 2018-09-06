@@ -28,13 +28,11 @@ export class SignUpComponent {
   }
 
   Signup() {
-    debugger;
     if (this.loginDetails.password != this.repeatPassword) {
       alert('Password and Repeat password not matched.');
       return;
     }
     this.loginDetails.role = 'user';
-    // this.loginDetails.status = 'active';
     this._register.SignUp(this.loginDetails)
       .subscribe((response: any) => {
         this.result = response;

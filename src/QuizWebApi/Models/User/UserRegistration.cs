@@ -1,4 +1,6 @@
-﻿namespace QuizWebApi.Models.User
+﻿using System;
+
+namespace QuizWebApi.Models.User
 {
     public class UserRegistration : Status
     {
@@ -16,5 +18,6 @@
         public string Contact { get; set; }
         public string QuizName { get; set; }
         public string QuizType { get; set; }
+        public DateTime RegisteredOn { get; set; }
     }
 }

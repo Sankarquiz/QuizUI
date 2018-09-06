@@ -14,17 +14,16 @@ export class PublishQuizComponent implements OnInit {
 
   quizDefinition: QuizDefinition;
   questions = new QuizQuestions();
-
   questionNo: number = 1;
   totalquestions;
   questionset = new QuizSet();
-  imageurl: any;
 
   constructor(private _getQuestion: QuizDetailsService,
     private formDataService: FormDataService,
     private activatedRoute: ActivatedRoute,
     private router: Router) {
   }
+
   ngOnInit() {
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.totalquestions = (this.quizDefinition.isQuizFromLargerPool) ?
@@ -38,36 +37,18 @@ export class PublishQuizComponent implements OnInit {
       }
 
       this.questionset = this.questions.questions[this.questionNo - 1];
-      if (this.questionset && this.questionset.isImageneeded) {
-        if (this.questionset.imageUrl.startsWith('http')) {
-          this.imageurl = this.questionset.imageUrl
-        }
-        else {
-          this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
-        }
-      }
     }
   }
 
   ngOnChanges() {
-    debugger;
     if (this.questions && this.questionNo) {
       this.questionset = this.questions.questions[this.questionNo - 1];
-      if (this.questionset.isImageneeded) {
-        if (this.questionset.imageUrl.startsWith('http')) {
-          this.imageurl = this.questionset.imageUrl
-        }
-        else {
-          this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
-        }
-      }
     }
   }
 
   Publish() {
     this.quizDefinition.stage = 'Publish';
     this.quizDefinition.status = 'Published';
-    debugger;
     this._getQuestion.SaveQuizData(this.quizDefinition)
       .subscribe((result: any) => {
         if (result) {
@@ -108,6 +89,7 @@ export class PublishQuizComponent implements OnInit {
       }
     }
   }
+
   pageChanged(event) {
     this.questionNo = event.page;
     this.ngOnChanges();

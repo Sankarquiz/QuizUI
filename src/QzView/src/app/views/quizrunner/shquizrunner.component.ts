@@ -64,7 +64,6 @@ export class SHQuizRunnerComponent implements OnInit {
 
 
   LoadInitialData() {
-    debugger;
     this.quizDefinition = this.formDataService.getQuizDefinition();
     this.quizresult = this.formDataService.getQuizRunner();
     if (this.quizresult && this.quizresult.quizResultDetails) {
@@ -130,7 +129,6 @@ export class SHQuizRunnerComponent implements OnInit {
   }
 
   ngOnChanges() {
-    debugger;
     this.GetQuestion(this.questionNo);
   }
 
@@ -174,7 +172,6 @@ export class SHQuizRunnerComponent implements OnInit {
     }
   }
   SaveAnswer() {
-    debugger;
     this.isanswered.push(this.questionNo - 1);
     if (this.questionNo >= this.totalquestions) {
       this.SaveQuizResult('completed');

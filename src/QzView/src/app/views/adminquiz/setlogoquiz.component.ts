@@ -18,7 +18,6 @@ export class SetLogoQuizComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    debugger;
     this.image.emit(<File>event.target.files[0]);
   }
 
