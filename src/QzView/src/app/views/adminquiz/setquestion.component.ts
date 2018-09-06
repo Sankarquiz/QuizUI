@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { element } from 'protractor';
 import { isUndefined } from 'util';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-set-question',
@@ -42,8 +43,7 @@ export class SetQuestionComponent implements OnInit {
 
     if (!this.iseditquestion) {
       this.questionset.answerType = 'Multiple Choice';
-      this.questionset.isImageneeded = false;
-      this.questionset.imagePathType = 'upload';
+      this.questionset.isImageneeded = false;      
       ++this.currentQuestionNo;
 
       if (this.questions && this.questions.questions.filter(x => x.questionNo == this.currentQuestionNo).length > 0) {
@@ -55,6 +55,14 @@ export class SetQuestionComponent implements OnInit {
       this.questionset = this.formDataService.getQuestion();
       this.currentQuestionNo = this.questionset.questionNo;
     }
+    if (this.questionset.imageUrl.startsWith('http')) {
+      this.questionset.path = this.questionset.imageUrl
+    }
+    else {
+      this.questionset.path = environment.imageprefixpath + this.questionset.imageUrl;
+    }
+
+    this.questionset.imagePathType = 'upload';
   }
 
   SaveQuestion() {
@@ -110,11 +118,19 @@ export class SetQuestionComponent implements OnInit {
       alert('Please enter all questions. You entered' + this.currentQuestionNo + ' question so far.')
     }
   }
+
   PreviousQuestion() {
     this.currentQuestionNo--;
     let index = this.questions.questions.findIndex(x => x.questionNo == this.currentQuestionNo);
     this.questionset = this.questions.questions[index];
+    if (this.questionset.imageUrl.startsWith('http')) {
+      this.questionset.path = this.questionset.imageUrl
+    }
+    else {
+      this.questionset.path = environment.imageprefixpath + this.questionset.imageUrl;
+    }
   }
+
   onFileSelected(event) {
     debugger;
     var extn = <File>event.target.files[0].name.split(".").pop();
@@ -126,8 +142,11 @@ export class SetQuestionComponent implements OnInit {
     this.questionset.imageUrl = imgname;
     fd.append("file", <File>event.target.files[0], imgname);
     this._saveQuestion.UploadImage(fd)
-      .subscribe(res => {
-        this.isimagesaved = <boolean>res;
+      .subscribe((res: any) => {
+        if (res) {
+          this.questionset.path = res.fullpath;
+          this.isimagesaved = true;
+        }
       });
   }
 }

@@ -34,7 +34,7 @@ export class SHQuizRunnerComponent implements OnInit {
   bottommiddle: string = '';
   public mask: Array<any>;
 
-  userAnswerVal :string='';
+  userAnswerVal: string = '';
 
   constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
   TestInit() {
@@ -61,7 +61,7 @@ export class SHQuizRunnerComponent implements OnInit {
     //this.TestInit(); 
     this.LoadInitialData();
   }
-  
+
 
   LoadInitialData() {
     debugger;
@@ -109,12 +109,12 @@ export class SHQuizRunnerComponent implements OnInit {
     else {
       this.questionNo = 1;
     }
-    if(this.quizresult.quizResultDetails){
-    for (var answered = 0; answered < this.quizresult.quizResultDetails.length; answered++) {
-      if (this.quizresult.quizResultDetails[answered].userAnswer) {
-        this.isanswered.push(answered);
+    if (this.quizresult.quizResultDetails) {
+      for (var answered = 0; answered < this.quizresult.quizResultDetails.length; answered++) {
+        if (this.quizresult.quizResultDetails[answered].userAnswer) {
+          this.isanswered.push(answered);
+        }
       }
-    }
     }
     this.GetQuestion(this.questionNo);
     this.StartTimer();
@@ -134,21 +134,19 @@ export class SHQuizRunnerComponent implements OnInit {
     this.GetQuestion(this.questionNo);
   }
 
-  
-
   UpdateMask() {
     this.mask = [];
-    this.userAnswerVal='';
+    this.userAnswerVal = '';
     if (this.questionset && this.questionset.answerType) {
       if (this.questionset.answerType.toLocaleLowerCase() == 'hangman') {
         for (var char in this.questionset.answer.split('')) {
           if (this.questionset.answer[char] == ' ') {
             this.mask.push(' ');
-            this.userAnswerVal+=' ';
+            this.userAnswerVal += ' ';
           }
           else {
             this.mask.push(/[0-9a-zA-Z]/);
-            this.userAnswerVal+='_';
+            this.userAnswerVal += '_';
           }
         }
       }

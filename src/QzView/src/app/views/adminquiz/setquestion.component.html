@@ -40,7 +40,7 @@
             <div class="col-md-9 col-form-label">
               <div class="form-check">
                 <input required class="form-check-input" type="radio" name="radios" id="radio1"
-                       [(ngModel)]="questionset.imagePathType" #imagePath="ngModel" value="upload" checked>
+                       [(ngModel)]="questionset.imagePathType" #imagePath="ngModel" value="upload">
                 <label class="form-check-label" for="radio1">Upload Image</label>
               </div>
               <div class="form-check">
@@ -50,7 +50,6 @@
               </div>
             </div>
           </div>
-
           <div class="form-group row" *ngIf="questionset.isImageneeded && questionset.imagePathType==='enter'">
             <label class="col-md-3 col-form-label" for="text-input">Enter Image Link</label>
             <div class="col-md-9">
@@ -59,11 +58,20 @@
             </div>
           </div>
           <div class="form-group row" *ngIf="questionset.isImageneeded && questionset.imagePathType==='upload'">
-            <label class="col-md-3 col-form-label" for="file-input">Upload Image</label>
-            <div class="col-md-9">
-              <input required type="file" id="uploadimage" name="uploadimage" [(ngModel)]="questionset.imageUrl"
-                     (change)="onFileSelected($event)" #imageUrl="ngModel"  value="imageUrl">
+            <label class="col-md-3 col-form-label"></label>
+            <div class="col-md-9 col-form-label">
+              <label style="cursor:pointer;">
+                <input required style="display:none" type="file" id="file" (change)="onFileSelected($event)"
+                       [(ngModel)]="questionset.imageUrl" #imageUrl="ngModel">
+                Select\Change Image: 
+              </label>
+              <img style="width:120px;height:90px;" src="{{this.questionset.path}}" onError="this.src='assets/img/noimage.png'" />
             </div>
+            <!--<label class="col-md-3 col-form-label" for="file-input">Upload Image</label>
+                     <div class="col-md-9">
+              <input required type="file" id="uploadimage" name="uploadimage" [(ngModel)]="questionset.imageUrl"
+                     (change)="onFileSelected($event)" #imageUrl="ngModel" value="imageUrl">
+            </div>-->
           </div>
 
           <div class="form-group row">
@@ -125,7 +133,7 @@
           </div>
           <div class="card-footer">
             <button type="submit" class="btn btn-sm btn-primary"
-                    [disabled]="currentQuestionNo==1" (click)="PreviousQuestion()">
+                   *ngIf="!iseditquestion"  [disabled]="currentQuestionNo==1" (click)="PreviousQuestion()">
               Prev
             </button>
             <button type="submit" class="btn btn-sm btn-primary"

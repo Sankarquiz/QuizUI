@@ -156,7 +156,8 @@ export class FormDataService {
       option2: this.formData.option2,
       option3: this.formData.option3,
       option4: this.formData.option4,
-      imagePathType: this.formData.imagePathType
+      imagePathType: this.formData.imagePathType,
+      path: this.formData.path
     };
     return question;
   }
@@ -174,6 +175,7 @@ export class FormDataService {
     this.formData.option3 = data.option3;
     this.formData.option4 = data.option4;
     this.formData.imagePathType = data.imagePathType;
+    this.formData.path = data.path;
   }
 
   setEditQuestion(value: boolean) {
@@ -191,8 +193,8 @@ export class FormDataService {
   getUserData(): SignUp {
     let user: SignUp = this.datastore.GetUserData();
     if (user === null || user === undefined) {
-                user = new SignUp();
-      }
+      user = new SignUp();
+    }
     return user;
   }
 

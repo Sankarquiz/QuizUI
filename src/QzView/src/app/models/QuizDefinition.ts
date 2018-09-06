@@ -32,6 +32,7 @@ export class FormDataModel {
   option3: string = '';
   option4: string = '';
   imagePathType: string = '';
+  path: string = '';
   isTeamName: boolean;
   isEmail: boolean;
   isValidateEmail: boolean;
@@ -171,4 +172,5 @@ export class QuizSet {
   option4: string;
   //optional fields
   imagePathType: string;
+  path: string
 }
