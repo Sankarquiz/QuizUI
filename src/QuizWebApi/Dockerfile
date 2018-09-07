@@ -1,5 +1,5 @@
 # Use the standard Microsoft .NET Core container
-FROM microsoft/aspnetcore-build:2.1-sdk AS build-env
+FROM microsoft/dotnet:2.1-sdk AS build-env
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ COPY . ./
 RUN dotnet publish -c Release -r linux-x64 -o /publish ./QuizWebApi.csproj
  
 # Runtime Stage
-FROM microsoft/aspnetcore:2.1
+FROM microsoft/dotnet:2.1
 
 COPY --from=build-env /publish /publish  
 WORKDIR /publish
