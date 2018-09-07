@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using QuizWebApi.Models.Admin;
+using QuizWebApi.Models.QuizRunner;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,10 @@ using System.Threading.Tasks;
 
 namespace QuizWebApi.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/quiz/[action]")]
     [ApiController]
     [AllowAnonymous]
@@ -20,7 +25,6 @@ namespace QuizWebApi.Controllers
     {
         const string _imagePath = @"images";
         private readonly IHostingEnvironment _hostingEnvironment;
-
 
         /// <summary>
         /// <summary>
@@ -50,7 +54,7 @@ namespace QuizWebApi.Controllers
             }
             request.DocumentType = "Define";
             var parameters = new Dictionary<string, object>();
-            var query = string.Format(@"SELECT quizName FROM {0} WHERE status=""{1}"" and quizName = $quizName and quizType = $quizType and documentType=""{2}""", CouchbaseHelper.Bucket, "Published", "Define");
+            var query = string.Format(@"SELECT quizName FROM {0} WHERE and quizStartTime > CLOCK_LOCAL() and quizName = $quizName and quizType = $quizType and documentType=""{1}""", CouchbaseHelper.Bucket, "Define");
             parameters.Add("$quizName", request.QuizName);
             parameters.Add("$quizType", request.QuizType);
             var req = new QueryRequest(query);
@@ -58,8 +62,8 @@ namespace QuizWebApi.Controllers
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
             if (result.Count > 0)
             {
-                var message = "{\"message\":\"This Quiz is already Published.\"}";
-                return BadRequest(message);
+                var message = "{\"message\":\"This Quiz is already Started or Published.\"}";
+                return Ok(message);
             }
 
             var response = await CouchbaseHelper.CouchbaseClient.UpsertAsync(request.QuizName + "_" + request.QuizType, request);
@@ -67,17 +71,45 @@ namespace QuizWebApi.Controllers
         }
 
         /// <summary>
+        /// Gets the quiz count.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetQuizCount(string email)
+        {
+            var query = string.Format(@"SELECT count(1) as cnt FROM {0} where documentType=""{1}"" and createdBy=""{2}"" ",
+                CouchbaseHelper.Bucket, "Define", email);
+            var req = new QueryRequest(query);
+            var result = (await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<dynamic>(req)).FirstOrDefault();
+            return Ok(result.cnt.Value);
+        }
+        /// <summary>
         /// Gets all quiz.
         /// </summary>
         /// <returns></returns>
         //[Route("/getallquiz")]
         [HttpGet]
-        public async Task<IActionResult> GetAllQuiz(string email)
+        public async Task<IActionResult> GetAllQuiz(string email, int pageNumber, int pageSize)
         {
-            var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}"" and createdBy=""{2}"" ",
-                CouchbaseHelper.Bucket, "Define", email);
+            if (pageNumber == 0)
+            {
+                pageNumber = 1;
+            }
+
+            var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}"" and createdBy=""{2}"" offset {3} limit {4} ",
+                CouchbaseHelper.Bucket, "Define", email, pageNumber - 1, pageSize);
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
+
+            var host = Request.Scheme + "://" + Request.Host + "/images/";
+            foreach (var quiz in result.Select(x => x))
+            {
+                foreach (var item in quiz.SponsorList.Select(x => x))
+                {
+                    item.Path = Path.Combine(host, item.ImageName);
+                }
+            }
             return Ok(result);
         }
 
@@ -121,10 +153,11 @@ namespace QuizWebApi.Controllers
         /// <param name="quizName">Name of the quiz.</param>
         /// <param name="quizType">Type of the quiz.</param>
         /// <param name="documentType">Type of the document.</param>
+        /// <param name="teamName">Name of the team.</param>
+        /// <param name="email">The email.</param>
         /// <returns></returns>
-        /// //[Route("/getquiz")]
         [HttpGet]
-        public async Task<IActionResult> GetQuiz(string quizName, string quizType, string documentType)
+        public async Task<IActionResult> GetQuiz(string quizName, string quizType, string documentType, string teamName = "", string email = "")
         {
             if (string.IsNullOrEmpty(quizName) || string.IsNullOrEmpty(quizType) || string.IsNullOrEmpty(documentType))
             {
@@ -139,7 +172,7 @@ namespace QuizWebApi.Controllers
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
                 foreach (var item in response.Value.SponsorList.Select(x => x))
                 {
-                    item.ImageName = host + item.ImageName;
+                    item.Path = host + item.ImageName;
                 }
                 return Ok(response.Value);
             }
@@ -147,27 +180,79 @@ namespace QuizWebApi.Controllers
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
 
-                foreach (var item in response.Value.Questions.Where(x => x.IsImageneeded == true && !x.ImageUrl.ToLower().StartsWith("http")))
+                foreach (var item in response.Value.Questions.Where(x => x.IsImageneeded == true))
                 {
-                    item.ImageUrl = host + item.ImageUrl;
+                    if (!string.IsNullOrWhiteSpace(item.ImageName))
+                    {
+                        if (item.ImageName.ToLower().StartsWith("http"))
+                        {
+                            item.ImagePath = item.ImageName;
+                        }
+                        else
+                        {
+                            item.ImagePath = host + item.ImageName;
+                        }
+                    }
                 }
 
                 return Ok(response.Value);
             }
             else
             {
+                var questionbank = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizResult>(quizName + "_" + quizType + "_" + teamName);
+                if (!string.IsNullOrEmpty(questionbank?.Value?.TeamName))
+                {
+                    questionbank.Value.DurationInMinutes = (questionbank.Value.QuizStartTime.AddMinutes(
+                        questionbank.Value.DurationInMinutes).Subtract(DateTime.UtcNow).TotalMinutes > 0) ? (int)questionbank.Value.QuizStartTime.AddMinutes(
+                        questionbank.Value.DurationInMinutes).Subtract(DateTime.UtcNow).TotalMinutes : 1;
+                    return Ok(questionbank.Value);
+                }
+
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
+                var res = new QuizResult();
+                res.QuizName = quizName;
+                res.QuizType = quizType;
+                res.TeamName = teamName;
+                res.Email = email;
+                res.QuizStartTime = DateTime.UtcNow;
+                var definition = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
+
+                res.DurationInMinutes = (definition.Value.QuizDurationType.ToLower() == "hours") ?
+                                         (definition.Value.QuizDurationTime * 60) :
+                                         (definition.Value.QuizDurationTime);
+                res.Status = QuizStatus.Started.ToString();
+                if (definition.Value.ShuffleQuestions)
+                {
+                    response.Value.Questions = response.Value.Questions.OrderBy(item => new Random().Next()).ToList();
+                }
+
+                response.Value.Questions = response.Value.Questions.Take(definition.Value.NoOfQuestions).ToList();
+
                 foreach (var item in response.Value.Questions)
                 {
                     item.Score = 0;
                     item.Answer = new string(item.Answer.ToCharArray().Select(x => (x == ' ') ? ' ' : '*').ToArray());
-                    if (item.IsImageneeded && !item.ImageUrl.ToLower().StartsWith("http"))
+                    if (item.IsImageneeded)
                     {
-                        item.ImageUrl = host + item.ImageUrl;
+                        if (!string.IsNullOrWhiteSpace(item.ImageName))
+                        {
+                            if (!item.ImageName.ToLower().StartsWith("http"))
+                            {
+                                item.ImagePath = host + item.ImageName;
+                            }
+                            else
+                            {
+                                item.ImagePath = item.ImageName;
+                            }
+                        }
                     }
+                    QuizResultDetails quizResultDetails = new QuizResultDetails();
+                    quizResultDetails.QuestionSet = item;
+                    res.QuizResultDetails.Add(quizResultDetails);
                 }
 
-                return Ok(response.Value);
+                await CouchbaseHelper.CouchbaseClient.UpsertAsync(quizName + "_" + quizType + "_" + teamName, res);
+                return Ok(res);
             }
         }
 
@@ -195,8 +280,11 @@ namespace QuizWebApi.Controllers
                         await file.CopyToAsync(stream);
                     }
                 }
+                var host = Request.Scheme + "://" + Request.Host + "/images/";
+                //var fullpath = Path.Combine(host, file.FileName);
 
-                return Ok(true);
+                var fullpath = "{\"fullpath\":\"" + Path.Combine(host, file.FileName) + "\"}";
+                return Ok(fullpath);
             }
             catch (Exception e)
             {

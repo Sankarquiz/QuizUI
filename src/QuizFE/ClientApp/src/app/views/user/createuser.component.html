@@ -1,0 +1,78 @@
+<div class="animated fadeIn">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="cui-user-follow"></i> Create User
+      </div>
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card mx-4 p-3" style="margin-top:15px;">
+            <form #createuser="ngForm">
+              <div class="card-body p-4">
+                <span class="help-block" [hidden]="email.valid || (email.pristine && !createuser.submitted)">
+                  Email is required. Please enter the valid email Id.
+                </span>
+                <div class="input-group mb-3" [class.has-error]="email.invalid && email.touched">
+                  <div class="input-group-prepend ">
+                    <span class="input-group-text">@</span>
+                  </div>
+                  <input type="email" name="email" class="form-control" placeholder="Enter Email"
+                         required #email="ngModel" [pattern]="emailPattern" [(ngModel)]="createUser.email">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend ">
+                    <span class="input-group-text"><i class="icon-graduation icons "></i></span>
+                  </div>
+                  <input type="text" name="Source" class="form-control" placeholder="Source optional : Company/College/Organization "
+                         #company="ngModel" [(ngModel)]="createUser.source">
+                </div>
+
+                <div class="input-group mb-3" [class.has-error]="email.invalid && email.touched">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-user"></i></span>
+                  </div>
+                  <select class="form-control" id="userrole" name="userrole" #userrole="ngModel" [(ngModel)]="createUser.role">
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                  </select>
+                </div>
+                <span class="help-block" [hidden]="password.valid || (password.pristine && !createuser.submitted)">
+                  Password Required.
+                </span>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                  </div>
+                  <input type="password" name="password" class="form-control" placeholder="Enter Password" required #password="ngModel"
+                         validateEqual="repeatpassword" reverse="true" [(ngModel)]="createUser.password">
+                </div>
+                <span class="help-block" [hidden]="repeatpassword.valid || (repeatpassword.pristine && !createuser.submitted)">
+                  Password mismatch.
+                </span>
+                <div class="input-group mb-4">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                  </div>
+                  <input type="password" name="repeatpassword" class="form-control" placeholder="Enter Confirm Password"
+                         required validateEqual="password" #repeatpassword="ngModel" [(ngModel)]="repeatPassword">
+                </div>
+                <div class="input-group mb-4">
+                  <button type="submit" class="btn btn-success"
+                          [class.dont-submit]="createuser.invalid" [disabled]="createuser.invalid"
+                          (click)="CreateUser()">
+                    Create User
+                  </button>
+                  <button type="button" class="btn btn-success" (click)="createuser.reset()">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Model Dialogue-->
+<app-alert-message [alertTitle]="alertTitle" [alertMessage]="alertMessage" (alertClose)="alertClose()"></app-alert-message>

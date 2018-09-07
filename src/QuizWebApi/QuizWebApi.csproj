@@ -19,6 +19,8 @@
 
   <ItemGroup>
     <Folder Include="Images\" />
+    <Folder Include="wwwroot\images\quiz\" />
+    <Folder Include="wwwroot\images\user\" />
   </ItemGroup>
 
   <ItemGroup>
