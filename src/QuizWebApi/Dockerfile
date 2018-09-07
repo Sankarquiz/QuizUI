@@ -13,7 +13,7 @@ COPY . ./
 RUN dotnet publish -c Release -r linux-x64 -o /publish ./QuizWebApi.csproj
  
 # Runtime Stage
-FROM microsoft/dotnet:2.1
+FROM microsoft/dotnet:2.1-sdk
 
 COPY --from=build-env /publish /publish  
 WORKDIR /publish
