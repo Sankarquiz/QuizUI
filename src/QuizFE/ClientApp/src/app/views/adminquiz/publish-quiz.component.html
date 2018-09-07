@@ -1,0 +1,31 @@
+<div class="animated fadeIn">
+  <div class="col-lg-12">
+    <div class="btn-dark">
+      <app-create-quiz htab="6" isFromHeader="true"></app-create-quiz>
+    </div>
+    <div class="card" *ngIf="quizDefinition.quizName && this.questions">
+      <div class="card-header">
+        <i class="fa fa-edit"></i>Publish Quiz
+      </div>
+      <div class="card-body">
+        <div class="row col-lg-12">
+          <pagination [totalItems]="totalquestions" [(ngModel)]="questionNo" [maxSize]="totalquestions"
+                      (pageChanged)="pageChanged($event)"
+                      [itemsPerPage]="1" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
+          </pagination>
+        </div>
+        <div>
+          <form class="form-horizontal">
+            <app-publish-quiz-main-content [questionset]="questionset"></app-publish-quiz-main-content>
+          </form>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-sm btn-primary" (click)="UpdateQuestionNo('Edit')">Edit</button>
+        <!--<button type="submit" class="btn btn-sm btn-primary" *ngIf="questionNo>1" (click)="UpdateQuestionNo('Prev')">Prev</button>
+        <button type="button" class="btn btn-sm btn-primary" *ngIf="questionNo<totalquestions" (click)="UpdateQuestionNo('Next')">Next</button>-->
+        <button type="button" class="btn btn-sm btn-primary" (click)="Publish()">Publish</button>
+      </div>
+    </div>
+  </div> <!--/.col-->
+</div>
