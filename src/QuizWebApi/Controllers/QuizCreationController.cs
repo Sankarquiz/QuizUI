@@ -102,7 +102,8 @@ namespace QuizWebApi.Controllers
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
 
-            var host = Request.Scheme + "://" + Request.Host + "/images/";
+            //var host = Request.Scheme + "://" + Request.Host + "/images/";
+            var host = "http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/images/";
             foreach (var quiz in result.Select(x => x))
             {
                 foreach (var item in quiz.SponsorList.Select(x => x))
@@ -165,7 +166,8 @@ namespace QuizWebApi.Controllers
                 return BadRequest(message);
             }
 
-            var host = Request.Scheme + "://" + Request.Host + "/images/";
+            //var host = Request.Scheme + "://" + Request.Host + "/images/";
+            var host = "http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/images/";
 
             if (documentType.ToLower() == "define")
             {
@@ -280,7 +282,9 @@ namespace QuizWebApi.Controllers
                         await file.CopyToAsync(stream);
                     }
                 }
-                var host = Request.Scheme + "://" + Request.Host + "/images/";
+
+                var host = "http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/images/";
+                //var host = Request.Scheme + "://" + Request.Host + "/images/";
                 //var fullpath = Path.Combine(host, file.FileName);
 
                 var fullpath = "{\"fullpath\":\"" + Path.Combine(host, file.FileName) + "\"}";

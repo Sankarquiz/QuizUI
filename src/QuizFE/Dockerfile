@@ -4,7 +4,7 @@ FROM microsoft/dotnet:2.1-sdk AS build-env
 WORKDIR /build
 
 # Copy all csproj files and restore as distinct layers
-COPY ./*.csproj .
+COPY ./*.csproj ./
 RUN dotnet restore
 
 # Copy node package.json and npm install as distinct layers

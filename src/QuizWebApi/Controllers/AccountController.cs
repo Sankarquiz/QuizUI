@@ -156,7 +156,8 @@ namespace QuizWebApi.Controllers
                         }
                         if (signup.Url != null && signup.Url.Length > 0)
                         {
-                            signup.Url = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/" + signup.Url.Trim();
+                            signup.Url = "http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/" + _imagePath.Trim() + "/" + signup.Url.Trim();
+                            //signup.Url = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/" + signup.Url.Trim();
                         }
                         return Ok(signup);
                     }
@@ -268,8 +269,8 @@ namespace QuizWebApi.Controllers
                 var parsedContentDisposition = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
                 var filename = Path.Combine(webRootPath, _imagePath.Trim(), parsedContentDisposition.FileName.Trim().ToString());
 
-                var hosturl = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/";
-
+                var hosturl = "http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/" + _imagePath.Trim() + "/";
+                //var hosturl = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/";
                 string newprofileimage = DateTime.Now.Ticks.ToString() + "-" + parsedContentDisposition.FileName.Trim();
                 hosturl = hosturl + newprofileimage;
 

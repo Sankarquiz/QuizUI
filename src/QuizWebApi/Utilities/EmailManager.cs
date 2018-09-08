@@ -29,7 +29,8 @@ namespace QuizWebApi.Utilities
         }
         private string BaseURL()
         {
-            string url = Context.Request.Scheme + "://" + Context.Request.Host + "/" + "api/quiz";
+            //string url = Context.Request.Scheme + "://" + Context.Request.Host + "/" + "api/quiz";
+            string url = "http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/api/quiz";
             return url;
         }
 
