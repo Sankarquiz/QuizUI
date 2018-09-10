@@ -14,6 +14,7 @@ export class ViewQuizComponent {
   pagenumber = 1;
   pagesize = 5;
   totalquiz;
+  dateFormat: string = 'dd-MM-yyyy HH:mm';
   constructor(
     private router: Router,
     private _getAllQuizDetails: QuizDetailsService,
