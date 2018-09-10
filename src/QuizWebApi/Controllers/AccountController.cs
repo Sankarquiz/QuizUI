@@ -299,5 +299,64 @@ namespace QuizWebApi.Controllers
                 return Ok(new UserProfile("File could not be uploaded, Please try again."));
             }
         }
+
+        /// <summary>
+        /// Registers the bulk.
+        /// </summary>
+        /// <param name="registerDetails">The register details.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> RegisterBulk([FromBody] List<BulkRegister> registerDetails)
+        {
+            try
+            {
+                if (registerDetails?.Count > 0)
+                {
+                    foreach (var item in registerDetails)
+                    {
+                        if (!string.IsNullOrWhiteSpace(item.Email) &&
+                            !string.IsNullOrWhiteSpace(item.Password) &&
+                            !string.IsNullOrWhiteSpace(item.TeamName) &&
+                            !string.IsNullOrWhiteSpace(item.QuizName) &&
+                            !string.IsNullOrWhiteSpace(item.QuizType))
+                        {
+                            SignUp signup = new SignUp
+                            {
+                                Email = item.Email.Trim(),
+                                Password = item.Password.Trim(),
+                                Status = item.Status.Trim(),
+                                Source = item.Source.Trim(),
+                            };
+
+                            await SignUp(signup);
+
+                            UserRegistration register = new UserRegistration
+                            {
+                                TeamName = item.TeamName.Trim(),
+                                QuizName = item.QuizName.Trim(),
+                                QuizType = item.QuizType.Trim(),
+                                Email = item.Email.Trim(),
+                                ContestantName = item.ContestantName.Trim(),
+                                Phone = item.Phone.Trim(),
+                                Email2 = item.Email2.Trim(),
+                                ContestantName2 = item.ContestantName2.Trim(),
+                                Phone2 = item.Phone2.Trim(),
+                                Email3 = item.Email3.Trim(),
+                                ContestantName3 = item.ContestantName3.Trim(),
+                                Phone3 = item.Phone3.Trim(),
+
+                            };
+                            await Register(register);
+                        }
+                    }
+                    return Ok(true);
+                }
+                return Ok(false);
+            }
+            catch (Exception)
+            {
+                return Ok(false);
+            }
+        }
     }
 }

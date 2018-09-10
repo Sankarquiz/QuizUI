@@ -41,5 +41,13 @@ export const anavItems = [
     url: '/user/changepwd',
     icon: 'cui-user-follow'
   },
-  
+  {
+    title: true,
+    name: 'Register'
+  },
+  {
+    name: 'Register Bulk Users',
+    url: '/user/bulkregister',
+    icon: 'cui-people'
+  }
 ];

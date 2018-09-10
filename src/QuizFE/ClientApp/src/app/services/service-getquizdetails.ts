@@ -82,6 +82,10 @@ export class QuizDetailsService {
     return this._http.post(environment.register, JSON.stringify(userdetails), this.httpOptions);
   }
 
+  RegisterBulk(bulkuserdetails: any) {
+    return this._http.post(environment.registerbulk, JSON.stringify(bulkuserdetails), this.httpOptions);
+  }
+
   UpdateProfile(userdetails: any) {
     return this._http.post(environment.updateprofile, JSON.stringify(userdetails), this.httpOptions);
   }

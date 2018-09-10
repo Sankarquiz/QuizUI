@@ -24,6 +24,7 @@ import { UserProfileComponent } from './userprofile.component';
 import { AuthService } from '../../services/AuthService';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertMessageModule } from '../message/alert.module';
+import { RegisterBulkComponent } from './registerbulk.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { AlertMessageModule } from '../message/alert.module';
     EqualValidator,
     ViewUsersComponent,
     ChangePasswdComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    RegisterBulkComponent
   ],
   providers: [
     QuizDetailsService,

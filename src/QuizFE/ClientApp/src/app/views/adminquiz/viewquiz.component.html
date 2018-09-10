@@ -33,7 +33,7 @@
             </tbody>
           </table>
           <nav>
-            <pagination [totalItems]="totalquiz" [maxSize]="totalquiz"
+            <pagination *ngIf="quizDetails && quizDetails.length>0" [totalItems]="totalquiz" [maxSize]="totalquiz"
                         (pageChanged)="pageChanged($event)"
                         [itemsPerPage]="pagesize" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
             </pagination>

@@ -56,7 +56,7 @@ namespace QuizWebApi.Controllers
                 else
                 {
                     answered.Value.TimeTakenMinutes = diff.Minutes;
-                    answered.Value.TimeTakenSeconds = diff.Seconds;
+                    answered.Value.TimeTakenSeconds = (diff.Minutes >= (int)answered.Value.DurationInMinutes) ? 0 : diff.Seconds;
                 }
                 answered.Value.Email = email;
                 var admindata = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
