@@ -49,15 +49,23 @@ namespace QuizWebApi.Controllers
             if (status.ToLower() == "completed" || status.ToLower() == "timeout")
             {
                 TimeSpan diff = DateTime.UtcNow - answered.Value.QuizStartTime;
-                if (status == "timeout")
+                if (status.ToLower() == "timeout")
                 {
                     answered.Value.TimeTakenMinutes = (int)answered.Value.DurationInMinutes;
                 }
                 else
                 {
-                    answered.Value.TimeTakenMinutes = diff.Minutes;
-                    answered.Value.TimeTakenSeconds = (diff.Minutes >= (int)answered.Value.DurationInMinutes) ? 0 : diff.Seconds;
+                    if (diff.Minutes >= (int)answered.Value.DurationInMinutes)
+                    {
+                        answered.Value.TimeTakenMinutes = (int)answered.Value.DurationInMinutes;
+                    }
+                    else
+                    {
+                        answered.Value.TimeTakenMinutes = (diff.Minutes);
+                        answered.Value.TimeTakenSeconds = diff.Seconds;
+                    }
                 }
+
                 answered.Value.Email = email;
                 var admindata = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
                 if (admindata?.Value != null)
