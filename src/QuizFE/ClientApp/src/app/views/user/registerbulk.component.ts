@@ -19,8 +19,8 @@ export class RegisterBulkComponent {
   incomingfile(event) {
     this.file = event.target.files[0];
   }
+
   Upload() {
-    debugger;
     this.spinner = true;
     this.isuploaded = '';
     let fileReader = new FileReader();
@@ -34,7 +34,6 @@ export class RegisterBulkComponent {
       var first_sheet_name = workbook.SheetNames[0];
       var worksheet = workbook.Sheets[first_sheet_name];
       this.bulkoutput = XLSX.utils.sheet_to_json(worksheet, { raw: true })
-      console.log(this.bulkoutput);
       if (!this.bulkoutput[0].Email && !this.bulkoutput[0].Password && !this.bulkoutput[0].TeamName
         && !this.bulkoutput[0].QuizName && !this.bulkoutput[0].QuizTYPE) {
         this.spinner = false;

@@ -36,7 +36,9 @@ export class SHQuizRunnerComponent implements OnInit {
 
   userAnswerVal: string = '';
 
-  constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
+  constructor(private _getQuestion: QuizDetailsService,
+    private formDataService: FormDataService,
+    private router: Router) { }
   TestInit() {
     debugger;
     let quizName: string = "test";
@@ -55,7 +57,6 @@ export class SHQuizRunnerComponent implements OnInit {
             this.LoadInitialData();
           });
       });
-
   }
   ngOnInit() {
     //this.TestInit(); 
@@ -173,11 +174,8 @@ export class SHQuizRunnerComponent implements OnInit {
   }
   SaveAnswer() {
     this.isanswered.push(this.questionNo - 1);
-    if (this.questionNo >= this.totalquestions) {
-      this.SaveQuizResult('completed');
-    }
-    else {
-      this.SaveQuizResult('incomplete');
+    this.SaveQuizResult('incomplete');
+    if (this.questionNo < this.totalquestions) {
       this.questionNo++;
       this.ngOnChanges();
     }
@@ -214,7 +212,7 @@ export class SHQuizRunnerComponent implements OnInit {
     this._getQuestion.SaveQuizRunner(this.quizDefinition.quizName, this.quizDefinition.quizType,
       this.quizresult.teamName, this.formDataService.getUserData().email, status,
       this.questionNo.toString(), this.quizresultdetails.userAnswer)
-      .subscribe((response: any) => { 
+      .subscribe((response: any) => {
       });
   }
 
