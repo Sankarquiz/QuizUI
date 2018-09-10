@@ -205,7 +205,7 @@ export class SHQuizRunnerComponent implements OnInit {
         //Save Quiz..
         clearInterval(this.interval);
         this.quizresult.status = 'timeout';
-        this.SaveQuizResult('timeout');
+        this.SubmitQuiz('timeout');
       }
     }, 1000)
   }
@@ -214,11 +214,17 @@ export class SHQuizRunnerComponent implements OnInit {
     this._getQuestion.SaveQuizRunner(this.quizDefinition.quizName, this.quizDefinition.quizType,
       this.quizresult.teamName, this.formDataService.getUserData().email, status,
       this.questionNo.toString(), this.quizresultdetails.userAnswer)
+      .subscribe((response: any) => { 
+      });
+  }
+
+  SubmitQuiz(status: string) {
+    this._getQuestion.SaveQuizRunner(this.quizDefinition.quizName, this.quizDefinition.quizType,
+      this.quizresult.teamName, this.formDataService.getUserData().email, status,
+      this.questionNo.toString(), this.quizresultdetails.userAnswer)
       .subscribe((response: any) => {
         if (response) {
-          if (status == 'completed' || status == 'timeout') {
-            this.router.navigate(['/quiz/finishquiz']);
-          }
+          this.router.navigate(['/quiz/finishquiz']);
         }
         else {
           alert('Something went wrong. Please try again.')
@@ -226,7 +232,6 @@ export class SHQuizRunnerComponent implements OnInit {
         }
       });
   }
-
   AssignQuestionNumber(questionNumber) {
     this.questionNo = questionNumber;
     this.ngOnChanges();

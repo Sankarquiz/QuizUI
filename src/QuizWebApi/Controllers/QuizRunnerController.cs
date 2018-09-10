@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using QuizWebApi.Models.Admin;
+using QuizWebApi.Models.Common;
 using QuizWebApi.Models.QuizRunner;
 using System;
 using System.Linq;
@@ -17,15 +19,6 @@ namespace QuizWebApi.Controllers
     [AllowAnonymous]
     public class QuizRunnerController : Controller
     {
-        // RunnerBC _runnerBC;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="QuizRunnerController"/> class.
-        /// </summary>
-        public QuizRunnerController()
-        {
-            //_runnerBC = new RunnerBC();
-        }
         /// <summary>
         /// Saves the quiz runner.
         /// </summary>

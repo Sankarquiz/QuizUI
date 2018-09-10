@@ -12,6 +12,7 @@ import { LoginComponent } from './login.component';
 import { LogoutComponent } from './logout.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertMessageModule } from '../message/alert.module';
+import { ActivateUserSignupComponent } from './activateusersignup.component';
 
 @NgModule({
   imports: [
@@ -26,13 +27,14 @@ import { AlertMessageModule } from '../message/alert.module';
   ],
   declarations: [
     LoginComponent,
-    LogoutComponent,       
+    LogoutComponent,
+    ActivateUserSignupComponent
   ],
   providers: [
     QuizDetailsService,
     SessionDataService
     //FormDataService
   ],
-  
+
 })
 export class LoginModule { }

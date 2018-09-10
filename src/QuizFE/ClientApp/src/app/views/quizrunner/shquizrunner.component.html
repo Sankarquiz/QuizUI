@@ -108,6 +108,9 @@
                 </div>
               </form>
             </div>
+            <label name="finishinfo" class="finishinfo" *ngIf="totalquestions==questionNo ">
+              You are answering last question of the quiz. Please Save answer and click submit to finish.
+            </label>
           </div>
           <div class="card-footer">
             <div class="form-group">
@@ -129,10 +132,10 @@
                   Last
                 </button>
               </span>
-              <button type="button" *ngIf="totalquestions!=questionNo" class="btn btn-sm btn-danger" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
+              <button type="button" class="btn btn-sm btn-danger" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
                 Save Answer
               </button>
-              <button type="button" *ngIf="totalquestions==questionNo" class="btn btn-sm btn-danger" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
+              <button type="button" class="btn btn-sm btn-danger" [disabled]="!IsAnswered()" (click)="SubmitQuiz('completed')">
                 Submit
               </button>
             </div>

@@ -5,6 +5,7 @@ import {
 } from '@angular/router';
 import { LoginComponent } from './login.component';
 import { LogoutComponent } from './logout.component';
+import { ActivateUserSignupComponent } from './activateusersignup.component';
 
 
 const routes: Routes = [
@@ -21,8 +22,14 @@ const routes: Routes = [
     data: {
       title: 'Logout'
     }
+  },
+  {
+    path: 'activate',
+    component: ActivateUserSignupComponent,
+    data: {
+      title: 'Activate Signup'
+    }
   }
-
 ];
 
 @NgModule({

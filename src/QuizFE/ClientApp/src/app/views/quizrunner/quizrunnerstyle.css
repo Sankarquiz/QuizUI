@@ -1,6 +1,6 @@
-.quiz,ul { clear:both; list-style-type: none; padding: 0; text-align: center; }
+.quiz, ul { clear: both; list-style-type: none; padding: 0; text-align: center; }
 
-.quiz li { list-style:none; list-style-type: none; background-color: #20a8d8; border-color: #20a8d8; text-align: center; background: #68cefe; display: inline; padding: 4px; margin: 0px 2px; list-style-type: none; }
+.quiz li { list-style: none; list-style-type: none; background-color: #20a8d8; border-color: #20a8d8; text-align: center; background: #68cefe; display: inline; padding: 4px; margin: 0px 2px; list-style-type: none; }
 
 .quiz li a { color: #ffffff; text-decoration: none; display: block; }
 
@@ -10,3 +10,4 @@
 .quiz li.answered { background: greenyellow; }
 .quiz li.active { background-color: #1985ac; border-color: #187da0; }
 .mask-text { letter-spacing: 4px !important; font-size: 20px !important; }
+.finishinfo { color: orangered; }

@@ -16,7 +16,7 @@ import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { EqualValidator } from '../../models/equal-validator.directive';
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { QuizHomeModule } from '../home/quizhome.module'; 
+import { QuizHomeModule } from '../home/quizhome.module';
 import { CreateUserComponent } from './createuser.component';
 import { ViewUsersComponent } from './viewusers.component';
 import { ChangePasswdComponent } from './changepasswd.component';
@@ -31,7 +31,7 @@ import { AlertMessageModule } from '../message/alert.module';
     UserQuizRoutingModule,
     TabsModule,
     FormsModule,
-    ReactiveFormsModule,   
+    ReactiveFormsModule,
     PaginationModule.forRoot(),
     ProgressbarModule.forRoot(),
     QuizHomeModule,
@@ -41,10 +41,10 @@ import { AlertMessageModule } from '../message/alert.module';
   declarations: [
     UserDashboardComponent,
     CreateUserComponent,
-    EqualValidator,    
+    EqualValidator,
     ViewUsersComponent,
     ChangePasswdComponent,
-    UserProfileComponent,     
+    UserProfileComponent
   ],
   providers: [
     QuizDetailsService,

@@ -22,6 +22,11 @@ export class QuizDetailsService {
     return this._http.get(uri, this.httpOptions);
   }
 
+  ActivateSignup(email: string) {
+    let uri = environment.activatesignup + email;
+    return this._http.get(uri, this.httpOptions);
+  }
+
   GetAllUsers(mode: number) {
     let uri = environment.viewusers + mode;
     return this._http.get(uri, this.httpOptions);
@@ -113,8 +118,4 @@ export class QuizDetailsService {
       + "&email=" + email + "&status=" + status + "&questionNo=" + questionNo + "&answer=" + answer;
     return this._http.get(uri, this.httpOptions);
   }
-
-  //SaveQuizRunner(quizResult: any) {
-  //  return this._http.post(environment.savequizrunner, JSON.stringify(quizResult), this.httpOptions);
-  //}
 }

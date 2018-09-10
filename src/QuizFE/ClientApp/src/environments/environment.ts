@@ -22,6 +22,7 @@ export const environment = {
   checkquiztaken: 'http://localhost:52671/api/quiz/CheckQuizTaken/',
   savequizrunner: 'http://localhost:52671/api/quiz/SaveQuizRunner/',
   getquizresult: 'http://localhost:52671/api/quiz/GetQuizResult/',
+  activatesignup: 'http://localhost:52671/api/quiz/ActivateSignUp/',
   //quizDefinitionUri: 'http://172.29.94.20:52671/api/quiz/DefineQuiz/',
   //getallquizdetails: 'http://172.29.94.20:52671/api/quiz/GetAllQuiz/',
   //getquizdetail: 'http://172.29.94.20:52671/api/quiz/GetQuiz/',

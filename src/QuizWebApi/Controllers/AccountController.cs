@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
+using QuizWebApi.Models.Common;
 using QuizWebApi.Models.User;
 using QuizWebApi.Utilities;
 using System;
@@ -22,7 +24,7 @@ namespace QuizWebApi.Controllers
     public class AccountController : ControllerBase
     {
         const string _imagePath = @"images/user";
-
+        private string imageBaseUrl;
         /// <summary>
         /// Gets the email.
         /// </summary>
@@ -37,10 +39,11 @@ namespace QuizWebApi.Controllers
         /// </summary>
         /// <param name="email">The email.</param>
         /// <param name="hostingEnvironment">The hosting environment.</param>
-        public AccountController(EmailManager email, IHostingEnvironment hostingEnvironment)
+        public AccountController(EmailManager email, IHostingEnvironment hostingEnvironment, IOptions<DomainConfig> domainConfig)
         {
             _email = email;
             _hostingEnvironment = hostingEnvironment;
+            imageBaseUrl = domainConfig.Value.BaseUrl;
         }
 
         /// <summary>
@@ -114,15 +117,22 @@ namespace QuizWebApi.Controllers
         [HttpGet("{email}")]
         public async Task<IActionResult> ActivateSignUp(string email)
         {
-            string dcrEmail = CryptoEngine.Decrypt(email);
-            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<SignUp>(dcrEmail);
-            if (!response.Success)
+            try
             {
-                return NotFound();
+                string dcrEmail = CryptoEngine.Decrypt(email);
+                var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<SignUp>(dcrEmail);
+                if (!response.Success)
+                {
+                    return NotFound();
+                }
+                response.Value.Status = "active";
+                var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(dcrEmail, response.Value);
+                return Ok(result);
             }
-            response.Value.Status = "active";
-            var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(dcrEmail, response.Value);
-            return Ok(result);
+            catch (Exception)
+            {
+                return Ok(false);
+            }
         }
 
         /// <summary>
@@ -156,8 +166,7 @@ namespace QuizWebApi.Controllers
                         }
                         if (signup.Url != null && signup.Url.Length > 0)
                         {
-                            signup.Url = "http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/" + _imagePath.Trim() + "/" + signup.Url.Trim();
-                            //signup.Url = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/" + signup.Url.Trim();
+                            signup.Url = imageBaseUrl + _imagePath.Trim() + "/" + signup.Url.Trim();
                         }
                         return Ok(signup);
                     }
@@ -269,7 +278,7 @@ namespace QuizWebApi.Controllers
                 var parsedContentDisposition = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
                 var filename = Path.Combine(webRootPath, _imagePath.Trim(), parsedContentDisposition.FileName.Trim().ToString());
 
-                var hosturl = "http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/" + _imagePath.Trim() + "/";
+                var hosturl = imageBaseUrl + _imagePath.Trim() + "/";
                 //var hosturl = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/";
                 string newprofileimage = DateTime.Now.Ticks.ToString() + "-" + parsedContentDisposition.FileName.Trim();
                 hosturl = hosturl + newprofileimage;
