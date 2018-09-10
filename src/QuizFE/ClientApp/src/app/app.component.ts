@@ -8,7 +8,7 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router) {
-    window.onpopstate = function (e) { window.history.forward(1); }
+    //window.onpopstate = function (e) { window.history.forward(1); }
   }
 
   ngOnInit() {
