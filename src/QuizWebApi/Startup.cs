@@ -75,7 +75,8 @@ namespace QuizWebApi
             services.Configure<SMTPConfig>(Configuration.GetSection("Smtp"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCouchbase(Configuration.GetSection("Couchbase"));
-            services.AddCouchbaseBucket<IQuizBucketProvider>("Quiz", "quiz@123");
+            services.AddCouchbaseBucket<IQuizBucketProvider>("Quiz", "quiz@123"); 
+            services.Configure<DomainConfig>(Configuration.GetSection("Domain"));
             services.AddSingleton<EmailManager>();
             services.AddCors(options =>
             {

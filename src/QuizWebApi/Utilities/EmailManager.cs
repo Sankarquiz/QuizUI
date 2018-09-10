@@ -3,23 +3,21 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using QuizWebApi.Models.Common;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace QuizWebApi.Utilities
 {
     public class EmailManager
     {
         private SMTPConfig smtpconfig;
+        private DomainConfig domainconfig { get; set; }
         private IHostingEnvironment Environment { get; set; }
         private HttpContext Context { get; set; }
-        public EmailManager(IOptions<SMTPConfig> smtpConfig, IHostingEnvironment environment, IHttpContextAccessor httpContextAccessor)
+        public EmailManager(IOptions<SMTPConfig> smtpConfig, IOptions<DomainConfig> domainConfig, IHostingEnvironment environment, IHttpContextAccessor httpContextAccessor)
         {
             smtpconfig = smtpConfig.Value;
+            domainconfig = domainConfig.Value;
             Environment = environment;
-            Context = httpContextAccessor.HttpContext; 
+            Context = httpContextAccessor.HttpContext;
         }
 
         private string BaseURL(string append)
@@ -29,18 +27,18 @@ namespace QuizWebApi.Utilities
         }
         private string BaseURL()
         {
-            string url = Context.Request.Scheme + "://" + Context.Request.Host + "/" + "api/quiz";
+            string url = domainconfig.ActivationUrl;
             return url;
         }
 
-        public bool RegisterQuiz(string fromuser, string touser, string teamname,string quizname, string toemail)
+        public bool RegisterQuiz(string fromuser, string touser, string teamname, string quizname, string toemail)
         {
             bool retval = true;
             try
             {
-             //   string ecrEmail = CryptoEngine.Encrypt(email);
-                string url = BaseURL() + "/ActivateSignUp/" ;  // TO DO
-                string msg = Templates.RegisterTemplate(touser,fromuser,teamname,quizname, url);
+                //   string ecrEmail = CryptoEngine.Encrypt(email);
+                string url = domainconfig.HomeUrl; // BaseURL() + "/ActivateSignUp/";  // TO DO
+                string msg = Templates.RegisterTemplate(touser, fromuser, teamname, quizname, url);
                 SMTPMessage stmpMsg = new SMTPMessage(smtpconfig, toemail, msg);
                 retval = QuizEmail.SendMail(stmpMsg, "Knowledge vyasa Registration");
             }
@@ -51,18 +49,18 @@ namespace QuizWebApi.Utilities
             return retval;
         }
 
-        public bool SignUpEmail(string username,string email)
+        public bool SignUpEmail(string username, string email)
         {
             bool retval = true;
             try
             {
                 string ecrEmail = CryptoEngine.Encrypt(email);
-                string activateurl =   BaseURL() + "/ActivateSignUp/"+ ecrEmail;                                                
+                string activateurl = domainconfig.ActivationUrl + ecrEmail;
                 string msg = Templates.SingUpTemplate(username, activateurl);
                 SMTPMessage stmpMsg = new SMTPMessage(smtpconfig, email, msg);
                 retval = QuizEmail.SendMail(stmpMsg, "Knowledge vyasa Registration");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }

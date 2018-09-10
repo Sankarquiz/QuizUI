@@ -5,6 +5,7 @@ import { CreateUserComponent } from './createuser.component';
 import { ViewUsersComponent } from './viewusers.component';
 import { ChangePasswdComponent } from './changepasswd.component';
 import { UserProfileComponent } from './userprofile.component';
+import { RegisterBulkComponent } from './registerbulk.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,13 @@ const routes: Routes = [
     component: UserProfileComponent,
     data: {
       title: 'User Profile'
+    }
+  },
+  {
+    path: 'bulkregister',
+    component: RegisterBulkComponent,
+    data: {
+      title: 'Bulk Register'
     }
   }
 ];

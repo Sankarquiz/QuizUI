@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using QuizWebApi.Models.Admin;
+using QuizWebApi.Models.Common;
 using QuizWebApi.Models.QuizRunner;
 using System;
 using System.Collections.Generic;
@@ -25,14 +27,16 @@ namespace QuizWebApi.Controllers
     {
         const string _imagePath = @"images";
         private readonly IHostingEnvironment _hostingEnvironment;
+        private string imageBaseUrl;
 
         /// <summary>
         /// <summary>
         /// QuizCreationController
         /// </summary>              
-        public QuizCreationController(IHostingEnvironment hostingEnvironment)
+        public QuizCreationController(IHostingEnvironment hostingEnvironment, IOptions<DomainConfig> domainConfig)
         {
             _hostingEnvironment = hostingEnvironment;
+            imageBaseUrl = domainConfig.Value.BaseUrl;
         }
 
         /// <summary>
@@ -102,7 +106,8 @@ namespace QuizWebApi.Controllers
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
 
-            var host = Request.Scheme + "://" + Request.Host + "/images/";
+            //var host = Request.Scheme + "://" + Request.Host + "/images/";
+            var host = imageBaseUrl + "images/";
             foreach (var quiz in result.Select(x => x))
             {
                 foreach (var item in quiz.SponsorList.Select(x => x))
@@ -165,8 +170,7 @@ namespace QuizWebApi.Controllers
                 return BadRequest(message);
             }
 
-            var host = Request.Scheme + "://" + Request.Host + "/images/";
-
+            var host = imageBaseUrl + "images/";
             if (documentType.ToLower() == "define")
             {
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizDefinition>(quizName + "_" + quizType);
@@ -280,8 +284,8 @@ namespace QuizWebApi.Controllers
                         await file.CopyToAsync(stream);
                     }
                 }
-                var host = Request.Scheme + "://" + Request.Host + "/images/";
-                //var fullpath = Path.Combine(host, file.FileName);
+
+                var host = imageBaseUrl + "images/";
 
                 var fullpath = "{\"fullpath\":\"" + Path.Combine(host, file.FileName) + "\"}";
                 return Ok(fullpath);

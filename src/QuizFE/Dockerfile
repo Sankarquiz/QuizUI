@@ -1,10 +1,10 @@
 # Use the standard Microsoft .NET Core container
-FROM microsoft/aspnetcore-build:2.1-sdk AS build-env
+FROM microsoft/dotnet:2.1-sdk AS build-env
 
 WORKDIR /build
 
 # Copy all csproj files and restore as distinct layers
-COPY ./*.csproj .
+COPY ./*.csproj ./
 RUN dotnet restore
 
 # Copy node package.json and npm install as distinct layers
@@ -24,7 +24,7 @@ COPY ./ ./
 RUN dotnet publish -c Release -r linux-x64 -o /publish
  
 # Runtime Stage
-FROM microsoft/aspnetcore:2.1
+FROM microsoft/dotnet:2.1-sdk
 COPY --from=build-env /publish /publish
 
 WORKDIR /publish

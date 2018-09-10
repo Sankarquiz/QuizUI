@@ -7,7 +7,7 @@ import { RegisterRoutingModule } from './register.routing.module';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register.component';
-import { SignUpComponent } from './signup.component';
+import { SignUpComponent } from './signup.component'; 
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import { SignUpComponent } from './signup.component';
   ],
   declarations: [
     RegisterComponent,
-    SignUpComponent
+    SignUpComponent 
   ],
   providers: [
     QuizDetailsService 

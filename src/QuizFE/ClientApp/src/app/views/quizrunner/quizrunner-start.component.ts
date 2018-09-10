@@ -12,12 +12,14 @@ import { QuizResult } from '../../models/QuizRunner';
 })
 export class QuizRunnerStartComponent implements OnInit {
 
-  constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private router: Router) { }
+  constructor(private _getQuestion: QuizDetailsService,
+    private formDataService: FormDataService,
+    private router: Router) { }
   result: any;
   quizDefinition = new QuizDefinition();
   questions: QuizResult;
   quizadv: QuizAdv;
-  ngOnInit() {   
+  ngOnInit() {
     this.quizadv = this.formDataService.getquizadv();
     this.quizDefinition.registrationFields = new RegistrationFields();
     this._getQuestion.CheckQuiztaken(this.quizadv.quizName, this.quizadv.quizType, this.quizadv.teamName, this.formDataService.getUserData().email)

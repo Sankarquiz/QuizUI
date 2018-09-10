@@ -21,8 +21,8 @@
               <tr *ngFor="let detail of quizDetails let i=index">
                 <td>{{detail.quizName}}</td>
                 <td>{{detail.quizType}}</td>
-                <td class="d-md-down-none">{{detail.quizStartTime}}</td>
-                <td class="d-md-down-none">{{detail.quizEndTime}}</td>
+                <td class="d-md-down-none">{{detail.quizStartTime | date: dateFormat:'utcToLocal'}}</td>
+                <td class="d-md-down-none">{{detail.quizEndTime | date: dateFormat:'utcToLocal'}}</td>
                 <td *ngIf="detail.status=='Pending'" class="d-md-down-none"><span class="badge badge-warning"> {{detail.status}} </span></td>
                 <td *ngIf="detail.status!='Pending'" class="d-md-down-none"><span class="badge badge-success"> {{detail.status}} </span></td>
                 <td *ngIf="!detail.isEditable">  <span class="badge badge-secondary">{{detail.stage}}</span></td>
@@ -33,7 +33,7 @@
             </tbody>
           </table>
           <nav>
-            <pagination [totalItems]="totalquiz" [maxSize]="totalquiz"
+            <pagination *ngIf="quizDetails && quizDetails.length>0" [totalItems]="totalquiz" [maxSize]="totalquiz"
                         (pageChanged)="pageChanged($event)"
                         [itemsPerPage]="pagesize" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
             </pagination>

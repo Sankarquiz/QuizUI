@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
+using QuizWebApi.Models.Common;
 using QuizWebApi.Models.User;
 using QuizWebApi.Utilities;
 using System;
@@ -22,7 +24,7 @@ namespace QuizWebApi.Controllers
     public class AccountController : ControllerBase
     {
         const string _imagePath = @"images/user";
-
+        private string imageBaseUrl;
         /// <summary>
         /// Gets the email.
         /// </summary>
@@ -37,10 +39,11 @@ namespace QuizWebApi.Controllers
         /// </summary>
         /// <param name="email">The email.</param>
         /// <param name="hostingEnvironment">The hosting environment.</param>
-        public AccountController(EmailManager email, IHostingEnvironment hostingEnvironment)
+        public AccountController(EmailManager email, IHostingEnvironment hostingEnvironment, IOptions<DomainConfig> domainConfig)
         {
             _email = email;
             _hostingEnvironment = hostingEnvironment;
+            imageBaseUrl = domainConfig.Value.BaseUrl;
         }
 
         /// <summary>
@@ -114,15 +117,22 @@ namespace QuizWebApi.Controllers
         [HttpGet("{email}")]
         public async Task<IActionResult> ActivateSignUp(string email)
         {
-            string dcrEmail = CryptoEngine.Decrypt(email);
-            var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<SignUp>(dcrEmail);
-            if (!response.Success)
+            try
             {
-                return NotFound();
+                string dcrEmail = CryptoEngine.Decrypt(email);
+                var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<SignUp>(dcrEmail);
+                if (!response.Success)
+                {
+                    return NotFound();
+                }
+                response.Value.Status = "active";
+                var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(dcrEmail, response.Value);
+                return Ok(result);
             }
-            response.Value.Status = "active";
-            var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(dcrEmail, response.Value);
-            return Ok(result);
+            catch (Exception)
+            {
+                return Ok(false);
+            }
         }
 
         /// <summary>
@@ -156,7 +166,7 @@ namespace QuizWebApi.Controllers
                         }
                         if (signup.Url != null && signup.Url.Length > 0)
                         {
-                            signup.Url = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/" + signup.Url.Trim();
+                            signup.Url = imageBaseUrl + _imagePath.Trim() + "/" + signup.Url.Trim();
                         }
                         return Ok(signup);
                     }
@@ -268,8 +278,8 @@ namespace QuizWebApi.Controllers
                 var parsedContentDisposition = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
                 var filename = Path.Combine(webRootPath, _imagePath.Trim(), parsedContentDisposition.FileName.Trim().ToString());
 
-                var hosturl = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/";
-
+                var hosturl = imageBaseUrl + _imagePath.Trim() + "/";
+                //var hosturl = Request.Scheme + "://" + Request.Host + "/" + _imagePath.Trim() + "/";
                 string newprofileimage = DateTime.Now.Ticks.ToString() + "-" + parsedContentDisposition.FileName.Trim();
                 hosturl = hosturl + newprofileimage;
 
@@ -287,6 +297,65 @@ namespace QuizWebApi.Controllers
             catch (Exception e)
             {
                 return Ok(new UserProfile("File could not be uploaded, Please try again."));
+            }
+        }
+
+        /// <summary>
+        /// Registers the bulk.
+        /// </summary>
+        /// <param name="registerDetails">The register details.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> RegisterBulk([FromBody] List<BulkRegister> registerDetails)
+        {
+            try
+            {
+                if (registerDetails?.Count > 0)
+                {
+                    foreach (var item in registerDetails)
+                    {
+                        if (!string.IsNullOrWhiteSpace(item.Email) &&
+                            !string.IsNullOrWhiteSpace(item.Password) &&
+                            !string.IsNullOrWhiteSpace(item.TeamName) &&
+                            !string.IsNullOrWhiteSpace(item.QuizName) &&
+                            !string.IsNullOrWhiteSpace(item.QuizType))
+                        {
+                            SignUp signup = new SignUp
+                            {
+                                Email = item.Email.Trim(),
+                                Password = item.Password.Trim(),
+                                Status = item.Status.Trim(),
+                                Source = item.Source.Trim(),
+                            };
+
+                            await SignUp(signup);
+
+                            UserRegistration register = new UserRegistration
+                            {
+                                TeamName = item.TeamName.Trim(),
+                                QuizName = item.QuizName.Trim(),
+                                QuizType = item.QuizType.Trim(),
+                                Email = item.Email.Trim(),
+                                ContestantName = item.ContestantName.Trim(),
+                                Phone = item.Phone.Trim(),
+                                Email2 = item.Email2.Trim(),
+                                ContestantName2 = item.ContestantName2.Trim(),
+                                Phone2 = item.Phone2.Trim(),
+                                Email3 = item.Email3.Trim(),
+                                ContestantName3 = item.ContestantName3.Trim(),
+                                Phone3 = item.Phone3.Trim(),
+
+                            };
+                            await Register(register);
+                        }
+                    }
+                    return Ok(true);
+                }
+                return Ok(false);
+            }
+            catch (Exception)
+            {
+                return Ok(false);
             }
         }
     }

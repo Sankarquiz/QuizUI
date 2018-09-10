@@ -43,9 +43,10 @@ export class QuizPublishedComponent implements OnInit {
     this._getquizdetails.GetActiveQuizData()
       .subscribe((result: any) => {
         this.quizdefinition = result;
+        debugger;
         for (let item of this.quizdefinition) {
-          let enddatediff = Math.ceil((new Date(item.quizEndTime).getTime() - new Date().getTime()) / (this.one_day)) - 2;
-          let startdatediff = Math.ceil((new Date(item.quizStartTime).getTime() - new Date().getTime()) / (this.one_day)) - 2;
+          let enddatediff = Math.ceil((new Date(item.quizEndTime).getTime() - new Date().getTime()) / (this.one_day)) - 1;
+          let startdatediff = Math.ceil((new Date(item.quizStartTime).getTime() - new Date().getTime()) / (this.one_day)) - 1;
           item.daysLeft = (enddatediff == 0) ? 'Closes Today' :
             (startdatediff > 0) ?
               startdatediff + ' Day(s) To Start' :
