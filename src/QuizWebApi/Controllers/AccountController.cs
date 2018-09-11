@@ -215,16 +215,29 @@ namespace QuizWebApi.Controllers
         /// Changes the passwd.
         /// </summary>
         /// <param name="email">The email.</param>
+        /// <param name="oldpasswd"></param>
+        /// <param name="newpasswd"></param>
         /// <param name="passwd">The passwd.</param>
         /// <returns></returns>
-        [HttpGet("{email}/{passwd}")]
-        public async Task<IActionResult> ChangePasswd(string email, string passwd)
+        [HttpGet("{email}/{oldpasswd}/{newpasswd}")]
+        public async Task<IActionResult> ChangePasswd(string email, string oldpasswd, string newpasswd)
         {
-            var query = string.Format(@"update Quiz set `password`='{1}' where email='{0}'",
-                                     email, passwd);
-            var req = new QueryRequest(query);
-            var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
-            return Ok(result);
+            var checkquery = string.Format(@"Select Quiz.* FROM {0} where documentType='{1}' and email='{2}' and `password`='{4}'",
+                                    CouchbaseHelper.Bucket, "user", email, newpasswd, oldpasswd);
+            var req = new QueryRequest(checkquery);
+            var result = (await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req)).FirstOrDefault();
+            if (result?.Email != null)
+            {
+                var query = string.Format(@"update {0} set `password`='{3}' where documentType='{1}' and email='{2}' and `password`='{4}'",
+                                         CouchbaseHelper.Bucket, "user", email, newpasswd, oldpasswd);
+                req = new QueryRequest(query);
+                await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<bool>(req);
+                result.Password = newpasswd;
+                result.Message = "Password successfully updated.";
+                return Ok(result);
+            }
+
+            return Ok(false);
         }
 
 

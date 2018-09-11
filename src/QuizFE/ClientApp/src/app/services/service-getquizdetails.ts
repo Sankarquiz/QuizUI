@@ -17,8 +17,8 @@ export class QuizDetailsService {
   constructor(private _http: HttpClient) {
   }
 
-  Changepasswd(old: string, newpwd: string) {
-    let uri = environment.changepasswd + old + "/" + newpwd;
+  Changepasswd(email: string, old: string, newpwd: string) {
+    let uri = environment.changepasswd + email + "/" + old + "/" + newpwd;
     return this._http.get(uri, this.httpOptions);
   }
 

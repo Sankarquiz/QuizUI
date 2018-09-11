@@ -19,12 +19,10 @@ export class ChangePasswdComponent {
   private alertmsg: AlertMessageComponent;
   alertTitle: string;
   alertMessage: string;
-  createUser = new SignUp();
   newpassword: string = "";
   repeatpassword: string = "";
   oldpassword: string = "";
   alertflag: boolean = false;
-  result: Observable<any>;
 
   constructor(private _userservice: QuizDetailsService,
     private formDataService: FormDataService,
@@ -68,19 +66,18 @@ export class ChangePasswdComponent {
 
   ChangePasswd() {
     this.alertflag = false;
-    this._userservice.Changepasswd(this.oldpassword, this.newpassword)
+    this._userservice.Changepasswd(this.formDataService.getUserData().email, this.oldpassword, this.newpassword)
       .subscribe((response: any) => {
-        this.result = response;
         if (response) {
           if (response.message) {
             this.alertMsg(response.message);
             return;
           }
           this.alertflag = true;
-          this.alertMsg('User ' + this.createUser.email + ' password is successfully updated.');
+          this.alertMsg('User ' + response.email + ' password is successfully updated.');
 
         } else {
-          this.alertMsg('Something went wrong. Please try again.');
+          this.alertMsg('Please enter valid old password and try again.');
         }
       });
   }
