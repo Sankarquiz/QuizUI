@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
 namespace QuizWebApi.Utilities
-{    public class Templates
+{
+    public class Templates
     {
-        public static string SingUpTemplate(string name, string activateurl )
+        public static string SingUpTemplate(string name, string email, string password, string activateurl)
         {
             string msg = string.Empty;
             msg = ReadTemplate(1);
-            msg = msg.Replace("{{name}}", name).Replace("{{url}}", activateurl);
+            msg = msg.Replace("{{name}}", name)
+                .Replace("{{email}}", email)
+                .Replace("{{password}}", password)
+                .Replace("{{url}}", activateurl);
             return msg;
         }
 
-        public static string RegisterTemplate(string toname, string fromname,string teamname,string quizname,string url)
+        public static string RegisterTemplate(string toname, string fromname, string teamname, string quizname, string url)
         {
             string msg = string.Empty;
             msg = ReadTemplate(2);
@@ -38,11 +42,11 @@ namespace QuizWebApi.Utilities
             try
             {
                 IHostingEnvironment env = GlobalConfig.Environment;
-                string tpath = env.WebRootPath + Path.DirectorySeparatorChar.ToString()+"templates" +Path.DirectorySeparatorChar.ToString() + filename;
+                string tpath = env.WebRootPath + Path.DirectorySeparatorChar.ToString() + "templates" + Path.DirectorySeparatorChar.ToString() + filename;
                 tmpstring = File.ReadAllText(tpath);
                 Console.WriteLine(tpath);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }

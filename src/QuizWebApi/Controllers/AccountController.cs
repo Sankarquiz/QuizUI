@@ -105,7 +105,7 @@ namespace QuizWebApi.Controllers
             }
 
             var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(signup.Email, signup);
-            _email.SignUpEmail("", signup.Email);
+            _email.SignUpEmail("", signup.Email, signup.Password);
             return Ok(result);
         }
 

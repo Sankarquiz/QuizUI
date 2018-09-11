@@ -49,14 +49,14 @@ namespace QuizWebApi.Utilities
             return retval;
         }
 
-        public bool SignUpEmail(string username, string email)
+        public bool SignUpEmail(string username, string email, string password)
         {
             bool retval = true;
             try
             {
                 string ecrEmail = CryptoEngine.Encrypt(email);
                 string activateurl = domainconfig.ActivationUrl + ecrEmail;
-                string msg = Templates.SingUpTemplate(username, activateurl);
+                string msg = Templates.SingUpTemplate(username, email, password, activateurl);
                 SMTPMessage stmpMsg = new SMTPMessage(smtpconfig, email, msg);
                 retval = QuizEmail.SendMail(stmpMsg, "Knowledge vyasa Registration");
             }
