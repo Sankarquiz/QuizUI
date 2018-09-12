@@ -349,6 +349,35 @@ namespace QuizWebApi.Controllers
 
                             await SignUp(signup);
 
+                            if (!string.IsNullOrWhiteSpace(item.Email2))
+                            {
+                                signup = new SignUp
+                                {
+                                    Email = item.Email2.Trim(),
+                                    Password = item.Password.Trim(),
+                                    Status = string.IsNullOrWhiteSpace(item.Status) ? "" : item.Status.Trim(),
+                                    Source = string.IsNullOrWhiteSpace(item.Source) ? "" : item.Source.Trim(),
+
+                                };
+
+                                await SignUp(signup);
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(item.Email3))
+                            {
+                                signup = new SignUp
+                                {
+                                    Email = item.Email3.Trim(),
+                                    Password = item.Password.Trim(),
+                                    Status = string.IsNullOrWhiteSpace(item.Status) ? "" : item.Status.Trim(),
+                                    Source = string.IsNullOrWhiteSpace(item.Source) ? "" : item.Source.Trim(),
+
+                                };
+
+                                await SignUp(signup);
+                            }
+
+
                             UserRegistration register = new UserRegistration
                             {
                                 TeamName = item.TeamName.Trim(),
