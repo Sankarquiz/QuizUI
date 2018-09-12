@@ -9,6 +9,16 @@ namespace QuizWebApi.Utilities
 {
     public class Templates
     {
+
+        public static string ResetTemplate(string name, string fcode, string reseturl)
+        {
+            string msg = string.Empty;
+            msg = ReadTemplate(1);
+            msg = msg.Replace("{{name}}", name)
+                .Replace("{{fcode}}", fcode)                
+                .Replace("{{url}}", reseturl);
+            return msg;
+        }
         public static string SingUpTemplate(string name, string email, string password, string activateurl)
         {
             string msg = string.Empty;
@@ -62,6 +72,9 @@ namespace QuizWebApi.Utilities
                     break;
                 case 2:
                     tstr = "quizregistration.html";
+                    break;
+                case 3:
+                    tstr = "forgotpasswd.html";
                     break;
             }
             return tstr;

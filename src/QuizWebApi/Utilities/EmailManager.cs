@@ -31,6 +31,24 @@ namespace QuizWebApi.Utilities
             return url;
         }
 
+        public bool ResetPassword(string name, string toemail,  string fcode, string reseturl)
+        {
+            bool retval = true;
+            try
+            {
+                //   string ecrEmail = CryptoEngine.Encrypt(email);
+                string url = domainconfig.HomeUrl; // BaseURL() + "/ActivateSignUp/";  // TO DO
+                string msg = Templates.ResetTemplate(name,fcode,reseturl);
+                SMTPMessage stmpMsg = new SMTPMessage(smtpconfig, toemail, msg);
+                retval = QuizEmail.SendMail(stmpMsg, "Knowledge vyasa Registration");
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return retval;
+        }
+
         public bool RegisterQuiz(string fromuser, string touser, string teamname, string quizname, string toemail)
         {
             bool retval = true;
