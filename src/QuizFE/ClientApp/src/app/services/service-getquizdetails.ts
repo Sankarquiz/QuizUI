@@ -27,8 +27,8 @@ export class QuizDetailsService {
     return this._http.get(uri, this.httpOptions);
   }
 
-  GetAllUsers(mode: number) {
-    let uri = environment.viewusers + mode;
+  GetAllUsers(pagenumber: number, pagesize: number) {
+    let uri = environment.viewusers + pagenumber + '/' + pagesize;
     return this._http.get(uri, this.httpOptions);
   }
 

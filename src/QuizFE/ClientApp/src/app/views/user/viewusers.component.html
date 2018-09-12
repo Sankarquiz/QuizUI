@@ -10,33 +10,27 @@
             <thead>
               <tr>
                 <th>User ID</th>
-                <th>Role</th>                
-                <th class="d-md-down-none">Status</th>                 
+                <th>Role</th>
+                <th class="d-md-down-none">Status</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let detail of UserDetails let i=index">
                 <td>{{detail.email}}</td>
-                <td>{{detail.role}}</td>                
+                <td>{{detail.role}}</td>
                 <td *ngIf="detail.statusCode==0 else statustemp" class="d-md-down-none"><span class="badge badge-warning"> {{detail.status}} </span></td>
                 <ng-template #statustemp>
                   <td *ngIf="detail.status!='Pending'" class="d-md-down-none"><span class="badge badge-success"> {{detail.status}} </span></td>
                 </ng-template>
-                
+
               </tr>
             </tbody>
           </table>
           <nav>
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
+            <pagination *ngIf="UserDetails && UserDetails.length>0" [totalItems]="UserDetails.length" [maxSize]="UserDetails.length"
+                        (pageChanged)="pageChanged($event)"
+                        [itemsPerPage]="pagesize" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
+            </pagination>
           </nav>
         </div>
       </div>

@@ -16,7 +16,8 @@ import { DatePipe } from '@angular/common';
 })
 export class ViewUsersComponent implements OnInit {
   UserDetails = new Array<SignUp>();
-
+  pagenumber = 1;
+  pagesize = 25;
   constructor(private _userService: QuizDetailsService,
     private formDataService: FormDataService,
     private Auth: AuthService,
@@ -24,7 +25,11 @@ export class ViewUsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._userService.GetAllUsers(0)
+    this.GetAllUsers();
+  }
+
+  GetAllUsers() {
+    this._userService.GetAllUsers(this.pagenumber, this.pagesize)
       .subscribe((result: any) => {
         this.PopulateResults(result);
       });
@@ -33,5 +38,10 @@ export class ViewUsersComponent implements OnInit {
   PopulateResults(result: any): any {
     debugger;
     this.UserDetails = result;
+  }
+
+  pageChanged(event) {
+    this.pagenumber = event.page;
+    this.GetAllUsers();
   }
 }

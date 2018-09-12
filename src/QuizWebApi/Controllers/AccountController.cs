@@ -204,13 +204,24 @@ namespace QuizWebApi.Controllers
         /// <summary>
         /// Views the users.
         /// </summary>
-        /// <param name="mode">The mode.</param>
+        /// <param name="pagenumber">The pageNumber.</param>
+        /// <param name="pagesize">The pageSize.</param>
         /// <returns></returns>
-        [HttpGet("{mode}")]
-        public async Task<IActionResult> ViewUsers(int mode)
+        [HttpGet("{pagenumber}/{pagesize}")]
+        public async Task<IActionResult> ViewUsers(int pagenumber, int pagesize)
         {
-            var query = string.Format(@"SELECT Quiz.* FROM Quiz where documentType='user' ",
-                CouchbaseHelper.Bucket);
+            if (pagenumber == 0)
+            {
+                pagenumber = 1;
+            }
+
+            if (pagesize == 0)
+            {
+                pagesize = 25;
+            }
+
+            var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}"" offset {2} limit {3} ",
+                CouchbaseHelper.Bucket, "user", pagenumber - 1, pagesize);
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
             return Ok(result);
