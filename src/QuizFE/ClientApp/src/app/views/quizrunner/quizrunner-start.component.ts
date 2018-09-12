@@ -36,22 +36,25 @@ export class QuizRunnerStartComponent implements OnInit {
           this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "Define")
             .subscribe((res: any) => {
               this.quizDefinition = res;
-
-              this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions", this.quizadv.teamName, this.formDataService.getUserData().email)
-                .subscribe((res: any) => {
-                  this.questions = res;
-                });
             });
         }
       });
-
   }
 
   Start() {
-    if (this.quizDefinition && this.questions) {
-      this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.formDataService.setQuizRunner(this.questions);
-      this.router.navigate(['quiz/viewquiz']);
+    if (this.quizDefinition) {
+      this._getQuestion.GetQuizData(this.quizadv.quizName, this.quizadv.quizType, "questions", this.quizadv.teamName, this.formDataService.getUserData().email)
+        .subscribe((res: any) => {
+          this.questions = res;
+          if (this.questions) {
+            this.formDataService.setQuizDefinition(this.quizDefinition);
+            this.formDataService.setQuizRunner(this.questions);
+            this.router.navigate(['quiz/viewquiz']);
+          } else {
+            alert('Something went wrong. Please Try again.');
+            this.router.navigate(['/user/userdashboard']);
+          }
+        });
     } else {
       alert('Something went wrong. Please Try again.');
       this.router.navigate(['/user/userdashboard']);

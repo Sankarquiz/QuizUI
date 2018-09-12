@@ -70,7 +70,7 @@ namespace QuizWebApi.Controllers
             res = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<UserRegistration>(req);
             if (res.Count > 0)
             {
-                user.Message = " is already registered for this quiz.Please try with different name.";
+                user.Message = "Team name " + user.TeamName + " is already registered for this quiz.Please try with different name.";
                 return Ok(user.Message);
             }
 
