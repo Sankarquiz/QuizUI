@@ -103,6 +103,11 @@ namespace QuizWebApi.Controllers
                 signup.Message = "Email already Registered.";
                 return Ok(signup);
             }
+            signup.DocumentType = "user";
+            if (string.IsNullOrWhiteSpace(signup.Role))
+            {
+                signup.Role = "user";
+            }
 
             var result = await CouchbaseHelper.CouchbaseClient.UpsertAsync(signup.Email, signup);
             _email.SignUpEmail("", signup.Email, signup.Password);
@@ -337,8 +342,9 @@ namespace QuizWebApi.Controllers
                             {
                                 Email = item.Email.Trim(),
                                 Password = item.Password.Trim(),
-                                Status = item.Status.Trim(),
-                                Source = item.Source.Trim(),
+                                Status = string.IsNullOrWhiteSpace(item.Status) ? "" : item.Status.Trim(),
+                                Source = string.IsNullOrWhiteSpace(item.Source) ? "" : item.Source.Trim(),
+
                             };
 
                             await SignUp(signup);
@@ -349,14 +355,14 @@ namespace QuizWebApi.Controllers
                                 QuizName = item.QuizName.Trim(),
                                 QuizType = item.QuizType.Trim(),
                                 Email = item.Email.Trim(),
-                                ContestantName = item.ContestantName.Trim(),
-                                Phone = item.Phone.Trim(),
-                                Email2 = item.Email2.Trim(),
-                                ContestantName2 = item.ContestantName2.Trim(),
-                                Phone2 = item.Phone2.Trim(),
-                                Email3 = item.Email3.Trim(),
-                                ContestantName3 = item.ContestantName3.Trim(),
-                                Phone3 = item.Phone3.Trim(),
+                                ContestantName = string.IsNullOrWhiteSpace(item.ContestantName) ? "" : item.ContestantName.Trim(),
+                                Phone = string.IsNullOrWhiteSpace(item.Phone) ? "" : item.Phone.Trim(),
+                                Email2 = string.IsNullOrWhiteSpace(item.Email2) ? "" : item.Email2.Trim(),
+                                ContestantName2 = string.IsNullOrWhiteSpace(item.ContestantName2) ? "" : item.ContestantName2.Trim(),
+                                Phone2 = string.IsNullOrWhiteSpace(item.Phone2) ? "" : item.Phone2.Trim(),
+                                Email3 = string.IsNullOrWhiteSpace(item.Email3) ? "" : item.Email3.Trim(),
+                                ContestantName3 = string.IsNullOrWhiteSpace(item.ContestantName3) ? "" : item.ContestantName3.Trim(),
+                                Phone3 = string.IsNullOrWhiteSpace(item.Phone3) ? "" : item.Phone3.Trim(),
 
                             };
                             await Register(register);
