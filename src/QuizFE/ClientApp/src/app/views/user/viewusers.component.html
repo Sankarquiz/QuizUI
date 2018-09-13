@@ -26,12 +26,12 @@
               </tr>
             </tbody>
           </table>
-          <nav>
-            <pagination *ngIf="UserDetails && UserDetails.length>0" [totalItems]="totalusers" [maxSize]="totalusers"
+           <div class="row col-lg-12">
+            <pagination *ngIf="UserDetails && UserDetails.length>0" [totalItems]="totalusers" [maxSize]="20"
                         (pageChanged)="pageChanged($event)"
                         [itemsPerPage]="pagesize" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
             </pagination>
-          </nav>
+          </div>
         </div>
       </div>
     </div>
