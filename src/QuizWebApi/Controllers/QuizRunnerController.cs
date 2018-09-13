@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using QuizWebApi.Models.Admin;
 using QuizWebApi.Models.Common;
 using QuizWebApi.Models.QuizRunner;
+using QuizWebApi.Utilities;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +21,17 @@ namespace QuizWebApi.Controllers
     [AllowAnonymous]
     public class QuizRunnerController : Controller
     {
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public EmailManager _email { get; }
+        private readonly DomainConfig _domainConfig;
+
+        public QuizRunnerController(EmailManager email, IHostingEnvironment hostingEnvironment, IOptions<DomainConfig> domainConfig)
+        {
+            this._email = email;
+            this._hostingEnvironment = hostingEnvironment;
+            this._domainConfig = domainConfig.Value;
+            
+        }
         /// <summary>
         /// Saves the quiz runner.
         /// </summary>
