@@ -7,7 +7,9 @@ import { RegisterRoutingModule } from './register.routing.module';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register.component';
-import { SignUpComponent } from './signup.component'; 
+import { SignUpComponent } from './signup.component';
+import { ResetComponent } from './reset.component'; 
+import { AlertMessageModule } from '../message/alert.module';
 
 @NgModule({
   imports: [
@@ -16,11 +18,13 @@ import { SignUpComponent } from './signup.component';
     CommonModule,
     RegisterRoutingModule,
     BsDropdownModule,
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    AlertMessageModule
   ],
   declarations: [
     RegisterComponent,
-    SignUpComponent 
+    SignUpComponent,
+    ResetComponent
   ],
   providers: [
     QuizDetailsService 

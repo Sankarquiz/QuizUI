@@ -5,6 +5,7 @@ import {
 } from '@angular/router';
 import { RegisterComponent } from './register.component';
 import { SignUpComponent } from './signup.component';
+import { ResetComponent } from './reset.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,13 @@ const routes: Routes = [
     component: RegisterComponent,
     data: {
       title: 'Register'
+    }
+  },
+  {
+    path: 'reset',
+    component: ResetComponent,
+    data: {
+      title: 'Reset'
     }
   }
 ];

@@ -75,3 +75,14 @@
 .answer {
   font-weight: 500;
 }
+.app-footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  padding:2px;
+  width: 100%;  
+}
+app-quiz-published{
+flex-direction:column;
+width:100%;
+  }
