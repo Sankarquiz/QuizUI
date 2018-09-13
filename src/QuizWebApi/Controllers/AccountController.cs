@@ -61,7 +61,7 @@ namespace QuizWebApi.Controllers
             if (res.Count > 0)
             {
                 user.Message = "You have already registered for this quiz with team " + res.First().TeamName;
-                return Ok(user.Message);
+                return Ok(user);
             }
 
             query = string.Format(@"SELECT {0}.* FROM {0} WHERE documentType=""{1}"" and quizName=""{2}"" and quizType=""{3}"" and teamName=""{4}"" ",
@@ -71,7 +71,7 @@ namespace QuizWebApi.Controllers
             if (res.Count > 0)
             {
                 user.Message = "Team name " + user.TeamName + " is already registered for this quiz.Please try with different name.";
-                return Ok(user.Message);
+                return Ok(user);
             }
 
             user.DocumentType = "Register";
@@ -220,8 +220,9 @@ namespace QuizWebApi.Controllers
                 pagesize = 25;
             }
 
+            pagenumber = (pagenumber - 1) * pagesize;
             var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}"" offset {2} limit {3} ",
-                CouchbaseHelper.Bucket, "user", pagenumber - 1, pagesize);
+                CouchbaseHelper.Bucket, "user", pagenumber, pagesize);
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<SignUp>(req);
             return Ok(result);

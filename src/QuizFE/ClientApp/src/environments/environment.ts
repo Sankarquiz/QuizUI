@@ -25,7 +25,8 @@ export const environment = {
   getquizresult: 'http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/api/quiz/GetQuizResult/',
   activatesignup: 'http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/api/quiz/ActivateSignUp/',
   registerbulk: 'http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/api/quiz/RegisterBulk/',
-
+  getdocumentcount: 'http://ec2-18-191-252-248.us-east-2.compute.amazonaws.com/api/api/quiz/GetDocumentCount/',
+  
   //updateprofile: 'http://localhost:52671/api/quiz/UpdateProfile/',
   //changepasswd: 'http://localhost:52671/api/quiz/changepasswd/',
   //viewusers: 'http://localhost:52671/api/quiz/viewusers/',
@@ -46,6 +47,7 @@ export const environment = {
   //getquizresult: 'http://localhost:52671/api/quiz/GetQuizResult/',
   //activatesignup: 'http://localhost:52671/api/quiz/ActivateSignUp/',
   //registerbulk: 'http://localhost:52671/api/quiz/RegisterBulk/',
+  //getdocumentcount: 'http://localhost:52671/api/api/quiz/GetDocumentCount/',
 };
 
 /*

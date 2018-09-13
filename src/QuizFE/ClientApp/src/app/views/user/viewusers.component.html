@@ -27,7 +27,7 @@
             </tbody>
           </table>
           <nav>
-            <pagination *ngIf="UserDetails && UserDetails.length>0" [totalItems]="UserDetails.length" [maxSize]="UserDetails.length"
+            <pagination *ngIf="UserDetails && UserDetails.length>0" [totalItems]="totalusers" [maxSize]="totalusers"
                         (pageChanged)="pageChanged($event)"
                         [itemsPerPage]="pagesize" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
             </pagination>

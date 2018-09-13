@@ -18,6 +18,7 @@ export class ViewUsersComponent implements OnInit {
   UserDetails = new Array<SignUp>();
   pagenumber = 1;
   pagesize = 25;
+  totalusers;
   constructor(private _userService: QuizDetailsService,
     private formDataService: FormDataService,
     private Auth: AuthService,
@@ -25,7 +26,13 @@ export class ViewUsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.GetAllUsers();
+      this._userService.GetDocumentCount('user')
+      .subscribe((result: number) => {
+        if (result) {
+          this.totalusers = result;
+          this.GetAllUsers();
+        }
+      });     
   }
 
   GetAllUsers() {

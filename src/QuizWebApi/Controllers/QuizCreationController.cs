@@ -88,6 +88,16 @@ namespace QuizWebApi.Controllers
             var result = (await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<dynamic>(req)).FirstOrDefault();
             return Ok(result.cnt.Value);
         }
+
+        [HttpGet("{documenttype}")]
+        public async Task<IActionResult> GetDocumentCount(string documenttype)
+        {
+            var query = string.Format(@"SELECT count(1) as cnt FROM {0} where documentType=""{1}"" ",
+                CouchbaseHelper.Bucket, documenttype);
+            var req = new QueryRequest(query);
+            var result = (await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<dynamic>(req)).FirstOrDefault();
+            return Ok(result.cnt.Value);
+        }
         /// <summary>
         /// Gets all quiz.
         /// </summary>
@@ -100,9 +110,9 @@ namespace QuizWebApi.Controllers
             {
                 pageNumber = 1;
             }
-
+            pageNumber = (pageNumber - 1) * pageSize;
             var query = string.Format(@"SELECT {0}.* FROM {0} where documentType=""{1}"" and createdBy=""{2}"" offset {3} limit {4} ",
-                CouchbaseHelper.Bucket, "Define", email, pageNumber - 1, pageSize);
+                CouchbaseHelper.Bucket, "Define", email, pageNumber, pageSize);
             var req = new QueryRequest(query);
             var result = await CouchbaseHelper.CouchbaseClient.GetByQueryAsync<QuizDefinition>(req);
 
@@ -214,6 +224,7 @@ namespace QuizWebApi.Controllers
 
                 var response = await CouchbaseHelper.CouchbaseClient.GetByKeyAsync<QuizQuestions>(quizName + "_" + quizType + "_" + "questions");
                 var res = new QuizResult();
+                res.DocumentType = "quizresult";
                 res.QuizName = quizName;
                 res.QuizType = quizType;
                 res.TeamName = teamName;

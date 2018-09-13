@@ -9,6 +9,7 @@ namespace QuizWebApi.Models.QuizRunner
         {
             QuizResultDetails = new List<QuizResultDetails>();
         }
+        public string DocumentType { get; set; }
         public string QuizName { get; set; }
         public string QuizType { get; set; }
         public string TeamName { get; set; }

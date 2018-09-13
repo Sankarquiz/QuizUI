@@ -36,7 +36,12 @@ export class QuizDetailsService {
     let uri = environment.getquizcount + "?email=" + email;
     return this._http.get(uri, this.httpOptions);
   }
-
+  
+  GetDocumentCount(documenttype: string) {
+    let uri = environment.getdocumentcount + documenttype;
+    return this._http.get(uri, this.httpOptions);
+  }
+  
   GetAllQuizData(email: string, pagenumber: number, pagesize) {
     let uri = environment.getallquizdetails + "?email=" + email + "&pageNumber=" + pagenumber + "&pageSize=" + pagesize;
     return this._http.get(uri, this.httpOptions);
