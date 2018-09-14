@@ -58,11 +58,7 @@ export class SHQuizRunnerComponent implements OnInit {
           });
       });
   }
-  ngOnInit() {
-	  history.pushState(null, null, location.href);
-		window.onpopstate = function(event) {
-		 history.go(1);		 
-	};
+  ngOnInit() {	  
     //this.TestInit(); 
     this.LoadInitialData();
   }
