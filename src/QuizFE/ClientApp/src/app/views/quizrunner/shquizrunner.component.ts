@@ -59,6 +59,10 @@ export class SHQuizRunnerComponent implements OnInit {
       });
   }
   ngOnInit() {
+	  history.pushState(null, null, location.href);
+		window.onpopstate = function(event) {
+		 history.go(1);		 
+	};
     //this.TestInit(); 
     this.LoadInitialData();
   }
@@ -203,7 +207,7 @@ export class SHQuizRunnerComponent implements OnInit {
         //Save Quiz..
         clearInterval(this.interval);
         this.quizresult.status = 'timeout';
-        this.SubmitQuiz('timeout');
+        this.SubmitQuizResult('timeout');
       }
     }, 1000)
   }
@@ -215,9 +219,9 @@ export class SHQuizRunnerComponent implements OnInit {
       .subscribe((response: any) => {
       });
   }
-
-  SubmitQuiz(status: string) {
-    this._getQuestion.SaveQuizRunner(this.quizDefinition.quizName, this.quizDefinition.quizType,
+  
+  SubmitQuizResult(status: string){
+      this._getQuestion.SaveQuizRunner(this.quizDefinition.quizName, this.quizDefinition.quizType,
       this.quizresult.teamName, this.formDataService.getUserData().email, status,
       this.questionNo.toString(), this.quizresultdetails.userAnswer)
       .subscribe((response: any) => {
@@ -229,6 +233,11 @@ export class SHQuizRunnerComponent implements OnInit {
           this.router.navigate(['/user/dashboard']);
         }
       });
+  }
+  SubmitQuiz() {
+	if(confirm("Are you sure to Submit?")) {
+    this.SubmitQuizResult('completed')
+  }
   }
   AssignQuestionNumber(questionNumber) {
     this.questionNo = questionNumber;
