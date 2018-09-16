@@ -18,6 +18,10 @@ export class SHQuizFinisherComponent implements OnInit {
     private router: Router, private _getQuestion: QuizDetailsService) { }
 
   ngOnInit() {
+  	history.pushState(null, null, location.href);
+		window.onpopstate = function(event) {
+		 history.go(1);
+		 }
     this.quizDefinition = this.formDataService.getQuizDefinition();
 
     if (this.quizDefinition && this.quizDefinition.isQuizAutoEvaluate) {

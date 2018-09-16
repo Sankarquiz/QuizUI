@@ -60,6 +60,10 @@ export class SHQuizRunnerComponent implements OnInit {
   }
   ngOnInit() {	  
     //this.TestInit(); 
+	history.pushState(null, null, location.href);
+		window.onpopstate = function(event) {
+		 history.go(1);
+		 }
     this.LoadInitialData();
   }
 
@@ -104,7 +108,7 @@ export class SHQuizRunnerComponent implements OnInit {
     this.timeLeftMinutes = this.quizresult.durationInMinutes - 1;
 
     if (this.quizresult.lastAnsweredQuestion) {
-      this.questionNo = this.quizresult.lastAnsweredQuestion + 1;
+      this.questionNo = this.quizresult.lastAnsweredQuestion;
     }
     else {
       this.questionNo = 1;
