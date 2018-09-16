@@ -65,12 +65,14 @@ namespace QuizWebApi.Controllers
                 if (status.ToLower() == "timeout")
                 {
                     answered.Value.TimeTakenMinutes = (int)answered.Value.DurationInMinutes;
+					answered.Value.TimeTakenSeconds = 0;
                 }
                 else
                 {
                     if (diff.Minutes >= (int)answered.Value.DurationInMinutes)
                     {
                         answered.Value.TimeTakenMinutes = (int)answered.Value.DurationInMinutes;
+						answered.Value.TimeTakenSeconds = 0;
                     }
                     else
                     {
