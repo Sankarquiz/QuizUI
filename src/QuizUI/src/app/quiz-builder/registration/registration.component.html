@@ -4,13 +4,13 @@
       <div class="form-group radio-box">
         <label for="end-duration">Team Name</label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="team-name" [(ngModel)]="quizDefinition.RegistrationFields.IsTeamName" [value]="true" #IsTeamName="ngModel">
+          <input class="form-check-input" type="radio" name="team-name" [(ngModel)]="quizDefinition.registrationFields.isTeamName" [value]="true" #isTeamName="ngModel">
           <label class="form-check-label" for="exampleRadios1">
             Required
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="team-name" [(ngModel)]="quizDefinition.RegistrationFields.IsTeamName" #IsTeamName="ngModel" [value]="false">
+          <input class="form-check-input" type="radio" name="team-name" [(ngModel)]="quizDefinition.registrationFields.isTeamName" #isTeamName="ngModel" [value]="false">
           <label class="form-check-label" for="exampleRadios2">
             Not Mandatory
           </label>
@@ -24,54 +24,52 @@
 
         </label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="email" [(ngModel)]="quizDefinition.RegistrationFields.IsEmail" #IsEmail="ngModel" [value]="true">
+          <input class="form-check-input" type="radio" name="email" [(ngModel)]="quizDefinition.registrationFields.isEmail" #isEmail="ngModel" [value]="true">
           <label class="form-check-label" for="exampleRadios1">
             Required
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="email" [(ngModel)]="quizDefinition.RegistrationFields.IsEmail" #IsEmail="ngModel" [value]="false">
+          <input class="form-check-input" type="radio" name="email" [(ngModel)]="quizDefinition.registrationFields.isEmail" #isEmail="ngModel" [value]="false">
           <label class="form-check-label" for="exampleRadios2">
             Not Mandatory
           </label>
         </div>
-
       </div>
 
       <div class="form-group">
         <label for="hash-of-questions">Validate Email Id for Corporate?</label>
-        <select class="form-control" id="hash-of-questions" name="validateemail" [(ngModel)]="quizDefinition.RegistrationFields.IsValidateEmail" #IsValidateEmail="ngModel">
+        <select class="form-control" id="hash-of-questions" name="validateemail" [(ngModel)]="quizDefinition.registrationFields.isValidateEmail" #isValidateEmail="ngModel">
           <option [value]="true">Yes</option>
           <option [value]="false">No</option>
-
         </select>
       </div>
       <div class="form-group radio-box">
         <label for="end-duration">Contestant Name</label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="contestant" [(ngModel)]="quizDefinition.RegistrationFields.IsContestantName" [value]="true" #IsContestantName="ngModel">
+          <input class="form-check-input" type="radio" name="contestant" [(ngModel)]="quizDefinition.registrationFields.isContestantName" [value]="true" #isContestantName="ngModel">
           <label class="form-check-label" for="exampleRadios1">
             Required
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="contestant" [(ngModel)]="quizDefinition.RegistrationFields.IsContestantName" [value]="false" #IsContestantName="ngModel">
+          <input class="form-check-input" type="radio" name="contestant" [(ngModel)]="quizDefinition.registrationFields.isContestantName" [value]="false" #isContestantName="ngModel">
           <label class="form-check-label" for="exampleRadios2">
             Not Mandatory
           </label>
         </div>
-
       </div>
+
       <div class="form-group radio-box">
         <label for="end-duration">Phone Number</label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="phone" [(ngModel)]="quizDefinition.RegistrationFields.IsPhone" [value]="true" #IsPhone="ngModel">
+          <input class="form-check-input" type="radio" name="phone" [(ngModel)]="quizDefinition.registrationFields.isPhone" [value]="true" #isPhone="ngModel">
           <label class="form-check-label" for="exampleRadios1">
             Required
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="phone" [(ngModel)]="quizDefinition.RegistrationFields.IsPhone" [value]="false" #IsPhone="ngModel">
+          <input class="form-check-input" type="radio" name="phone" [(ngModel)]="quizDefinition.registrationFields.isPhone" [value]="false" #isPhone="ngModel">
           <label class="form-check-label" for="exampleRadios2">
             Not Mandatory
           </label>
@@ -81,13 +79,13 @@
       <div class="form-group radio-box">
         <label for="end-duration">Contact Address</label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="contactaddress" [(ngModel)]="quizDefinition.RegistrationFields.IsContact" [value]="true" #IsContact="ngModel">
+          <input class="form-check-input" type="radio" name="contactaddress" [(ngModel)]="quizDefinition.registrationFields.isContact" [value]="true" #isContact="ngModel">
           <label class="form-check-label" for="exampleRadios1">
             Required
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="contactaddress" [(ngModel)]="quizDefinition.RegistrationFields.IsContact" #IsContact="ngModel" [value]="false">
+          <input class="form-check-input" type="radio" name="contactaddress" [(ngModel)]="quizDefinition.registrationFields.isContact" #isContact="ngModel" [value]="false">
           <label class="form-check-label" for="exampleRadios2">
             Not Mandatory
           </label>
@@ -96,15 +94,12 @@
       </div>
       <div class="form-group">
         <label for="exampleFormControlTextarea1">Enter Rules and Regulations</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" name="rules" [(ngModel)]="quizDefinition.RegistrationFields.RulesAndRegulations" #RulesAndRegulations="ngModel" rows="3"></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="rules" [(ngModel)]="quizDefinition.registrationFields.rulesAndRegulations" #rulesAndRegulations="ngModel" rows="3"></textarea>
       </div>
     </div>
     <div class="reg-button">
       <button type="submit" class="btn btn-danger" (click)="SaveRegistration(registration)">
-        Save
-      </button>
-      <button type="submit" class="btn btn-danger" (click)="SaveRegistration(registration)">
-        Next >>
+        Save & Next
       </button>
     </div>
   </div>

@@ -1,0 +1,9 @@
+<h1 class="Start-page">
+  Start the Quiz
+</h1>
+
+<h2>Rules and Regulations for Quiz</h2>
+<div *ngIf="quizDefinition.registrationFields"> 
+  <p>{{quizDefinition.registrationFields.rulesAndRegulations}}</p>
+</div>
+<p style="text-align:center"><input class="start-button" type="button" value="Start" (click)="Start()" /></p>

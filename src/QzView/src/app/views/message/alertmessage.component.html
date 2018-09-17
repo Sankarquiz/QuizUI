@@ -1,0 +1,16 @@
+<!--Model Dialogue-->
+<div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" [config]="{'backdrop':'static', 'keyboard': false}" >
+  <div class="modal-dialog modal-info" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{alertTitle}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{alertMessage}}</p>
+      </div>
+      <div class="modal-footer m-auto" style="text-align:center">         
+        <button type="button" class="btn btn-info" (click)="AlertClose()">Close</button>       
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,30 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Couchbase.Extensions.DependencyInjection;
+﻿using Couchbase.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.PlatformAbstractions;
-using MongoDB.Driver;
+using QuizWebApi.Models.Common;
+using QuizWebApi.Utilities;
 using Swashbuckle.AspNetCore.Swagger;
 using SwashbuckleAspNetVersioningShim;
+using System.IO;
 
 namespace QuizWebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IHostingEnvironment Environment { get; set; }
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
@@ -73,20 +71,22 @@ namespace QuizWebApi
                 var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
                 c.ConfigureSwaggerVersions(provider, "Quiz Service");
             });
-
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.Configure<SMTPConfig>(Configuration.GetSection("Smtp"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            //var mongoClient = new MongoClient("mongodb://localhost:27017");
-            //mongoClient.GetDatabase("QuizDB");
-            // services.AddSingleton<IMongoDatabase>(MongodbClient.GetMongoDatabase());
             services.AddCouchbase(Configuration.GetSection("Couchbase"));
-            services.AddCouchbaseBucket<IQuizBucketProvider>("Quiz", "quiz@123");
+            services.AddCouchbaseBucket<IQuizBucketProvider>("Quiz", "quiz@123"); 
+            services.Configure<DomainConfig>(Configuration.GetSection("Domain"));
+            services.AddSingleton<EmailManager>();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .AllowCredentials());
+                );
             });
+
+            GlobalConfig.Environment = Environment;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,7 +97,8 @@ namespace QuizWebApi
         /// <param name="env">The env.</param>
         /// <param name="provider">The provider.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider provider, IApplicationLifetime applicationLifetime)
-        {           
+        {
+            app.UseStaticFiles();
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             if (env.IsDevelopment())
             {

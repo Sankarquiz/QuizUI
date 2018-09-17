@@ -1,54 +1,102 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { QuizSet, QuizQuestions } from '../../models/QuizDefinition';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { QuizSet, QuizQuestions, QuizDefinition } from '../../models/QuizDefinition';
 import { QuizDetailsService } from '../../services/service-getquizdetails';
 import { FormDataService } from '../../models/formData.service';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-publish-quiz-main-content',
   templateUrl: './publish-quiz-main-content.component.html',
-  styleUrls: ['./publish-quiz-main-content.component.css']
+  styleUrls: ['./publish-quiz-main-content.component.css'],
 })
-export class PublishQuizMainContentComponent implements OnInit {
+export class PublishQuizMainContentComponent implements OnInit, OnChanges {
 
-  questionNo: number;
+  quizDefinition: QuizDefinition;
+  @Input() questionNo: number;
   totalquestions;
   questionset = new QuizSet();
-  questions = new QuizQuestions();
-  //quizname;
-  //quizType;
-  constructor(private _getQuestion: QuizDetailsService, private formDataService: FormDataService, private activatedRoute: ActivatedRoute) {
+  questions = new QuizQuestions();  
+  errorImageurl: string;
+  imageurl: any;
+  constructor(private _getQuestion: QuizDetailsService,
+    private formDataService: FormDataService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
+
+  ngOnInit() {
     debugger;
-    this.activatedRoute.params.subscribe((params: Params) => {
-      this.questionNo = params['qn'];
-      console.log(this.questionNo);
-    });
-    this.totalquestions = this.formDataService.getQuizDefinition().NoOfQuestions;
+    this.errorImageurl = environment.imageprefixpath + 'No_image_available.jpg'
+    this.quizDefinition = this.formDataService.getQuizDefinition();
+    this.totalquestions = this.quizDefinition.noOfQuestions;
     this.questions = this.formDataService.getQuizQuestions();
     if (!this.questionNo) {
       this.questionNo = 1;
     }
+
+    this.questionset = this.questions.questions[this.questionNo - 1];
+    if (this.questionset.isImageneeded) {
+      if (this.questionset.imageUrl.startsWith('http')) {
+        this.imageurl = this.questionset.imageUrl
+      }
+      else {
+        this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
+      }
+    }
+  }
+  ngOnChanges() {
     debugger;
-    this.questionset = this.questions.Questions[this.questionNo-1];
-    //this._getQuestion.GetQuizData(
-    //  "B",//this.formDataService.getQuizDefinition().QuizName,
-    //  "Treasure Hunt",//this.formDataService.getQuizDefinition().QuizType,
-    //  this.questionNo)
-    //  .subscribe((result: any) => {
-    //    this.questionset = result
-    //  });
+    if (this.questions && this.questionNo) {
+      this.questionset = this.questions.questions[this.questionNo - 1];
+      if (this.questionset.isImageneeded) {
+        if (this.questionset.imageUrl.startsWith('http')) {
+          this.imageurl = this.questionset.imageUrl
+        }
+        else {
+          this.imageurl = environment.imageprefixpath + this.questionset.imageUrl;
+        }
+      }
+    }
   }
 
-  ngOnInit() {
-    //if (!this.questionNo) {
-    //  this.questionNo = 1;
-    //}
-    //this._getQuestion.GetQuizData(
-    //  "B",//this.formDataService.getQuizDefinition().QuizName,
-    //  "Treasure Hunt",//this.formDataService.getQuizDefinition().QuizType,
-    //  this.questionNo)
-    //  .subscribe((result: any) => {
-    //    this.questionset = result
-    //  });
+  Publish() {
+    this.quizDefinition.stage = 'Publish';
+    this.quizDefinition.status = 'Published';
+    debugger;
+    this._getQuestion.SaveQuizData(this.quizDefinition)
+      .subscribe((result: any) => {
+        if (result) {
+          alert('Published');
+          this.formDataService.Clear();
+          this.router.navigate(['/quiz-builder/view-previous-quiz']);
+        }
+      });
+  }
+
+  UpdateQuestionNo(action) {
+    if (action) {
+      if (action == 'First' && this.questionNo > 1) {
+        this.questionNo = 1;
+        this.ngOnChanges();
+      }
+      if (action == 'Next' && this.questionNo < this.quizDefinition.noOfQuestions) {
+        this.questionNo++;
+        this.ngOnChanges();
+      }
+      if (action == 'Last') {
+        this.questionNo = this.quizDefinition.noOfQuestions;
+        this.ngOnChanges();
+      }
+      if (action == 'Prev' && this.questionNo > 1) {
+        this.questionNo--;
+        this.ngOnChanges();
+      }
+      if (action == 'Edit') {
+        this.formDataService.setQuestion(this.questionset);
+        this.formDataService.setEditQuestion(true);
+        this.router.navigate(['/quiz-builder/create-quiz/set-the-quiz']);
+      }
+    }
   }
 }

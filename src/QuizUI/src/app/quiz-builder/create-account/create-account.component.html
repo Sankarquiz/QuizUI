@@ -1,30 +1,75 @@
-<div class="container">
+<form #createaccount="ngForm">
+  <div class="container">
     <h1>Sign Up</h1>
     <p>Please fill in this form to create an account.</p>
     <hr>
-    <label for="email"><b>Your Name</b></label>
-    <input type="text" placeholder="Enter Name" name="email" required>
-    <label for="email"><b>Your Email Address</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
-    <label for="email"><b>Mobile Number</b></label>
-    <input type="text" placeholder="Enter Mobile Number" name="email" required>
+    <div class="form-group" [class.has-error]="teamName.invalid && teamName.touched" [class.success]="teamName.valid">
+      <label for="teamName"><b>Team Name</b></label>
+      <input type="text" placeholder="Enter Name" name="Name" required #teamName="ngModel"
+             [(ngModel)]="registrationDetails.teamName">
+      <span class="help-block" *ngIf="teamName.invalid && teamName.touched">
+        Name is required
+      </span>
+    </div>
 
-   
+    <div class="form-group" [class.has-error]="email.invalid && email.touched" [class.success]="email.valid">
+      <label for="email"><b>Your Email Address</b></label>
+      <input type="text" placeholder="Enter Email" name="email" required #email="ngModel"
+             [(ngModel)]="registrationDetails.email">
+      <span class="help-block" *ngIf="email.invalid && email.touched">
+        Email is required
+      </span>
+    </div>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
 
-    <label for="psw-repeat"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-    
+    <div class="form-group" [class.has-error]="phone.invalid && phone.touched" [class.success]="phone.valid">
+      <label for="phone"><b>Mobile Number</b></label>
+      <input type="text" placeholder="Enter Mobile Number" name="phone" required
+             #phone="ngModel" [(ngModel)]="registrationDetails.phone">
+      <span class="help-block" *ngIf="phone.invalid && phone.touched">
+        Mobile Number  is required
+      </span>
+    </div>
+
+    <div class="form-group" [class.has-error]="password.invalid && password.touched" [class.success]="password.valid">
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter password" name="psw" required #password="ngModel"
+             [(ngModel)]="registrationDetails.password">
+      <span class="help-block" *ngIf="password.invalid && password.touched">
+        Password  is required
+      </span>
+    </div>
+
+    <div class="form-group" [class.has-error]="contestantName.invalid && contestantName.touched"
+         [class.success]="contestantName.valid">
+      <label for="contestantName"><b>Contestant Name</b></label>
+      <input type="text" placeholder="Enter Contestant Name" name="contestantname" required #contestantName="ngModel"
+             [(ngModel)]="registrationDetails.contestantName">
+      <span class="help-block" *ngIf="contestantName.invalid && contestantName.touched">
+        Contestant Name is required
+      </span>
+    </div>
+
+    <div class="form-group" [class.has-error]="contact.invalid && contact.touched"
+         [class.success]="contact.valid">
+      <label for="contact"><b>Contact</b></label>
+      <input type="text" placeholder="Enter Contact Address" name="contact" required #contact="ngModel"
+             [(ngModel)]="registrationDetails.contact">
+      <span class="help-block" *ngIf="contact.invalid && contact.touched">
+        Contact is required
+      </span>
+    </div>
     <label>
       <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
     </label>
-    
+
     <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
 
     <div class="clearfix">
       <button type="button" class="cancelbtn">Cancel</button>
-      <button type="submit" class="signupbtn">Create Account</button>
+      <button type="submit" class="signupbtn" [disabled]="createaccount.invalid" (click)="Register()">
+        Create Account
+      </button>
     </div>
   </div>
+</form> 

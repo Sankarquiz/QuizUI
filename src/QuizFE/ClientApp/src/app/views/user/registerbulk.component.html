@@ -1,0 +1,49 @@
+<!--<div style="text-align:center;margin:2px;">
+  <label style="cursor:pointer;">
+    <input style="display: inline-block;" type="file" id="file" (change)="incomingfile($event)"
+           placeholder="Upload Excel file" accept=".xlsx">
+    <button type="button" class="btn btn-info" (click)="Upload()">Upload</button>
+  </label>
+  <div>
+    <label *ngIf="spinner" style="padding-left:10px;">
+      <i class="fa fa-circle-o-notch fa-lg mt-4 fa-spin">
+      </i> Uploading ...
+    </label>
+  </div>
+</div>-->
+<div class="animated fadeIn">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="cui-user-follow"></i> Bulk Registration
+      </div>
+      <div class="row">
+        <div class="col-md-6 mx-auto">         
+          <div class="card mx-4 p-3" style="margin-top:15px;">
+            <label style="padding-left:10px;  color:orangered;">
+              Note: Fields Email,Password,TeamName,QuizName,QuizType are Mandatory.
+            </label>
+            <form #createuser="ngForm">
+              <div class="card-body p-4">
+                <label style="cursor:pointer;">
+                  <input style="display: inline-block;" type="file" id="file" (change)="incomingfile($event)"
+                         placeholder="Upload Excel file" accept=".xlsx">
+                  <button type="button" class="btn btn-info" (click)="Upload()">Upload</button>
+                </label>
+                <div>
+                  <label *ngIf="spinner" style="padding-left:10px;">
+                    <i class="fa fa-circle-o-notch fa-lg mt-4 fa-spin">
+                    </i> Uploading ...
+                  </label>
+                  <label style="padding-left:10px;  color:green;">
+                    {{isuploaded}}
+                  </label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

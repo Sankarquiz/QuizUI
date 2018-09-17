@@ -1,0 +1,77 @@
+// Here you can add other styles
+//@import "~ng-pick-datetime/assets/style/picker.min.css";
+.imgcol, img, .imgads
+{
+  text-align:center;
+  padding:2px;
+ 
+}
+.imgcol {
+  max-height: 300px;
+  min-height:100px; 
+}
+.imgads {
+  max-height: 100px;
+  min-height: 50px;
+}
+.rp5p {
+  padding-right: 5px;
+}
+.rp4p, .answer {
+  padding-right: 4px;
+}
+.rp3p {
+  padding-right: 3px;
+}
+.lp5p {
+  padding-left: 5px;
+}
+
+.lp4p {
+  padding-left: 4px;
+}
+
+.lp3p {
+  padding-left: 3px;
+}
+.btn{
+  margin-left:1px;
+}
+
+.bline {
+  vertical-align: bottom;
+  border-bottom: 2px solid #c8ced3;
+  padding: 4px;
+}
+
+.has-error label {
+  color: red;
+}
+
+.help-block {
+  color: red;
+  display: block;
+}
+
+.has-error input {
+  border: 1px solid red;
+  box-shadow: 0 1px 7px red;
+}
+
+.success label {
+  color: green;
+}
+
+.success input {
+  border: 1px solid green;
+  box-shadow: 0 1px 7px green;
+}
+
+.dont-submit a {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.answer {
+  font-weight: 500;
+}

@@ -1,13 +1,73 @@
 .adds a{
-    width: 80%;
+    width: 50%;
     margin: 0 auto;
     height: 100px;
     box-shadow: 0 1px 7px rgba(0, 0, 0, 0.45);
     display: block;
     margin-top: 40px;
+    position: relative;
 }
 
 .adds a img{
-    width: 100%;
-    height: 120px;
+    height: 101px;
+    width: 20%;
+    object-fit: contain;
+}
+
+
+.quiz-name{
+    position: absolute;
+    top: 7px;
+    left: 120px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.quiz-name-desc{
+    position: absolute;
+    left: 184px;
+    font-weight: bold;
+    font-size: 13px;
+    bottom: 42px;
+}
+
+.quiz-start{
+    position: absolute;
+    left: 120px;
+    font-weight: bold;
+    font-size: 13px;
+    bottom: -7px;
+}
+
+.quiz-end{
+    position: absolute;
+    left: 325px;
+    font-weight: bold;
+    font-size: 13px;
+    bottom: -7px;
+}
+
+.quiz-type{
+ position: absolute;
+    font-weight: bold;
+    font-size: 13px;
+    bottom: -7px;
+    top: 7px;
+    left: 325px;
+}
+#adspace1 {
+  padding: 2px;
+  margin :2px;
+  text-align: center;
+  
+}
+
+.adds-wrapper{
+  margin-bottom:30px;
+}
+
+
+.link-quizbuilder, .link-quizbbank { background: blue; color: white; padding: 10px 20px; top: 0; position: absolute; left: 30%; }
+.link-quizbuilder{
+  left:39%;
 }

@@ -1,0 +1,30 @@
+<div class="form-group row">
+  <div style="width:100%;text-align:center">
+    <img style="width:80px;height:80px;" src="{{inputimagepath}}" onError="this.src='assets/img/noimage.png'" />
+    <div style="text-align:center;margin:2px;">
+      <label style="cursor:pointer;">
+        <input style="display:none" type="file" id="file" (change)="onFileSelected($event)" name="logoselected">
+        Upload File
+        <label *ngIf="spinner" style="padding-left:10px;"><i class="fa fa-circle-o-notch fa-lg mt-4 fa-spin"></i> Uploading ...</label>
+      </label>
+    </div>
+  </div>
+
+  <!--<div class="col-md-9">
+    <label class="col-form-label" for="file-input">Select Logo File </label>
+    <input type="file" id="file" (change)="onFileSelected($event)" name="logoselected">
+  </div>-->
+</div>
+<div class="form-group row">
+  <div class="col-md-12">
+    <div class="input-group">
+      <input type="text" id="logopath" name="logopath" class="form-control" placeholder="URL Link">
+      <!--(focusout)="onTextChanged($event)"-->
+      <div class="input-group-append">
+        <span class="input-group-text"><i class="icon-globe icons d-block mt-2"></i></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+

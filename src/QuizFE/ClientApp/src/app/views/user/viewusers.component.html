@@ -1,0 +1,41 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> View Users
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Role</th>
+                <th class="d-md-down-none">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let detail of UserDetails let i=index">
+                <td>{{detail.email}}</td>
+                <td>{{detail.role}}</td>
+                <td *ngIf="detail.statusCode==0 else statustemp" class="d-md-down-none"><span class="badge badge-warning"> {{detail.status}} </span></td>
+                <ng-template #statustemp>
+                  <td *ngIf="detail.status!='Pending'" class="d-md-down-none"><span class="badge badge-success"> {{detail.status}} </span></td>
+                </ng-template>
+
+              </tr>
+            </tbody>
+          </table>
+           <div class="row col-lg-12">
+            <pagination *ngIf="UserDetails && UserDetails.length>0" [totalItems]="totalusers" [maxSize]="20"
+                        (pageChanged)="pageChanged($event)"
+                        [itemsPerPage]="pagesize" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true">
+            </pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

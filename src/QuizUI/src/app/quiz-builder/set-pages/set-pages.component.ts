@@ -22,19 +22,22 @@ export class SetPagesComponent implements OnInit {
   }
   saveDefinequiz(form: any) {
 
-    this.quizDefinition.MessageBeforeQuizTime = form.value["message-before-quiz"];
-    this.quizDefinition.MessageAfterQuizTime = form.value["message-after-quiz"];
-    this.quizDefinition.Stage = "SetPage";
-    this.quizDefinition.Status = "Pending";
+    this.quizDefinition.messageBeforeQuizTime = form.value["message-before-quiz"];
+    this.quizDefinition.messageAfterQuizTime = form.value["message-after-quiz"];
+    this.quizDefinition.stage = "SetPage";
+    this.quizDefinition.status = "Pending";
     this._saveQuizData.SaveQuizData(this.quizDefinition)
-      .subscribe((result: any) => { this.result = result });
+      .subscribe((result: any) => {
+        this.result = result;
+        if (result) {
+          this.formDataService.setQuizDefinition(this.quizDefinition);
+          this.router.navigate(['/quiz-builder/create-quiz/set-logos-group']);
+        } else {
+          alert('Not Saved.');
+        }
+      });
 
-    if (this.result) {
-      this.formDataService.setQuizDefinition(this.quizDefinition);
-      this.router.navigate(['/quiz-builder/create-quiz/set-logos-group']);
-    } else {
-      alert('Not Saved.');
-    }
+    
   }
 }
 

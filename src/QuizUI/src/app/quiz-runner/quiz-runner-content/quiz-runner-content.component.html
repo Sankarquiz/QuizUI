@@ -1,0 +1,83 @@
+<div class="main-content-quiz container" *ngIf="questionset && questionset.questionText">
+  <p>Time Left: <span style="color:red">{{timeLeftMinutes}}:{{timeLeftSeconds}}</span></p>
+
+  <div *ngIf="topleft">
+    <img src={{topleft}}>
+  </div>
+  <div *ngIf="topleftcorner">
+    <img src={{topright}}>
+  </div>
+  <div *ngIf="topmiddle">
+    <img src={{topmiddle}}>
+  </div>
+  <div *ngIf="topright">
+    <img src={{leftmiddle}}>
+  </div>
+  <div *ngIf="righttop">
+    <img src={{rightmiddle}}>
+  </div>
+  <div *ngIf="rightmiddle">
+    <img src={{bottomleft}}>
+  </div>
+  <div *ngIf="rightbottom">
+    <img src={{bottomright}}>
+  </div>
+  <div *ngIf="rightbottomcorner">
+    <img src={{bottommiddle}}>
+  </div>
+  <div *ngIf="questionset.questionText">
+    <p>{{questionset.questionText}}</p>
+  </div>
+  <div class="runner-image" *ngIf="questionset.isImageneeded==true">
+    <img src={{questionset.imageUrl}}>
+  </div>
+  <form class="question-list" *ngIf="questionset.answerType ==='Multiple Choice'">
+    <div>
+      <label>Option 1</label>
+      <input for="userAnswer" type="radio" name="userAnswer"
+             value={{questionset.option1}} [(ngModel)]="quizresultdetails.userAnswer"> {{questionset.option1}}
+    </div>
+    <div>
+      <label>Option 2</label>
+      <input for="userAnswer" type="radio" name="userAnswer"
+             value={{questionset.option2}} [(ngModel)]="quizresultdetails.userAnswer"> {{questionset.option2}}
+    </div>
+    <div>
+      <label>Option 3</label>
+      <input for="userAnswer" type="radio" name="userAnswer"
+             value={{questionset.option3}} [(ngModel)]="quizresultdetails.userAnswer"> {{questionset.option3}}
+    </div>
+    <div>
+      <label>Option 4</label>
+      <input for="userAnswer" type="radio" name="userAnswer"
+             value={{questionset.option4}} [(ngModel)]="quizresultdetails.userAnswer"> {{questionset.option4}}
+    </div>
+  </form>
+  <div *ngIf="questionset.answerType !='Multiple Choice'" class="text-answer">
+    <label for="name" class="control-label">Answer</label>
+    <input *ngIf="questionset.answerType !='Hangman'" required type="text" class="form-control" name="answer" #userAnswer="ngModel"
+           [(ngModel)]="quizresultdetails.userAnswer" id="name" value="">
+    <input class="mask-text" *ngIf="questionset.answerType =='Hangman'" name="mask"
+           [(ngModel)]="quizresultdetails.userAnswer" autofocus
+           [textMask]="{mask: mask}"
+           #userAnswer="ngModel" type="text" />
+  </div>
+
+  <div class="reg-button">
+    <button type="button" *ngIf="quizDefinition.quizType=='FreeFlow'" class="btn btn-warning" (click)="UpdateQuestionNo('First')">
+      First
+    </button>
+    <button type="button" *ngIf="quizDefinition.quizType=='FreeFlow' && questionNo>1" class="btn btn-warning" (click)="UpdateQuestionNo('Prev')">
+      Prev
+    </button>
+    <button type="button" class="btn btn-info" [disabled]="!IsAnswered()" (click)="SaveAnswer()">
+      Save Answer
+    </button>
+    <button type="button" *ngIf="quizDefinition.quizType=='FreeFlow' && totalquestions!=questionNo" class="btn btn-danger" (click)="UpdateQuestionNo('Next')">
+      Next
+    </button>
+    <button type="button" *ngIf="quizDefinition.quizType=='FreeFlow'" class="btn btn-danger" (click)="UpdateQuestionNo('Last')">
+      Last
+    </button><br>
+  </div>
+</div>

@@ -1,10 +1,8 @@
-.set-pages-wrapper{
-    width: 50%;
-    margin: 0 auto;
-    }
+.set-pages-wrapper { margin: 0 auto; text-align: center; }
     
     .set-pages-wrapper label{
         font-weight: bold;
+        font-size:12px;
     }
     
     .set-pages-wrapper .reg-button{
@@ -19,3 +17,8 @@
     .set-pages-wrapper a{
         color: #ffffff;
     }
+
+
+.set-pages-wrapper p { margin: 0; }
+
+.set-pages-wrapper input{font-size:12px;}

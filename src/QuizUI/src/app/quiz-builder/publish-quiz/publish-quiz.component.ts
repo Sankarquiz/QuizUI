@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
 import { FormDataService } from '../../models/formData.service';
 import { Router } from '@angular/router';
 import { QuizDefinition, QuizQuestions } from '../../models/QuizDefinition';
@@ -10,17 +10,22 @@ import { QuizDefinition, QuizQuestions } from '../../models/QuizDefinition';
 })
 export class PublishQuizComponent implements OnInit {
 
+  selectedQuestionNumber: number;
   quizDefinition: QuizDefinition;
   questionsCount;
   questions = new QuizQuestions();
   constructor(private formDataService: FormDataService, private router: Router) {
-    debugger;
-    this.quizDefinition = this.formDataService.getQuizDefinition();
-    if (this.quizDefinition.NoOfQuestions) {
-      this.questionsCount = Array(parseInt(this.quizDefinition.NoOfQuestions.toString())).fill(1);
-    }
-    this.questions = this.formDataService.getQuizQuestions();
   }
   ngOnInit() {
+    this.quizDefinition = this.formDataService.getQuizDefinition();
+    if (this.quizDefinition.noOfQuestions) {
+      this.questionsCount = Array(parseInt(this.quizDefinition.noOfQuestions.toString())).fill(1);
+    }
+    this.questions = this.formDataService.getQuizQuestions();
+    this.router.navigate(['/quiz-builder/create-quiz/publish-quiz/first-quiz']);
+  }
+
+  AssignQuestionNumber(questionNumber) {
+    this.selectedQuestionNumber = questionNumber;
   }
 }

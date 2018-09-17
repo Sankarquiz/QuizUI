@@ -10,3 +10,24 @@ font-weight: bold;
 .set-the-quiz-wrapper .reg-button button{
     margin: 20px;
 }
+
+.set-the-quiz-wrapper a{
+  font-weight:bold;
+  margin-left:5%;
+}
+
+.has-error label { color: red; }
+
+.help-block { color: red; display: block; }
+.has-error input { border: 1px solid red; box-shadow: 0 1px 7px red; }
+
+.success label { color: green; }
+
+.success input { border: 1px solid green; box-shadow: 0 1px 7px green; }
+.dont-submit a { pointer-events: none; cursor: not-allowed; }
+.questions-number{
+  display:block;
+  text-align:center;
+  font-weight:bold;
+  text-decoration:underline;
+}

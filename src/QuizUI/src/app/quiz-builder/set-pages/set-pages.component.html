@@ -9,7 +9,7 @@
 
           quiz before start of Quiz Time
         </label>
-        <textarea class="form-control" name="message-before-quiz" #MessageBeforeQuizTime="ngModel" [(ngModel)]="quizDefinition.MessageBeforeQuizTime" rows="3"></textarea>
+        <textarea class="form-control" name="message-before-quiz" #messageBeforeQuizTime="ngModel" [(ngModel)]="quizDefinition.messageBeforeQuizTime" rows="3"></textarea>
       </div>
       <div class="form-group">
         <label for="exampleFormControlTextarea1">
@@ -19,23 +19,18 @@
 
           quiz after end of Quiz Time
         </label>
-        <textarea class="form-control" name="message-after-quiz" #MessageAfterQuizTime="ngModel" [(ngModel)]="quizDefinition.MessageAfterQuizTime" rows="3"></textarea>
+        <textarea class="form-control" name="message-after-quiz" #messageAfterQuizTime="ngModel" [(ngModel)]="quizDefinition.messageAfterQuizTime" rows="3"></textarea>
       </div>
-      <div class="form-group">
+      <!--<div class="form-group">
         <label for="name">Upload Excel File</label>
         <input type="file" class="form-control" accept="image/*" capture>
-      </div>
-
-
+      </div>-->
       <div class="reg-button">
-        <button type="button" class="btn btn-danger" (click)="saveDefinequiz(setpage)">Save</button>
-        <button type="button" class="btn btn-danger">
+        <button type="button" class="btn btn-danger" (click)="saveDefinequiz(setpage)">Save & Next</button>
+        <!--<button type="button" class="btn btn-danger">
           <a routerLink="/quiz-builder/create-quiz/set-logos" routerLinkActive="active">Next >></a>
-
-        </button>
-
+        </button>-->
       </div>
-
     </div>
   </div>
 </form>
